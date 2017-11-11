@@ -1,0 +1,11 @@
+{
+	"swagger": {
+		"outputDirectory": "./dist",
+		"entryFile": "./src/index.ts",
+		"name": "Node server",
+		"description": "A lightweight annotation-based node server",
+		"license": "MIT",
+		"produces": ["application/json"],
+		"version": "0.0.1"
+	}
+}
