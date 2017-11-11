@@ -4,7 +4,58 @@
   "description": "A lightweight annotation-based node server. Edit",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "./node_modules/.bin/ts-node src/index.ts",
+    "start:cluster": "./node_modules/.bin/ts-node src/cluster.ts",
+    "build": "npm run clean && tsc && npm run swagger",
+    "clean": "rimraf dist",
+    "lint": "tslint ./src/**/*.ts ./test/**/*.ts",
+    "format": "tsfmt -r",
+    "pretest": "cross-env NODE_ENV=test npm build && npm run lint",
+    "test": "cross-env NODE_ENV=test mocha",
+    "test:coverage": "nyc npm test",
+    "swagger": "swaggerGen -c ./swagger.config.json",
+    "tsc": "tsc",
+    "doc": "typedoc --out ./doc/ --name 'Typescript-rest-Boilerplate' --readme ./README.MD --module commonjs --target ES6 --includeDeclarations --excludePrivate --excludeExternals ./src"
+  },
+  "dependencies": {
+    "typescript-rest": "^1.1.1",
+    "typescript-rest-swagger": "^0.0.13"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.0.2",
+    "@types/mocha": "^2.2.41",
+    "@types/request": "0.0.43",
+    "@types/cors": "^2.8.1",
+    "chai": "^3.5.0",
+    "cross-env": "^4.0.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.5.0",
+    "nyc": "^10.3.2",
+    "request": "^2.81.0",
+    "rimraf": "^2.6.1",
+    "source-map-support": "^0.4.15",
+    "ts-node": "~3.0.6",
+    "tslint": "~5.4.3",
+    "typedoc": "^0.5.10",
+    "typescript": "~2.3.4",
+    "typescript-formatter": "^5.2.0"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "sourceMap": true,
+    "instrument": true
   },
   "repository": {
     "type": "git",
