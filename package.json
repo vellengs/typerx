@@ -18,6 +18,7 @@
     "doc": "typedoc --out ./doc/ --name 'Typescript-rest-Boilerplate' --readme ./README.MD --module commonjs --target ES6 --includeDeclarations --excludePrivate --excludeExternals ./src"
   },
   "dependencies": {
+    "bluebird": "^3.5.1",
     "modex": "^1.0.5",
     "mongoose-auto-increment": "^5.0.1",
     "typescript-rest": "^1.1.1",

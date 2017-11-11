@@ -33,7 +33,7 @@ let AccountController = class AccountController {
      */
     getName(name) {
         return __awaiter(this, void 0, void 0, function* () {
-            const account = yield database_1.Db.account.findOne({ name: name });
+            const account = yield database_1.Db.account.findOne({ name: name }).exec();
             return account;
         });
     }

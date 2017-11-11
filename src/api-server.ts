@@ -4,8 +4,12 @@ import * as http from 'http';
 import * as path from 'path';
 import * as cors from 'cors';
 
-import * as mongoose from 'mongoose';
+// import * as mongoose from 'mongoose';
 import controllers from './controllers';
+
+const mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
+
 const config = require('./config');
 const autoIncrement = require('mongoose-auto-increment');
 
@@ -83,5 +87,5 @@ export class ApiServer {
 }
 
 process.on('unhandledRejection', (reason) => {
-    console.log("unhandledRejection", reason);
+    // console.log("unhandledRejection", reason); //TODO;
 });

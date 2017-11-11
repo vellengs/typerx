@@ -4,8 +4,10 @@ const express = require("express");
 const typescript_rest_1 = require("typescript-rest");
 const path = require("path");
 const cors = require("cors");
-const mongoose = require("mongoose");
+// import * as mongoose from 'mongoose';
 const controllers_1 = require("./controllers");
+const mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 const config = require('./config');
 const autoIncrement = require('mongoose-auto-increment');
 class ApiServer {
@@ -72,6 +74,6 @@ class ApiServer {
 }
 exports.ApiServer = ApiServer;
 process.on('unhandledRejection', (reason) => {
-    console.log("unhandledRejection", reason);
+    // console.log("unhandledRejection", reason); //TODO;
 });
 //# sourceMappingURL=api-server.js.map
