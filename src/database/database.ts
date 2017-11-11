@@ -1,20 +1,21 @@
-import * as mongoose from "mongoose";
-import * as lodash from "lodash";
-import * as glob from "glob";
+import * as lodash from 'lodash';
+import * as glob from 'glob';
 import './../schemas';
-
-import { Mongoose, Document, Model } from "mongoose";
-import { IConfig } from "./../config";
+import * as mongoose from 'mongoose';
+import { Mongoose, Document, Model } from 'mongoose';
+import { IConfig } from './../config';
 const config: IConfig = require('./../config');
 
+// tslint:disable-next-line:interface-name
 export interface INew<T> {
 	new: (doc?: Object) => MongoDocument & T;
 }
 
 export interface MongoDocument extends Document {
 
-};
+}
 
+// tslint:disable-next-line:interface-name
 export interface ILog {
 	_id?: string;
 	uid?: string;
@@ -29,12 +30,12 @@ export interface ILog {
 
 export class Database {
 	public db: Mongoose;
-	public Account: Model<Document> & INew<any>;
-	public Menu: Model<Document> & INew<any>;
-	public Dict: Model<Document> & INew<any>;
-	public Customer: Model<Document> & INew<any>;
-	public Domain: Model<Document> & INew<any>;
-	public Employee: Model<Document> & INew<any>;
+	public account: Model<Document> & INew<any>;
+	public menu: Model<Document> & INew<any>;
+	public dict: Model<Document> & INew<any>;
+	public customer: Model<Document> & INew<any>;
+	public domain: Model<Document> & INew<any>;
+	public employee: Model<Document> & INew<any>;
 
 
 	public handleError: (err: any, message: string, res?: any, notLog?: boolean) => void;
@@ -46,12 +47,12 @@ export class Database {
 	constructor() {
 		this.requireModels();
 		this.db = mongoose;
-		this.Account = this.getModel('Account');
-		this.Menu = this.getModel('Menu');
-		this.Customer = this.getModel('Customer');
-		this.Dict = this.getModel('Dict');
-		this.Domain = this.getModel('Domain');
-		this.Employee = this.getModel('Employee');
+		this.account = this.getModel('Account');
+		this.menu = this.getModel('Menu');
+		this.customer = this.getModel('Customer');
+		this.dict = this.getModel('Dict');
+		this.domain = this.getModel('Domain');
+		this.employee = this.getModel('Employee');
 		this.paginate = (modelName, cond, option, callback) => {
 			const paginate: any = this.db.model(modelName);
 			return paginate['paginate'](cond, option, callback);
@@ -60,32 +61,22 @@ export class Database {
 	}
 
 	getModel = (modelName: string) => {
-		let model = this.db.model(modelName);
-		let methods: INew<any> = {
+		const model = this.db.model(modelName);
+		const methods: INew<any> = {
 			new: (doc?: Object) => {
 				return new model(doc);
 			}
-		}
-		let entity = lodash.extend(model, methods);
+		};
+
+		const entity = lodash.extend(model, methods);
 		return entity;
 	}
 
 	requireModels() {
-		let modelsPath = config.root + '/models/**/*.js';
-		let models = glob.sync(modelsPath);
+		const modelsPath = config.root + '/models/**/*.js';
+		const models = glob.sync(modelsPath);
 		models.forEach((m) => {
 			require(m);
 		});
 	}
-
-	simplify(raw: any) {
-		if (!raw) return null;
-		var obj = raw.toObject();
-		if (obj['_id']) {
-			obj['uid'] = obj['_id'].toString();
-		}
-		delete obj['_id'];
-		delete obj['__v'];
-		return obj;
-	};
 }

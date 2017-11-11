@@ -53,7 +53,7 @@ export class DomainController {
     @Path('category/:category')
     @GET
     async getDomainByCategory( @PathParam('category') category: string): Promise<Domain[]> {
-        const docs = await Db.Domain.find({ category: category }).exec();
+        const docs = await Db.domain.find({ category: category }).exec();
         if (docs) {
             return docs.map((res: any) => {
                 return res.toClient() as Domain;

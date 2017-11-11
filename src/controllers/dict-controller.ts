@@ -51,7 +51,7 @@ export class DictController {
     @Path('category/:category')
     @GET
     async getDictByCategory( @PathParam('category') category: string): Promise<Dict[]> {
-        const docs = await Db.Dict.find({ category: category }).exec();
+        const docs = await Db.dict.find({ category: category }).exec();
         if (docs) {
             return docs.map((res: any) => {
                 return res.toClient() as Dict;

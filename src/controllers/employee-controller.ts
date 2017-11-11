@@ -54,7 +54,7 @@ export class EmployeeController {
     @GET
     async getEmployeeByKeyword( @QueryParam('keyword') keyword?: string): Promise<Employee[]> {
         const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
-        const docs = await Db.Employee.find(query).limit(25).exec();
+        const docs = await Db.employee.find(query).limit(25).exec();
         if (docs) {
             return docs.map((res: any) => {
                 return res.toClient() as Employee;

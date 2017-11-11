@@ -53,7 +53,7 @@ export class MenuController {
     @Path('category/:category')
     @GET
     async getMenuByCategory( @PathParam('category') category: string): Promise<Menu[]> {
-        const docs = await Db.Menu.find({ category: category }).exec();
+        const docs = await Db.menu.find({ category: category }).exec();
         if (docs) {
             return docs.map((res: any) => {
                 return res.toClient() as Menu;

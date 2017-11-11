@@ -16,7 +16,7 @@ export class AccountController {
     @Path(':name')
     @GET
     async getName( @PathParam('name') name: string): Promise<Account> {
-        let account: any = await Db.Account.findOne({ name: name });
+        const account: any = await Db.account.findOne({ name: name });
         return account;
     }
 }

@@ -60,7 +60,7 @@ export class CustomerController {
     @GET
     async getCustomerByKeyword( @QueryParam('keyword') keyword?: string): Promise<Customer[]> {
         const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
-        const docs = await Db.Customer.find(query).limit(25).exec();
+        const docs = await Db.customer.find(query).limit(25).exec();
         if (docs) {
             return docs.map((res: any) => {
                 return res.toClient() as Customer;
@@ -150,7 +150,7 @@ export class CustomerController {
     @GET
     async getCollections(): Promise<any> {
 
-        const res = await Db.Customer.find().populate('secondary_advisers', 'name');
+        const res = await Db.customer.find().populate('secondary_advisers', 'name');
 
         return res as any;
         // return null;
