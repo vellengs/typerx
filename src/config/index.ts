@@ -1,56 +1,49 @@
 
+// tslint:disable-next-line:interface-name
 export interface IConfig {
-    root: string,
-    cookieName: string,
-    cookieSecret: string,
-    rebuild: boolean,
-    apiPath: string,
-    server: string,
-    debugLevel: string,
+    root: string;
+    cookieName: string;
+    cookieSecret: string;
+    rebuild: boolean;
+    apiPath: string;
+    server: string;
+    debugLevel: string;
     app: {
         name: string
-    },
-    port: number,
-    db: string,
-    target: string,
-    logSettings: ILogSettings,
+    };
+    port: number;
+    db: string;
+    target: string;
+    logSettings: ILogSettings;
 }
+// tslint:disable-next-line:interface-name
 export interface ILogSettings {
-    logFilePath: string,
-    category: string
-    level: string
+    logFilePath: string;
+    category: string;
+    level: string;
 }
 
+// tslint:disable-next-line:interface-name
 export interface ISchema {
-    name?: string,
-    title?: string,
-    type: any,
-    default?: any,
-    ref?: any,
-    unique?: boolean,
-    index?: any,
-    trim?: boolean,
-    required?: boolean
+    name?: string;
+    title?: string;
+    type: any;
+    default?: any;
+    ref?: any;
+    unique?: boolean;
+    index?: any;
+    trim?: boolean;
+    required?: boolean;
 }
 
-
-
-export interface IQuery {
-    name: string,
-    type?: string,
-    title?: string,
-    titleMap?: any
-}
-
-
-let path = require('path'),
+const path = require('path'),
     root = path.normalize(__dirname + '/..'),
     server = path.normalize(__dirname + '/..'),
     logFilePath = path.normalize(__dirname + '/../logs/app.log'),
     env = process.env['NODE_ENV'] || 'development';
 
 process.env['TZ'] = 'Asia/Shanghai';
-let init = (): IConfig => {
+const init = (): IConfig => {
     return {
         apiPath: '/api',
         app: {

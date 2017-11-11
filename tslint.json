@@ -8,7 +8,7 @@
 		"curly": true,
 		"eofline": true,
 		"indent": [
-			true,
+			false,
 			"spaces"
 		],
 		"interface-name": [
@@ -30,7 +30,7 @@
 		"no-arg": true,
 		"no-bitwise": false,
 		"no-conditional-assignment": false,
-		"no-consecutive-blank-lines": true,
+		"no-consecutive-blank-lines": false,
 		"no-console": [
 			true,
 			"log",
@@ -57,12 +57,12 @@
 		],
 		"no-string-literal": false,
 		"no-switch-case-fall-through": true,
-		"no-trailing-whitespace": true,
+		"no-trailing-whitespace": false,
 		"no-unused-expression": true,
 		"no-use-before-declare": true,
 		"no-var-keyword": true,
 		"no-var-requires": false,
-		"object-literal-sort-keys": true,
+		"object-literal-sort-keys": false,
 		"one-line": [
 			true,
 			"check-open-brace",
@@ -84,14 +84,12 @@
 			true,
 			{
 				"call-signature": "nospace",
-				"index-signature": "nospace",
 				"parameter": "nospace",
 				"property-declaration": "nospace",
 				"variable-declaration": "nospace"
 			},
 			{
 				"call-signature": "space",
-				"index-signature": "space",
 				"parameter": "space",
 				"property-declaration": "space",
 				"variable-declaration": "space"
@@ -101,7 +99,9 @@
 		"variable-name": [
 			true,
 			"check-format",
-			"ban-keywords"
+			"ban-keywords",
+			"allow-leading-underscore",
+			"allow-snake-case"
 		]
 	}
 }

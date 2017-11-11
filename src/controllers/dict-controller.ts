@@ -15,26 +15,26 @@ export class DictController {
       * 获取客户管理界面配置信息.
       */
     @Example<UISchema>({
-        entry: {
-            name: {
-                title: '名字',
-                description: '名字描述',
-                widget: 'input',
-                type: 'string'
-            },
-            birthday: {
-                title: '生日',
-                description: '生日描述',
-                widget: 'date',
-                type: 'string'
-            },
-        },
         columns: [
             {
                 field: 'name',
                 header: '名字',
             }
-        ]
+        ],
+        entry: {
+            birthday: {
+                description: '生日描述',
+                title: '生日',
+                type: 'string',
+                widget: 'date',
+            },
+            name: {
+                description: '名字描述',
+                title: '名字',
+                type: 'string',
+                widget: 'input',
+            },
+        }
     })
     @Path('config')
     @GET
@@ -42,12 +42,10 @@ export class DictController {
         return Helper.getUISchema('Dict');
     }
 
-
     /**
      * * 按分类获取字典数据
-     * 
      * @param {string} category 分类键名
-     * @returns {Promise<Dict[]>} 
+     * @returns {Promise<Dict[]>};
      * @memberof DictController
      */
     @Path('category/:category')
@@ -63,12 +61,10 @@ export class DictController {
         }
     }
 
-
     /**
      * * 创建字典表
-     * 
-     * @param {Dict} entry 
-     * @returns {Promise<Dict>} 
+     * @param {Dict} entry;
+     * @returns {Promise<Dict>};
      * @memberof DictController
      */
     @POST
@@ -76,12 +72,10 @@ export class DictController {
         return Helper.create('Dict', entry);
     }
 
-
     /**
      * * 更新字典表
-     * 
-     * @param {Dict} entry 
-     * @returns {Promise<Dict>} 
+     * @param {Dict} entry;
+     * @returns {Promise<Dict>};
      * @memberof DictController
      */
     @PUT
@@ -89,14 +83,13 @@ export class DictController {
         return Helper.update('Dict', entry);
     }
 
-
     /**
      * 分页查询字典表
-     * 
+
      * @param {number} [page] 第几页  从 1 开始计;
      * @param {number} [size] 页大小
      * @param {string} [sort] 排序
-     * @returns {Promise<PaginateResponse<Dict[]>>} 
+     * @returns {Promise<PaginateResponse<Dict[]>>}
      * @memberof DictController
      */
     @Path('query')
@@ -110,9 +103,8 @@ export class DictController {
 
     /**
      * 删除字典信息
-     * 
      * @param {string} id 编号 可以逗号分割传递多个。
-     * @returns {Promise<boolean>} 
+     * @returns {Promise<boolean>}
      * @memberof DictController
      */
     @Path(':id')
@@ -120,7 +112,6 @@ export class DictController {
     async remove( @PathParam('id') id: string): Promise<boolean> {
         return Helper.remove('Dict', id);
     }
-
 
     /**
      * 查询字典表

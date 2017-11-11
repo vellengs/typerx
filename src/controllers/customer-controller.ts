@@ -150,7 +150,7 @@ export class CustomerController {
     @GET
     async getCollections(): Promise<any> {
 
-        let res = await Db.Customer.find().populate('secondary_advisers', 'name');
+        const res = await Db.Customer.find().populate('secondary_advisers', 'name');
 
         return res as any;
         // return null;
