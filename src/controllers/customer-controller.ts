@@ -45,7 +45,7 @@ export class CustomerController {
     @Path('config')
     @GET
     async getConfig(): Promise<UISchema> {
-        return Helper.getUISchema('Customer');
+        return Helper.getUISchema(`${__dirname}/../models`, 'Customer');
     }
 
 

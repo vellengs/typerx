@@ -39,7 +39,7 @@ export class DictController {
     @Path('config')
     @GET
     async getConfig(): Promise<UISchema> {
-        return Helper.getUISchema('Dict');
+        return Helper.getUISchema(`${__dirname}/../models`, 'Dict');
     }
 
     /**

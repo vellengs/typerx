@@ -1,10 +1,7 @@
 import * as lodash from 'lodash';
-import * as glob from 'glob';
 import './../schemas';
 import * as mongoose from 'mongoose';
 import { Mongoose, Document, Model } from 'mongoose';
-import { IConfig } from './../config';
-const config: IConfig = require('./../config');
 
 // tslint:disable-next-line:interface-name
 export interface INew<T> {
@@ -45,7 +42,6 @@ export class Database {
 
 
 	constructor() {
-		this.requireModels();
 		this.db = mongoose;
 		this.account = this.getModel('Account');
 		this.menu = this.getModel('Menu');
@@ -70,13 +66,5 @@ export class Database {
 
 		const entity = lodash.extend(model, methods);
 		return entity;
-	}
-
-	requireModels() {
-		const modelsPath = config.root + '/models/**/*.js';
-		const models = glob.sync(modelsPath);
-		models.forEach((m) => {
-			require(m);
-		});
 	}
 }

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const modex_1 = require("modex");
 exports.query = {
     name: {
-        title: "姓名",
+        title: '姓名',
         type: modex_1.DataTypes.string,
         widget: {
             id: modex_1.WidgetTypes.string,

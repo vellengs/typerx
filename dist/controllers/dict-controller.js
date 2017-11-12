@@ -33,7 +33,7 @@ let DictController = class DictController {
       */
     getConfig() {
         return __awaiter(this, void 0, void 0, function* () {
-            return modex_1.Helper.getUISchema('Dict');
+            return modex_1.Helper.getUISchema(`${__dirname}/../models`, 'Dict');
         });
     }
     /**

@@ -36,7 +36,7 @@ let CustomerController = class CustomerController {
      */
     getConfig() {
         return __awaiter(this, void 0, void 0, function* () {
-            return modex_1.Helper.getUISchema('Customer');
+            return modex_1.Helper.getUISchema(`${__dirname}/../models`, 'Customer');
         });
     }
     /**

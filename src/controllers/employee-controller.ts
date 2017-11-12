@@ -39,7 +39,7 @@ export class EmployeeController {
     @Path('config')
     @GET
     async getConfig(): Promise<UISchema> {
-        return Helper.getUISchema('Employee');
+        return Helper.getUISchema(`${__dirname}/../models`, 'Employee');
     }
 
 

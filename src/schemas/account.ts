@@ -1,4 +1,4 @@
-import { create, SchemaDefinition, SchemaTypes as t } from "modex";
+import { create, SchemaDefinition, SchemaTypes as t } from 'modex';
 
 export interface Account {
 	name: string;
@@ -11,11 +11,11 @@ export let schema: SchemaDefinition = {
 	},
 	password: {
 		type: t.String
-	},
-	role: {
-		type: t.ObjectId,
-		ref: 'Role'
 	}
+	// role: {
+	// 	type: t.ObjectId,
+	// 	ref: 'Role'
+	// }
 };
 
 create(schema, 'Account');

@@ -33,7 +33,7 @@ let EmployeeController = class EmployeeController {
       */
     getConfig() {
         return __awaiter(this, void 0, void 0, function* () {
-            return modex_1.Helper.getUISchema('Employee');
+            return modex_1.Helper.getUISchema(`${__dirname}/../models`, 'Employee');
         });
     }
     /**

@@ -33,7 +33,7 @@ let DomainController = class DomainController {
       */
     getConfig() {
         return __awaiter(this, void 0, void 0, function* () {
-            return modex_1.Helper.getUISchema('Domain');
+            return modex_1.Helper.getUISchema(`${__dirname}/../models`, 'Domain');
         });
     }
     /**

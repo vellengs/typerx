@@ -39,7 +39,7 @@ export class DomainController {
     @Path('config')
     @GET
     async getConfig(): Promise<UISchema> {
-        return Helper.getUISchema('Domain');
+        return Helper.getUISchema(`${__dirname}/../models`, 'Domain');
     }
 
 

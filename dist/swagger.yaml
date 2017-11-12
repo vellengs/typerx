@@ -1,28 +1,5 @@
 basePath: /
 definitions:
-    Account:
-        description: ""
-        properties:
-            displayName:
-                type: string
-                description: ""
-            id:
-                type: string
-                description: ""
-            imageURL:
-                type: string
-                description: ""
-            name:
-                type: string
-                description: ""
-            rpDisplayName:
-                type: string
-                description: ""
-        type: object
-        required:
-            - displayName
-            - id
-            - rpDisplayName
     CondictionVisibleIf:
         description: ""
         properties: {}
@@ -199,6 +176,63 @@ definitions:
         required:
             - entry
             - columns
+    Account:
+        description: ""
+        properties:
+            displayName:
+                type: string
+                description: ""
+            id:
+                type: string
+                description: ""
+            imageURL:
+                type: string
+                description: ""
+            name:
+                type: string
+                description: ""
+            rpDisplayName:
+                type: string
+                description: ""
+        type: object
+        required:
+            - displayName
+            - id
+            - rpDisplayName
+    Error:
+        description: ""
+        properties:
+            name:
+                type: string
+                description: ""
+            message:
+                type: string
+                description: ""
+            stack:
+                type: string
+                description: ""
+        type: object
+        required:
+            - name
+            - message
+    'PaginateResponseAccount[]':
+        description: ""
+        properties:
+            error:
+                $ref: '#/definitions/Error'
+            docs:
+                type: array
+                items:
+                    $ref: '#/definitions/Account'
+                description: ""
+            total:
+                type: number
+                format: double
+                description: ""
+        type: object
+        required:
+            - docs
+            - total
     Dict:
         description: ""
         properties:
@@ -216,22 +250,6 @@ definitions:
             - category
             - name
             - translate
-    Error:
-        description: ""
-        properties:
-            name:
-                type: string
-                description: ""
-            message:
-                type: string
-                description: ""
-            stack:
-                type: string
-                description: ""
-        type: object
-        required:
-            - name
-            - message
     'PaginateResponseDict[]':
         description: ""
         properties:
@@ -257,9 +275,59 @@ info:
     title: 'Node server'
     version: 0.0.1
 paths:
-    '/api/account/{name}':
+    /api/account/test:
         get:
-            operationId: AccountGetName
+            operationId: AccountGetTest
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/UISchema'
+            description: 获取帐号管理界面配置信息.
+            tags:
+                - base
+            parameters: []
+    /api/account/config:
+        get:
+            operationId: AccountGetConfig
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/UISchema'
+            description: 获取帐号管理界面配置信息.
+            tags:
+                - base
+            parameters: []
+    '/api/account/category/{category}':
+        get:
+            operationId: AccountGetAccountByCategory
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        type: array
+                        items:
+                            $ref: '#/definitions/Account'
+            description: '* 按分类获取帐号数据'
+            tags:
+                - base
+            parameters:
+                -
+                    description: 分类键名
+                    in: path
+                    name: category
+                    required: true
+                    type: string
+    /api/account:
+        post:
+            operationId: AccountCreate
             produces:
                 - application/json
             responses:
@@ -267,14 +335,112 @@ paths:
                     description: Ok
                     schema:
                         $ref: '#/definitions/Account'
-            description: 通过姓名获取帐号信息.
+            description: '* 创建帐号表'
+            tags:
+                - base
+            consumes:
+                - application/json
+            parameters:
+                -
+                    description: ""
+                    in: body
+                    name: entry
+                    required: true
+                    schema:
+                        $ref: '#/definitions/Account'
+        put:
+            operationId: AccountUpdate
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/Account'
+            description: '* 更新帐号表'
+            tags:
+                - base
+            consumes:
+                - application/json
+            parameters:
+                -
+                    description: ""
+                    in: body
+                    name: entry
+                    required: true
+                    schema:
+                        $ref: '#/definitions/Account'
+    /api/account/query:
+        get:
+            operationId: AccountGetPaged
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/PaginateResponseAccount[]'
+            description: 分页查询帐号表
             tags:
                 - base
             parameters:
                 -
-                    description: 'The name'
+                    description: '第几页  从 1 开始计;'
+                    in: query
+                    name: page
+                    required: false
+                    type: number
+                    format: double
+                -
+                    description: 页大小
+                    in: query
+                    name: size
+                    required: false
+                    type: number
+                    format: double
+                -
+                    description: 排序
+                    in: query
+                    name: sort
+                    required: false
+                    type: string
+    '/api/account/{id}':
+        delete:
+            operationId: AccountRemove
+            produces:
+                - text/html
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        type: boolean
+            description: 删除帐号信息
+            tags:
+                - base
+            parameters:
+                -
+                    description: '编号 可以逗号分割传递多个。'
                     in: path
-                    name: name
+                    name: id
+                    required: true
+                    type: string
+        get:
+            operationId: AccountGet
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/Account'
+            description: 查询帐号
+            tags:
+                - base
+            parameters:
+                -
+                    description: 编号
+                    in: path
+                    name: id
                     required: true
                     type: string
     /api/dict/config:

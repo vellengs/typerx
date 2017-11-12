@@ -33,7 +33,7 @@ let MenuController = class MenuController {
       */
     getConfig() {
         return __awaiter(this, void 0, void 0, function* () {
-            return modex_1.Helper.getUISchema('Menu');
+            return modex_1.Helper.getUISchema(`${__dirname}/../models`, 'Menu');
         });
     }
     /**
