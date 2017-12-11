@@ -37,6 +37,21 @@ export class ApiServer {
         // TODO: enable for Swagger generation error
         // Server.loadServices(this.app, 'controllers/*', __dirname);
         Server.swagger(this.app, './dist/swagger.json', '/api-docs', 'localhost:3600', ['http']);
+
+        this.app.use((
+            err: any,
+            req: express.Request,
+            res: express.Response, next: any) => {
+            if (res.headersSent) {
+                return next(err);
+            }
+            if (err && err.statusCode) {
+                res.status(err.statusCode);
+            } else {
+                res.status(500);
+            }
+            res.send({ error: err });
+        });
     }
 
     /**

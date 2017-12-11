@@ -33,7 +33,8 @@ let AccountController = class AccountController {
       */
     getTest() {
         return __awaiter(this, void 0, void 0, function* () {
-            return null;
+            throw new typescript_rest_1.Errors.UnauthorizedError('没有登录');
+            // return null;
         });
     }
     /**

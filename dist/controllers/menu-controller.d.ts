@@ -1,7 +1,7 @@
 import { UISchema, PaginateResponse } from 'modex';
 import { Menu } from './../schemas';
 /**
- * 获取菜单y.
+ * 菜单管理.
  */
 export declare class MenuController {
     /**
@@ -41,7 +41,7 @@ export declare class MenuController {
      * @returns {Promise<PaginateResponse<Menu[]>>}
      * @memberof MenuController
      */
-    getPaged(page?: number, size?: number, sort?: string): Promise<PaginateResponse<Menu[]>>;
+    getPaged(keyword?: string, status?: number, page?: number, size?: number, sort?: string): Promise<PaginateResponse<Menu[]>>;
     /**
      * 删除菜单信息
      *

@@ -5,7 +5,7 @@ import { Db } from './../database';
 import { Menu } from './../schemas';
 
 /**
- * 获取菜单y.
+ * 菜单管理.
  */
 @Tags('base')
 @Path('/api/menu')
@@ -102,10 +102,16 @@ export class MenuController {
     @Path('query')
     @GET
     async getPaged(
+        @QueryParam('keyword') keyword?: string,
+        @QueryParam('status') status?: number,
         @QueryParam('page') page?: number,
         @QueryParam('size') size?: number,
         @QueryParam('sort') sort?: string): Promise<PaginateResponse<Menu[]>> {
-        return Helper.getPagedData<Menu>('Menu', page, size, [], sort);
+        return Helper.getPagedData<Menu>('Menu', page, size, [], sort, {
+            name: new RegExp(keyword, 'i'),
+            status: status,
+            created: { 'created': { '$lt': new Date('2017'), '$gt': new Date('2018') } },
+        });
     }
 
     /**

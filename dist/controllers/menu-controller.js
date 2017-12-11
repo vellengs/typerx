@@ -25,7 +25,7 @@ const typescript_rest_swagger_1 = require("typescript-rest-swagger");
 const modex_1 = require("modex");
 const database_1 = require("./../database");
 /**
- * 获取菜单y.
+ * 菜单管理.
  */
 let MenuController = class MenuController {
     /**
@@ -89,9 +89,13 @@ let MenuController = class MenuController {
      * @returns {Promise<PaginateResponse<Menu[]>>}
      * @memberof MenuController
      */
-    getPaged(page, size, sort) {
+    getPaged(keyword, status, page, size, sort) {
         return __awaiter(this, void 0, void 0, function* () {
-            return modex_1.Helper.getPagedData('Menu', page, size, [], sort);
+            return modex_1.Helper.getPagedData('Menu', page, size, [], sort, {
+                name: new RegExp(keyword, 'i'),
+                status: status,
+                created: { 'created': { '$lt': new Date('2017'), '$gt': new Date('2018') } },
+            });
         });
     }
     /**
@@ -168,11 +172,13 @@ __decorate([
 __decorate([
     typescript_rest_1.Path('query'),
     typescript_rest_1.GET,
-    __param(0, typescript_rest_1.QueryParam('page')),
-    __param(1, typescript_rest_1.QueryParam('size')),
-    __param(2, typescript_rest_1.QueryParam('sort')),
+    __param(0, typescript_rest_1.QueryParam('keyword')),
+    __param(1, typescript_rest_1.QueryParam('status')),
+    __param(2, typescript_rest_1.QueryParam('page')),
+    __param(3, typescript_rest_1.QueryParam('size')),
+    __param(4, typescript_rest_1.QueryParam('sort')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Number, String]),
+    __metadata("design:paramtypes", [String, Number, Number, Number, String]),
     __metadata("design:returntype", Promise)
 ], MenuController.prototype, "getPaged", null);
 __decorate([

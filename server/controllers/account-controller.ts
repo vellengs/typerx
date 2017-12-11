@@ -1,8 +1,9 @@
-import { GET, Path, PathParam, POST, PUT, DELETE, QueryParam } from 'typescript-rest';
+import { GET, Path, PathParam, POST, PUT, DELETE, QueryParam, Errors } from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
 import { UISchema, Helper, PaginateResponse } from 'modex';
 import { Db } from './../database';
 import { Account } from './../schemas';
+
 
 /**
  * 帐号管理.
@@ -11,16 +12,15 @@ import { Account } from './../schemas';
 @Path('/api/account')
 export class AccountController {
 
-
     /**
       * 获取帐号管理界面配置信息.
       */
     @Path('test')
     @GET
     async getTest(): Promise<UISchema> {
-        return null;
+        throw new Errors.UnauthorizedError('没有登录');
+        // return null;
     }
-
 
     /**
       * 获取帐号管理界面配置信息.
@@ -28,7 +28,6 @@ export class AccountController {
     @Path('config')
     @GET
     async getConfig(): Promise<UISchema> {
-
         return Helper.getUISchema(`${__dirname}/../models`, 'Account');
     }
 

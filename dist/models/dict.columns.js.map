@@ -1,1 +1,1 @@
-{"version":3,"file":"dict.columns.js","sourceRoot":"","sources":["../../src/models/dict.columns.ts"],"names":[],"mappings":";;AAEa,QAAA,OAAO,GAAkB;IACrC,QAAQ,EAAE;QACT,MAAM,EAAE,MAAM;KACd;IACD,IAAI,EAAE;QACL,MAAM,EAAE,KAAK;KACb;IACD,SAAS,EAAE;QACV,MAAM,EAAE,IAAI;KACZ;CACD,CAAC"}
+{"version":3,"file":"dict.columns.js","sourceRoot":"","sources":["../../server/models/dict.columns.ts"],"names":[],"mappings":";;AAEa,QAAA,OAAO,GAAkB;IACrC,QAAQ,EAAE;QACT,MAAM,EAAE,MAAM;KACd;IACD,IAAI,EAAE;QACL,MAAM,EAAE,KAAK;KACb;IACD,SAAS,EAAE;QACV,MAAM,EAAE,IAAI;KACZ;CACD,CAAC"}

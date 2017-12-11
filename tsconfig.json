@@ -19,6 +19,6 @@
 		"target": "es2016"
 	},
 	"include": [
-		"src/**/*.ts"
+		"server/**/*.ts"
 	]
 }

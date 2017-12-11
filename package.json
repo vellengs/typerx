@@ -20,7 +20,10 @@
   "dependencies": {
     "bluebird": "^3.5.1",
     "config": "^1.28.1",
-    "modex": "^1.0.7",
+    "modex": "^1.0.8",
+    "mongoose": "^4.9.7",
+    "mongoose-paginate": "^5.0.3",
+    "mongoose-text-search": "0.0.2",
     "mongoose-auto-increment": "^5.0.1",
     "typescript-rest": "^1.1.1",
     "typescript-rest-swagger": "^0.0.13"

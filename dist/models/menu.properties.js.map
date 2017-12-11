@@ -1,1 +1,1 @@
-{"version":3,"file":"menu.properties.js","sourceRoot":"","sources":["../../src/models/menu.properties.ts"],"names":[],"mappings":";;AAAA,iCAA2E;AAE9D,QAAA,MAAM,GAAqB;IACvC,IAAI,EAAE;QACL,IAAI,EAAE,iBAAC,CAAC,MAAM;QACd,MAAM,EAAE,mBAAC,CAAC,MAAM;QAChB,KAAK,EAAE,IAAI;KACX;CACD,CAAC"}
+{"version":3,"file":"menu.properties.js","sourceRoot":"","sources":["../../server/models/menu.properties.ts"],"names":[],"mappings":";;AAAA,iCAA2E;AAE9D,QAAA,MAAM,GAAqB;IACvC,IAAI,EAAE;QACL,IAAI,EAAE,iBAAC,CAAC,MAAM;QACd,MAAM,EAAE,mBAAC,CAAC,MAAM;QAChB,KAAK,EAAE,IAAI;KACX;CACD,CAAC"}

@@ -28,6 +28,18 @@ class ApiServer {
         // TODO: enable for Swagger generation error
         // Server.loadServices(this.app, 'controllers/*', __dirname);
         typescript_rest_1.Server.swagger(this.app, './dist/swagger.json', '/api-docs', 'localhost:3600', ['http']);
+        this.app.use((err, req, res, next) => {
+            if (res.headersSent) {
+                return next(err);
+            }
+            if (err && err.statusCode) {
+                res.status(err.statusCode);
+            }
+            else {
+                res.status(500);
+            }
+            res.send({ error: err });
+        });
     }
     /**
      * Configure the express app.

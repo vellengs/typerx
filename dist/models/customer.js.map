@@ -1,1 +1,1 @@
-{"version":3,"file":"customer.js","sourceRoot":"","sources":["../../src/models/customer.ts"],"names":[],"mappings":";;AAAA;;;;;GAKG;AACH;CAsCC;AAtCD,4BAsCC"}
+{"version":3,"file":"customer.js","sourceRoot":"","sources":["../../server/models/customer.ts"],"names":[],"mappings":";;AAAA;;;;;GAKG;AACH;CAsCC;AAtCD,4BAsCC"}

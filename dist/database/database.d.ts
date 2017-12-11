@@ -30,5 +30,4 @@ export declare class Database {
     paginate: (modelName: string, cond: Object, option: Object, callback?: (err: any, res: any) => void) => any;
     constructor();
     getModel: (modelName: string) => mongoose.Model<mongoose.Document> & INew<any>;
-    requireModels(): void;
 }
