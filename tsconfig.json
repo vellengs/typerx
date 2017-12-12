@@ -20,5 +20,8 @@
 	},
 	"include": [
 		"server/**/*.ts"
+	],
+	"exclude": [
+		"client/**/*.ts"
 	]
 }
