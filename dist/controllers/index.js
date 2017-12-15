@@ -1,15 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const account_controller_1 = require("./account-controller");
-// import { EmployeeController } from './employee-controller';
-// import { DomainController } from './domain-controller';
-const dict_controller_1 = require("./dict-controller");
-// import { MenuController } from './menu-controller';
-// import { CustomerController } from './customer-controller';
+const article_controller_1 = require("./article.controller");
+const account_controller_1 = require("./account.controller");
+const dict_controller_1 = require("./dict.controller");
+const employee_controller_1 = require("./employee.controller");
 exports.default = [
     account_controller_1.AccountController,
-    // MenuController,
-    // CustomerController,
     dict_controller_1.DictController,
+    article_controller_1.ArticleController,
+    employee_controller_1.EmployeeController,
 ];
 //# sourceMappingURL=index.js.map

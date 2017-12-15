@@ -5,6 +5,8 @@ export { Domain } from './domain';
 export { Dict } from './dict';
 export { Employee } from './employee';
 export { Customer } from './customer';
+export { Article } from './article';
+export { Role } from './role';
 
 import './account';
 import './category';
@@ -13,3 +15,6 @@ import './domain';
 import './dict';
 import './employee';
 import './customer';
+import './article';
+import './role';
+

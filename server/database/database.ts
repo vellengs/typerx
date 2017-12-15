@@ -33,6 +33,9 @@ export class Database {
 	public customer: Model<Document> & INew<any>;
 	public domain: Model<Document> & INew<any>;
 	public employee: Model<Document> & INew<any>;
+	public article: Model<Document> & INew<any>;
+	public role: Model<Document> & INew<any>;
+	public category: Model<Document> & INew<any>;
 
 
 	public handleError: (err: any, message: string, res?: any, notLog?: boolean) => void;
@@ -49,6 +52,10 @@ export class Database {
 		this.dict = this.getModel('Dict');
 		this.domain = this.getModel('Domain');
 		this.employee = this.getModel('Employee');
+		this.article = this.getModel('Article');
+		this.role = this.getModel('Role');
+		this.category = this.getModel('Category');
+
 		this.paginate = (modelName, cond, option, callback) => {
 			const paginate: any = this.db.model(modelName);
 			return paginate['paginate'](cond, option, callback);

@@ -22,6 +22,9 @@ class Database {
         this.dict = this.getModel('Dict');
         this.domain = this.getModel('Domain');
         this.employee = this.getModel('Employee');
+        this.article = this.getModel('Article');
+        this.role = this.getModel('Role');
+        this.category = this.getModel('Category');
         this.paginate = (modelName, cond, option, callback) => {
             const paginate = this.db.model(modelName);
             return paginate['paginate'](cond, option, callback);

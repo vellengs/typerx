@@ -1,5 +1,5 @@
 import { GET, Path, PathParam, POST, PUT, DELETE, QueryParam } from 'typescript-rest';
-import { Example, Tags } from 'typescript-rest-swagger';
+import { Tags } from 'typescript-rest-swagger';
 import { Helper, UISchema, PaginateResponse } from 'modex';
 import { Db } from './../database';
 import { Dict } from './../schemas';
@@ -14,28 +14,6 @@ export class DictController {
     /**
       * 获取客户管理界面配置信息.
       */
-    @Example<UISchema>({
-        columns: [
-            {
-                field: 'name',
-                header: '名字',
-            }
-        ],
-        entry: {
-            birthday: {
-                description: '生日描述',
-                title: '生日',
-                type: 'string',
-                widget: 'date',
-            },
-            name: {
-                description: '名字描述',
-                title: '名字',
-                type: 'string',
-                widget: 'input',
-            },
-        }
-    })
     @Path('config')
     @GET
     async getConfig(): Promise<UISchema> {

@@ -11,11 +11,15 @@ export let schema: SchemaDefinition = {
 	},
 	password: {
 		type: t.String
+	},
+	role: {
+		type: t.ObjectId,
+		ref: 'Role'
+	},
+	created: {
+		type: t.Date,
+		default: Date.now
 	}
-	// role: {
-	// 	type: t.ObjectId,
-	// 	ref: 'Role'
-	// }
 };
 
 create(schema, 'Account');

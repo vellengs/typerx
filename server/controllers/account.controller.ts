@@ -1,4 +1,4 @@
-import { GET, Path, PathParam, POST, PUT, DELETE, QueryParam, Errors } from 'typescript-rest';
+import { GET, Path, PathParam, POST, PUT, DELETE, QueryParam } from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
 import { UISchema, Helper, PaginateResponse } from 'modex';
 import { Db } from './../database';
@@ -11,16 +11,6 @@ import { Account } from './../schemas';
 @Tags('base')
 @Path('/api/account')
 export class AccountController {
-
-    /**
-      * 获取帐号管理界面配置信息.
-      */
-    @Path('test')
-    @GET
-    async getTest(): Promise<UISchema> {
-        throw new Errors.UnauthorizedError('没有登录');
-        // return null;
-    }
 
     /**
       * 获取帐号管理界面配置信息.

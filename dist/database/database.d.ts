@@ -25,6 +25,9 @@ export declare class Database {
     customer: Model<Document> & INew<any>;
     domain: Model<Document> & INew<any>;
     employee: Model<Document> & INew<any>;
+    article: Model<Document> & INew<any>;
+    role: Model<Document> & INew<any>;
+    category: Model<Document> & INew<any>;
     handleError: (err: any, message: string, res?: any, notLog?: boolean) => void;
     parseQuery: (req: any, modelName: any) => {};
     paginate: (modelName: string, cond: Object, option: Object, callback?: (err: any, res: any) => void) => any;

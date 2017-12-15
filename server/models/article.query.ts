@@ -1,36 +1,34 @@
 import { EntityProperties, WidgetTypes as w, DataTypes as t } from 'modex';
 
 export const query: EntityProperties = {
-	name: {
-		title: '姓名',
+	keyword: {
+		title: '关键词',
 		type: t.string,
 		widget: {
 			id: w.string,
 			icon: 'anticon-search'
 		},
 		maxlength: 30,
-		placeholder: '请输入姓名、拼音、电话'
+		placeholder: '请输入关键词'
 	},
-	primary_adviser: {
+	owner: {
 		title: '责任人',
 		type: 'string',
-		widget: w.input,
+		widget: {
+			id: w.search,
+			domain: 'account'
+		},
 		maxlength: 11,
-		placeholder: '请选择责任人'
-	},
-	intent: {
-		title: '意向级别',
-		type: t.string,
-		widget: w.rate
+		placeholder: '请选择发布人'
 	},
 	status: {
-		title: '客户状态',
+		title: '文章状态',
 		type: t.string,
 		widget: {
 			id: w.dict,
-			category: 'customer_status'
+			category: 'article_status'
 		},
-		placeholder: '请选择客户状态',
+		placeholder: '请选择文章状态',
 	}
 };
 

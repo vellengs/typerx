@@ -7,4 +7,6 @@ require("./domain");
 require("./dict");
 require("./employee");
 require("./customer");
+require("./article");
+require("./role");
 //# sourceMappingURL=index.js.map

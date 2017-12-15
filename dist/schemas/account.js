@@ -7,11 +7,15 @@ exports.schema = {
     },
     password: {
         type: modex_1.SchemaTypes.String
+    },
+    role: {
+        type: modex_1.SchemaTypes.ObjectId,
+        ref: 'Role'
+    },
+    created: {
+        type: modex_1.SchemaTypes.Date,
+        default: Date.now
     }
-    // role: {
-    // 	type: t.ObjectId,
-    // 	ref: 'Role'
-    // }
 };
 modex_1.create(exports.schema, 'Account');
 //# sourceMappingURL=account.js.map
