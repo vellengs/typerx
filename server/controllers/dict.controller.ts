@@ -1,8 +1,9 @@
 import { GET, Path, PathParam, POST, PUT, DELETE, QueryParam } from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
-import { Helper, UISchema, PaginateResponse } from 'modex';
+import { UISchema, PaginateResponse } from 'modex';
 import { Db } from './../database';
 import { Dict } from './../schemas';
+import { Helper } from '../utils/helper';
 
 /**
  * 获取菜单y.
@@ -17,7 +18,7 @@ export class DictController {
     @Path('config')
     @GET
     async getConfig(): Promise<UISchema> {
-        return Helper.getUISchema(`${__dirname}/../models`, 'Dict');
+        return Helper.getUISchema('Dict');
     }
 
     /**

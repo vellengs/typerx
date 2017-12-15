@@ -1,8 +1,9 @@
 import { GET, Path, PathParam, POST, PUT, DELETE, QueryParam } from 'typescript-rest';
-import { Example, Tags } from 'typescript-rest-swagger';
-import { UISchema, Helper, PaginateResponse } from 'modex';
+import { Tags } from 'typescript-rest-swagger';
+import { UISchema, PaginateResponse } from 'modex';
 import { Db } from './../database';
 import { Menu } from './../schemas';
+import { Helper } from '../utils/helper';
 
 /**
  * 菜单管理.
@@ -14,34 +15,11 @@ export class MenuController {
     /**
       * 获取菜单管理界面配置信息.
       */
-    @Example<UISchema>({
-        entry: {
-            name: {
-                title: '名字',
-                description: '名字描述',
-                widget: 'input',
-                type: 'string'
-            },
-            birthday: {
-                title: '生日',
-                description: '生日描述',
-                widget: 'date',
-                type: 'string'
-            },
-        },
-        columns: [
-            {
-                field: 'name',
-                header: '名字',
-            }
-        ]
-    })
     @Path('config')
     @GET
     async getConfig(): Promise<UISchema> {
-        return Helper.getUISchema(`${__dirname}/../models`, 'Menu');
+        return Helper.getUISchema('Menu');
     }
-
 
     /**
      * * 按分类获取菜单数据

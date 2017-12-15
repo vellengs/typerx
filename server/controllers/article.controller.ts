@@ -1,8 +1,9 @@
 import { GET, Path, PathParam, POST, PUT, DELETE, QueryParam, ServiceContext, Context } from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
-import { UISchema, Helper, PaginateResponse } from 'modex';
+import { UISchema, PaginateResponse } from 'modex';
 import { Db } from './../database';
 import { Article } from './../schemas';
+import { Helper } from '../utils/helper';
 
 /**
  * * 获取文章信息
@@ -24,7 +25,7 @@ export class ArticleController {
     @Path('config')
     @GET
     async getConfig(): Promise<UISchema> {
-        return Helper.getUISchema(`${__dirname}/../models`, 'Article');
+        return Helper.getUISchema('Article');
     }
 
 

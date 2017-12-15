@@ -12,7 +12,7 @@ export const query: EntityProperties = {
 		placeholder: '请输入关键词'
 	},
 	owner: {
-		title: '责任人',
+		title: '发布人',
 		type: 'string',
 		widget: {
 			id: w.search,

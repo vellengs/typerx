@@ -1,8 +1,9 @@
 import { GET, Path, PathParam, POST, PUT, DELETE, QueryParam } from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
-import { UISchema, Helper, PaginateResponse } from 'modex';
+import { UISchema, PaginateResponse } from 'modex';
 import { Db } from './../database';
 import { Account } from './../schemas';
+import { Helper } from '../utils/helper';
 
 
 /**
@@ -18,7 +19,30 @@ export class AccountController {
     @Path('config')
     @GET
     async getConfig(): Promise<UISchema> {
-        return Helper.getUISchema(`${__dirname}/../models`, 'Account');
+
+        return Helper.getUISchema('Account');
+    }
+
+
+    /**
+     * 按关键词查询账号
+     * 
+     * @param {string} [keyword] 
+     * @returns {Promise<Account[]>} 
+     * @memberof AccountController
+     */
+    @Path('search')
+    @GET
+    async getAccountsByKeyword( @QueryParam('keyword') keyword?: string): Promise<Account[]> {
+        const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
+        const docs = await Db.account.find(query).limit(25).exec();
+        if (docs) {
+            return docs.map((res: any) => {
+                return res.toClient() as Account;
+            });
+        } else {
+            return null;
+        }
     }
 
 
