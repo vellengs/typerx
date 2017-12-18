@@ -9,4 +9,6 @@ require("./employee");
 require("./customer");
 require("./article");
 require("./role");
+require("./setting");
+require("./permission");
 //# sourceMappingURL=index.js.map

@@ -43,10 +43,10 @@ export class CategoryController {
         const docs = await Db.category.find(query).limit(25).exec();
         if (docs) {
             return docs.map((res: any) => {
-                return res.toClient() as Category;
+                return res.flat() as Category;
             });
         } else {
-            return null;
+            return [];
         }
     }
 
@@ -59,7 +59,22 @@ export class CategoryController {
      */
     @POST
     async create(entry: Category): Promise<Category> {
-        return Helper.create('Category', entry);
+        const parent: any = await Db.category.findOne({ _id: entry.parent }).exec();
+        let paths: any = [];
+        if (parent) {
+            paths = (parent.paths || []);
+        }
+
+        entry.paths = paths;
+        const result = await Helper.create('Category', entry);
+        paths.push(result._id);
+        await Db.category.findOneAndUpdate({ _id: result._id }, {
+            $set: {
+                paths: paths
+            }
+        }).exec();
+
+        return result;
     }
 
 
@@ -72,6 +87,15 @@ export class CategoryController {
     * */
     @PUT
     async update(entry: Category): Promise<Category> {
+
+
+        const parent: any = await Db.category.findOne({ _id: entry.parent }).exec();
+        let paths: any = [];
+        if (parent) {
+            paths = (parent.paths || []);
+        }
+        paths.push(entry._id);
+        entry.paths = paths;
         return Helper.update('Category', entry);
     }
 
@@ -98,6 +122,9 @@ export class CategoryController {
 
         return Helper.getPagedData<Category>('Category', page, size,
             [
+                {
+                    path: 'parent', select: 'name'
+                },
                 {
                     path: 'account', select: 'name'
                 }],

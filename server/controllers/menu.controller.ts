@@ -4,6 +4,7 @@ import { UISchema, PaginateResponse } from 'modex';
 import { Db } from './../database';
 import { Menu } from './../schemas';
 import { Helper } from '../utils/helper';
+import { MenuService } from '../services/menu.service';
 
 /**
  * 菜单管理.
@@ -21,6 +22,30 @@ export class MenuController {
         return Helper.getUISchema('Menu');
     }
 
+
+
+    /**
+     * 查询菜单
+     * 
+     * @param {string} [keyword] 
+     * @returns {Promise<Menu[]>} 
+     * @memberof MenuController
+     */
+    @Path('search')
+    @GET
+    async getMenusByKeyword( @QueryParam('keyword') keyword?: string): Promise<Menu[]> {
+        const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
+        const docs = await Db.menu.find(query).limit(25).exec();
+        if (docs) {
+            return docs.map((res: any) => {
+                return res.flat() as Menu;
+            });
+        } else {
+            return [];
+        }
+    }
+
+
     /**
      * * 按分类获取菜单数据
      * 
@@ -34,7 +59,7 @@ export class MenuController {
         const docs = await Db.menu.find({ category: category }).exec();
         if (docs) {
             return docs.map((res: any) => {
-                return res.toClient() as Menu;
+                return res.flat() as Menu;
             });
         } else {
             return null;
@@ -85,11 +110,7 @@ export class MenuController {
         @QueryParam('page') page?: number,
         @QueryParam('size') size?: number,
         @QueryParam('sort') sort?: string): Promise<PaginateResponse<Menu[]>> {
-        return Helper.getPagedData<Menu>('Menu', page, size, [], sort, {
-            name: new RegExp(keyword, 'i'),
-            status: status,
-            created: { 'created': { '$lt': new Date('2017'), '$gt': new Date('2018') } },
-        });
+        return await MenuService.getPagedData(keyword, status, page, size, sort);
     }
 
     /**

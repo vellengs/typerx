@@ -28,6 +28,8 @@ export declare class Database {
     article: Model<Document> & INew<any>;
     role: Model<Document> & INew<any>;
     category: Model<Document> & INew<any>;
+    setting: Model<Document> & INew<any>;
+    permission: Model<Document> & INew<any>;
     handleError: (err: any, message: string, res?: any, notLog?: boolean) => void;
     parseQuery: (req: any, modelName: any) => {};
     paginate: (modelName: string, cond: Object, option: Object, callback?: (err: any, res: any) => void) => any;

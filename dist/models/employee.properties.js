@@ -89,4 +89,24 @@ exports.schema = {
         title: '是否自动生产帐号',
     },
 };
+exports.forms = {
+    add: {
+        widget: {
+            id: modex_1.WidgetTypes.entry,
+            title: '新增员工',
+        }
+    },
+    edit: {
+        widget: {
+            id: modex_1.WidgetTypes.entry,
+            title: '编辑员工',
+        }
+    },
+    view: {
+        widget: {
+            id: modex_1.WidgetTypes.entry,
+            title: '员工详情',
+        }
+    }
+};
 //# sourceMappingURL=employee.properties.js.map

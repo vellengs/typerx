@@ -1,117 +1,51 @@
 import { ColumnsDefine } from 'modex';
 
 export const columns: ColumnsDefine = {
+	username: {
+		header: '账号名称'
+	},
 	name: {
 		header: '姓名'
 	},
-	gender: {
-		header: '性别',
-		format: 'dict:gender',
+	password: {
+		header: '密码',
 		hidden: true,
 	},
-	birthday: {
-		header: '生日',
-		format: 'date:yyyy-MM-dd',
+	alias: {
+		header: '别名',
 		hidden: true,
 	},
-	idcard: {
-		header: '身份证',
+	type: {
+		header: '类型',
 		hidden: true,
+	},
+	role: {
+		header: '角色',
+	},
+	mail: {
+		header: '邮箱',
 	},
 	mobile: {
-		header: '手机'
+		header: '手机号',
 	},
-	qq: {
-		header: 'qq',
-		hidden: true,
+	group: {
+		header: '分组',
 	},
-	from_school: {
-		header: '学校',
-		hidden: true,
+	isDisable: {
+		header: '是否禁用',
 	},
-	from_grade: {
-		header: '年级',
-		hidden: true,
+	isAdmin: {
+		header: '是否管理员',
 	},
-	from_class: {
-		header: '班级',
-		hidden: true,
+	isApproved: {
+		header: '是否已审核',
 	},
-	father: {
-		header: '父亲',
-		hidden: true,
+	secret: {
+		header: '密保',
+		hidden: true
 	},
-	father_mobile: {
-		header: '父亲的手机',
-		hidden: true,
-	},
-	father_job: {
-		header: '父亲的职业',
-		hidden: true,
-	},
-	mother_mobile: {
-		header: '母亲的手机',
-		hidden: true,
-	},
-	mother: {
-		header: '母亲',
-		hidden: true,
-	},
-	mother_job: {
-		header: '母亲的职业',
-		hidden: true,
-	},
-	tel: {
-		header: '家庭电话',
-		hidden: true,
-	},
-	address: {
-		header: '家庭住址',
-		hidden: true,
-	},
-	from_media: {
-		header: '信息来源',
-		hidden: true,
-	},
-	intent: {
-		header: '意向等级'
-	},
-	region: {
-		header: '校区',
-		hidden: true,
-	},
-	status: {
-		header: '状态'
-	},
-	inviter: {
-		header: '邀请人',
-		hidden: true,
-	},
-	primary_adviser: {
-		header: '主要负责人',
-		format: 'prop:name',
-	},
-	secondary_advisers: {
-		header: '副负责人',
-		format: 'prop:name',
-	},
-	appointment: {
-		header: '预约时间'
-	},
-	created: {
-		header: '创建日期'
-	},
-	comment: {
-		header: '备注',
-		hidden: true,
-	},
-	trial: {
-		header: '试听'
-	},
-	talk_times: {
-		header: '联系次数'
-	},
-	last_talk: {
-		header: '最后联系时间'
-	},
+	salt: {
+		header: '盐值',
+		hidden: true
+	}
 };

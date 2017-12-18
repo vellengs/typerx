@@ -25,6 +25,8 @@ class Database {
         this.article = this.getModel('Article');
         this.role = this.getModel('Role');
         this.category = this.getModel('Category');
+        this.setting = this.getModel('Setting');
+        this.permission = this.getModel('Permission');
         this.paginate = (modelName, cond, option, callback) => {
             const paginate = this.db.model(modelName);
             return paginate['paginate'](cond, option, callback);

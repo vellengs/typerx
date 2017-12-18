@@ -171,14 +171,13 @@ export class Helper {
 
 	static async upsert(modelName: string, entry: any): Promise<any> {
 		const model = getModel(modelName);
-		model.findById(entry.uid).exec((err, doc) => {
+
+ 		model.findById(entry.uid).exec((err, doc) => {
 			if (doc) {
 				return doc.update(entry).exec();
 			} else {
 				return (new model(entry)).save();
 			}
-		});
-		// const doc = model.findByIdAndUpdate(entry.uid, entry, {upsert: true});
-		// return doc.exec();
+		}); 
 	}
 }

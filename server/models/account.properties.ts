@@ -1,199 +1,102 @@
 
-export class Account {
-
-}
-import { EntityProperties, WidgetTypes as w, DataTypes as t } from 'modex';
+import { EntityProperties, WidgetTypes as w, DataTypes as t, SchemaForms } from 'modex';
 
 export const schema: EntityProperties = {
+	username: {
+		title: '账号名',
+		type: t.string,
+		required: true,
+	},
 	name: {
 		title: '姓名',
 		type: t.string,
 		required: true,
 	},
-	gender: {
-		title: '性别',
-		widget: {
-			id: w.dict,
-			category: 'gender'
-		},
+	password: {
+		title: '密码',
+		widget: w.input,
 		type: t.string
 	},
-	birthday: {
-		title: '出生日期',
-		type: t.Date,
-		widget: w.date
+	alias: {
+		title: '别名',
+		widget: w.input,
+		type: t.string
 	},
-	idcard: {
-		title: '身份证',
-		type: t.string,
-		maxlength: 23
+	type: {
+		title: '类型',
+		widget: w.input,
+		type: t.string
+	},
+	role: {
+		title: '角色',
+		widget: w.input,
+		type: t.string
+	},
+	mail: {
+		title: '邮箱',
+		widget: w.input,
+		type: t.string
 	},
 	mobile: {
-		title: '手机号码',
-		type: t.string,
-		maxlength: 11,
+		title: '邮箱',
 		widget: w.input,
-		required: true,
-	},
-	qq: {
-		title: 'QQ号码',
-		type: t.string,
-		maxlength: 13
-	},
-	from_school: {
-		title: '学校',
-		type: t.string,
-		widget: {
-			id: w.dict,
-			category: 'school'
-		}
-	},
-	from_grade: {
-		title: '年级',
-		type: t.string,
-		widget: {
-			id: w.dict,
-			category: 'grade'
-		}
-	},
-	from_class: {
-		title: '班级',
-		type: t.string,
-	},
-	father: {
-		title: '父亲',
-		type: t.string,
-	},
-	father_mobile: {
-		title: '父亲的手机',
-		type: t.string,
-		maxlength: 11,
-	},
-	father_job: {
-		title: '父亲的职业',
-		type: t.string,
-		widget: {
-			id: w.dict,
-			category: 'job'
-		}
-	},
-	mother: {
-		title: '母亲',
 		type: t.string
 	},
-	mother_mobile: {
-		title: '母亲的手机',
-		type: t.string,
-		maxlength: 11,
+	group: {
+		title: '分组',
+		widget: w.input,
+		type: t.string
 	},
-	mother_job: {
-		title: '母亲的职业',
-		type: t.string,
-		widget: {
-			id: w.dict,
-			category: 'job'
-		}
+	isDisable: {
+		title: '是否禁用',
+		widget: w.input,
+		type: t.string
 	},
-	tel: {
-		title: '家庭电话',
-		type: t.string,
+	isAdmin: {
+		title: '是否管理员',
+		widget: w.input,
+		type: t.string
 	},
-	address: {
-		title: '住址',
-		type: t.string,
+	isApproved: {
+		title: '是否审核',
+		widget: w.input,
+		type: t.string
 	},
-	from_media: {
-		title: '来源',
-		type: t.string,
-		required: true,
-		widget: {
-			id: w.dict,
-			category: 'from_media'
-		},
+	secret: {
+		title: '密保',
+		widget: w.input,
+		type: t.string
 	},
-	intent: {
-		title: '意向等级',
-		type: t.string,
-		widget: w.rate
-	},
-	region: {
-		title: '所属校区',
-		type: t.string,
-		widget: {
-			id: w.dict,
-			category: 'region'
-		},
-	},
-	status: {
-		title: '状态',
-		widget: {
-			id: w.dict,
-			category: 'customer_status'
-		}
-	},
-	inviter: {
-		title: '邀请人',
-		widget: {
-			id: w.search,
-			domain: 'member'
-		}
-	},
-	primary_adviser: {
-		title: '主负责人',
-		widget: {
-			id: w.search,
-			domain: 'employee'
-		}
-	},
-	secondary_advisers: {
-		title: '副负责人',
-		type: t.array,
-		items: {
-			// title: '字段',
-			type: t.string,
-		},
-		widget: {
-			id: w.search,
-			domain: 'employee',
-			multiple: 'multiple'
-		}
-	},
-	appointment: {
-		title: '预约',
-		widget: {
-			id: w.datetime
-		}
+	updated: {
+		title: '更新时间',
+		widget: w.input,
+		type: t.string
 	},
 	created: {
 		title: '创建时间',
+		widget: w.input,
+		type: t.string
+	}
+};
+
+export const forms: SchemaForms = {
+	add: {
 		widget: {
-			id: w.datetime,
-			readOnly: true
-		},
-	},
-	trial: {
-		title: '试听状态',
-		type: t.boolean
-	},
-	talk_times: {
-		title: '沟通次数',
-	},
-	last_talk: {
-		title: '最后沟通',
-		widget: w.datetime
-	},
-	comment: {
-		title: '备注',
-		widget: {
-			id: w.textarea,
-			size: 24
+			id: w.entry,
+			title: '新增账号',
 		}
 	},
-	type: {
-		title: '归类',
+	edit: {
 		widget: {
-			id: w.dict,
-			category: 'customer_type'
+			id: w.entry,
+			title: '编辑账号',
+		}
+	},
+	view: {
+		widget: {
+			id: w.entry,
+			title: '账号详情',
 		}
 	}
 };
+

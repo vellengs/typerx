@@ -24,7 +24,6 @@ export interface ILog {
 	createdAt?: Date;
 }
 
-
 export class Database {
 	public db: Mongoose;
 	public account: Model<Document> & INew<any>;
@@ -36,13 +35,13 @@ export class Database {
 	public article: Model<Document> & INew<any>;
 	public role: Model<Document> & INew<any>;
 	public category: Model<Document> & INew<any>;
-
+	public setting: Model<Document> & INew<any>;
+	public permission: Model<Document> & INew<any>;
 
 	public handleError: (err: any, message: string, res?: any, notLog?: boolean) => void;
 	public parseQuery: (req: any, modelName: any) => {};
 	public paginate: (modelName: string, cond: Object, option: Object,
 		callback?: (err: any, res: any) => void) => any;
-
 
 	constructor() {
 		this.db = mongoose;
@@ -55,12 +54,13 @@ export class Database {
 		this.article = this.getModel('Article');
 		this.role = this.getModel('Role');
 		this.category = this.getModel('Category');
+		this.setting = this.getModel('Setting');
+		this.permission = this.getModel('Permission');
 
 		this.paginate = (modelName, cond, option, callback) => {
 			const paginate: any = this.db.model(modelName);
 			return paginate['paginate'](cond, option, callback);
 		};
-
 	}
 
 	getModel = (modelName: string) => {

@@ -8,9 +8,7 @@ exports.schema = {
     name: {
         type: modex_1.SchemaTypes.String
     },
-    value: {
-        type: modex_1.SchemaTypes.String
-    },
+    paths: [{ type: modex_1.SchemaTypes.ObjectId, ref: 'Category' }],
     parent: {
         type: modex_1.SchemaTypes.ObjectId,
         ref: 'Category'

@@ -1,4 +1,4 @@
-import { EntityProperties, WidgetTypes as w, DataTypes as t } from 'modex';
+import { EntityProperties, WidgetTypes as w, DataTypes as t, SchemaForms } from 'modex';
 
 export const schema: EntityProperties = {
 	name: {
@@ -190,6 +190,28 @@ export const schema: EntityProperties = {
 		widget: {
 			id: w.dict,
 			category: 'customer_type'
+		}
+	}
+};
+
+
+export const forms: SchemaForms = {
+	add: {
+		widget: {
+			id: w.entry,
+			title: '新增客户',
+		}
+	},
+	edit: {
+		widget: {
+			id: w.entry,
+			title: '编辑客户',
+		}
+	},
+	view: {
+		widget: {
+			id: w.entry,
+			title: '客户详情',
 		}
 	}
 };

@@ -194,4 +194,24 @@ exports.schema = {
         }
     }
 };
+exports.forms = {
+    add: {
+        widget: {
+            id: modex_1.WidgetTypes.entry,
+            title: '新增客户',
+        }
+    },
+    edit: {
+        widget: {
+            id: modex_1.WidgetTypes.entry,
+            title: '编辑客户',
+        }
+    },
+    view: {
+        widget: {
+            id: modex_1.WidgetTypes.entry,
+            title: '客户详情',
+        }
+    }
+};
 //# sourceMappingURL=customer.properties.js.map

@@ -1,17 +1,18 @@
 import { PaginateResponse } from 'modex';
-import { Account } from '../schemas';
+import { Menu } from '../schemas';
 import { Helper } from '../utils/helper';
 
-export class AccountService {
+export class MenuService {
 
-	async getPaged(
+
+	static async getPagedData(
 		keyword?: string,
 		status?: number,
 		page?: number,
 		size?: number,
-		sort?: string): Promise<PaginateResponse<Account[]>> {
-
+		sort?: string): Promise<PaginateResponse<Menu[]>> {
 		const query: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
-		return Helper.getPagedData<Account>('Account', page, size, [], sort, query);
+		
+		return Helper.getPagedData<Menu>('Menu', page, size, [], sort, query);
 	}
 }

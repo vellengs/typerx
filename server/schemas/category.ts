@@ -1,10 +1,11 @@
 import { create, SchemaDefinition, SchemaTypes as t } from 'modex';
 
 export interface Category {
+	_id?: string;
 	id: string;
 	name: string;
-	value: string;
-	parent: string;
+	paths?: string[];
+	parent?: string;
 }
 
 export let schema: SchemaDefinition = {
@@ -14,9 +15,7 @@ export let schema: SchemaDefinition = {
 	name: {
 		type: t.String
 	},
-	value: {
-		type: t.String
-	},
+	paths: [{ type: t.ObjectId, ref: 'Category' }],
 	parent: {
 		type: t.ObjectId,
 		ref: 'Category'

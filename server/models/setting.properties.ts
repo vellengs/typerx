@@ -2,18 +2,16 @@ import { EntityProperties, WidgetTypes as w, DataTypes as t, SchemaForms } from 
 
 export const schema: EntityProperties = {
 	name: {
-		title: '名称',
+		title: '项名称',
 		type: t.string,
-		maxlength: 30,
-		placeholder: '请输入菜单名称'
 	},
-	parent: {
-		title: '父级菜单',
+	key: {
+		title: '设置键',
+		type: t.string
+	},
+	value: {
+		title: '设置值',
 		type: t.string,
-		widget: {
-			id: w.search,
-			domain: 'menu'
-		}
 	},
 	description: {
 		title: '描述',
@@ -29,19 +27,19 @@ export const forms: SchemaForms = {
 	add: {
 		widget: {
 			id: w.entry,
-			title: '新增菜单',
+			title: '新增设置项',
 		}
 	},
 	edit: {
 		widget: {
 			id: w.entry,
-			title: '编辑菜单',
+			title: '编辑设置',
 		}
 	},
 	view: {
 		widget: {
 			id: w.entry,
-			title: '菜单详情',
+			title: '设置详情',
 		}
 	}
 };

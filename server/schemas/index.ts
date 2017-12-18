@@ -7,6 +7,8 @@ export { Employee } from './employee';
 export { Customer } from './customer';
 export { Article } from './article';
 export { Role } from './role';
+export { Setting } from './setting';
+export { Permission } from './permission';
 
 import './account';
 import './category';
@@ -17,4 +19,7 @@ import './employee';
 import './customer';
 import './article';
 import './role';
+import './setting';
+import './permission';
+
 
