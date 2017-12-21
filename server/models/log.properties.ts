@@ -1,41 +1,45 @@
 import { EntityProperties, WidgetTypes as w, DataTypes as t, SchemaForms } from 'modex';
 
 export const schema: EntityProperties = {
-	category: {
-		title: '字典分类',
+	created: {
+		title: '项名称',
 		type: t.string,
-		widget: {
-			id: w.dict,
-			category: 'category'
-		}
-	},
+	}, 
 	name: {
-		title: '字典键',
+		title: '项名称',
 		type: t.string,
-	},
-	translate: {
-		title: '名称',
+	}, 
+	operation: {
+		title: '项名称',
 		type: t.string,
-	}
+	}, 
+	description: {
+		title: '项名称',
+		type: t.string,
+	}, 
+	operatorIp: {
+		title: '项名称',
+		type: t.string,
+	}, 
 };
 
 export const forms: SchemaForms = {
 	add: {
 		widget: {
 			id: w.entry,
-			title: '新增字典',
+			title: '新增日志',
 		}
 	},
 	edit: {
 		widget: {
 			id: w.entry,
-			title: '编辑字典',
+			title: '编辑日志',
 		}
 	},
 	view: {
 		widget: {
 			id: w.entry,
-			title: '字典详情',
+			title: '日志详情',
 		}
 	}
 };

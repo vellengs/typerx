@@ -43,10 +43,10 @@ export class ArticleController {
         const docs = await Db.article.find(query).limit(25).exec();
         if (docs) {
             return docs.map((res: any) => {
-                return res.toClient() as Article;
+                return res.flat() as Article;
             });
         } else {
-            return null;
+            return [];
         }
     }
 

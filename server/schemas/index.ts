@@ -9,6 +9,7 @@ export { Article } from './article';
 export { Role } from './role';
 export { Setting } from './setting';
 export { Permission } from './permission';
+export { Log } from './log';
 
 import './account';
 import './category';
@@ -21,5 +22,5 @@ import './article';
 import './role';
 import './setting';
 import './permission';
-
+import './log';
 

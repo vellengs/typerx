@@ -1,3 +1,4 @@
+import { RoleController } from './role.controller';
 import { SettingController } from './setting.controller';
 import { DomainController } from './domain.controller';
 import { ArticleController } from './article.controller';
@@ -8,5 +9,6 @@ import { CategoryController } from './category.controller';
 import { CustomerController } from './customer.controller';
 import { PermissionController } from './permission.controller';
 import { MenuController } from './menu.controller';
-declare const _default: (typeof SettingController | typeof DomainController | typeof ArticleController | typeof AccountController | typeof DictController | typeof EmployeeController | typeof CategoryController | typeof CustomerController | typeof PermissionController | typeof MenuController)[];
+import { LogController } from './log.controller';
+declare const _default: (typeof RoleController | typeof SettingController | typeof DomainController | typeof ArticleController | typeof AccountController | typeof DictController | typeof EmployeeController | typeof CategoryController | typeof CustomerController | typeof PermissionController | typeof MenuController | typeof LogController)[];
 export default _default;

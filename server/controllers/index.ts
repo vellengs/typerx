@@ -1,3 +1,4 @@
+import { RoleController } from './role.controller';
 import { SettingController } from './setting.controller';
 import { DomainController } from './domain.controller';
 import { ArticleController } from './article.controller';
@@ -8,6 +9,7 @@ import { CategoryController } from './category.controller';
 import { CustomerController } from './customer.controller';
 import { PermissionController } from './permission.controller';
 import { MenuController } from './menu.controller';
+import { LogController } from './log.controller';
 
 export default [
 	AccountController,
@@ -19,5 +21,7 @@ export default [
 	CustomerController,
 	SettingController,
 	PermissionController,
-	MenuController
+	MenuController,
+	RoleController,
+	LogController,
 ];

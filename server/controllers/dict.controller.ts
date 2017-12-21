@@ -33,10 +33,10 @@ export class DictController {
         const docs = await Db.dict.find({ category: category }).exec();
         if (docs) {
             return docs.map((res: any) => {
-                return res.toClient() as Dict;
+                return res.flat() as Dict;
             });
         } else {
-            return null;
+            return [];
         }
     }
 

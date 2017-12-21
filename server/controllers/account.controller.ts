@@ -38,7 +38,7 @@ export class AccountController {
         const docs = await Db.account.find(query).limit(25).exec();
         if (docs) {
             return docs.map((res: any) => {
-                return res.toClient() as Account;
+                return res.flat() as Account;
             });
         } else {
             return null;
@@ -59,10 +59,10 @@ export class AccountController {
         const docs = await Db.account.find({ category: category }).exec();
         if (docs) {
             return docs.map((res: any) => {
-                return res.toClient() as Account;
+                return res.flat() as Account;
             });
         } else {
-            return null;
+            return [];
         }
     }
 

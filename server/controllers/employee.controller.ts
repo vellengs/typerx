@@ -36,10 +36,10 @@ export class EmployeeController {
         const docs = await Db.employee.find(query).limit(25).exec();
         if (docs) {
             return docs.map((res: any) => {
-                return res.toClient() as Employee;
+                return res.flat() as Employee;
             });
         } else {
-            return null;
+            return [];
         }
     }
 

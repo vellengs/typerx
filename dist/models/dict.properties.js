@@ -19,4 +19,24 @@ exports.schema = {
         type: modex_1.DataTypes.string,
     }
 };
+exports.forms = {
+    add: {
+        widget: {
+            id: modex_1.WidgetTypes.entry,
+            title: '新增字典',
+        }
+    },
+    edit: {
+        widget: {
+            id: modex_1.WidgetTypes.entry,
+            title: '编辑字典',
+        }
+    },
+    view: {
+        widget: {
+            id: modex_1.WidgetTypes.entry,
+            title: '字典详情',
+        }
+    }
+};
 //# sourceMappingURL=dict.properties.js.map

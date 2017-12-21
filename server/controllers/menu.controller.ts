@@ -62,7 +62,7 @@ export class MenuController {
                 return res.flat() as Menu;
             });
         } else {
-            return null;
+            return [];
         }
     }
 

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const role_controller_1 = require("./role.controller");
 const setting_controller_1 = require("./setting.controller");
 const domain_controller_1 = require("./domain.controller");
 const article_controller_1 = require("./article.controller");
@@ -10,6 +11,7 @@ const category_controller_1 = require("./category.controller");
 const customer_controller_1 = require("./customer.controller");
 const permission_controller_1 = require("./permission.controller");
 const menu_controller_1 = require("./menu.controller");
+const log_controller_1 = require("./log.controller");
 exports.default = [
     account_controller_1.AccountController,
     dict_controller_1.DictController,
@@ -20,6 +22,8 @@ exports.default = [
     customer_controller_1.CustomerController,
     setting_controller_1.SettingController,
     permission_controller_1.PermissionController,
-    menu_controller_1.MenuController
+    menu_controller_1.MenuController,
+    role_controller_1.RoleController,
+    log_controller_1.LogController,
 ];
 //# sourceMappingURL=index.js.map

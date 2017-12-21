@@ -14,7 +14,7 @@ export const schema: EntityProperties = {
 	},
 	password: {
 		title: '密码',
-		widget: w.input,
+		widget: 'password',
 		type: t.string
 	},
 	alias: {
@@ -29,8 +29,12 @@ export const schema: EntityProperties = {
 	},
 	role: {
 		title: '角色',
-		widget: w.input,
-		type: t.string
+		widget: {
+			id: w.search,
+			domain: 'role'
+		},
+		type: t.string,
+		required: true,
 	},
 	mail: {
 		title: '邮箱',
@@ -38,7 +42,7 @@ export const schema: EntityProperties = {
 		type: t.string
 	},
 	mobile: {
-		title: '邮箱',
+		title: '手机',
 		widget: w.input,
 		type: t.string
 	},
@@ -49,18 +53,18 @@ export const schema: EntityProperties = {
 	},
 	isDisable: {
 		title: '是否禁用',
-		widget: w.input,
-		type: t.string
+		widget: w.boolean,
+		type: t.boolean
 	},
 	isAdmin: {
 		title: '是否管理员',
-		widget: w.input,
-		type: t.string
+		widget: w.boolean,
+		type: t.boolean
 	},
 	isApproved: {
 		title: '是否审核',
-		widget: w.input,
-		type: t.string
+		widget: w.boolean,
+		type: t.boolean
 	},
 	secret: {
 		title: '密保',
@@ -69,12 +73,12 @@ export const schema: EntityProperties = {
 	},
 	updated: {
 		title: '更新时间',
-		widget: w.input,
+		widget: w.datetime,
 		type: t.string
 	},
 	created: {
 		title: '创建时间',
-		widget: w.input,
+		widget: w.datetime,
 		type: t.string
 	}
 };
@@ -84,6 +88,14 @@ export const forms: SchemaForms = {
 		widget: {
 			id: w.entry,
 			title: '新增账号',
+			fields: [
+				'username',
+				'password',
+				'role',
+				'mail',
+				'mobile',
+				'group'
+			]
 		}
 	},
 	edit: {

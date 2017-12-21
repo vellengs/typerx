@@ -37,6 +37,7 @@ export class Database {
 	public category: Model<Document> & INew<any>;
 	public setting: Model<Document> & INew<any>;
 	public permission: Model<Document> & INew<any>;
+	public log: Model<Document> & INew<any>;
 
 	public handleError: (err: any, message: string, res?: any, notLog?: boolean) => void;
 	public parseQuery: (req: any, modelName: any) => {};
@@ -56,6 +57,7 @@ export class Database {
 		this.category = this.getModel('Category');
 		this.setting = this.getModel('Setting');
 		this.permission = this.getModel('Permission');
+		this.log = this.getModel('Log');
 
 		this.paginate = (modelName, cond, option, callback) => {
 			const paginate: any = this.db.model(modelName);

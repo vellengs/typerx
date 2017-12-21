@@ -36,10 +36,10 @@ export class DomainController {
         const docs = await Db.domain.find({ category: category }).exec();
         if (docs) {
             return docs.map((res: any) => {
-                return res.toClient() as Domain;
+                return res.flat() as Domain;
             });
         } else {
-            return null;
+            return [];
         }
     }
 

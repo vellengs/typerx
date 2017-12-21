@@ -92,11 +92,11 @@ export class SettingController {
         @QueryParam('page') page?: number,
         @QueryParam('size') size?: number,
         @QueryParam('sort') sort?: string): Promise<PaginateResponse<Setting[]>> {
-        return Helper.getPagedData<Setting>('Menu', page, size, [], sort, {
-            name: new RegExp(keyword, 'i'),
-            status: status,
-            created: { 'created': { '$lt': new Date('2017'), '$gt': new Date('2018') } },
-        });
+        return Helper.getPagedData<Setting>('Setting', page, size,
+            [],
+            sort,
+            {}
+        );
     }
 
 

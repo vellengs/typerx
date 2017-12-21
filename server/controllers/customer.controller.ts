@@ -42,7 +42,7 @@ export class CustomerController {
         const docs = await Db.customer.find(query).limit(25).exec();
         if (docs) {
             return docs.map((res: any) => {
-                return res.toClient() as Customer;
+                return res.flat() as Customer;
             });
         } else {
             return null;

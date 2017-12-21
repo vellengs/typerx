@@ -11,4 +11,5 @@ require("./article");
 require("./role");
 require("./setting");
 require("./permission");
+require("./log");
 //# sourceMappingURL=index.js.map
