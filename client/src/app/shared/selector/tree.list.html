@@ -1,0 +1,45 @@
+<div nz-row [nzGutter]="16">
+    <div nz-col [nzMd]="8">
+        <nz-card>
+            <ng-template #body>
+
+                <nz-select selectionMode="single" [(ngModel)]="model" style="width:100%" [nzNotFoundContent]="'无法找到'" [nzShowSearch]="true"
+                    [nzPlaceHolder]="'请输入关键词'" nzAllowClear [nzMode]="false" (nzSearchChange)="searchChange($event)" class="form-control">
+                    <nz-option *ngFor="let option of entries" [nzValue]="option" [nzLabel]="option.name"></nz-option>
+                </nz-select>
+
+                <nz-tree #tree [nzNodes]="nodes" [nzOptions]="options" [nzShowLine]="true" (nzEvent)="onEvent($event)">
+                </nz-tree>
+
+            </ng-template>
+        </nz-card>
+    </div>
+
+    <div nz-col [nzMd]="16">
+        <nz-card>
+            <ng-template #body>
+
+                <p-dataTable selectionMode="single" (onPageSizeChanged)="onPageSizeChanged($event)" (onPageIndexChanged)="onPageIndexChanged($event)"
+                    [pageIndex]="pageIndex" [paginator]="true" [total]="total" [(rows)]="pageSize" [value]="entries" [(selection)]="model">
+
+                    <p-column *ngFor="let col of columns" [field]="col.field" [header]="col.header">
+                        <ng-template *ngIf="col.format" let-entry="rowData" pTemplate="body">
+                            {{pipe(entry[col.field],col.format)}}
+                        </ng-template>
+                    </p-column>
+                </p-dataTable>
+
+            </ng-template>
+        </nz-card>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <div *ngIf="model" class="pull-left">
+        已选择：{{model.name}}
+    </div>
+
+    <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="save($event)">
+        确定
+    </button>
+</div>

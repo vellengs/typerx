@@ -1,0 +1,26 @@
+<div class="steps-header">
+    <nz-steps [(nzCurrent)]="current">
+        <nz-step *ngFor="let step of steps" [nzTitle]="step"></nz-step>
+    </nz-steps>
+</div>
+
+<div class="steps-content">
+    <div nz-row [nzGutter]="16">
+        <nz-form-element nz-form-item nz-col [required]="formProperty.schema.required.indexOf(fieldId)>-1" [nzMd]="getSize(fieldId)"
+            *ngFor="let fieldId of fields" [formProperty]="formProperty.getProperty(fieldId)"></nz-form-element>
+    </div>
+</div>
+
+<div class="steps-footer">
+    <!-- {{ formProperty.getProperty('__steps')}} -->
+    <button nz-button [nzType]="'default'" (click)="pre()" *ngIf="current > 0">
+        <span>上一步</span>
+    </button>
+    <button nz-button [nzType]="'primary'" (click)="next()" *ngIf="current < steps.length-1 && current !== steps.length-1">
+        <span>下一步</span>
+    </button>
+    <button nz-button [nzType]="'primary'" (click)="done()" *ngIf="current === steps.length-1">
+        <span>提交</span>
+    </button>
+    <!-- <span nz-form-element nz-form-item [formProperty]="formProperty.getProperty('__steps')"></span> -->
+</div>

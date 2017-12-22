@@ -1,0 +1,73 @@
+import { TabsWidget } from './tabs/tabs.widget';
+import { RadioWidget } from './radio/radio.widget';
+import { ToggleWidget } from './toggle/toggle.widget';
+import { DomainWidget } from './domain/domain.widget';
+import { DateRangeWidget } from './date-range/date.range.widget';
+import { TextAreaWidget } from './textarea/textarea.widget';
+import { PickerWidget } from './picker/picker.widget';
+import { TableWidget } from './table/table.widget';
+import { DictWidget } from './dict/dict.widget';
+import { DatetimeWidget } from './datetime/datetime.widget';
+import { IntegerWidget } from './integer/integer.widget';
+import { BooleanWidget } from './boolean/boolean.widget';
+import { ArrayWidget } from './array/array.widget';
+import { FileWidget } from './file/file.widget';
+import { CheckboxWidget } from './checkbox/checkbox.widget';
+import { QueryWidget } from './query/query.widget';
+import { EntryWidget } from './entry/entry.widget';
+import { DateWidget } from './date/date.widget';
+import { RateWidget } from './rate/rate.widget';
+import { SelectWidget } from './select/select.widget';
+import { SearchWidget } from './search/search.widget';
+import { InputWidget } from './input/input.widget';
+import { ListWidget } from './list/list.widget';
+import { DefaultWidgetRegistry } from 'angular2-schema-form';
+import { StringWidget } from './string/string.widget';
+import { ButtonWidget } from './button/button.widget';
+import { TreeWidget } from './tree/tree.widget';
+import { SelectSearch } from './select-search/select.search';
+import { ColumnSettingsWidget } from './column-settings/column.settings.widget';
+
+import { StepsWidget } from './steps/steps.widget';
+import { GridWidget } from 'schema-forms/grid/grid.widget';
+import { TimeWidget } from 'schema-forms/time/time.widget';
+
+export class CustomWidgetRegistry extends DefaultWidgetRegistry {
+    constructor() {
+        super();
+        this.register('string', StringWidget);
+        this.register('button', ButtonWidget);
+        this.register('list', ListWidget);
+        this.register('input', InputWidget);
+        this.register('password', StringWidget);
+        this.register('search', SearchWidget);
+        this.register('select', SelectWidget);
+        this.register('rate', RateWidget);
+        this.register('date', DateWidget);
+        this.register('datetime', DatetimeWidget);
+        this.register('query', QueryWidget);
+        this.register('entry', EntryWidget);
+        this.register('file', FileWidget);
+        this.register('array', ArrayWidget);
+        this.register('boolean', BooleanWidget);
+        this.register('checkbox', CheckboxWidget);
+        this.register('integer', IntegerWidget);
+        this.register('number', IntegerWidget);
+        this.register('dict', DictWidget);
+        this.register('table', TableWidget);
+        this.register('picker', PickerWidget);
+        this.register('textarea', TextAreaWidget);
+        this.register('radio', RadioWidget);
+        this.register('tree', TreeWidget);
+        this.register('selectSearch', SelectSearch);
+        this.register('columnSettings', ColumnSettingsWidget);
+        this.register('dateRange', DateRangeWidget);
+        this.register('domain', DomainWidget);
+        this.register('toggle', ToggleWidget);
+        this.register('steps', StepsWidget);
+        this.register('grid', GridWidget);
+        this.register('tabs', TabsWidget);
+        this.register('time', TimeWidget);
+        this.setDefaultWidget('string');
+    }
+}

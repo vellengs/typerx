@@ -1,0 +1,23 @@
+<div class="widget" nz-form-control>
+    <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="7">
+            <label [ngClass]="{'ant-form-item-required':required}" [attr.for]="id" class="horizontal control-label">
+                {{ schema.title }}
+            </label>
+
+            <span *ngIf="schema.description" class="formHelp">
+                {{schema.description}}
+            </span>
+        </div>
+        <div nz-form-control nz-col [nzSpan]="16">
+            <nz-select *ngIf="schema.type!='array'" [formControl]="control" [attr.name]="name" [attr.disabled]="schema.readOnly" class="form-control">
+                <nz-option *ngFor="let option of schema.oneOf" [nzValue]="option.enum[0]" [nzLabel]="option.description"></nz-option>
+            </nz-select>
+
+            <nz-select *ngIf="schema.type==='array'" nzMode="multiple" [formControl]="control" [attr.name]="name" [attr.disabled]="schema.readOnly"
+                class="form-control">
+                <nz-option *ngFor="let option of schema.items.oneOf" [nzValue]="option.enum[0]" [nzLabel]="option.description"></nz-option>
+            </nz-select>
+        </div>
+    </div>
+</div>

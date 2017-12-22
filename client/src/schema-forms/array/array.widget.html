@@ -1,0 +1,17 @@
+<div class="widget" nz-form-control>
+    <div nz-form-label>
+        <label [attr.for]="id" class="horizontal control-label">
+            {{ schema.title }}
+        </label>
+        <span *ngIf="schema.description" class="formHelp">{{schema.description}}</span>
+    </div>
+    <div nz-row *ngFor="let itemProperty of formProperty.properties; let i=index; trackBy:trackByIndex">
+        <div nz-form-control nz-col [nzMd]="20">
+            <nz-form-element [formProperty]="itemProperty"></nz-form-element>
+        </div>
+        <div nz-form-control nz-col [nzMd]="4">
+            <button nz-button (click)="removeItem(i)">删除</button>
+        </div>
+    </div>
+    <button nz-button (click)="addItem()">添加</button>
+</div>

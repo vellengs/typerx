@@ -1,0 +1,14 @@
+<div class="widget" nz-form-control>
+    <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="7">
+            <label [ngClass]="{'ant-form-item-required':required}" [attr.for]="id" class="horizontal control-label">
+                {{ schema.title }}
+            </label>
+            <span *ngIf="schema.description" class="formHelp">{{schema.description}}</span>
+        </div>
+        <div nz-form-control nz-col [nzSpan]="16">
+            <nz-rate (onChange)="onChange($event)" class="height" [formControl]="control"></nz-rate>
+            <!-- <i *ngIf="control.value" (click)="clear()" class="anticon anticon-close-circle-o"></i> -->
+        </div>
+    </div>
+</div>

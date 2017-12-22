@@ -1,0 +1,25 @@
+<div class="ant-advanced-search-form">
+    <div nz-row [nzGutter]="16" *ngFor="let fieldset of formProperty.schema.fieldsets">
+
+        <ng-container *ngFor="let fieldId of fieldset.fields;">
+
+
+            <nz-form-element *ngIf="fieldId!=='__advance' && formProperty.getProperty(fieldId).visible" nz-form-item nz-col [nzMd]="8" [formProperty]="formProperty.getProperty(fieldId)"></nz-form-element>
+        </ng-container>
+
+        <div nz-form-item nz-col [nzMd]="8">
+            &nbsp;
+        </div>
+
+        <div nz-form-item nz-col [nzMd]="8" style="position:absolute;right:0;bottom:0;text-align:right">
+            <button (click)="search($event)" nz-button [nzType]="'primary'" [nzLoading]="loading">
+                <i class="anticon anticon-search"></i>
+                搜索</button>
+            <button type="button" nz-button (click)="clear()" [disabled]="loading">重置</button>
+
+            <span nz-form-element nz-form-item [formProperty]="formProperty.getProperty('__advance')"></span>
+
+        </div>
+
+    </div>
+</div>

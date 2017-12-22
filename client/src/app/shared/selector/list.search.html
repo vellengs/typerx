@@ -1,0 +1,22 @@
+<div nz-row [nzGutter]="16">
+
+    <p-dataTable selectionMode="single" (onPageSizeChanged)="onPageSizeChanged($event)" (onPageIndexChanged)="onPageIndexChanged($event)"
+        [pageIndex]="pageIndex" [paginator]="true" [total]="total" [(rows)]="pageSize" [value]="entries" [(selection)]="model">
+
+        <p-column *ngFor="let col of columns" [field]="col.field" [header]="col.header">
+            <ng-template *ngIf="col.format" let-entry="rowData" pTemplate="body">
+                {{pipe(entry[col.field],col.format)}}
+            </ng-template>
+        </p-column>
+    </p-dataTable>
+</div>
+
+<div class="modal-footer">
+    <div *ngIf="model" class="pull-left">
+        已选择：{{model.name}}
+    </div>
+
+    <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="save($event)">
+        确定
+    </button>
+</div>

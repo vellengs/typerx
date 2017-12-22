@@ -1,0 +1,11 @@
+<div class="widget col-settings" nz-form-control>
+
+    <ul nz-menu>
+        <li nz-menu-item *ngFor="let col of cols">
+            <label (ngModelChange)="changeValue($event,col)" nz-checkbox [(ngModel)]="col.visible">
+                <span>{{col.header}}</span>
+            </label>
+        </li>
+    </ul>
+
+</div>

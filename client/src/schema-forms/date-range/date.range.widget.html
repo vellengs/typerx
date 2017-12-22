@@ -1,0 +1,20 @@
+<div class="widget col-settings" nz-form-control>
+    <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="7">
+            <label [ngClass]="{'ant-form-item-required':required}" [attr.for]="id" class="horizontal control-label">
+                {{ schema.title }}
+            </label>
+            <span *ngIf="schema.description" class="formHelp">{{schema.description}}</span>
+        </div>
+        <div nz-form-control nz-col [nzSpan]="16">
+
+            <nz-datepicker style="width: 49%;" (ngModelChange)="_startDate=$event;_startValueChange()" [ngModel]="_startDate" [nzDisabledDate]="_disabledStartDate"
+                [nzShowTime]="false" [nzFormat]="'YYYY-MM-DD'" [nzPlaceHolder]="'开始日期'"></nz-datepicker>
+            <nz-datepicker style="width: 49%;" (ngModelChange)="_endDate=$event;_endValueChange()" [ngModel]="_endDate" [nzDisabledDate]="_disabledEndDate"
+                [nzShowTime]="false" [nzFormat]="'YYYY-MM-DD'" [nzPlaceHolder]="'结束日期'"></nz-datepicker>
+
+
+            <!-- <nz-datepicker [nzDisabled]="schema.readOnly" [formControl]="control" [nzPlaceHolder]="'选择日期'"></nz-datepicker> -->
+        </div>
+    </div>
+</div>

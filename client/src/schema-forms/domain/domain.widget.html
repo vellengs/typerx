@@ -1,0 +1,35 @@
+<div class="widget table-widget" nz-form-control>
+    <nz-table [nzBordered]="true" nzCustomNoResult="false" class="no-caption">
+        <thead nz-thead>
+            <tr>
+                <th style="min-width:100px" nz-th *ngFor="let col of columns">
+                    <span> {{col.name}}</span>
+                </th>
+                <th nz-th style="min-width:100px">
+                    控件参数
+                </th>
+                <th nz-th>
+                    <i (click)="addItem()" class="anticon anticon-plus"></i>
+                </th>
+            </tr>
+        </thead>
+        <tbody nz-tbody>
+            <tr nz-tbody-tr *ngFor="let itemProperty of formProperty.properties; let i=index; trackBy:trackByIndex">
+                <td nz-td *ngFor="let fieldId of itemProperty.propertiesId">
+                    <!-- <nz-dynamic-widget [formProperty]="itemProperty.getProperty(fieldId)">
+                    </nz-dynamic-widget> -->
+                    <nz-form-element [formProperty]="itemProperty.getProperty(fieldId)"></nz-form-element>
+                </td>
+                <td>
+
+                    <i (click)="config(i)" class="anticon anticon-setting"></i>
+                    <!-- <app-picker-widget [formProperty]="itemProperty.getProperty('widget')"></app-picker-widget> -->
+                </td>
+                <td nz-td>
+                    <i (click)="removeItem(i)" class="anticon anticon-delete"></i>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+
+</div>

@@ -1,0 +1,11 @@
+<nz-schema-form [schema]="schema" [(model)]="model" (onChange)="value=$event.value">
+</nz-schema-form>
+
+<div *ngIf="showFooter" class="modal-footer">
+    <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="save($event)">
+        保 存
+    </button>
+    <button nz-button [nzType]="'default'" [nzSize]="'large'" (click)="cancel($event)">
+        返 回
+    </button>
+</div>

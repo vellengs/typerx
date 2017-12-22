@@ -1,0 +1,83 @@
+{
+    "app": {
+        "name": "typerx",
+        "description": "Ng-zorro admin panel front-end framework"
+    },
+    "user": {
+        "name": "Admin",
+        "avatar": "./assets/img/zorro.svg",
+        "email": "vellengs@qq.com"
+    },
+    "menu": [{
+        "text": "主导航",
+        "group": true,
+        "children": [{
+                "text": "首页",
+                "link": "/dashboard",
+                "icon": "icon-home"
+            },
+            {
+                "text": "文章管理",
+                "group": true,
+                "icon": "icon-screen-desktop",
+                "children": [{
+                        "text": "文章列表",
+                        "link": "/article/articles",
+                        "icon": "icon-people"
+                    },
+                    {
+                        "text": "文章分类",
+                        "link": "/article/categories",
+                        "icon": "icon-people"
+                    }
+                ]
+            },
+            {
+                "text": "系统管理",
+                "icon": "icon-settings",
+                "group": true,
+                "children": [
+                    {
+                        "text": "系统设置",
+                        "link": "/system/settings",
+                        "icon": "icon-settings"
+                    },
+                    {
+                        "text": "角色管理",
+                        "link": "/system/roles",
+                        "icon": "icon-settings"
+                    },
+                    {
+                        "text": "账号管理",
+                        "link": "/system/accounts",
+                        "icon": "icon-settings"
+                    },
+                    {
+                        "text": "权限管理",
+                        "link": "/system/permission",
+                        "icon": "icon-list"
+                    },
+                    {
+                        "text": "菜单管理",
+                        "link": "/system/menus",
+                        "icon": "icon-notebook"
+                    },
+                    {
+                        "text": "字典表管理",
+                        "link": "/system/dicts",
+                        "icon": "icon-notebook"
+                    },
+                    {
+                        "text": "日志查询",
+                        "link": "/system/logs",
+                        "icon": "icon-list"
+                    },
+                    {
+                        "text": "domain",
+                        "link": "/system/domain"
+                    }
+                ]
+            }
+        ]
+    }]
+}

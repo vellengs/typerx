@@ -1,0 +1,7 @@
+<div>
+    <div nz-row [nzGutter]="16">
+        <nz-form-element nz-form-item nz-col [nzMd]="getSize(fieldId)"
+            *ngFor="let fieldId of fields"
+         [formProperty]="formProperty.getProperty(fieldId)"></nz-form-element>
+    </div>
+</div>
