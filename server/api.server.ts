@@ -23,9 +23,7 @@ export class ApiServer {
         this.app = express();
         this.config();
 
-        mongoose.connect(config.db, {
-            useMongoClient: true,
-        });
+        mongoose.connect(config.db);
         const db = mongoose.connection;
         autoIncrement.initialize(db);
 
