@@ -86,7 +86,7 @@ export class Helper {
 				option.populate = populates;
 			}
 
-			model.findOne({ _id: id }, null, option).exec((err, res: any) => {
+			model.findOne({ _id: id }, null, option).exec((err: any, res: any) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -103,7 +103,7 @@ export class Helper {
 			return this.removeItems(modelName, ids);
 		} else {
 			return new Promise((resolve, reject) => {
-				model.findOneAndRemove({ _id: id }).exec((err, res) => {
+				model.findOneAndRemove({ _id: id }).exec((err: any, res: any) => {
 					if (err) {
 						reject(err);
 					} else {
@@ -117,7 +117,7 @@ export class Helper {
 	static async removeItems(modelName: string, ids: string[]): Promise<any> {
 		const model = getModel(modelName);
 		return new Promise((resolve, reject) => {
-			model.remove({ _id: { $in: ids } }).exec((err, res) => {
+			model.remove({ _id: { $in: ids } }).exec((err: any, res: any) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -172,12 +172,12 @@ export class Helper {
 	static async upsert(modelName: string, entry: any): Promise<any> {
 		const model = getModel(modelName);
 
- 		model.findById(entry.uid).exec((err, doc) => {
+		model.findById(entry.uid).exec((err: any, doc: any) => {
 			if (doc) {
 				return doc.update(entry).exec();
 			} else {
 				return (new model(entry)).save();
 			}
-		}); 
+		});
 	}
 }
