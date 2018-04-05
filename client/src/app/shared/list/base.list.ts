@@ -2,13 +2,14 @@ import { async } from '@angular/core/testing';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { NzMessageService, NzModalService, NzModalSubject } from 'ng-zorro-antd';
 import { Component, OnInit, Input } from '@angular/core';
-import { AjaxProxy } from '@core/proxy/ajax/ajax';
 import { DetailComponent } from '@shared/detail/detail.component';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { DatePipe, CurrencyPipe } from '@angular/common';
 import { LocalStorageService } from 'angular-web-storage/core/service';
 import * as moment from 'moment';
 import { ModalHelper } from '@delon/theme';
+import { TypeRXHttpClient } from 'app/proxy/ajax/http';
+import { AjaxProxy } from 'app/proxy/ajax/ajax';
 
 export interface CachedDict {
     [k: string]: string;
@@ -27,13 +28,10 @@ export class Dict {
 export class BaseListComponent implements OnInit {
 
     @Input() domain = '';
-
     @Input() title = '';
-
     baseZindex = 100;
 
     set storageKey(value) {
-
     }
 
     get storageKey() {
@@ -48,21 +46,6 @@ export class BaseListComponent implements OnInit {
     currentDate = new Date();
     schemaConfig: any = {};
     formsConfig: any = {};
-
-    validators = {
-        '/name': (value, property, form) => {
-            // console.log('name:', value);
-            let errors = null;
-            errors = [{
-                name: {
-                    expectedValue: 'abcdefg',
-                    actualValue: value
-                }
-            }];
-
-            return errors;
-        }
-    };
 
     querySchema;
     entrySchema;
@@ -97,7 +80,8 @@ export class BaseListComponent implements OnInit {
     constructor(
         public modalHelper: ModalHelper,
         public message: NzMessageService,
-        public ajax: AjaxProxy,
+        public ajax: TypeRXHttpClient,
+        public proxy: AjaxProxy,
         public modalService: NzModalService,
         public route: ActivatedRoute,
         public storage: LocalStorageService,
@@ -178,7 +162,7 @@ export class BaseListComponent implements OnInit {
     }
 
     queryDicts(category) {
-        this.ajax.proxy.get('api/dict/category/' + category).subscribe((res: Dict[]) => {
+        this.ajax.get('api/dict/category/' + category).subscribe((res: Dict[]) => {
             if (res) {
                 res.forEach((dict) => {
                     this.cachedDict[dict.category + dict.name] = dict.translate;
@@ -229,8 +213,7 @@ export class BaseListComponent implements OnInit {
     }
 
     preload() {
-
-        this.ajax.getSchemaConfig(this.domain).subscribe((res) => {
+        this.proxy.getSchemaConfig(this.domain).subscribe((res: any) => {
             this.schemaConfig = res || {
                 entry: {},
                 query: {},
@@ -238,12 +221,10 @@ export class BaseListComponent implements OnInit {
                 columns: [],
                 forms: {}
             };
+
             this.formsConfig = res.forms || {};
-
             this.setQuerySchema(this.schemaConfig.query);
-
             const cols = this.storage.get(this.storageKey) || {};
-
             this.columnHeaders = this.schemaConfig.columns.map((col) => {
                 col.hidden = (cols[col.field] || col).hidden === true;
                 return col;
@@ -251,14 +232,12 @@ export class BaseListComponent implements OnInit {
             this.columns = this.schemaConfig.columns.filter((col: any) => {
                 return col.hidden !== true;
             });
-
             this.columns.forEach((col) => {
                 if (col.format && col.format.indexOf('dict') > -1) {
                     const category = col.format.split(':')[1];
                     this.queryDicts(category);
                 }
             });
-
             this.reload(this.pageIndex, this.pageSize);
         });
     }
@@ -280,23 +259,18 @@ export class BaseListComponent implements OnInit {
             }
         );
 
-        this.ajax.proxy.ajax({
-            method: 'GET',
-            url: `${this.domain}/query`,
-            options: {
-                params: params
-            }
-        }).subscribe((res) => {
+        const url = `${this.domain}/query`;
+        this.ajax.get(url, params).subscribe((res) => {
             if (res) {
-                this.entries = res.docs;
-                this.total = res.total;
+                // this.entries = res.docs;
+                // this.total = res.total;
             }
         });
     }
 
     async edit(entry, tabs?: any[]) {
 
-        const modelData = await this.ajax.proxy.get(`api/${this.domain}/` + entry.uid).toPromise();
+        const modelData = await this.ajax.get(`api/${this.domain}/` + entry.uid).toPromise();
         const schema = this.getFormSchema(this.schemaConfig, 'edit');
         const widgetTitle = schema.widget.title;
 
@@ -317,7 +291,7 @@ export class BaseListComponent implements OnInit {
             modalParams)
             .subscribe(res => {
                 const item = Object.assign({ uid: entry.uid }, res.value);
-                this.ajax.proxy.put(`api/${this.domain}`, item).subscribe((result) => {
+                this.ajax.put(`api/${this.domain}`, item).subscribe((result) => {
                     this.message.info('保存成功');
                     res.dialog.destroy();
                     this.load();
@@ -334,7 +308,6 @@ export class BaseListComponent implements OnInit {
     logErrors(error) {
 
     }
-
 
     addEntry(tabs?: any[]) {
 
@@ -356,9 +329,8 @@ export class BaseListComponent implements OnInit {
         this.modalHelper
             .open(DetailComponent, { schema: schema }, 'lg',
             modalParams
-            )
-            .subscribe(res => {
-                this.ajax.proxy.post(`api/${this.domain}`, res.value).subscribe((entry) => {
+            ).subscribe(res => {
+                this.ajax.post(`api/${this.domain}`, res.value).subscribe((entry) => {
                     this.message.info('保存成功');
                     res.dialog.destroy();
                     this.load();
@@ -367,10 +339,12 @@ export class BaseListComponent implements OnInit {
     }
 
     removeItems() {
+
         const ids = this.selectedEntries.map((entry) => {
             return entry.uid;
         });
-        this.ajax.proxy.delete(`api/${this.domain}/` + ids.join(',')).subscribe((entry) => {
+
+        this.ajax.delete(`api/${this.domain}/` + ids.join(',')).subscribe((entry) => {
             if (entry) {
                 this.message.info('删除成功');
                 this.load();

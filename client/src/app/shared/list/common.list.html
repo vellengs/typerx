@@ -5,10 +5,7 @@
 </div>
 <nz-card>
     <ng-template #body>
-
-        <nz-schema-form (onChange)="queryFormChanged($event)" (onErrorChange)="logErrors($event.value)" [schema]="querySchema" [actions]="actions"
-            [validators]="validators"></nz-schema-form>
-
+        <nz-schema-form (onChange)="queryFormChanged($event)" (onErrorChange)="logErrors($event.value)" [schema]="querySchema" [actions]="actions"></nz-schema-form>
     </ng-template>
 </nz-card>
 <div nz-row [nzGutter]="16">
