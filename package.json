@@ -43,6 +43,7 @@
     "@delon/theme": "^1.0.0-beta.6",
     "@nestjs/common": "^5.0.0-beta.3",
     "@nestjs/core": "^5.0.0-beta.3",
+    "@nestjs/swagger": "^1.2.2",
     "@nestjs/testing": "^5.0.0-beta.3",
     "@nestjs/websockets": "^5.0.0-beta.3",
     "@nguniversal/module-map-ngfactory-loader": "^5.0.0",

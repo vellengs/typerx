@@ -3,6 +3,8 @@ import 'zone.js/dist/zone-node';
 import 'reflect-metadata';
 
 import { NestFactory } from '@nestjs/core';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+
 import * as express from 'express';
 import * as dotenv from 'dotenv';
 
@@ -25,6 +27,16 @@ async function bootstrap() {
   }
 
   const server = await NestFactory.create(ApplicationModule, app);
+
+  const options = new DocumentBuilder()
+    .setTitle('Typerx api documents')
+    .setDescription('The API description')
+    .setVersion('1.0')
+    .addTag('typerx')
+    .addBearerAuth()
+    .build();
+  const document = SwaggerModule.createDocument(server, options);
+  SwaggerModule.setup('/api', server, document);
 
   await server.listen(process.env.PORT || 3666);
 }
