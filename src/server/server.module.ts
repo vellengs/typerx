@@ -1,8 +1,12 @@
 import { Module } from '@nestjs/common';
 
+import { ApiModule } from './modules/api/api.module';
+import { StaticModule } from './modules/static/static.module';
+import { EventsGateway } from './events.gateway';
+
 @Module({
-    imports: [],
-    controllers: [],
-    components: []
+  imports: [ApiModule, StaticModule],
+  controllers: [],
+  providers: [EventsGateway]
 })
-export class ApplicationModule { }
+export class ApplicationModule {}

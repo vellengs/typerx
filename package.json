@@ -44,6 +44,7 @@
     "@nestjs/common": "^5.0.0-beta.3",
     "@nestjs/core": "^5.0.0-beta.3",
     "@nestjs/testing": "^5.0.0-beta.3",
+    "@nestjs/websockets": "^5.0.0-beta.3",
     "@nguniversal/module-map-ngfactory-loader": "^5.0.0",
     "@ngx-translate/core": "^9.0.0",
     "@ngx-translate/http-loader": "^2.0.0",
