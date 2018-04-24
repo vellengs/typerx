@@ -1,7 +1,0 @@
-<td *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan"
-    [ngClass]="{'ui-state-default':true, 'ui-helper-hidden': col.hidden}">
-    <span class="ui-column-footer" *ngIf="!col.footerTemplate">{{col.footer}}</span>
-    <span class="ui-column-footer" *ngIf="col.footerTemplate">
-        <p-columnFooterTemplateLoader [column]="col"></p-columnFooterTemplateLoader>
-    </span>
-</td>

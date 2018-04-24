@@ -1,5 +1,0 @@
-<ng-container *ngIf="formProperty && formProperty.visible" [class.has-success]="control.valid">
-    <sf-widget-chooser (widgetInstanciated)="onWidgetInstanciated($event)" [widgetInfo]="formProperty.schema.widget">
-    </sf-widget-chooser>
-    <sf-form-element-action *ngFor="let button of buttons" [button]="button" [formProperty]="formProperty"></sf-form-element-action>
-</ng-container>
