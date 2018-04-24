@@ -20,19 +20,31 @@ import { ParseIntPipe } from '../common/pipes/parse-int.pipe';
 @UseGuards(RolesGuard)
 @UseInterceptors(LoggingInterceptor, TransformInterceptor)
 export class CatsController {
-  constructor(private readonly catsService: CatsService) {}
+  constructor(private readonly catsService: CatsService) { }
 
+
+  /**
+   * 创建目录
+   * @param createCatDto 实体参数
+   */
   @Post()
   @Roles('admin')
-  async create(@Body() createCatDto: CreateCatDto) {
+  async create( @Body() createCatDto: CreateCatDto) {
     this.catsService.create(createCatDto);
   }
 
+  /**
+   * 查询所有目录
+   */
   @Get()
   async findAll(): Promise<Cat[]> {
     return this.catsService.findAll();
   }
 
+  /**
+   * 按编号查询目录
+   * @param id 编号
+   */
   @Get(':id')
   findOne(
     @Param('id', new ParseIntPipe())
