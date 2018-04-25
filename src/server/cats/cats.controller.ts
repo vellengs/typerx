@@ -15,8 +15,9 @@ import { Roles } from '../common/decorators/roles.decorator';
 import { LoggingInterceptor } from '../common/interceptors/logging.interceptor';
 import { TransformInterceptor } from '../common/interceptors/transform.interceptor';
 import { ParseIntPipe } from '../common/pipes/parse-int.pipe';
+import { async } from '@angular/core/testing';
 
-@Controller('cats')
+@Controller('api/cats')
 @UseGuards(RolesGuard)
 @UseInterceptors(LoggingInterceptor, TransformInterceptor)
 export class CatsController {
@@ -41,6 +42,21 @@ export class CatsController {
     return this.catsService.findAll();
   }
 
+
+  @Get('hello')
+  async sayHello() {
+
+    const data = await this.catsService.create({
+      age: 1,
+      name: 'test',
+      breed: '222'
+    });
+
+    return {
+      message: data.name,
+    };
+  }
+
   /**
    * 按编号查询目录
    * @param id 编号
@@ -52,4 +68,6 @@ export class CatsController {
   ) {
     // logic
   }
+
+
 }

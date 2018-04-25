@@ -15,7 +15,7 @@ export class ContactComponent implements OnInit {
 
   ngOnInit() {
 
-    this.responseFromApi$ = this.httpClient.get<any>('/api/hello');
+    this.responseFromApi$ = this.httpClient.get<any>('/api/cats/hello');
   }
 
 }
