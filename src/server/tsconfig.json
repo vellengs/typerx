@@ -11,11 +11,18 @@
 		"noImplicitReturns": true,
 		"noImplicitThis": false,
 		"noUnusedParameters": false,
-		"noUnusedLocals": true,
+		"noUnusedLocals": false,
 		"outDir": "dist",
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strictNullChecks": false,
 		"target": "es2016"
-	}
+	},
+	"include": [
+		"./../shared/**/*.ts",
+		"./**/*.ts"
+	],
+	"exclude": [
+		"node_modules"
+	]
 }
