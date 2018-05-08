@@ -1,11 +1,30 @@
+import { ServiceContext } from 'typescript-rest';
 import { Appearance } from './../../types/appearance';
 import { AccountService } from './account.service';
+import { Account } from './interfaces/account.interface';
 /**
  * 帐号管理.
  */
 export declare class AccountController {
     private readonly service;
-    constructor(service: AccountService);
+    context: ServiceContext;
+    constructor(service?: AccountService);
+    /**
+     * 创建帐号表
+     *
+     * @param {Account} entry
+     * @returns {Promise<Account>}
+     * @memberof AccountController
+     */
+    create(entry: Account): Promise<Account>;
+    /**
+     * 更新帐号表
+     *
+     * @param {Account} entry
+     * @returns {Promise<Account>}
+     * @memberof AccountController
+     */
+    update(entry: Account): Promise<Account>;
     /**
       * 获取帐号管理界面配置信息.
       */

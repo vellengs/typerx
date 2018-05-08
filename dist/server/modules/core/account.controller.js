@@ -27,8 +27,33 @@ const account_service_1 = require("./account.service");
  * 帐号管理.
  */
 let AccountController = class AccountController {
-    constructor(service) {
+    constructor(service = new account_service_1.AccountService()) {
         this.service = service;
+    }
+    /**
+     * 创建帐号表
+     *
+     * @param {Account} entry
+     * @returns {Promise<Account>}
+     * @memberof AccountController
+     */
+    create(entry) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.service.create(entry);
+        });
+    }
+    /**
+     * 更新帐号表
+     *
+     * @param {Account} entry
+     * @returns {Promise<Account>}
+     * @memberof AccountController
+     */
+    update(entry) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const admin = this.context.request.user;
+            return this.service.update(entry, admin);
+        });
     }
     /**
       * 获取帐号管理界面配置信息.
@@ -47,7 +72,7 @@ let AccountController = class AccountController {
      */
     getAccountsByKeyword(keyword) {
         return __awaiter(this, void 0, void 0, function* () {
-            return [];
+            return this.service.getAccountsByKeyword(keyword);
         });
     }
     /**
@@ -63,6 +88,22 @@ let AccountController = class AccountController {
         });
     }
 };
+__decorate([
+    typescript_rest_1.Context,
+    __metadata("design:type", typescript_rest_1.ServiceContext)
+], AccountController.prototype, "context", void 0);
+__decorate([
+    typescript_rest_1.POST,
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AccountController.prototype, "create", null);
+__decorate([
+    typescript_rest_1.PUT,
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AccountController.prototype, "update", null);
 __decorate([
     typescript_rest_1.Path('config'),
     typescript_rest_1.GET,
@@ -87,9 +128,9 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "getAccountByCategory", null);
 AccountController = __decorate([
-    typescript_rest_swagger_1.Tags('base'),
+    typescript_rest_swagger_1.Tags('core'),
     typescript_rest_1.Path('/api/account'),
-    __metadata("design:paramtypes", [account_service_1.AccountService])
+    __metadata("design:paramtypes", [Object])
 ], AccountController);
 exports.AccountController = AccountController;
 //# sourceMappingURL=account.controller.js.map

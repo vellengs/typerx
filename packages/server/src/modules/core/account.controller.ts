@@ -2,12 +2,12 @@ import { GET, Path, PathParam, POST, PUT, DELETE, QueryParam, Context, ServiceCo
 import { Tags } from 'typescript-rest-swagger';
 import { Appearance } from './../../types/appearance';
 import { AccountService } from './account.service';
-import { Account } from './interfaces/account.interfaces';
+import { Account } from './interfaces/account.interface';
 
 /**
  * 帐号管理.
  */
-@Tags('base')
+@Tags('core')
 @Path('/api/account')
 export class AccountController {
 

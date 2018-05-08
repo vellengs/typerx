@@ -9,10 +9,40 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const appearance_1 = require("../../types/appearance");
+const typescript_rest_1 = require("typescript-rest");
+const core_database_1 = require("./core.database");
 class AccountService {
     getAppearance() {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log('getAppearance', 'getAppearance...');
             return new appearance_1.Appearance();
+        });
+    }
+    getAccountsByKeyword(keyword) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
+            const docs = yield core_database_1.CoreDatabase.Account.find(query).limit(25).exec();
+            console.log('docs:', docs);
+            return docs;
+        });
+    }
+    create(entry) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const doc = new core_database_1.CoreDatabase.Account(entry);
+            return yield doc.save();
+        });
+    }
+    update(entry, admin) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (admin && admin.isAdmin) {
+                const doc = yield core_database_1.CoreDatabase.Account.findOneAndUpdate({
+                    _id: entry.id
+                }, entry).exec();
+                return doc;
+            }
+            else {
+                throw new typescript_rest_1.Errors.ForbiddenError('禁止非管理员更新账号信息！');
+            }
         });
     }
 }

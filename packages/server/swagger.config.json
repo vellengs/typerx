@@ -1,7 +1,7 @@
 {
 	"swagger": {
 		"outputDirectory": "./dist",
-		"entryFile": "./src/index.ts",
+		"entryFile": "./src/main.ts",
 		"name": "rest api interface",
 		"description": "项目标准接口",
 		"license": "MIT",

@@ -1,7 +1,6 @@
 import { Appearance } from "../../types/appearance";
 import { ServiceContext, Errors } from "typescript-rest";
-import { Account } from './interfaces/account.interfaces';
-import { schema as AccountSchema } from './schemas/account';
+import { Account } from './interfaces/account.interface';
 import { CoreDatabase as Db } from './core.database';
 
 export class AccountService {

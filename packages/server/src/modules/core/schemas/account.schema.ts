@@ -1,6 +1,6 @@
 
 import { Schema, SchemaTypes as t, SchemaOptions, model } from 'mongoose';
-import { Account } from './../interfaces/account.interfaces';
+import { Account } from './../interfaces/account.interface';
 
 export const schema = new Schema({
 	username: t.String,

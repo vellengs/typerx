@@ -1,8 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
-const option = {};
-option.timestamps = true;
 exports.schema = new mongoose_1.Schema({
     username: mongoose_1.SchemaTypes.String,
     password: mongoose_1.SchemaTypes.String,
@@ -26,5 +24,5 @@ exports.schema = new mongoose_1.Schema({
     expired: {
         type: mongoose_1.SchemaTypes.Boolean
     },
-}, option);
+}, { timestamps: true });
 //# sourceMappingURL=account.js.map

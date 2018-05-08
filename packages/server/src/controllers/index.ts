@@ -1,3 +1,6 @@
 
 import coreControllers from './../modules/core/core.controllers';
-export const controllers: any = Array.from(coreControllers);
+import cmsControllers from './../modules/cms/cms.controllers';
+export const controllers: any =
+    [...coreControllers,
+    ...cmsControllers]

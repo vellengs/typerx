@@ -1,12 +1,142 @@
 basePath: /
-definitions: {}
+definitions:
+    Account:
+        description: ""
+        properties:
+            displayName:
+                type: string
+                description: ""
+            id:
+                type: string
+                description: ""
+            imageURL:
+                type: string
+                description: ""
+            name:
+                type: string
+                description: ""
+            rpDisplayName:
+                type: string
+                description: ""
+        type: object
+        required:
+            - displayName
+            - id
+            - rpDisplayName
+    Appearance:
+        description: ""
+        properties: {}
+        type: object
 info:
     description: 项目标准接口
     license:
         name: MIT
     title: 'rest api interface'
     version: 0.0.1
-paths: {}
+paths:
+    /api/account:
+        post:
+            operationId: AccountCreate
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/Account'
+            description: 创建帐号表
+            tags:
+                - core
+            consumes:
+                - application/json
+            parameters:
+                -
+                    description: ""
+                    in: body
+                    name: entry
+                    required: true
+                    schema:
+                        $ref: '#/definitions/Account'
+        put:
+            operationId: AccountUpdate
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/Account'
+            description: 更新帐号表
+            tags:
+                - core
+            consumes:
+                - application/json
+            parameters:
+                -
+                    description: ""
+                    in: body
+                    name: entry
+                    required: true
+                    schema:
+                        $ref: '#/definitions/Account'
+    /api/account/config:
+        get:
+            operationId: AccountGetConfig
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/Appearance'
+            description: 获取帐号管理界面配置信息.
+            tags:
+                - core
+            parameters: []
+    /api/account/search:
+        get:
+            operationId: AccountGetAccountsByKeyword
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        type: array
+                        items:
+                            $ref: '#/definitions/Account'
+            description: 按关键词查询账号
+            tags:
+                - core
+            parameters:
+                -
+                    description: ""
+                    in: query
+                    name: keyword
+                    required: false
+                    type: string
+    '/api/account/category/{category}':
+        get:
+            operationId: AccountGetAccountByCategory
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        type: array
+                        items:
+                            $ref: '#/definitions/Account'
+            description: '* 按分类获取帐号数据'
+            tags:
+                - core
+            parameters:
+                -
+                    description: 分类键名
+                    in: path
+                    name: category
+                    required: true
+                    type: string
 swagger: '2.0'
 securityDefinitions: {}
 produces:
