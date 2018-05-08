@@ -1,6 +1,3 @@
-
-
-
 import { connect } from './database/connector';
 import { ApiServer } from './server';
 import * as dotenv from 'dotenv';
