@@ -58,7 +58,7 @@ export class ApiServer {
                 }
                 // tslint:disable-next-line:no-console
                 console.log(`Listening to http://${this.server.address().address}:${this.server.address().port}`);
-                return resolve();
+                return resolve(this.app);
             });
         });
 

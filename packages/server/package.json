@@ -24,15 +24,17 @@
   },
   "scripts": {
     "build": "npm run clean && tsc --p tsconfig.json && npm run swagger",
-    "clean": "rimraf ./../dist/server; rimraf dist",
+    "clean": "rimraf ./../../dist/server; rimraf dist",
     "debug": "nodemon --inspect .",
     "lint": "tslint ./src/**/*.ts ./test/**/*.ts",
+    "serve-debug": "nodemon --inspect ./../../dist/server",
     "server:lint": "tslint  --project ./tsconfig.json './src/**/*.ts' -c tslint.json --fix",
     "start": "concurrently --kill-others \"npm run watch\"",
     "swagger": "swaggerGen -c ./swagger.config.json",
-    "test": "jasmine-ts ./src/server/**/*.spec.ts",
+    "test": "jest --forceExit --coverage --verbose",
     "prettify": "pretty-quick",
-    "watch": "nodemon"
+    "watch": "nodemon",
+    "watch-test": "npm run test -- --watchAll"
   },
   "dependencies": {
     "array-to-tree": "^2.2.1",
@@ -103,6 +105,7 @@
     "@types/passport-local": "^1.0.33",
     "@types/request": "^2.47.0",
     "@types/shelljs": "^0.7.9",
+    "@types/supertest": "^2.0.4",
     "@types/swagger-parser": "^4.0.2",
     "@types/winston": "^2.3.9",
     "codecov": "^3.0.0",

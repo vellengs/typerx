@@ -1,8 +1,9 @@
-import { GET, Path, PathParam, POST, PUT, DELETE, QueryParam, Context, ServiceContext } from 'typescript-rest';
-import { Tags } from 'typescript-rest-swagger';
+import { GET, Path, PathParam, POST, PUT, DELETE, QueryParam, Context, ServiceContext, Preprocessor } from 'typescript-rest';
+import { Tags, Security } from 'typescript-rest-swagger';
 import { Appearance } from './../../types/appearance';
 import { AccountService } from './account.service';
 import { Account } from './interfaces/account.interface';
+import { validator } from '../../util/validator';
 
 /**
  * 帐号管理.
@@ -63,6 +64,7 @@ export class AccountController {
      */
     @Path('search')
     @GET
+    @Preprocessor(validator)
     async getAccountsByKeyword(@QueryParam('keyword') keyword?: string): Promise<Account[]> {
         return this.service.getAccountsByKeyword(keyword);
     }
