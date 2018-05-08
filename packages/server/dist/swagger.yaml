@@ -1,0 +1,13 @@
+basePath: /
+definitions: {}
+info:
+    description: 项目标准接口
+    license:
+        name: MIT
+    title: 'rest api interface'
+    version: 0.0.1
+paths: {}
+swagger: '2.0'
+securityDefinitions: {}
+produces:
+    - application/json

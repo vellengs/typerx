@@ -1,0 +1,29 @@
+import { Appearance } from './../../types/appearance';
+import { AccountService } from './account.service';
+/**
+ * 帐号管理.
+ */
+export declare class AccountController {
+    private readonly service;
+    constructor(service: AccountService);
+    /**
+      * 获取帐号管理界面配置信息.
+      */
+    getConfig(): Promise<Appearance>;
+    /**
+     * 按关键词查询账号
+     *
+     * @param {string} [keyword]
+     * @returns {Promise<Account[]>}
+     * @memberof AccountController
+     */
+    getAccountsByKeyword(keyword?: string): Promise<Account[]>;
+    /**
+     * * 按分类获取帐号数据
+     *
+     * @param {string} category 分类键名
+     * @returns {Promise<Account[]>}
+     * @memberof AccountController
+     */
+    getAccountByCategory(category: string): Promise<Account[]>;
+}

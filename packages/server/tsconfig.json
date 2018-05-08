@@ -1,0 +1,33 @@
+{
+	"compileOnSave": true,
+	"compilerOptions": {
+		"declaration": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"module": "commonjs",
+		"newLine": "LF",
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noImplicitThis": false,
+		"noUnusedParameters": false,
+		"noUnusedLocals": false,
+		"outDir": "./../../dist/server",
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strictNullChecks": false,
+		"target": "es2016",
+		"baseUrl": "src/",
+		"paths": {
+			"@typerx": [
+				"src/types"
+			]
+		}
+	},
+	"include": [
+		"./src/**/*.ts"
+	],
+	"exclude": [
+		"node_modules"
+	]
+}
