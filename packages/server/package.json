@@ -31,7 +31,9 @@
     "server:lint": "tslint  --project ./tsconfig.json './src/**/*.ts' -c tslint.json --fix",
     "start": "concurrently --kill-others \"npm run watch\"",
     "swagger": "swaggerGen -c ./swagger.config.json",
-    "test": "jest --forceExit --coverage --verbose",
+    "test": "jest",
+    "test:cov": "jest --coverage",
+    "test:e2e": "jest --config ./test/jest-e2e.json",
     "prettify": "pretty-quick",
     "watch": "nodemon",
     "watch-test": "npm run test -- --watchAll"
@@ -142,5 +144,18 @@
     "typescript": "~2.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "xlsx": "^0.11.16"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "coverageDirectory": "../coverage"
   }
 }
