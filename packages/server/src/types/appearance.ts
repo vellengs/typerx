@@ -1,3 +1,3 @@
-export class Appearance {
+export interface Appearance {
 
 }

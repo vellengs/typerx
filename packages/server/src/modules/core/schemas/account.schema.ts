@@ -3,8 +3,6 @@ import { Schema, SchemaTypes as t, Error, SchemaOptions, model } from 'mongoose'
 import * as bcrypt from 'bcrypt-nodejs';
 import * as crypto from 'crypto';
 
-import { Account } from './../interfaces/account.interface';
-
 export const schema = new Schema({
 	username: t.String,
 	password: t.String,

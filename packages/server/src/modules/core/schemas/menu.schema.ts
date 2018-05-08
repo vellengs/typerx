@@ -1,9 +1,8 @@
 
 import { Schema, SchemaTypes as t, SchemaOptions, model } from 'mongoose';
-import { Menu } from './../interfaces/menu.interface';
 
 export const schema = new Schema({
-    name: { type: t.String },
+	name: { type: t.String },
 	slug: { type: t.String },
 	group: { type: t.Boolean },
 	link: { type: t.String },
@@ -33,4 +32,4 @@ export const schema = new Schema({
 		default: true
 	}
 },
-    { timestamps: true }); 
+	{ timestamps: true }); 
