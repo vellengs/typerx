@@ -3,6 +3,7 @@ import { Server } from 'typescript-rest';
 import * as http from 'http';
 import * as path from 'path';
 import * as cors from 'cors';
+import { existsSync } from 'fs';
 import { controllers } from './controllers';
 
 export class ApiServer {
@@ -17,9 +18,9 @@ export class ApiServer {
 
         Server.buildServices(this.app, ...controllers);
 
-        // TODO: enable for Swagger generation error
-        // Server.loadServices(this.app, 'controllers/*', __dirname);
-        // Server.swagger(this.app, './dist/swagger.json', '/api-docs', 'localhost:' + this.PORT, ['http']);
+        if (process.env.SWAGGER && existsSync(path.resolve(process.env.SWAGGER))) {
+            Server.swagger(this.app, process.env.SWAGGER, '/docs', 'localhost:' + this.PORT, ['http', 'https']);
+        }
 
         this.app.use((
             err: any,
