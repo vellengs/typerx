@@ -1,6 +1,4 @@
-import { Document } from 'mongoose';
-
-export interface Account extends Document {
+export interface Account {
 	username: string;				// 用户名
 	nick: string;					// 姓名
 	password: string;				// 密码

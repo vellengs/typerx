@@ -1,2 +1,2 @@
-export declare class Appearance {
+export interface Appearance {
 }

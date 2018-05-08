@@ -8,14 +8,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const appearance_1 = require("../../types/appearance");
 const typescript_rest_1 = require("typescript-rest");
 const core_database_1 = require("./core.database");
 class AccountService {
+    constructor(context) {
+        this.context = context;
+    }
     getAppearance() {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('getAppearance', 'getAppearance...');
-            return new appearance_1.Appearance();
+            return null;
         });
     }
     getAccountsByKeyword(keyword) {

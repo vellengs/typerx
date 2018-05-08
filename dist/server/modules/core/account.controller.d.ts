@@ -8,7 +8,7 @@ import { Account } from './interfaces/account.interface';
 export declare class AccountController {
     private readonly service;
     context: ServiceContext;
-    constructor(service?: AccountService);
+    constructor(service: AccountService);
     /**
      * 创建帐号表
      *

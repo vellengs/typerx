@@ -1,5 +1,4 @@
-import { Document } from 'mongoose';
-export interface Log extends Document {
+export interface Log {
     name: string;								// 日志名称
     operator: string;							// 操作人
     operatorIp: string;							// 操作人 IP

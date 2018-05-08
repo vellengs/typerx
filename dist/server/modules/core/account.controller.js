@@ -27,8 +27,9 @@ const account_service_1 = require("./account.service");
  * 帐号管理.
  */
 let AccountController = class AccountController {
-    constructor(service = new account_service_1.AccountService()) {
+    constructor(service) {
         this.service = service;
+        this.service = new account_service_1.AccountService(this.context);
     }
     /**
      * 创建帐号表
@@ -130,7 +131,7 @@ __decorate([
 AccountController = __decorate([
     typescript_rest_swagger_1.Tags('core'),
     typescript_rest_1.Path('/api/account'),
-    __metadata("design:paramtypes", [Object])
+    __metadata("design:paramtypes", [account_service_1.AccountService])
 ], AccountController);
 exports.AccountController = AccountController;
 //# sourceMappingURL=account.controller.js.map

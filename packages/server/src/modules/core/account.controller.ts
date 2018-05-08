@@ -15,9 +15,9 @@ export class AccountController {
     context: ServiceContext;
 
     constructor(
-        private readonly service = new AccountService()
+        private readonly service: AccountService
     ) {
-        
+        this.service = new AccountService(this.context);
     }
 
     /**

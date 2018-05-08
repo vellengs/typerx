@@ -1,6 +1,4 @@
-/// <reference types="mongoose" />
-import { Document } from 'mongoose';
-export interface Account extends Document {
+export interface Account {
     username: string;
     nick: string;
     password: string;

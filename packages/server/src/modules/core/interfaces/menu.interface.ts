@@ -1,5 +1,4 @@
-import { Document } from 'mongoose';
-export interface Menu extends Document {
+export interface Menu {
     name: string;								// 菜单名称
     slug: string;								// 标识串
     group: boolean;								// 是否是分组

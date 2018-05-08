@@ -5,9 +5,12 @@ import { CoreDatabase as Db } from './core.database';
 
 export class AccountService {
 
+    constructor(private readonly context: ServiceContext) {
+
+    }
+
     async getAppearance(): Promise<Appearance> {
-        console.log('getAppearance', 'getAppearance...');
-        return new Appearance();
+        return null;
     }
 
     async getAccountsByKeyword(keyword?: string): Promise<Account[]> {

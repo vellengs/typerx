@@ -4,6 +4,7 @@ const express = require("express");
 const typescript_rest_1 = require("typescript-rest");
 const path = require("path");
 const cors = require("cors");
+const fs_1 = require("fs");
 const controllers_1 = require("./controllers");
 class ApiServer {
     constructor() {
@@ -12,9 +13,9 @@ class ApiServer {
         this.app = express();
         this.config();
         typescript_rest_1.Server.buildServices(this.app, ...controllers_1.controllers);
-        // TODO: enable for Swagger generation error
-        // Server.loadServices(this.app, 'controllers/*', __dirname);
-        // Server.swagger(this.app, './dist/swagger.json', '/api-docs', 'localhost:' + this.PORT, ['http']);
+        if (process.env.SWAGGER && fs_1.existsSync(path.resolve(process.env.SWAGGER))) {
+            typescript_rest_1.Server.swagger(this.app, process.env.SWAGGER, '/docs', 'localhost:' + this.PORT, ['http', 'https']);
+        }
         this.app.use((err, req, res, next) => {
             if (res.headersSent) {
                 return next(err);
