@@ -69,7 +69,7 @@ export class ApiServer {
         this.app.use(session({
             resave: true,
             saveUninitialized: true,
-            secret: 'SH#3&E!()&D82S%%&^$!$#',
+            secret: SESSION_SECRET,
             store: new MongoStore({
                 url: MONGODB_URI,
                 autoReconnect: true
