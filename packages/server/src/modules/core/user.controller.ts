@@ -1,6 +1,16 @@
-import { GET, Path, PathParam, POST, PUT, DELETE, QueryParam, Context, ServiceContext } from 'typescript-rest';
+import {
+  GET,
+  Path,
+  PathParam,
+  POST,
+  PUT,
+  DELETE,
+  QueryParam,
+  Context,
+  ServiceContext,
+} from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
-import * as passport from "passport";
+import * as passport from 'passport';
 import { LoginDto, LocalStrategyInfo, LoginResponse } from './dto/login.dto';
 import { LogService } from './log.service';
 import { UserService } from './user.service';
@@ -11,33 +21,28 @@ import { UserService } from './user.service';
 @Tags('core')
 @Path('/')
 export class UserController {
-    @Context
-    context: ServiceContext;
+  @Context context: ServiceContext;
 
-    constructor(
-        private readonly service: UserService
-    ) {
-        this.service = new UserService(this.context);
-    }
+  constructor(private readonly service: UserService) {
+    this.service = new UserService(this.context);
+  }
 
+  @POST
+  @Path('login')
+  async login(dto: LoginDto): Promise<LoginResponse | false> {
+    return this.service.login(dto);
+  }
 
-    @POST
-    @Path('login')
-    async login(dto: LoginDto): Promise<LoginResponse | false> {
-        return this.service.login(dto);
-    }
+  @GET
+  @Path('profile')
+  async profile(): Promise<any> {
+    return this.service.profile();
+  }
 
-    @GET
-    @Path('profile')
-    async profile(): Promise<any> {
-        return this.service.profile();
-    }
-
-    @Path('logout')
-    @GET
-    async logout(): Promise<any> {
-        await this.context.request.logOut();
-        return true;
-    }
-
+  @Path('logout')
+  @GET
+  async logout(): Promise<any> {
+    await this.context.request.logOut();
+    return true;
+  }
 }

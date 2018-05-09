@@ -14,10 +14,10 @@ import { Role } from './interfaces/role.interface';
 import { Setting } from './interfaces/setting.interface';
 
 export const CoreDatabase = {
-    Account: model<Account & Document>('Account', AccountSchema),
-    Dict: model<Dict & Document>('Dict', DictSchema),
-    Log: model<Log & Document>('Log', LogSchema),
-    Menu: model<Menu & Document>('Menu', MenuSchema),
-    Role: model<Role & Document>('Role', RoleSchema),
-    Setting: model<Setting & Document>('Setting', SettingSchema),
-}
+  Account: model<Account & Document>('Account', AccountSchema),
+  Dict: model<Dict & Document>('Dict', DictSchema),
+  Log: model<Log & Document>('Log', LogSchema),
+  Menu: model<Menu & Document>('Menu', MenuSchema),
+  Role: model<Role & Document>('Role', RoleSchema),
+  Setting: model<Setting & Document>('Setting', SettingSchema),
+};
