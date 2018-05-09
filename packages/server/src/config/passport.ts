@@ -23,7 +23,6 @@ export function init() {
         });
     });
 
-
     passport.use(new LocalStrategy({ usernameField: "username" }, (username, password, done) => {
         Db.Account.findOne({
             username: username.toLowerCase(),

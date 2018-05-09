@@ -29,7 +29,7 @@ import {
 export class AccountController {
   @Context context: ServiceContext;
 
-  constructor(private readonly service = new AccountService()) {}
+  constructor(private readonly service = new AccountService()) { }
 
   /**
    * 创建帐号
@@ -89,4 +89,26 @@ export class AccountController {
   ): Promise<AccountResponse[]> {
     return [];
   }
+
+  /**
+   * 删除帐号
+   * @param id 帐号编号
+   */
+  @Path(':id')
+  @DELETE
+  async remove(@PathParam('id') id: string): Promise<boolean> {
+    return this.service.remove(id);
+  }
+
+  /**
+   * 查询帐号
+   * @param id 编号
+   */
+  @Path(':id')
+  @GET
+  async get(@PathParam('id') id: string): Promise<AccountResponse> {
+    return this.service.get(id);
+  }
+
+
 }

@@ -1,299 +1,424 @@
 {
-  "basePath": "/",
-  "definitions": {
-    "AccountResponse": {
-      "description": "",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": ""
-        },
-        "username": {
-          "type": "string",
-          "description": ""
-        },
-        "nick": {
-          "type": "string",
-          "description": ""
-        }
-      },
-      "type": "object",
-      "required": ["id", "username", "nick"]
-    },
-    "CreateAccountDto": {
-      "description": "",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": ""
-        },
-        "username": {
-          "type": "string",
-          "description": ""
-        },
-        "nick": {
-          "type": "string",
-          "description": ""
-        }
-      },
-      "type": "object",
-      "required": ["id", "username", "nick"]
-    },
-    "EditAccountDto": {
-      "description": "",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": ""
-        },
-        "username": {
-          "type": "string",
-          "description": ""
-        },
-        "nick": {
-          "type": "string",
-          "description": ""
-        }
-      },
-      "type": "object",
-      "required": ["id", "username", "nick"]
-    },
-    "Appearance": {
-      "description": "",
-      "properties": {},
-      "type": "object"
-    },
-    "LoginDto": {
-      "description": "",
-      "properties": {
-        "username": {
-          "type": "string",
-          "description": ""
-        },
-        "password": {
-          "type": "string",
-          "description": ""
-        }
-      },
-      "type": "object",
-      "required": ["username", "password"]
-    },
-    "ProfileResponse": {
-      "description": "",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": ""
-        },
-        "name": {
-          "type": "string",
-          "description": ""
-        }
-      },
-      "type": "object",
-      "required": ["id", "name"]
-    }
-  },
-  "info": {
-    "description": "项目标准接口",
-    "license": {
-      "name": "MIT"
-    },
-    "title": "rest api interface",
-    "version": "0.0.1"
-  },
-  "paths": {
-    "/api/account": {
-      "post": {
-        "operationId": "AccountCreate",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "Ok",
-            "schema": {
-              "$ref": "#/definitions/AccountResponse"
-            }
-          }
-        },
-        "description": "创建帐号",
-        "tags": ["core"],
-        "consumes": ["application/json"],
-        "parameters": [
-          {
-            "description": "帐号信息",
-            "in": "body",
-            "name": "entry",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CreateAccountDto"
-            }
-          }
-        ]
-      },
-      "put": {
-        "operationId": "AccountUpdate",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "Ok",
-            "schema": {
-              "$ref": "#/definitions/AccountResponse"
-            }
-          }
-        },
-        "description": "更新帐号",
-        "tags": ["core"],
-        "consumes": ["application/json"],
-        "parameters": [
-          {
-            "description": "帐号信息",
-            "in": "body",
-            "name": "entry",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/EditAccountDto"
-            }
-          }
-        ]
-      }
-    },
-    "/api/account/config": {
-      "get": {
-        "operationId": "AccountGetConfig",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "Ok",
-            "schema": {
-              "$ref": "#/definitions/Appearance"
-            }
-          }
-        },
-        "description": "获取帐号管理界面配置信息.",
-        "tags": ["core"],
-        "parameters": []
-      }
-    },
-    "/api/account/search": {
-      "get": {
-        "operationId": "AccountGetAccountsByKeyword",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "Ok",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/AccountResponse"
-              }
-            }
-          }
-        },
-        "description": "按关键词查询账号",
-        "tags": ["core"],
-        "parameters": [
-          {
-            "description": "",
-            "in": "query",
-            "name": "keyword",
-            "required": false,
-            "type": "string"
-          }
-        ]
-      }
-    },
-    "/api/account/category/{category}": {
-      "get": {
-        "operationId": "AccountGetAccountByCategory",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "Ok",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/AccountResponse"
-              }
-            }
-          }
-        },
-        "description": "* 按分类获取帐号数据",
-        "tags": ["core"],
-        "parameters": [
-          {
-            "description": "分类键名",
-            "in": "path",
-            "name": "category",
-            "required": true,
-            "type": "string"
-          }
-        ]
-      }
-    },
-    "/user/login": {
-      "post": {
-        "operationId": "UserLogin",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "Ok",
-            "schema": {
-              "type": "object"
-            }
-          }
-        },
-        "description": "用户登陆",
-        "tags": ["core"],
-        "consumes": ["application/json"],
-        "parameters": [
-          {
-            "description": "用户登陆参数",
-            "in": "body",
-            "name": "dto",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/LoginDto"
-            }
-          }
-        ]
-      }
-    },
-    "/user/profile": {
-      "get": {
-        "operationId": "UserProfile",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "Ok",
-            "schema": {
-              "$ref": "#/definitions/ProfileResponse"
-            }
-          }
-        },
-        "description": "帐户信息",
-        "tags": ["core"],
-        "parameters": []
-      }
-    },
-    "/user/logout": {
-      "get": {
-        "operationId": "UserLogout",
-        "produces": ["text/html"],
-        "responses": {
-          "200": {
-            "description": "Ok",
-            "schema": {
-              "type": "boolean"
-            }
-          }
-        },
-        "description": "退出登陆",
-        "tags": ["core"],
-        "parameters": []
-      }
-    }
-  },
-  "swagger": "2.0",
-  "securityDefinitions": {},
-  "produces": ["application/json"]
+	"basePath": "/",
+	"definitions": {
+		"AccountResponse": {
+			"description": "",
+			"properties": {
+				"username": {
+					"type": "string",
+					"description": ""
+				},
+				"nick": {
+					"type": "string",
+					"description": ""
+				},
+				"avatar": {
+					"type": "string",
+					"description": ""
+				},
+				"type": {
+					"type": "string",
+					"description": ""
+				},
+				"email": {
+					"type": "string",
+					"description": ""
+				},
+				"mobile": {
+					"type": "string",
+					"description": ""
+				},
+				"roles": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": ""
+				},
+				"isDisable": {
+					"type": "boolean",
+					"description": ""
+				},
+				"isAdmin": {
+					"type": "boolean",
+					"description": ""
+				},
+				"isApproved": {
+					"type": "boolean",
+					"description": ""
+				},
+				"expired": {
+					"type": "string",
+					"format": "date-time",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"username",
+				"nick",
+				"avatar",
+				"type",
+				"email",
+				"mobile",
+				"roles",
+				"isDisable",
+				"isAdmin",
+				"isApproved",
+				"expired"
+			]
+		},
+		"CreateAccountDto": {
+			"description": "",
+			"properties": {
+				"avatar": {
+					"type": "string",
+					"description": ""
+				},
+				"email": {
+					"type": "string",
+					"description": ""
+				},
+				"mobile": {
+					"type": "string",
+					"description": ""
+				},
+				"username": {
+					"type": "string",
+					"description": ""
+				},
+				"password": {
+					"type": "string",
+					"description": ""
+				},
+				"nick": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"username",
+				"password",
+				"nick"
+			]
+		},
+		"EditAccountDto": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
+				"avatar": {
+					"type": "string",
+					"description": ""
+				},
+				"email": {
+					"type": "string",
+					"description": ""
+				},
+				"mobile": {
+					"type": "string",
+					"description": ""
+				},
+				"password": {
+					"type": "string",
+					"description": ""
+				},
+				"nick": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"nick"
+			]
+		},
+		"Appearance": {
+			"description": "",
+			"properties": {},
+			"type": "object"
+		},
+		"LoginDto": {
+			"description": "",
+			"properties": {
+				"username": {
+					"type": "string",
+					"description": ""
+				},
+				"password": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"username",
+				"password"
+			]
+		},
+		"ProfileResponse": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"name"
+			]
+		}
+	},
+	"info": {
+		"description": "项目标准接口",
+		"license": {
+			"name": "MIT"
+		},
+		"title": "rest api interface",
+		"version": "0.0.1"
+	},
+	"paths": {
+		"/api/account": {
+			"post": {
+				"operationId": "AccountCreate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/AccountResponse"
+						}
+					}
+				},
+				"description": "创建帐号",
+				"tags": [
+					"core"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "帐号信息",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/CreateAccountDto"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "AccountUpdate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/AccountResponse"
+						}
+					}
+				},
+				"description": "更新帐号",
+				"tags": [
+					"core"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "帐号信息",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/EditAccountDto"
+						}
+					}
+				]
+			}
+		},
+		"/api/account/config": {
+			"get": {
+				"operationId": "AccountGetConfig",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/Appearance"
+						}
+					}
+				},
+				"description": "获取帐号管理界面配置信息.",
+				"tags": [
+					"core"
+				],
+				"parameters": []
+			}
+		},
+		"/api/account/search": {
+			"get": {
+				"operationId": "AccountGetAccountsByKeyword",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/AccountResponse"
+							}
+						}
+					}
+				},
+				"description": "按关键词查询账号",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/account/category/{category}": {
+			"get": {
+				"operationId": "AccountGetAccountByCategory",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/AccountResponse"
+							}
+						}
+					}
+				},
+				"description": "* 按分类获取帐号数据",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "分类键名",
+						"in": "path",
+						"name": "category",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/user/login": {
+			"post": {
+				"operationId": "UserLogin",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"description": "用户登陆",
+				"tags": [
+					"core"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "用户登陆参数",
+						"in": "body",
+						"name": "dto",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/LoginDto"
+						}
+					}
+				]
+			}
+		},
+		"/user/profile": {
+			"get": {
+				"operationId": "UserProfile",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/ProfileResponse"
+						}
+					}
+				},
+				"description": "帐户信息",
+				"tags": [
+					"core"
+				],
+				"parameters": []
+			}
+		},
+		"/user/logout": {
+			"get": {
+				"operationId": "UserLogout",
+				"produces": [
+					"text/html"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				},
+				"description": "退出登陆",
+				"tags": [
+					"core"
+				],
+				"parameters": []
+			}
+		}
+	},
+	"swagger": "2.0",
+	"securityDefinitions": {},
+	"produces": [
+		"application/json"
+	]
 }

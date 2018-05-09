@@ -32,4 +32,23 @@ export class Helper {
             });
         });
     }
+
+    static async get(model: Model<Document>, id: string, populates?: any[]): Promise<any> {
+        const option: any = {};
+        return new Promise((resolve, reject) => {
+
+            if (populates && populates.length) {
+                option.populate = populates;
+            }
+
+            model.findOne({ _id: id }, null, option).exec((err, res: any) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(res && res.pure());
+                }
+            });
+        });
+
+    }
 }

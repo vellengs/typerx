@@ -3,27 +3,71 @@ definitions:
     AccountResponse:
         description: ""
         properties:
-            id:
-                type: string
-                description: ""
             username:
                 type: string
                 description: ""
             nick:
                 type: string
                 description: ""
+            avatar:
+                type: string
+                description: ""
+            type:
+                type: string
+                description: ""
+            email:
+                type: string
+                description: ""
+            mobile:
+                type: string
+                description: ""
+            roles:
+                type: array
+                items:
+                    type: string
+                description: ""
+            isDisable:
+                type: boolean
+                description: ""
+            isAdmin:
+                type: boolean
+                description: ""
+            isApproved:
+                type: boolean
+                description: ""
+            expired:
+                type: string
+                format: date-time
+                description: ""
         type: object
         required:
-            - id
             - username
             - nick
+            - avatar
+            - type
+            - email
+            - mobile
+            - roles
+            - isDisable
+            - isAdmin
+            - isApproved
+            - expired
     CreateAccountDto:
         description: ""
         properties:
-            id:
+            avatar:
+                type: string
+                description: ""
+            email:
+                type: string
+                description: ""
+            mobile:
                 type: string
                 description: ""
             username:
+                type: string
+                description: ""
+            password:
                 type: string
                 description: ""
             nick:
@@ -31,8 +75,8 @@ definitions:
                 description: ""
         type: object
         required:
-            - id
             - username
+            - password
             - nick
     EditAccountDto:
         description: ""
@@ -40,7 +84,16 @@ definitions:
             id:
                 type: string
                 description: ""
-            username:
+            avatar:
+                type: string
+                description: ""
+            email:
+                type: string
+                description: ""
+            mobile:
+                type: string
+                description: ""
+            password:
                 type: string
                 description: ""
             nick:
@@ -49,7 +102,6 @@ definitions:
         type: object
         required:
             - id
-            - username
             - nick
     Appearance:
         description: ""

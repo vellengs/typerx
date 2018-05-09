@@ -33,10 +33,9 @@ export class ApiServer {
 
   constructor() {
     this.app = express();
+    this.config();
     init();
     this.app.use('/api', isAuthenticated);
-
-    this.config();
 
     Server.buildServices(this.app, ...controllers);
 
@@ -126,7 +125,7 @@ export class ApiServer {
         }
         logger.info(
           `Server start from http://${this.server.address().address}:${
-            this.server.address().port
+          this.server.address().port
           }`,
         );
         return resolve(this.app);

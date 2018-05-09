@@ -18,9 +18,17 @@ export class AccountService {
 
     const result = docs.map(doc => {
       return {
-        id: doc._id,
         username: doc.username,
         nick: doc.nick,
+        avatar: doc.avatar,
+        type: doc.type,
+        email: doc.email,
+        mobile: doc.mobile,
+        roles: doc.roles,
+        isDisable: doc.isDisable,
+        isAdmin: doc.isAdmin,
+        isApproved: doc.isApproved,
+        expired: doc.expired
       };
     });
     return result;
@@ -48,4 +56,16 @@ export class AccountService {
   async remove(id: string): Promise<boolean> {
     return Helper.remove(Db.Account, id);
   }
+
+
+  async get(id: string): Promise<AccountResponse> {
+    const result = Helper.get(Db.Account, id, [
+      {
+        path: 'roles', select: 'name'
+      },
+    ]);
+    return result;
+  }
+
+
 }
