@@ -2,21 +2,30 @@ import { Appearance } from '../../types/appearance';
 import { ServiceContext, Errors } from 'typescript-rest';
 import { Account } from './interfaces/account.interface';
 import { CoreDatabase as Db } from './core.database';
+import { AccountResponse } from './dto/account.dto';
+import { Helper } from '../../util/helper';
 
 export class AccountService {
-  constructor(private readonly context: ServiceContext) {}
+  constructor(private readonly context: ServiceContext) { }
 
   async getAppearance(): Promise<Appearance> {
     return null;
   }
 
-  async getAccountsByKeyword(keyword?: string): Promise<Account[]> {
+  async getAccountsByKeyword(keyword?: string): Promise<AccountResponse[]> {
     const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
     const docs = await Db.Account.find(query)
       .limit(25)
       .exec();
-    console.log('docs:', docs);
-    return docs;
+
+    const result = docs.map(doc => {
+      return {
+        id: doc._id,
+        username: doc.username,
+        nick: doc.nick
+      }
+    });
+    return result;
   }
 
   async create(entry: any): Promise<any> {
@@ -37,4 +46,9 @@ export class AccountService {
       throw new Errors.ForbiddenError('禁止非管理员更新账号信息！');
     }
   }
+
+  async remove(id: string): Promise<boolean> {
+    return Helper.remove(Db.Account, id);
+  }
+
 }

@@ -15,6 +15,7 @@ import { Appearance } from './../../types/appearance';
 import { AccountService } from './account.service';
 import { Account } from './interfaces/account.interface';
 import { validator } from '../../util/validator';
+import { CreateAccountDto, EditAccountDto, AccountResponse } from './dto/account.dto';
 
 /**
  * 帐号管理.
@@ -28,27 +29,23 @@ export class AccountController {
     this.service = new AccountService(this.context);
   }
 
+
   /**
-   * 创建帐号表
-   *
-   * @param {Account} entry
-   * @returns {Promise<Account>}
-   * @memberof AccountController
+   * 创建帐号
+   * @param entry 帐号信息
    */
   @POST
-  async create(entry: Account): Promise<Account> {
+  async create(entry: CreateAccountDto): Promise<AccountResponse> {
     return this.service.create(entry);
   }
 
+
   /**
-   * 更新帐号表
-   *
-   * @param {Account} entry
-   * @returns {Promise<Account>}
-   * @memberof AccountController
+   * 更新帐号
+   * @param entry 帐号信息
    */
   @PUT
-  async update(entry: Account): Promise<Account> {
+  async update(entry: EditAccountDto): Promise<AccountResponse> {
     const admin: any = this.context.request.user;
     return this.service.update(entry, admin);
   }
@@ -74,7 +71,7 @@ export class AccountController {
   @Preprocessor(validator)
   async getAccountsByKeyword(
     @QueryParam('keyword') keyword?: string,
-  ): Promise<Account[]> {
+  ): Promise<AccountResponse[]> {
     return this.service.getAccountsByKeyword(keyword);
   }
 
@@ -82,14 +79,14 @@ export class AccountController {
    * * 按分类获取帐号数据
    *
    * @param {string} category 分类键名
-   * @returns {Promise<Account[]>}
+   * @returns {Promise<AccountResponse[]>}
    * @memberof AccountController
    */
   @Path('category/:category')
   @GET
   async getAccountByCategory(
     @PathParam('category') category: string,
-  ): Promise<Account[]> {
+  ): Promise<AccountResponse[]> {
     return [];
   }
 }
