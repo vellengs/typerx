@@ -107,6 +107,14 @@
         "*.{cmd,html,json,md,sh,txt,xml,yml}": [
             "editorconfig-tools fix",
             "git add"
+        ],
+        "*.ts": [
+            "npm run lint:ts",
+            "git add"
+        ],
+        "src/**/*.less": [
+            "npm run lint:style",
+            "git add"
         ]
     },
     "browserslist": [
