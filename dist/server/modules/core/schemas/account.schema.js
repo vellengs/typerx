@@ -10,20 +10,23 @@ exports.schema = new mongoose_1.Schema({
     nick: mongoose_1.SchemaTypes.String,
     type: mongoose_1.SchemaTypes.String,
     mobile: mongoose_1.SchemaTypes.String,
-    roles: [{
-            type: mongoose_1.SchemaTypes.ObjectId, ref: 'Role'
-        }],
+    roles: [
+        {
+            type: mongoose_1.SchemaTypes.ObjectId,
+            ref: 'Role',
+        },
+    ],
     isDisable: {
-        type: mongoose_1.SchemaTypes.Boolean
+        type: mongoose_1.SchemaTypes.Boolean,
     },
     isAdmin: {
-        type: mongoose_1.SchemaTypes.Boolean
+        type: mongoose_1.SchemaTypes.Boolean,
     },
     isApproved: {
-        type: mongoose_1.SchemaTypes.Boolean
+        type: mongoose_1.SchemaTypes.Boolean,
     },
     expired: {
-        type: mongoose_1.SchemaTypes.Boolean
+        type: mongoose_1.SchemaTypes.Date,
     },
 }, { timestamps: true });
 function preSave(next) {

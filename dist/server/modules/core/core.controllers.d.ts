@@ -1,3 +1,4 @@
 import { AccountController } from './account.controller';
-declare const _default: (typeof AccountController)[];
+import { UserController } from './user.controller';
+declare const _default: (typeof AccountController | typeof UserController)[];
 export default _default;

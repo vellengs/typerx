@@ -10,10 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const typescript_rest_1 = require("typescript-rest");
 const core_database_1 = require("./core.database");
+const helper_1 = require("../../util/helper");
 class AccountService {
-    constructor(context) {
-        this.context = context;
-    }
     getAppearance() {
         return __awaiter(this, void 0, void 0, function* () {
             return null;
@@ -22,9 +20,25 @@ class AccountService {
     getAccountsByKeyword(keyword) {
         return __awaiter(this, void 0, void 0, function* () {
             const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
-            const docs = yield core_database_1.CoreDatabase.Account.find(query).limit(25).exec();
-            console.log('docs:', docs);
-            return docs;
+            const docs = yield core_database_1.CoreDatabase.Account.find(query)
+                .limit(25)
+                .exec();
+            const result = docs.map(doc => {
+                return {
+                    username: doc.username,
+                    nick: doc.nick,
+                    avatar: doc.avatar,
+                    type: doc.type,
+                    email: doc.email,
+                    mobile: doc.mobile,
+                    roles: doc.roles,
+                    isDisable: doc.isDisable,
+                    isAdmin: doc.isAdmin,
+                    isApproved: doc.isApproved,
+                    expired: doc.expired
+                };
+            });
+            return result;
         });
     }
     create(entry) {
@@ -37,13 +51,18 @@ class AccountService {
         return __awaiter(this, void 0, void 0, function* () {
             if (admin && admin.isAdmin) {
                 const doc = yield core_database_1.CoreDatabase.Account.findOneAndUpdate({
-                    _id: entry.id
+                    _id: entry.id,
                 }, entry).exec();
                 return doc;
             }
             else {
                 throw new typescript_rest_1.Errors.ForbiddenError('禁止非管理员更新账号信息！');
             }
+        });
+    }
+    remove(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return helper_1.Helper.remove(core_database_1.CoreDatabase.Account, id);
         });
     }
 }

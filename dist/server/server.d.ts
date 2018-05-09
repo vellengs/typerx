@@ -7,6 +7,7 @@ export declare class ApiServer {
      * Configure the express app.
      */
     private config();
+    private handerErrors();
     /**
      * Start the server
      * @returns {Promise<any>}

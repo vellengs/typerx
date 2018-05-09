@@ -2,15 +2,14 @@ export interface Account {
     username: string;
     nick: string;
     password: string;
-    alias: string;
+    avatar: string;
     type: string;
-    role: any;
-    mail: string;
+    email: string;
     mobile: string;
-    group: string;
+    roles: string[];
     isDisable: boolean;
     isAdmin: boolean;
     isApproved: boolean;
     secret: string;
-    salt: string;
+    expired: Date;
 }

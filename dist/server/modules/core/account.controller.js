@@ -23,20 +23,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typescript_rest_1 = require("typescript-rest");
 const typescript_rest_swagger_1 = require("typescript-rest-swagger");
 const account_service_1 = require("./account.service");
+const validator_1 = require("../../util/validator");
 /**
  * 帐号管理.
  */
 let AccountController = class AccountController {
-    constructor(service) {
+    constructor(service = new account_service_1.AccountService()) {
         this.service = service;
-        this.service = new account_service_1.AccountService(this.context);
     }
     /**
-     * 创建帐号表
-     *
-     * @param {Account} entry
-     * @returns {Promise<Account>}
-     * @memberof AccountController
+     * 创建帐号
+     * @param entry 帐号信息
      */
     create(entry) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -44,11 +41,8 @@ let AccountController = class AccountController {
         });
     }
     /**
-     * 更新帐号表
-     *
-     * @param {Account} entry
-     * @returns {Promise<Account>}
-     * @memberof AccountController
+     * 更新帐号
+     * @param entry 帐号信息
      */
     update(entry) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -57,8 +51,8 @@ let AccountController = class AccountController {
         });
     }
     /**
-      * 获取帐号管理界面配置信息.
-      */
+     * 获取帐号管理界面配置信息.
+     */
     getConfig() {
         return __awaiter(this, void 0, void 0, function* () {
             return this.service.getAppearance();
@@ -80,7 +74,7 @@ let AccountController = class AccountController {
      * * 按分类获取帐号数据
      *
      * @param {string} category 分类键名
-     * @returns {Promise<Account[]>}
+     * @returns {Promise<AccountResponse[]>}
      * @memberof AccountController
      */
     getAccountByCategory(category) {
@@ -115,6 +109,7 @@ __decorate([
 __decorate([
     typescript_rest_1.Path('search'),
     typescript_rest_1.GET,
+    typescript_rest_1.Preprocessor(validator_1.validator),
     __param(0, typescript_rest_1.QueryParam('keyword')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -131,7 +126,7 @@ __decorate([
 AccountController = __decorate([
     typescript_rest_swagger_1.Tags('core'),
     typescript_rest_1.Path('/api/account'),
-    __metadata("design:paramtypes", [account_service_1.AccountService])
+    __metadata("design:paramtypes", [Object])
 ], AccountController);
 exports.AccountController = AccountController;
 //# sourceMappingURL=account.controller.js.map

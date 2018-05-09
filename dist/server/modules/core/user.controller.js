@@ -19,18 +19,34 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const typescript_rest_1 = require("typescript-rest");
 const typescript_rest_swagger_1 = require("typescript-rest-swagger");
+const user_service_1 = require("./user.service");
 /**
  * 系统接口.
  */
 let UserController = class UserController {
-    login(userModel) {
+    constructor(service = new user_service_1.UserService()) {
+        this.service = service;
+    }
+    /**
+     * 用户登陆
+     * @param dto 用户登陆参数
+     */
+    login(dto) {
         return __awaiter(this, void 0, void 0, function* () {
+            return this.service.login(this.context, dto);
         });
     }
+    /**
+     * 帐户信息
+     */
     profile() {
         return __awaiter(this, void 0, void 0, function* () {
+            return this.service.profile(this.context);
         });
     }
+    /**
+     * 退出登陆
+     */
     logout() {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.context.request.logOut();
@@ -65,7 +81,8 @@ __decorate([
 ], UserController.prototype, "logout", null);
 UserController = __decorate([
     typescript_rest_swagger_1.Tags('core'),
-    typescript_rest_1.Path('/')
+    typescript_rest_1.Path('/user'),
+    __metadata("design:paramtypes", [Object])
 ], UserController);
 exports.UserController = UserController;
 //# sourceMappingURL=user.controller.js.map

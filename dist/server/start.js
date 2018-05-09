@@ -15,7 +15,8 @@ connector_1.connect(secrets_1.MONGODB_URI);
 exports.start = () => {
     return new Promise((resolve, reject) => {
         const apiServer = new server_1.ApiServer();
-        apiServer.start()
+        apiServer
+            .start()
             .then(resolve)
             .catch(reject);
         const graceful = () => {
