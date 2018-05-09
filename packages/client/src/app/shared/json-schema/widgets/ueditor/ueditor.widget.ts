@@ -16,6 +16,7 @@ import { ControlWidget } from '@delon/form';
     preserveWhitespaces: false,
     styles: [ `:host ueditor { line-height:normal; }` ]
 })
+// tslint:disable-next-line:component-class-suffix
 export class UeditorWidget extends ControlWidget implements OnInit {
 
     static readonly KEY = 'ueditor';

@@ -15,6 +15,7 @@ import { ControlWidget } from '@delon/form';
     `,
     preserveWhitespaces: false
 })
+// tslint:disable-next-line:component-class-suffix
 export class TinymceWidget extends ControlWidget implements OnInit {
 
     static readonly KEY = 'tinymce';
