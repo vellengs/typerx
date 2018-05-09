@@ -11,6 +11,8 @@ import * as passport from 'passport';
 import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
 import { getLogger } from 'log4js';
 import * as lusca from 'lusca';
+import { init, isAuthenticated } from "./config/passport";
+
 
 const session = require('express-session');
 const MongoStore = mongo(session);
@@ -33,6 +35,9 @@ export class ApiServer {
 
     constructor() {
         this.app = express();
+        init();
+        this.app.use('/api', isAuthenticated);
+
         this.config();
 
         Server.buildServices(this.app, ...controllers);
@@ -41,20 +46,7 @@ export class ApiServer {
             Server.swagger(this.app, process.env.SWAGGER, '/docs', 'localhost:' + this.PORT, ['http', 'https']);
         }
 
-        this.app.use((
-            err: any,
-            req: express.Request,
-            res: express.Response, next: any) => {
-            if (res.headersSent) {
-                return next(err);
-            }
-            if (err && err.statusCode) {
-                res.status(err.statusCode);
-            } else {
-                res.status(500);
-            }
-            res.send({ error: err });
-        });
+        this.handerErrors();
     }
 
     /**
@@ -90,6 +82,29 @@ export class ApiServer {
         });
 
     }
+
+    private handerErrors() {
+        this.app.use((
+            err: any,
+            req: express.Request,
+            res: express.Response, next: any) => {
+            if (res.headersSent) {
+                return next(err);
+            }
+            if (err && err.statusCode) {
+                res.status(err.statusCode);
+            } else {
+                logger.error(err);
+                res.status(500);
+            }
+            if (err && err.message) {
+                res.send(Object.assign({}, err, { message: err.message }));
+            } else {
+                res.send(err);
+            }
+        });
+    }
+
 
     /**
      * Start the server
