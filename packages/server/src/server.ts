@@ -5,7 +5,26 @@ import * as path from 'path';
 import * as cors from 'cors';
 import { existsSync } from 'fs';
 import { controllers } from './controllers';
+import * as mongo from 'connect-mongo';
+import * as expressValidator from 'express-validator';
+import * as passport from 'passport';
+import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
+import { getLogger } from 'log4js';
+import * as lusca from 'lusca';
 
+const session = require('express-session');
+const MongoStore = mongo(session);
+const compression = require('compression');
+const logger = getLogger();
+
+function isPublicRouters(routers: string[], current: string) {
+    for (const router of routers) {
+        if (current.startsWith(router)) {
+            return true;
+        }
+    }
+    return false;
+}
 export class ApiServer {
 
     private app: express.Application;
@@ -42,8 +61,34 @@ export class ApiServer {
      * Configure the express app.
      */
     private config(): void {
+
+        this.app.use(compression());
         this.app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
         this.app.use(cors());
+
+        this.app.use(session({
+            resave: true,
+            saveUninitialized: true,
+            secret: 'SH#3&E!()&D82S%%&^$!$#',
+            store: new MongoStore({
+                url: MONGODB_URI,
+                autoReconnect: true
+            })
+        }));
+
+        this.app.use(expressValidator());
+        this.app.use(passport.initialize());
+        this.app.use(passport.session());
+        this.app.use(lusca.xframe('SAMEORIGIN'));
+        this.app.use(lusca.xssProtection(true));
+
+        this.app.use((req, res, next) => {
+            res.on('finish', () => {
+                logger.debug(res.statusCode && res.statusCode.toString(), req.method, req.originalUrl);
+            });
+            next();
+        });
+
     }
 
     /**
@@ -56,8 +101,7 @@ export class ApiServer {
                 if (err) {
                     return reject(err);
                 }
-                // tslint:disable-next-line:no-console
-                console.log(`Listening to http://${this.server.address().address}:${this.server.address().port}`);
+                logger.info(`Server start from http://${this.server.address().address}:${this.server.address().port}`);
                 return resolve(this.app);
             });
         });
