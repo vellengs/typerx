@@ -1,169 +1,32 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
-import { NgZorroAntdExtraModule } from 'ng-zorro-antd-extra';
+// delon
 import { AlainThemeModule } from '@delon/theme';
-import { AlainABCModule } from '@delon/abc';
-import { AlainACLModule } from '@delon/acl';
-
-// third libs
-import { CountdownModule } from 'ngx-countdown';
-
+import { DelonABCModule } from '@delon/abc';
+import { DelonACLModule } from '@delon/acl';
+import { DelonFormModule } from '@delon/form';
 // i18n
 import { TranslateModule } from '@ngx-translate/core';
-import { I18NService } from '@core/i18n/i18n.service';
 
-// region: zorro modules
+// region: third libs
+import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { CountdownModule } from 'ngx-countdown';
+import { UEditorModule } from 'ngx-ueditor';
+import { NgxTinymceModule } from 'ngx-tinymce';
 
-import {
-    // LoggerModule,
-    // NzLocaleModule,
-    NzButtonModule,
-    NzAlertModule,
-    NzBadgeModule,
-    // NzCalendarModule,
-    NzCascaderModule,
-    NzCheckboxModule,
-    NzDatePickerModule,
-    NzFormModule,
-    NzInputModule,
-    NzInputNumberModule,
-    NzGridModule,
-    NzMessageModule,
-    NzModalModule,
-    NzNotificationModule,
-    NzPaginationModule,
-    NzPopconfirmModule,
-    NzPopoverModule,
-    NzRadioModule,
-    NzRateModule,
-    NzSelectModule,
-    NzSpinModule,
-    NzSliderModule,
-    NzSwitchModule,
-    NzProgressModule,
-    NzTableModule,
-    NzTabsModule,
-    NzTagModule,
-    NzTimePickerModule,
-    NzUtilModule,
-    NzStepsModule,
-    NzDropDownModule,
-    NzMenuModule,
-    NzBreadCrumbModule,
-    NzLayoutModule,
-    NzRootModule,
-    NzCarouselModule,
-    // NzCardModule,
-    NzCollapseModule,
-    NzTimelineModule,
-    NzToolTipModule,
-    // NzBackTopModule,
-    // NzAffixModule,
-    // NzAnchorModule,
-    NzAvatarModule,
-    // SERVICES
-    NzNotificationService,
-    NzMessageService
-} from 'ng-zorro-antd';
-const ZORROMODULES = [
-    // LoggerModule,
-    // NzLocaleModule,
-    NzButtonModule,
-    NzAlertModule,
-    NzBadgeModule,
-    // NzCalendarModule,
-    NzCascaderModule,
-    NzCheckboxModule,
-    NzDatePickerModule,
-    NzFormModule,
-    NzInputModule,
-    NzInputNumberModule,
-    NzGridModule,
-    NzMessageModule,
-    NzModalModule,
-    NzNotificationModule,
-    NzPaginationModule,
-    NzPopconfirmModule,
-    NzPopoverModule,
-    NzRadioModule,
-    NzRateModule,
-    NzSelectModule,
-    NzSpinModule,
-    NzSliderModule,
-    NzSwitchModule,
-    NzProgressModule,
-    NzTableModule,
-    NzTabsModule,
-    NzTagModule,
-    NzTimePickerModule,
-    NzUtilModule,
-    NzStepsModule,
-    NzDropDownModule,
-    NzMenuModule,
-    NzBreadCrumbModule,
-    NzLayoutModule,
-    NzRootModule,
-    NzCarouselModule,
-    // NzCardModule,
-    NzCollapseModule,
-    NzTimelineModule,
-    NzToolTipModule,
-    // NzBackTopModule,
-    // NzAffixModule,
-    // NzAnchorModule,
-    NzAvatarModule
+const THIRDMODULES = [
+    NgZorroAntdModule,
+    CountdownModule,
+    UEditorModule,
+    NgxTinymceModule
 ];
 // endregion
 
-// region: @delon/abc modules
-import {
-    AdAvatarListModule,
-    AdChartsModule,
-    AdCountDownModule,
-    AdDescListModule,
-    AdEllipsisModule,
-    AdErrorCollectModule,
-    AdExceptionModule,
-    AdFooterToolbarModule,
-    AdGlobalFooterModule,
-    AdNoticeIconModule,
-    AdNumberInfoModule,
-    AdProHeaderModule,
-    AdResultModule,
-    AdSidebarNavModule,
-    AdStandardFormRowModule,
-    AdTagSelectModule,
-    AdTrendModule,
-    AdDownFileModule,
-    AdImageModule,
-    AdUtilsModule
-} from '@delon/abc';
-const ABCMODULES = [
-    AdAvatarListModule,
-    AdChartsModule,
-    AdCountDownModule,
-    AdDescListModule,
-    AdEllipsisModule,
-    AdErrorCollectModule,
-    AdExceptionModule,
-    AdFooterToolbarModule,
-    AdGlobalFooterModule,
-    AdNoticeIconModule,
-    AdNumberInfoModule,
-    AdProHeaderModule,
-    AdResultModule,
-    AdSidebarNavModule,
-    AdStandardFormRowModule,
-    AdTagSelectModule,
-    AdTrendModule,
-    AdDownFileModule,
-    AdImageModule,
-    AdUtilsModule
-];
+// region: your componets & directives
+const COMPONENTS = [];
+const DIRECTIVES = [];
 // endregion
 
 @NgModule({
@@ -172,40 +35,34 @@ const ABCMODULES = [
         FormsModule,
         RouterModule,
         ReactiveFormsModule,
-        HttpClientModule,
-        ...ZORROMODULES,
-        NgZorroAntdExtraModule.forRoot(),
         AlainThemeModule.forChild(),
-        ...ABCMODULES,
-        AlainACLModule.forRoot(),
+        DelonABCModule,
+        DelonACLModule,
+        DelonFormModule,
         // third libs
-        CountdownModule
+        ...THIRDMODULES
+    ],
+    declarations: [
+        // your components
+        ...COMPONENTS,
+        ...DIRECTIVES
     ],
     exports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
         RouterModule,
-        ...ZORROMODULES,
-        NgZorroAntdExtraModule,
         AlainThemeModule,
-        ...ABCMODULES,
-        AlainACLModule,
+        DelonABCModule,
+        DelonACLModule,
+        DelonFormModule,
         // i18n
         TranslateModule,
         // third libs
-        CountdownModule
+        ...THIRDMODULES,
+        // your components
+        ...COMPONENTS,
+        ...DIRECTIVES
     ]
 })
-export class SharedModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: SharedModule,
-            providers: [
-                // ng-zorro-antd Services
-                NzNotificationService,
-                NzMessageService
-            ]
-        };
-    }
-}
+export class SharedModule { }

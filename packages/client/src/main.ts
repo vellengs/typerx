@@ -34,6 +34,3 @@ if (environment.hmr) {
     }
   });
 }
-
-G2.track(false);
-

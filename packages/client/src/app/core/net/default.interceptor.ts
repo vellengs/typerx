@@ -1,14 +1,15 @@
 import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpInterceptor, HttpRequest, HttpHandler,
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpErrorResponse,
          HttpSentEvent, HttpHeaderResponse, HttpProgressEvent, HttpResponse, HttpUserEvent,
-         HttpHeaders } from '@angular/common/http';
+       } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
-import { catchError } from 'rxjs/operators';
-import { map, mergeMap } from 'rxjs/operators';
-
-import { environment } from '../../../environments/environment';
+import { mergeMap, catchError } from 'rxjs/operators';
+import { NzMessageService } from 'ng-zorro-antd';
+import { _HttpClient } from '@delon/theme';
+import { environment } from '@env/environment';
 
 /**
  * 默认HTTP拦截器，其注册细节见 `app.module.ts`
@@ -17,25 +18,60 @@ import { environment } from '../../../environments/environment';
 export class DefaultInterceptor implements HttpInterceptor {
     constructor(private injector: Injector) {}
 
-    private goLogin() {
-        const router = this.injector.get(Router);
-        this.injector.get(Router).navigate([ '/login' ]);
+    get msg(): NzMessageService {
+        return this.injector.get(NzMessageService);
+    }
+
+    private goTo(url: string) {
+        setTimeout(() => this.injector.get(Router).navigateByUrl(url));
+    }
+
+    private handleData(event: HttpResponse<any> | HttpErrorResponse): Observable<any> {
+        // 可能会因为 `throw` 导出无法执行 `_HttpClient` 的 `end()` 操作
+        this.injector.get(_HttpClient).end();
+        // 业务处理：一些通用操作
+        switch (event.status) {
+            case 200:
+                // 业务层级错误处理，以下是假定restful有一套统一输出格式（指不管成功与否都有相应的数据格式）情况下进行处理
+                // 例如响应内容：
+                //  错误内容：{ status: 1, msg: '非法参数' }
+                //  正确内容：{ status: 0, response: {  } }
+                // 则以下代码片断可直接适用
+                // if (event instanceof HttpResponse) {
+                //     const body: any = event.body;
+                //     if (body && body.status !== 0) {
+                //         this.msg.error(body.msg);
+                //         // 继续抛出错误中断后续所有 Pipe、subscribe 操作，因此：
+                //         // this.http.get('/').subscribe() 并不会触发
+                //         return ErrorObservable.throw(event);
+                //     } else {
+                //         // 重新修改 `body` 内容为 `response` 内容，对于绝大多数场景已经无须再关心业务状态码
+                //         return of(new HttpResponse(Object.assign(event, { body: body.response })));
+                //         // 或者依然保持完整的格式
+                //         return of(event);
+                //     }
+                // }
+                break;
+            case 401: // 未登录状态码
+                this.goTo('/passport/login');
+                break;
+            case 403:
+            case 404:
+            case 500:
+                this.goTo(`/${event.status}`);
+                break;
+            default:
+                if (event instanceof HttpErrorResponse) {
+                    console.warn('未可知错误，大部分是由于后端不支持CORS或无效配置引起', event);
+                    this.msg.error(event.message);
+                }
+                break;
+        }
+        return of(event);
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler):
         Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
-        let header: HttpHeaders = null;
-        // 过滤授权与多assets请求
-        if (!req.url.includes('auth/') && !req.url.includes('assets/') && !req.params.has('_allow_anonymous')) {
-            const access_token = `xxxxx`;
-            // 业务处理：无法获取授权，或授权已经过期时放弃当前请求
-            // if (!authData.access_token) {
-            //     this.goLogin();
-            //     return ErrorObservable.create({ status: 401 });
-            // }
-            // 正常token值放在请求header当中，具体格式以后端为准
-            header = req.headers.set('Authorization', `Bearer ${access_token}`);
-        }
 
         // 统一加上服务端前缀
         let url = req.url;
@@ -44,37 +80,17 @@ export class DefaultInterceptor implements HttpInterceptor {
         }
 
         const newReq = req.clone({
-            headers: header,
             url: url
         });
-
         return next.handle(newReq).pipe(
                     mergeMap((event: any) => {
                         // 允许统一对请求错误处理，这是因为一个请求若是业务上错误的情况下其HTTP请求的状态是200的情况下需要
-                        if (event instanceof HttpResponse && event.status !== 200) {
-                            // 业务处理：observer.error 会跳转至后面的 `catch`
-                            // return ErrorObservable.create(event);
-                        }
+                        if (event instanceof HttpResponse && event.status === 200)
+                            return this.handleData(event);
                         // 若一切都正常，则后续操作
-                        return Observable.create(observer => observer.next(event));
+                        return of(event);
                     }),
-                    catchError((res: HttpResponse<any>) => {
-                        // 业务处理：一些通用操作
-                        switch (res.status) {
-                            case 401: // 未登录状态码
-                                this.goLogin();
-                                break;
-                            case 200:
-                                // 业务层级错误处理
-                                console.log('业务错误');
-                                break;
-                            case 404:
-                                // 404
-                                break;
-                        }
-                        // 以错误的形式结束本次请求
-                        return ErrorObservable.create(event);
-                    })
+                    catchError((err: HttpErrorResponse) => this.handleData(err))
                 );
     }
 }

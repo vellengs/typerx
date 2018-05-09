@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
-import { getTimeDistance, yuan } from '@delon/abc';
-import { getFakeChartData } from '../../../../../_mock/chart.service';
+import { getTimeDistance, yuan, SimpleTableColumn } from '@delon/abc';
+import { _HttpClient } from '@delon/theme';
 
 @Component({
     selector: 'app-dashboard-analysis',
@@ -24,18 +24,32 @@ export class DashboardAnalysisComponent implements OnInit {
             total: 323234
         };
     });
+    searchColumn: SimpleTableColumn[] = [
+        { title: '排名', index: 'index' },
+        { title: '搜索关键词', index: 'keyword', click: (item: any) => this.msg.success(item.keyword) },
+        { type: 'number', title: '用户数', index: 'count', sorter: (a, b) => a.count - b.count },
+        { type: 'number', title: '周涨幅', index: 'range', render: 'range', sorter: (a, b) => a.range - b.range }
+    ];
 
-    constructor(public msg: NzMessageService) { }
+    salesType = 'all';
+    salesPieData: any;
+    salesTotal = 0;
+    _activeTab = 0;
+
+    constructor(private http: _HttpClient, public msg: NzMessageService) { }
 
     ngOnInit() {
-        setTimeout(() => {
-            this.data = Object.assign({}, getFakeChartData);
-            this.data.offlineData.forEach((item: any) => {
-                item.chart = Object.assign([], getFakeChartData.offlineChartData);
+
+        console.log('analysis ...');
+
+        this.http.get('/chart').subscribe((res: any) => {
+            res.offlineData.forEach((item: any) => {
+                item.chart = Object.assign([], res.offlineChartData);
             });
+            this.data = res;
             this.loading = false;
             this.changeSaleType();
-        }, 500);
+        });
     }
 
     setDate(type: any) {
@@ -44,35 +58,19 @@ export class DashboardAnalysisComponent implements OnInit {
         this.q.end = rank[1];
     }
 
-    sort(sortName, sortValue) {
-        this.data.searchData = [
-            ...(<any[]>this.data.searchData).sort((a, b) => {
-                if (a[sortName] > b[sortName]) {
-                    return (sortValue === 'ascend') ? 1 : -1;
-                } else if (a[sortName] < b[sortName]) {
-                    return (sortValue === 'ascend') ? -1 : 1;
-                } else {
-                    return 0;
-                }
-            })
-        ];
-    }
 
-    salesType = 'all';
-    salesPieData: any;
-    salesTotal = 0;
     changeSaleType() {
         this.salesPieData = this.salesType === 'all' ? this.data.salesTypeData : (
             this.salesType === 'online' ? this.data.salesTypeDataOnline : this.data.salesTypeDataOffline
         );
-        this.salesTotal = (this.salesPieData || []).reduce((pre, now) => now.y + pre, 0);
+        if (this.salesPieData) { this.salesTotal = this.salesPieData.reduce((pre, now) => now.y + pre, 0); }
     }
 
     handlePieValueFormat(value: any) {
         return yuan(value);
     }
 
-    _activeTab = 0;
+
     _tabChange(value: any) {
         console.log('tab', this._activeTab, value);
     }

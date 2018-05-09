@@ -1,35 +1,34 @@
-import { DashboardAnalysisComponent } from './dashboard/analysis/analysis.component';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+
 import { SharedModule } from '@shared/shared.module';
-import { PagesModule } from './pages/pages.module';
-
-import { routes } from './routes';
-import { DashboardMonitorComponent } from './dashboard/monitor/monitor.component';
-
-
-// pro
-import { ProUserLoginComponent } from './pro/user/login/login.component';
-import { ProUserRegisterComponent } from './pro/user/register/register.component';
-import { ProUserRegisterResultComponent } from './pro/user/register-result/register-result.component';
+import { RouteRoutingModule } from './routes-routing.module';
+// dashboard pages
+// passport pages
+import { UserLoginComponent } from './passport/login/login.component';
+import { UserRegisterComponent } from './passport/register/register.component';
+import { UserRegisterResultComponent } from './passport/register-result/register-result.component';
+// single pages
+import { CallbackComponent } from './callback/callback.component';
+import { Exception403Component } from './exception/403.component';
+import { Exception404Component } from './exception/404.component';
+import { Exception500Component } from './exception/500.component';
+import { DashboardAnalysisComponent } from './dashboard/analysis/analysis.component';
+import { DashboardComponent } from './dashboard/default/dashboard.component';
 
 @NgModule({
-    imports: [
-        SharedModule,
-        RouterModule.forRoot(routes, { useHash: true }),
-        PagesModule
-    ],
+    imports: [SharedModule, RouteRoutingModule],
     declarations: [
-        DashboardMonitorComponent,
         DashboardAnalysisComponent,
-        // pro
-        ProUserLoginComponent,
-        ProUserRegisterComponent,
-        ProUserRegisterResultComponent
-    ],
-    exports: [
-        RouterModule
+        DashboardComponent,
+        // passport pages
+        UserLoginComponent,
+        UserRegisterComponent,
+        UserRegisterResultComponent,
+        // single pages
+        CallbackComponent,
+        Exception403Component,
+        Exception404Component,
+        Exception500Component
     ]
 })
-
 export class RoutesModule { }
