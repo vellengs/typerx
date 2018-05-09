@@ -1,5 +1,3 @@
-
 import { AccountController } from './account.controller';
-export default [
-    AccountController
-];
+import { UserController } from './user.controller';
+export default [AccountController, UserController];

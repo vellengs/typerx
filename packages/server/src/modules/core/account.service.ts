@@ -6,8 +6,6 @@ import { AccountResponse } from './dto/account.dto';
 import { Helper } from '../../util/helper';
 
 export class AccountService {
-  constructor(private readonly context: ServiceContext) { }
-
   async getAppearance(): Promise<Appearance> {
     return null;
   }
@@ -22,8 +20,8 @@ export class AccountService {
       return {
         id: doc._id,
         username: doc.username,
-        nick: doc.nick
-      }
+        nick: doc.nick,
+      };
     });
     return result;
   }
@@ -50,5 +48,4 @@ export class AccountService {
   async remove(id: string): Promise<boolean> {
     return Helper.remove(Db.Account, id);
   }
-
 }

@@ -5,7 +5,7 @@ describe('Account service test', () => {
   let usersService: AccountService;
 
   beforeEach(async () => {
-    usersService = new AccountService(new ServiceContext());
+    usersService = new AccountService();
   });
 
   describe('findAll', () => {

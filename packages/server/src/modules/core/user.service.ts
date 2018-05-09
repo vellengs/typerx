@@ -13,10 +13,11 @@ import { LogService } from './log.service';
 import { Request, Response, NextFunction } from 'express';
 
 export class UserService {
-  constructor(private readonly context: ServiceContext) {}
-
-  async login(loginDto: LoginDto): Promise<LoginResponse | false> {
-    const { request, response, next } = this.context;
+  async login(
+    context: ServiceContext,
+    loginDto: LoginDto,
+  ): Promise<LoginResponse | false> {
+    const { request, response, next } = context;
     const result: LoginResponse | any | false = await this.validate(
       request,
       response,
@@ -34,8 +35,8 @@ export class UserService {
     return result;
   }
 
-  async profile(): Promise<ProfileResponse> {
-    const { user } = this.context.request;
+  async profile(context: ServiceContext): Promise<ProfileResponse> {
+    const { user } = context.request;
     return {
       id: user.id,
       name: user.name,

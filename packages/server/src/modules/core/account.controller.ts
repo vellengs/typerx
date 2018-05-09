@@ -15,7 +15,11 @@ import { Appearance } from './../../types/appearance';
 import { AccountService } from './account.service';
 import { Account } from './interfaces/account.interface';
 import { validator } from '../../util/validator';
-import { CreateAccountDto, EditAccountDto, AccountResponse } from './dto/account.dto';
+import {
+  CreateAccountDto,
+  EditAccountDto,
+  AccountResponse,
+} from './dto/account.dto';
 
 /**
  * 帐号管理.
@@ -25,10 +29,7 @@ import { CreateAccountDto, EditAccountDto, AccountResponse } from './dto/account
 export class AccountController {
   @Context context: ServiceContext;
 
-  constructor(private readonly service: AccountService) {
-    this.service = new AccountService(this.context);
-  }
-
+  constructor(private readonly service = new AccountService()) {}
 
   /**
    * 创建帐号
@@ -38,7 +39,6 @@ export class AccountController {
   async create(entry: CreateAccountDto): Promise<AccountResponse> {
     return this.service.create(entry);
   }
-
 
   /**
    * 更新帐号
