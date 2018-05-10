@@ -2,7 +2,12 @@ import { Appearance } from '../../types/appearance';
 import { ServiceContext, Errors } from 'typescript-rest';
 import { Account } from './interfaces/account.interface';
 import { CoreDatabase as Db } from './core.database';
-import { AccountResponse } from './dto/account.dto';
+import {
+  AccountResponse,
+  EditAccountDto,
+  SessionUser,
+  CreateAccountDto,
+} from './dto/account.dto';
 import { Helper } from '../../util/helper';
 
 export class AccountService {
@@ -28,18 +33,21 @@ export class AccountService {
         isDisable: doc.isDisable,
         isAdmin: doc.isAdmin,
         isApproved: doc.isApproved,
-        expired: doc.expired
+        expired: doc.expired,
       };
     });
     return result;
   }
 
-  async create(entry: any): Promise<any> {
+  async create(entry: CreateAccountDto): Promise<AccountResponse> {
     const doc = new Db.Account(entry);
     return await doc.save();
   }
 
-  async update(entry: any, admin?: Account): Promise<any> {
+  async update(
+    entry: EditAccountDto,
+    admin?: SessionUser,
+  ): Promise<AccountResponse> {
     if (admin && admin.isAdmin) {
       const doc = await Db.Account.findOneAndUpdate(
         {
@@ -57,15 +65,13 @@ export class AccountService {
     return Helper.remove(Db.Account, id);
   }
 
-
   async get(id: string): Promise<AccountResponse> {
     const result = Helper.get(Db.Account, id, [
       {
-        path: 'roles', select: 'name'
+        path: 'roles',
+        select: 'name',
       },
     ]);
     return result;
   }
-
-
 }

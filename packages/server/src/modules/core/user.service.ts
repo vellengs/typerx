@@ -16,9 +16,9 @@ export class UserService {
   async login(
     context: ServiceContext,
     loginDto: LoginDto,
-  ): Promise<LoginResponse | false> {
+  ): Promise<LoginResponse> {
     const { request, response, next } = context;
-    const result: LoginResponse | any | false = await this.validate(
+    const result: LoginResponse = await this.validate(
       request,
       response,
       next,
@@ -47,20 +47,43 @@ export class UserService {
     request: Request,
     response: Response,
     next: NextFunction,
-  ): Promise<LoginResponse | any | false> {
-    return await new Promise((resolve, reject) => {
+  ): Promise<LoginResponse> {
+    const result = await new Promise((resolve, reject) => {
       passport.authenticate(
         'local',
         (err: Error, user: LoginResponse, info: LocalStrategyInfo) => {
           if (err) {
-            reject(err);
+            reject(false);
           }
           if (user) {
             request.logIn(user, err => {
               if (err) {
-                reject(err);
+                reject(false);
               }
-              resolve(user);
+              const picked = (({ username,
+                nick,
+                avatar,
+                type,
+                email,
+                mobile,
+                roles,
+                isDisable,
+                isAdmin,
+                isApproved,
+                expired }) => ({
+                  username,
+                  nick,
+                  avatar,
+                  type,
+                  email,
+                  mobile,
+                  roles,
+                  isDisable,
+                  isAdmin,
+                  isApproved,
+                  expired
+                }))(user);
+              resolve(picked);
             });
           } else {
             resolve(false);
@@ -68,5 +91,6 @@ export class UserService {
         },
       )(request, response, next);
     });
+    return result as LoginResponse;
   }
 }
