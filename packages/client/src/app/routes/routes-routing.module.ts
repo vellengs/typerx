@@ -17,6 +17,7 @@ import { Exception404Component } from './exception/404.component';
 import { Exception500Component } from './exception/500.component';
 import { DashboardAnalysisComponent } from './dashboard/analysis/analysis.component';
 import { DashboardComponent } from './dashboard/default/dashboard.component';
+import { CanAuthProvide } from '../services/can.auth.provide';
 
 const routes: Routes = [
     {
@@ -24,7 +25,7 @@ const routes: Routes = [
         component: LayoutDefaultComponent,
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-            { path: 'dashboard', component: DashboardComponent, data: { title: '仪表盘' } },
+            { path: 'dashboard', canActivate: [CanAuthProvide], component: DashboardComponent, data: { title: '仪表盘' } },
         ]
     },
     {
@@ -36,6 +37,7 @@ const routes: Routes = [
             { path: 'register-result', component: UserRegisterResultComponent }
         ]
     },
+    { path: 'system', loadChildren: './system/system.module#SystemModule' },
     { path: 'callback/:type', component: CallbackComponent },
     { path: '403', component: Exception403Component },
     { path: '404', component: Exception404Component },

@@ -1,0 +1,42 @@
+{
+    "name": "typerx",
+    "version": "0.2.0",
+    "description": "A lightweight annotation-based full stack node project",
+    "keywords": [
+        "api",
+        "decorator",
+        "express",
+        "rest",
+        "restful",
+        "swagger",
+        "typescript"
+    ],
+    "homepage": "https://github.com/vellengs/typerx#readme",
+    "bugs": {
+        "url": "https://github.com/vellengs/typerx/issues"
+    },
+    "license": "MIT",
+    "author": "vellengs",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/vellengs/typerx.git"
+    },
+    "scripts": {
+        "client": "cd packages/client && npm start",
+        "server": "cd packages/server && npm start",
+        "start": "concurrently --kill-others \"npm run server\" \"npm run client\"",
+        "test": "jest",
+        "test:cov": "jest --coverage",
+        "test:e2e": "jest --config ./test/jest-e2e.json",
+        "prettify": "pretty-quick",
+        "watch": "nodemon",
+        "watch-test": "npm run test -- --watchAll"
+    },
+    "dependencies": {
+
+    },
+    "devDependencies": {
+
+    }
+}

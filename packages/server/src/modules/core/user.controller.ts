@@ -19,6 +19,7 @@ import {
 } from './dto/login.dto';
 import { LogService } from './log.service';
 import { UserService } from './user.service';
+import { SSL_OP_EPHEMERAL_RSA } from 'constants';
 
 /**
  * 系统接口.
@@ -27,7 +28,7 @@ import { UserService } from './user.service';
 @Path('/user')
 export class UserController {
   @Context context: ServiceContext;
-  constructor(private readonly service = new UserService()) {}
+  constructor(private readonly service = new UserService()) { }
 
   /**
    * 用户登陆
