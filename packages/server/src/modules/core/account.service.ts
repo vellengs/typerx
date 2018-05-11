@@ -41,7 +41,35 @@ export class AccountService {
 
   async create(entry: CreateAccountDto): Promise<AccountResponse> {
     const doc = new Db.Account(entry);
-    return await doc.save();
+    const result = await doc.save();
+    const picked = (({ username,
+      nick,
+      avatar,
+      type,
+      email,
+      mobile,
+      roles,
+      isDisable,
+      isAdmin,
+      isApproved,
+      expired }) => ({
+        username,
+        nick,
+        avatar,
+        type,
+        email,
+        mobile,
+        roles,
+        isDisable,
+        isAdmin,
+        isApproved,
+        expired
+      }))(result);
+    return picked;
+  }
+
+  valuable(value: any) {
+    return value;
   }
 
   async update(

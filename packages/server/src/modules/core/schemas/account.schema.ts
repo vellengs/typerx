@@ -10,7 +10,7 @@ import * as crypto from 'crypto';
 
 export const schema = new Schema(
   {
-    username: t.String,
+    username: { type: t.String, unique: true },
     password: t.String,
     avatar: t.String,
     email: t.String,
@@ -71,7 +71,7 @@ function preUpdate(next: Function) {
 schema.pre('save', preSave);
 schema.pre('findOneAndUpdate', preUpdate);
 
-schema.methods.comparePassword = function(
+schema.methods.comparePassword = function (
   candidatePassword: string,
   cb: (err: any, isMatch: any) => {},
 ) {
@@ -86,7 +86,7 @@ schema.methods.comparePassword = function(
   );
 };
 
-schema.methods.pure = function() {
+schema.methods.pure = function () {
   const obj = this.toJSON();
   delete obj.password;
   return obj;
