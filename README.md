@@ -9,7 +9,7 @@ A lightweight typescript annotation based MEAN(Mongodb Express Angular2+ Nodejs)
 $ git clone --depth 1 https://github.com/vellengs/typerx.git
 
 # change directory to our repo
-$ cd nestx
+$ cd typerx
 
 # install the repo with npm
 $ npm install
