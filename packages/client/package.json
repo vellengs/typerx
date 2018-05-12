@@ -108,10 +108,12 @@
             "editorconfig-tools fix",
             "git add"
         ],
-        "*.ts": [
+        "*.ts,!src/generated/**/*.ts": [
+            "npm run lint:ts",
             "git add"
         ],
         "src/**/*.less": [
+            "npm run lint:style",
             "git add"
         ]
     },
