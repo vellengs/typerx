@@ -20,6 +20,7 @@ import {
   EditAccountDto,
   AccountResponse,
 } from './dto/account.dto';
+import { ProfileResponse } from './dto/login.dto';
 
 /**
  * 帐号管理.
@@ -88,6 +89,16 @@ export class AccountController {
     @PathParam('category') category: string,
   ): Promise<AccountResponse[]> {
     return [];
+  }
+
+
+  /**
+ * 帐户信息
+ */
+  @GET
+  @Path('profile')
+  async profile(): Promise<ProfileResponse> {
+    return this.service.profile(this.context);
   }
 
   /**

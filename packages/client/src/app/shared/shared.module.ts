@@ -15,6 +15,10 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { CountdownModule } from 'ngx-countdown';
 import { UEditorModule } from 'ngx-ueditor';
 import { NgxTinymceModule } from 'ngx-tinymce';
+import { UserService } from '../services/user.service';
+import { CanAdminProvide } from '../services/can.admin.provide';
+import { CanAuthProvide } from '../services/can.auth.provide';
+import { ApiModule, Configuration } from '../../generated';
 
 const THIRDMODULES = [
     NgZorroAntdModule,
@@ -36,6 +40,11 @@ const DIRECTIVES = [];
         RouterModule,
         ReactiveFormsModule,
         AlainThemeModule.forChild(),
+        ApiModule.forRoot(() => {
+            const config = new Configuration();
+            config.basePath = `${location.protocol}//${location.host}`;
+            return config;
+        }),
         DelonABCModule,
         DelonACLModule,
         DelonFormModule,
@@ -63,6 +72,11 @@ const DIRECTIVES = [];
         // your components
         ...COMPONENTS,
         ...DIRECTIVES
+    ],
+    providers: [
+        UserService,
+        CanAdminProvide,
+        CanAuthProvide,
     ]
 })
 export class SharedModule { }

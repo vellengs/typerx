@@ -42,6 +42,10 @@ npm start
 npm run serve:hmr
 ```
 
+### ignore tslint 
+
+[use tslint ignore settings](https://github.com/Microsoft/vscode-tslint/issues/215)
+
 > [vscode] recommended install [ng-zorro-vscode](https://marketplace.visualstudio.com/items?itemName=cipchk.ng-zorro-vscode) plugins, that includes `nz-alain-*` snippets.
 
 ## Links

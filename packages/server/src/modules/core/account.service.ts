@@ -9,6 +9,7 @@ import {
   CreateAccountDto,
 } from './dto/account.dto';
 import { Helper } from '../../util/helper';
+import { ProfileResponse } from './dto/login.dto';
 
 export class AccountService {
   async getAppearance(): Promise<Appearance> {
@@ -91,6 +92,14 @@ export class AccountService {
 
   async remove(id: string): Promise<boolean> {
     return Helper.remove(Db.Account, id);
+  }
+
+  async profile(context: ServiceContext): Promise<ProfileResponse> {
+    const { user } = context.request;
+    return {
+      id: user.id,
+      name: user.name,
+    };
   }
 
   async get(id: string): Promise<AccountResponse> {

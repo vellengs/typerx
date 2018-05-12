@@ -18,6 +18,7 @@ import { Exception500Component } from './exception/500.component';
 import { DashboardAnalysisComponent } from './dashboard/analysis/analysis.component';
 import { DashboardComponent } from './dashboard/default/dashboard.component';
 import { CanAuthProvide } from '../services/can.auth.provide';
+import { CustomLoginComponent } from '../pages/login/login.component';
 
 const routes: Routes = [
     {
@@ -32,12 +33,12 @@ const routes: Routes = [
         path: 'passport',
         component: LayoutPassportComponent,
         children: [
-            { path: 'login', component: UserLoginComponent },
+            { path: 'login', component: CustomLoginComponent },
             { path: 'register', component: UserRegisterComponent },
             { path: 'register-result', component: UserRegisterResultComponent }
         ]
     },
-    { path: 'system', loadChildren: './system/system.module#SystemModule' },
+    { path: 'system', loadChildren: './../pages/system/system.module#SystemModule' },
     { path: 'callback/:type', component: CallbackComponent },
     { path: '403', component: Exception403Component },
     { path: '404', component: Exception404Component },

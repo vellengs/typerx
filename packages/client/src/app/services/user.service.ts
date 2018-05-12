@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { SettingsService, _HttpClient } from '@delon/theme';
-
+import { CoreService, LoginDto } from 'generated';
 
 interface User {
     name?: string;
@@ -16,6 +16,7 @@ export class UserService {
     constructor(
         public client: _HttpClient,
         public settings: SettingsService,
+        public coreService: CoreService
 
     ) {
         this.onRegionsChanged = new EventEmitter();
@@ -55,11 +56,10 @@ export class UserService {
         return this.user.roles.includes(name);
     }
 
-    async login(model: any) {
-        // const user = await this.ajax.signIn(model).toPromise();
-        // user.avatar = user.avatar || ' ';
-        // this.settings.setUser(user);
-        // return user;
+    async login(model: LoginDto) {
+        const user = await this.coreService.userLogin(model).toPromise();
+        this.settings.setUser(user);
+        return user;
     }
 
     async isUnAuthenticated(client) {
@@ -67,7 +67,7 @@ export class UserService {
             return true;
         }
         this.authenticating = true;
-        const user = await client.get('api/account/authenticated').toPromise();
+        const user = await client.get('api/account/profile').toPromise();
         if (user) {
             user.avatar = user.avatar || ' ';
             this.settings.setUser(user);

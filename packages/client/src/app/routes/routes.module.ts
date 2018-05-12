@@ -14,6 +14,7 @@ import { Exception404Component } from './exception/404.component';
 import { Exception500Component } from './exception/500.component';
 import { DashboardAnalysisComponent } from './dashboard/analysis/analysis.component';
 import { DashboardComponent } from './dashboard/default/dashboard.component';
+import { CustomLoginComponent } from '../pages/login/login.component';
 
 @NgModule({
     imports: [SharedModule, RouteRoutingModule],
@@ -22,6 +23,7 @@ import { DashboardComponent } from './dashboard/default/dashboard.component';
         DashboardComponent,
         // passport pages
         UserLoginComponent,
+        CustomLoginComponent,
         UserRegisterComponent,
         UserRegisterResultComponent,
         // single pages
