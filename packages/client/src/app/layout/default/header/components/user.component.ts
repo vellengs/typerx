@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { SettingsService } from '@delon/theme';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
+import { CoreService } from 'generated';
 
 @Component({
     selector: 'header-user',
@@ -23,8 +24,9 @@ import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 export class HeaderUserComponent implements OnInit {
     constructor(
         public settings: SettingsService,
+        public coreService: CoreService,
         private router: Router,
-        @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService) {}
+        @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService) { }
 
     ngOnInit(): void {
         this.tokenService.change().subscribe((res: any) => {
@@ -35,12 +37,14 @@ export class HeaderUserComponent implements OnInit {
             token: 'nothing',
             name: 'Admin',
             avatar: './assets/img/zorro.svg',
-            email: 'cipchk@qq.com'
+            email: 'vellengs@qq.com'
         };
         this.tokenService.set(token);
     }
 
-    logout() {
+    async  logout() {
+        await this.coreService.userLogout().toPromise();
+        console.log('logout ...');
         this.tokenService.clear();
         this.router.navigateByUrl(this.tokenService.login_url);
     }

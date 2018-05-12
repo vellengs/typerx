@@ -67,17 +67,13 @@ export class UserService {
             return true;
         }
         this.authenticating = true;
-        const user = await client.get('api/account/profile').toPromise();
-        if (user) {
-            user.avatar = user.avatar || ' ';
-            this.settings.setUser(user);
-        }
-        console.log('user', user);
+        const user = await this.coreService.userProfile().toPromise();
+        this.settings.setUser(user);
         return user;
     }
 
     async logout() {
-        // const result = await this.ajax.signOut().toPromise();
+        const result = await this.coreService.userLogout().toPromise();
         this.user.name = null;
     }
 
