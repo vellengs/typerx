@@ -77,24 +77,21 @@ export class AccountController {
   }
 
   /**
-   * * 按分类获取帐号数据
-   *
-   * @param {string} category 分类键名
-   * @returns {Promise<AccountResponse[]>}
-   * @memberof AccountController
+   * 分页查询帐号数据
+   * @param keyword 关键词
    */
-  @Path('category/:category')
+  @Path('query')
   @GET
-  async getAccountByCategory(
-    @PathParam('category') category: string,
+  @Preprocessor(validator)
+  async query(
+    @QueryParam('keyword') keyword?: string,
   ): Promise<AccountResponse[]> {
-    return [];
+    return this.service.getAccountsByKeyword(keyword);
   }
 
-
   /**
- * 帐户信息
- */
+   * 帐户信息
+   */
   @GET
   @Path('profile')
   async profile(): Promise<ProfileResponse> {

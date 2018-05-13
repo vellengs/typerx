@@ -17,9 +17,8 @@ export class ListContext {
 
     ) { }
 
- 
     async init(domain: string, params?: any) {
-        const configUrl = `${domain}`;
+        const configUrl = `api/${domain}/config`;
         const config = await this.client.get(configUrl, params).toPromise();
     }
 
