@@ -25,28 +25,32 @@ class UserService {
             return result;
         });
     }
-    profile(context) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { user } = context.request;
-            return {
-                id: user.id,
-                name: user.name,
-            };
-        });
-    }
     validate(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield new Promise((resolve, reject) => {
+            const result = yield new Promise((resolve, reject) => {
                 passport.authenticate('local', (err, user, info) => {
                     if (err) {
-                        reject(err);
+                        reject(false);
                     }
                     if (user) {
                         request.logIn(user, err => {
                             if (err) {
-                                reject(err);
+                                reject(false);
                             }
-                            resolve(user);
+                            const picked = (({ username, nick, avatar, type, email, mobile, roles, isDisable, isAdmin, isApproved, expired }) => ({
+                                username,
+                                nick,
+                                avatar,
+                                type,
+                                email,
+                                mobile,
+                                roles,
+                                isDisable,
+                                isAdmin,
+                                isApproved,
+                                expired
+                            }))(user);
+                            resolve(picked);
                         });
                     }
                     else {
@@ -54,6 +58,7 @@ class UserService {
                     }
                 })(request, response, next);
             });
+            return result;
         });
     }
 }

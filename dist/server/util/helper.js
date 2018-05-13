@@ -43,6 +43,24 @@ class Helper {
             });
         });
     }
+    static get(model, id, populates) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const option = {};
+            return new Promise((resolve, reject) => {
+                if (populates && populates.length) {
+                    option.populate = populates;
+                }
+                model.findOne({ _id: id }, null, option).exec((err, res) => {
+                    if (err) {
+                        reject(err);
+                    }
+                    else {
+                        resolve(res && res.pure());
+                    }
+                });
+            });
+        });
+    }
 }
 exports.Helper = Helper;
 //# sourceMappingURL=helper.js.map

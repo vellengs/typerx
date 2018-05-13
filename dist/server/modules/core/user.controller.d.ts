@@ -1,5 +1,5 @@
 import { ServiceContext } from 'typescript-rest';
-import { LoginDto, LoginResponse, ProfileResponse } from './dto/login.dto';
+import { LoginDto, LoginResponse } from './dto/login.dto';
 import { UserService } from './user.service';
 /**
  * 系统接口.
@@ -13,10 +13,6 @@ export declare class UserController {
      * @param dto 用户登陆参数
      */
     login(dto: LoginDto): Promise<LoginResponse | false>;
-    /**
-     * 帐户信息
-     */
-    profile(): Promise<ProfileResponse>;
     /**
      * 退出登陆
      */

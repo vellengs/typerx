@@ -44,7 +44,6 @@ export class UserService {
     }
 
     get username(): string {
-        console.log('user:', this.user);
         return this.user.username;
     }
 
@@ -67,7 +66,7 @@ export class UserService {
             return true;
         }
         this.authenticating = true;
-        const user = await this.coreService.userProfile().toPromise();
+        const user = await this.coreService.accountProfile().toPromise();
         this.settings.setUser(user);
         return user;
     }

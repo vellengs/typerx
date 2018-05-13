@@ -27,6 +27,7 @@ const routes: Routes = [
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
             { path: 'dashboard', canActivate: [CanAuthProvide], component: DashboardComponent, data: { title: '仪表盘' } },
+            { path: 'system', loadChildren: './../pages/system/system.module#SystemModule' },
         ]
     },
     {
@@ -38,7 +39,6 @@ const routes: Routes = [
             { path: 'register-result', component: UserRegisterResultComponent }
         ]
     },
-    { path: 'system', loadChildren: './../pages/system/system.module#SystemModule' },
     { path: 'callback/:type', component: CallbackComponent },
     { path: '403', component: Exception403Component },
     { path: '404', component: Exception404Component },

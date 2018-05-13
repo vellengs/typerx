@@ -2,6 +2,7 @@ import { ServiceContext } from 'typescript-rest';
 import { Appearance } from './../../types/appearance';
 import { AccountService } from './account.service';
 import { CreateAccountDto, EditAccountDto, AccountResponse } from './dto/account.dto';
+import { ProfileResponse } from './dto/login.dto';
 /**
  * 帐号管理.
  */
@@ -39,4 +40,18 @@ export declare class AccountController {
      * @memberof AccountController
      */
     getAccountByCategory(category: string): Promise<AccountResponse[]>;
+    /**
+   * 帐户信息
+   */
+    profile(): Promise<ProfileResponse>;
+    /**
+     * 删除帐号
+     * @param id 帐号编号
+     */
+    remove(id: string): Promise<boolean>;
+    /**
+     * 查询帐号
+     * @param id 编号
+     */
+    get(id: string): Promise<AccountResponse>;
 }

@@ -107,19 +107,6 @@ definitions:
         description: ""
         properties: {}
         type: object
-    LoginDto:
-        description: ""
-        properties:
-            username:
-                type: string
-                description: ""
-            password:
-                type: string
-                description: ""
-        type: object
-        required:
-            - username
-            - password
     ProfileResponse:
         description: ""
         properties:
@@ -133,6 +120,19 @@ definitions:
         required:
             - id
             - name
+    LoginDto:
+        description: ""
+        properties:
+            username:
+                type: string
+                description: ""
+            password:
+                type: string
+                description: ""
+        type: object
+        required:
+            - username
+            - password
 info:
     description: 项目标准接口
     license:
@@ -243,6 +243,59 @@ paths:
                     name: category
                     required: true
                     type: string
+    /api/account/profile:
+        get:
+            operationId: AccountProfile
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/ProfileResponse'
+            description: 帐户信息
+            tags:
+                - core
+            parameters: []
+    '/api/account/{id}':
+        delete:
+            operationId: AccountRemove
+            produces:
+                - text/html
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        type: boolean
+            description: 删除帐号
+            tags:
+                - core
+            parameters:
+                -
+                    description: 帐号编号
+                    in: path
+                    name: id
+                    required: true
+                    type: string
+        get:
+            operationId: AccountGet
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/AccountResponse'
+            description: 查询帐号
+            tags:
+                - core
+            parameters:
+                -
+                    description: 编号
+                    in: path
+                    name: id
+                    required: true
+                    type: string
     /user/login:
         post:
             operationId: UserLogin
@@ -266,20 +319,6 @@ paths:
                     required: true
                     schema:
                         $ref: '#/definitions/LoginDto'
-    /user/profile:
-        get:
-            operationId: UserProfile
-            produces:
-                - application/json
-            responses:
-                '200':
-                    description: Ok
-                    schema:
-                        $ref: '#/definitions/ProfileResponse'
-            description: 帐户信息
-            tags:
-                - core
-            parameters: []
     /user/logout:
         get:
             operationId: UserLogout

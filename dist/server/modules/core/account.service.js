@@ -35,7 +35,7 @@ class AccountService {
                     isDisable: doc.isDisable,
                     isAdmin: doc.isAdmin,
                     isApproved: doc.isApproved,
-                    expired: doc.expired
+                    expired: doc.expired,
                 };
             });
             return result;
@@ -44,8 +44,25 @@ class AccountService {
     create(entry) {
         return __awaiter(this, void 0, void 0, function* () {
             const doc = new core_database_1.CoreDatabase.Account(entry);
-            return yield doc.save();
+            const result = yield doc.save();
+            const picked = (({ username, nick, avatar, type, email, mobile, roles, isDisable, isAdmin, isApproved, expired }) => ({
+                username,
+                nick,
+                avatar,
+                type,
+                email,
+                mobile,
+                roles,
+                isDisable,
+                isAdmin,
+                isApproved,
+                expired
+            }))(result);
+            return picked;
         });
+    }
+    valuable(value) {
+        return value;
     }
     update(entry, admin) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -63,6 +80,26 @@ class AccountService {
     remove(id) {
         return __awaiter(this, void 0, void 0, function* () {
             return helper_1.Helper.remove(core_database_1.CoreDatabase.Account, id);
+        });
+    }
+    profile(context) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { user } = context.request;
+            return {
+                id: user.id,
+                name: user.name,
+            };
+        });
+    }
+    get(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = helper_1.Helper.get(core_database_1.CoreDatabase.Account, id, [
+                {
+                    path: 'roles',
+                    select: 'name',
+                },
+            ]);
+            return result;
         });
     }
 }

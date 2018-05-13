@@ -82,6 +82,32 @@ let AccountController = class AccountController {
             return [];
         });
     }
+    /**
+   * 帐户信息
+   */
+    profile() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.service.profile(this.context);
+        });
+    }
+    /**
+     * 删除帐号
+     * @param id 帐号编号
+     */
+    remove(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.service.remove(id);
+        });
+    }
+    /**
+     * 查询帐号
+     * @param id 编号
+     */
+    get(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.service.get(id);
+        });
+    }
 };
 __decorate([
     typescript_rest_1.Context,
@@ -123,6 +149,29 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "getAccountByCategory", null);
+__decorate([
+    typescript_rest_1.GET,
+    typescript_rest_1.Path('profile'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AccountController.prototype, "profile", null);
+__decorate([
+    typescript_rest_1.Path(':id'),
+    typescript_rest_1.DELETE,
+    __param(0, typescript_rest_1.PathParam('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AccountController.prototype, "remove", null);
+__decorate([
+    typescript_rest_1.Path(':id'),
+    typescript_rest_1.GET,
+    __param(0, typescript_rest_1.PathParam('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AccountController.prototype, "get", null);
 AccountController = __decorate([
     typescript_rest_swagger_1.Tags('core'),
     typescript_rest_1.Path('/api/account'),

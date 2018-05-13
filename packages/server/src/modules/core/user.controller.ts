@@ -41,15 +41,6 @@ export class UserController {
   }
 
   /**
-   * 帐户信息
-   */
-  @GET
-  @Path('profile')
-  async profile(): Promise<ProfileResponse> {
-    return this.service.profile(this.context);
-  }
-
-  /**
    * 退出登陆
    */
   @Path('logout')

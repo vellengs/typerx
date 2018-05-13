@@ -26,6 +26,7 @@ export class CanAuthProvide implements CanActivate {
                     observer.next(true);
                     observer.complete();
                 }, (error) => {
+                    console.log('error:', error);
                     observer.next(false);
                     observer.complete();
                 });

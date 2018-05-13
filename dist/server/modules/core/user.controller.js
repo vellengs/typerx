@@ -37,14 +37,6 @@ let UserController = class UserController {
         });
     }
     /**
-     * 帐户信息
-     */
-    profile() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this.service.profile(this.context);
-        });
-    }
-    /**
      * 退出登陆
      */
     logout() {
@@ -65,13 +57,6 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "login", null);
-__decorate([
-    typescript_rest_1.GET,
-    typescript_rest_1.Path('profile'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], UserController.prototype, "profile", null);
 __decorate([
     typescript_rest_1.Path('logout'),
     typescript_rest_1.GET,

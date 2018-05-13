@@ -3,9 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '@shared/shared.module';
 import { UMeditorModule } from 'ngx-umeditor';
 import { SettingsPageComponent } from './settings/settings';
+import { MenusPageComponent } from './menus/menus';
+import { ApiModule } from 'generated';
 
 const routes: Routes = [
     { path: 'settings', component: SettingsPageComponent },
+    { path: 'menus', component: MenusPageComponent },
+
 ];
 
 @NgModule({
@@ -15,10 +19,12 @@ const routes: Routes = [
         UMeditorModule,
     ],
     declarations: [
-        SettingsPageComponent
+        SettingsPageComponent,
+        MenusPageComponent
     ],
     entryComponents: [
-        SettingsPageComponent
+        SettingsPageComponent,
+        MenusPageComponent
     ],
     exports: [
         RouterModule

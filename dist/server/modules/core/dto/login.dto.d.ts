@@ -6,11 +6,17 @@ export interface LocalStrategyInfo {
     message: string;
 }
 export interface LoginResponse {
-    name: string;
-    operator: string;
-    operatorIp: string;
-    operation: string;
-    comment: string;
+    username: string;
+    nick: string;
+    avatar: string;
+    type: string;
+    email: string;
+    mobile: string;
+    roles: string[];
+    isDisable: boolean;
+    isAdmin: boolean;
+    isApproved: boolean;
+    expired: Date;
 }
 export interface ProfileResponse {
     id: string;

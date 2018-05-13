@@ -15,7 +15,7 @@ import { DelonCacheModule } from '@delon/cache';
 import { DelonMockModule } from '@delon/mock';
 import * as MOCKDATA from '../../_mock';
 import { environment } from '@env/environment';
-const MOCKMODULE = !environment.production ? [ DelonMockModule.forRoot({ data: MOCKDATA }) ] : [];
+const MOCKMODULE = !environment.production ? [DelonMockModule.forRoot({ data: MOCKDATA })] : [];
 
 // region: global config functions
 import { AdPageHeaderConfig } from '@delon/abc';
@@ -24,6 +24,10 @@ export function pageHeaderConfig(): AdPageHeaderConfig {
 }
 
 import { DelonAuthConfig } from '@delon/auth';
+import { ApiModule, Configuration } from 'generated';
+import { UserService } from './services/user.service';
+import { CanAdminProvide } from './services/can.admin.provide';
+import { CanAuthProvide } from './services/can.auth.provide';
 export function delonAuthConfig(): DelonAuthConfig {
     return Object.assign(new DelonAuthConfig(), <DelonAuthConfig>{
         login_url: '/passport/login'
@@ -39,12 +43,22 @@ export function delonAuthConfig(): DelonAuthConfig {
         DelonAuthModule.forRoot(),
         DelonACLModule.forRoot(),
         DelonCacheModule.forRoot(),
+        ApiModule.forRoot(() => {
+            const config = new Configuration();
+            config.basePath = `${location.protocol}//${location.host}`;
+            return config;
+        }),
         // mock
         ...MOCKMODULE
+    ],
+    providers: [
+        UserService,
+        CanAdminProvide,
+        CanAuthProvide,
     ]
 })
 export class DelonModule {
-    constructor( @Optional() @SkipSelf() parentModule: DelonModule) {
+    constructor(@Optional() @SkipSelf() parentModule: DelonModule) {
         throwIfAlreadyLoaded(parentModule, 'DelonModule');
     }
 
@@ -55,7 +69,7 @@ export class DelonModule {
                 // TIPS：@delon/abc 有大量的全局配置信息，例如设置所有 `simple-table` 的页码默认为 `20` 行
                 // { provide: SimpleTableConfig, useFactory: simpleTableConfig }
                 { provide: AdPageHeaderConfig, useFactory: pageHeaderConfig },
-                { provide: DelonAuthConfig, useFactory: delonAuthConfig}
+                { provide: DelonAuthConfig, useFactory: delonAuthConfig }
             ]
         };
     }

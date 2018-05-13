@@ -30,9 +30,9 @@ class ApiServer {
         this.server = null;
         this.PORT = parseInt(process.env.PORT, 0) || 3600;
         this.app = express();
+        this.config();
         passport_1.init();
         this.app.use('/api', passport_1.isAuthenticated);
-        this.config();
         typescript_rest_1.Server.buildServices(this.app, ...controllers_1.controllers);
         if (process.env.SWAGGER && fs_1.existsSync(path.resolve(process.env.SWAGGER))) {
             typescript_rest_1.Server.swagger(this.app, process.env.SWAGGER, '/docs', 'localhost:' + this.PORT, ['http', 'https']);

@@ -52,7 +52,6 @@ export function init() {
     }));
 }
 
-
 /**
  * Login Required middleware.
  */

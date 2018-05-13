@@ -109,6 +109,46 @@ export class CoreService {
 
     /**
      * 
+     * 查询帐号
+     * @param id 编号
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public accountGet(id: string, observe?: 'body', reportProgress?: boolean): Observable<AccountResponse>;
+    public accountGet(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AccountResponse>>;
+    public accountGet(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AccountResponse>>;
+    public accountGet(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling accountGet.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<AccountResponse>(`${this.basePath}/api/account/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
      * * 按分类获取帐号数据
      * @param category 分类键名
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -217,6 +257,82 @@ export class CoreService {
         ];
 
         return this.httpClient.get<Appearance>(`${this.basePath}/api/account/config`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 帐户信息
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public accountProfile(observe?: 'body', reportProgress?: boolean): Observable<ProfileResponse>;
+    public accountProfile(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ProfileResponse>>;
+    public accountProfile(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ProfileResponse>>;
+    public accountProfile(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<ProfileResponse>(`${this.basePath}/api/account/profile`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 删除帐号
+     * @param id 帐号编号
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public accountRemove(id: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public accountRemove(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public accountRemove(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public accountRemove(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling accountRemove.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/html'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.delete<boolean>(`${this.basePath}/api/account/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -345,42 +461,6 @@ export class CoreService {
         ];
 
         return this.httpClient.get<boolean>(`${this.basePath}/user/logout`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * 
-     * 帐户信息
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public userProfile(observe?: 'body', reportProgress?: boolean): Observable<ProfileResponse>;
-    public userProfile(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ProfileResponse>>;
-    public userProfile(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ProfileResponse>>;
-    public userProfile(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-        ];
-
-        return this.httpClient.get<ProfileResponse>(`${this.basePath}/user/profile`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

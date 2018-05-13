@@ -35,13 +35,6 @@ export class UserService {
     return result;
   }
 
-  async profile(context: ServiceContext): Promise<ProfileResponse> {
-    const { user } = context.request;
-    return {
-      id: user.id,
-      name: user.name,
-    };
-  }
 
   private async validate(
     request: Request,
