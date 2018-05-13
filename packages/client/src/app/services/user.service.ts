@@ -19,8 +19,7 @@ export class UserService {
         public coreService: CoreService
 
     ) {
-        this.onRegionsChanged = new EventEmitter();
-        this.changeRegionType = new EventEmitter();
+
     }
 
     private timeStamp = new Date().getTime();
@@ -31,9 +30,6 @@ export class UserService {
     private _allRegions = [];
     private user: User = {};
 
-    public onRegionsChanged: EventEmitter<string[]>;
-
-    public changeRegionType: EventEmitter<number>;
 
     get isLogin(): boolean {
         return this.user.name != null;
@@ -74,30 +70,5 @@ export class UserService {
     async logout() {
         const result = await this.coreService.userLogout().toPromise();
         this.user.name = null;
-    }
-
-    get allRegions() {
-        return this._allRegions;
-    }
-
-    set allRegions(val) {
-        this._allRegions = val;
-    }
-
-    get regions() {
-        return this.regionIds;
-    }
-
-    set regions(val) {
-        this.regionIds = val;
-        this.onRegionsChanged.emit(val);
-    }
-
-    get depot() {
-        return this.depots;
-    }
-
-    set depot(val) {
-        this.depots = val;
     }
 }

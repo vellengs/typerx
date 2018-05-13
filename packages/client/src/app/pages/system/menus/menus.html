@@ -1,4 +1,18 @@
-
-<div>
-    menus
+<div class="content__title">
+    <h1>菜单设置</h1>
 </div>
+<nz-card [nzExtra]="extra" [nzCover]="cover"></nz-card>
+<nz-row [nzGutter]="16">
+    <nz-col [nzMd]="24">
+        <nz-card [nzExtra]="extra" [nzCover]="cover">
+            <div style="margin-bottom: 16px;position:relative;">
+                <button class="mr-sm" type="button" nz-button [nzType]="'primary'" (click)="addEntry()">
+                    <i class="anticon anticon-plus"></i>
+                    新增
+                </button>
+            </div>
+
+                ssss
+        </nz-card>
+    </nz-col>
+</nz-row>

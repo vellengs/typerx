@@ -1,0 +1,46 @@
+import { Injectable, EventEmitter } from '@angular/core';
+import { SettingsService, User, ModalHelper } from '@delon/theme';
+import { CoreService, LoginDto } from 'generated';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable()
+export class ListContext {
+
+    public onConfigReady: EventEmitter<any> = new EventEmitter();
+    public onEntriesLoaded: EventEmitter<any> = new EventEmitter();
+
+    constructor(
+        public client: HttpClient,
+        public settings: SettingsService,
+        public coreService: CoreService,
+        public modalHelper: ModalHelper,
+
+    ) { }
+
+ 
+    async init(domain: string, params?: any) {
+        const configUrl = `${domain}`;
+        const config = await this.client.get(configUrl, params).toPromise();
+    }
+
+    async load() {
+
+    }
+
+    async add() {
+
+    }
+
+    async edit() {
+
+    }
+
+    async remove() {
+
+    }
+
+    async removeBatch() {
+
+    }
+
+}

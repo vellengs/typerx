@@ -28,6 +28,7 @@ import { ApiModule, Configuration } from 'generated';
 import { UserService } from './services/user.service';
 import { CanAdminProvide } from './services/can.admin.provide';
 import { CanAuthProvide } from './services/can.auth.provide';
+import { ListContext } from './services/list.context';
 export function delonAuthConfig(): DelonAuthConfig {
     return Object.assign(new DelonAuthConfig(), <DelonAuthConfig>{
         login_url: '/passport/login'
@@ -53,6 +54,7 @@ export function delonAuthConfig(): DelonAuthConfig {
     ],
     providers: [
         UserService,
+        ListContext,
         CanAdminProvide,
         CanAuthProvide,
     ]

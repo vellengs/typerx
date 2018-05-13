@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { _HttpClient } from '@delon/theme';
+import { ListContext } from '../../../services/list.context';
 
 @Component({
     selector: 'app-menus-page',
@@ -12,14 +13,13 @@ import { _HttpClient } from '@delon/theme';
 })
 export class MenusPageComponent implements OnInit {
 
-
-
-    constructor(public client: _HttpClient) {
+    domain = 'menus';
+    constructor(public context: ListContext) {
 
     }
 
     ngOnInit(): void {
-
+        this.context.init(this.domain);
     }
 
 }
