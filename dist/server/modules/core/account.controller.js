@@ -23,7 +23,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typescript_rest_1 = require("typescript-rest");
 const typescript_rest_swagger_1 = require("typescript-rest-swagger");
 const account_service_1 = require("./account.service");
-const validator_1 = require("../../util/validator");
 /**
  * 帐号管理.
  */
@@ -74,9 +73,9 @@ let AccountController = class AccountController {
      * 分页查询帐号数据
      * @param keyword 关键词
      */
-    query(keyword) {
+    query(keyword, page, size, sort) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.service.getAccountsByKeyword(keyword);
+            return this.service.query(keyword, page, size, sort);
         });
     }
     /**
@@ -132,7 +131,6 @@ __decorate([
 __decorate([
     typescript_rest_1.Path('search'),
     typescript_rest_1.GET,
-    typescript_rest_1.Preprocessor(validator_1.validator),
     __param(0, typescript_rest_1.QueryParam('keyword')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -141,10 +139,12 @@ __decorate([
 __decorate([
     typescript_rest_1.Path('query'),
     typescript_rest_1.GET,
-    typescript_rest_1.Preprocessor(validator_1.validator),
     __param(0, typescript_rest_1.QueryParam('keyword')),
+    __param(1, typescript_rest_1.QueryParam('page')),
+    __param(2, typescript_rest_1.QueryParam('size')),
+    __param(3, typescript_rest_1.QueryParam('sort')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Number, Number, String]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "query", null);
 __decorate([

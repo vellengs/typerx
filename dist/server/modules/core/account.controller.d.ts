@@ -1,5 +1,5 @@
 import { ServiceContext } from 'typescript-rest';
-import { Appearance } from './../../types/appearance';
+import { Appearance, PaginateResponse } from './../../types/appearance';
 import { AccountService } from './account.service';
 import { CreateAccountDto, EditAccountDto, AccountResponse } from './dto/account.dto';
 import { ProfileResponse } from './dto/login.dto';
@@ -36,7 +36,7 @@ export declare class AccountController {
      * 分页查询帐号数据
      * @param keyword 关键词
      */
-    query(keyword?: string): Promise<AccountResponse[]>;
+    query(keyword?: string, page?: number, size?: number, sort?: string): Promise<PaginateResponse<AccountResponse[]>>;
     /**
      * 帐户信息
      */

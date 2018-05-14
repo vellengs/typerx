@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -28,11 +31,49 @@ let MenuController = class MenuController {
         this.service = service;
     }
     /**
-   * 获取帐号管理界面配置信息.
-   */
+     * 获取帐号管理界面配置信息.
+     */
     getConfig() {
         return __awaiter(this, void 0, void 0, function* () {
             return this.service.getAppearance();
+        });
+    }
+    /**
+     * 获取帐号管理界面配置信息.
+     */
+    search(keyword) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.service.getMenusByKeyword(keyword);
+        });
+    }
+    /**
+     * 创建菜单
+     * @param entry 创建参数
+     */
+    create(entry) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.service.create(entry);
+        });
+    }
+    /**
+     * 更新菜单
+     * @param entry 菜单参数
+     */
+    update(entry) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.service.update(entry);
+        });
+    }
+    /**
+     * 查询菜单数据
+     * @param keyword 关键词
+     * @param page 第几页
+     * @param size 页大小
+     * @param sort 排序
+     */
+    query(keyword, page, size, sort) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.service.query(keyword, page, size, sort);
         });
     }
 };
@@ -47,6 +88,37 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], MenuController.prototype, "getConfig", null);
+__decorate([
+    typescript_rest_1.Path('search'),
+    typescript_rest_1.GET,
+    __param(0, typescript_rest_1.QueryParam('keyword')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], MenuController.prototype, "search", null);
+__decorate([
+    typescript_rest_1.POST,
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], MenuController.prototype, "create", null);
+__decorate([
+    typescript_rest_1.PUT,
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], MenuController.prototype, "update", null);
+__decorate([
+    typescript_rest_1.Path('query'),
+    typescript_rest_1.GET,
+    __param(0, typescript_rest_1.QueryParam('keyword')),
+    __param(1, typescript_rest_1.QueryParam('page')),
+    __param(2, typescript_rest_1.QueryParam('size')),
+    __param(3, typescript_rest_1.QueryParam('sort')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Number, Number, String]),
+    __metadata("design:returntype", Promise)
+], MenuController.prototype, "query", null);
 MenuController = __decorate([
     typescript_rest_swagger_1.Tags('core'),
     typescript_rest_1.Path('api/menu'),

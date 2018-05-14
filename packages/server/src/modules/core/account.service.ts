@@ -1,4 +1,4 @@
-import { Appearance } from '../../types/appearance';
+import { Appearance, PaginateResponse } from '../../types/appearance';
 import { ServiceContext, Errors } from 'typescript-rest';
 import { Account } from './interfaces/account.interface';
 import { CoreDatabase as Db } from './core.database';
@@ -10,10 +10,11 @@ import {
 } from './dto/account.dto';
 import { Helper } from '../../util/helper';
 import { ProfileResponse } from './dto/login.dto';
+import { appearance } from './appearance/account.appearance';
 
 export class AccountService {
   async getAppearance(): Promise<Appearance> {
-    return null;
+    return appearance;
   }
 
   async getAccountsByKeyword(keyword?: string): Promise<AccountResponse[]> {
@@ -69,10 +70,6 @@ export class AccountService {
     return picked;
   }
 
-  valuable(value: any) {
-    return value;
-  }
-
   async update(
     entry: EditAccountDto,
     admin?: SessionUser,
@@ -100,6 +97,21 @@ export class AccountService {
       id: user.id,
       name: user.name,
     };
+  }
+
+  async query(
+    keyword?: string,
+    page?: number,
+    size?: number,
+    sort?: string
+  ): Promise<PaginateResponse<AccountResponse[]>> {
+    const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
+    const docs: any = await Db.Account.find(query).sort(sort).skip(page * size).limit(size).exec();
+    const count = await Db.Account.find(query).count();
+    return {
+      docs: docs,
+      total: count
+    }
   }
 
   async get(id: string): Promise<AccountResponse> {

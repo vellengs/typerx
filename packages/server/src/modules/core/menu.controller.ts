@@ -33,6 +33,18 @@ export class MenuController {
   }
 
   /**
+   * 获取帐号管理界面配置信息.
+   */
+  @Path('search')
+  @GET
+  async search(
+    @QueryParam('keyword') keyword?: string
+  ): Promise<MenuResponse[]> {
+    return this.service.getMenusByKeyword(keyword);
+  }
+
+
+  /**
    * 创建菜单
    * @param entry 创建参数
    */
@@ -66,10 +78,7 @@ export class MenuController {
     @QueryParam('size') size?: number,
     @QueryParam('sort') sort?: string
   ): Promise<PaginateResponse<MenuResponse[]>> {
-    return {
-      docs: [],
-      total: 1
-    }
+    return this.service.query(keyword, page, size, sort);
   }
 
 

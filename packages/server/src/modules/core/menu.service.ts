@@ -1,4 +1,4 @@
-import { Appearance } from '../../types/appearance';
+import { Appearance, PaginateResponse } from '../../types/appearance';
 import { ServiceContext, Errors } from 'typescript-rest';
 import { Menu } from './interfaces/Menu.interface';
 import { CoreDatabase as Db } from './core.database';
@@ -25,12 +25,8 @@ export class MenuService {
 
   async create(entry: CreateMenuDto): Promise<MenuResponse> {
     const doc = new Db.Menu(entry);
-    const result = await doc.save();
-    return null;
-  }
-
-  valuable(value: any) {
-    return value;
+    const result: any = await doc.save();
+    return result;
   }
 
   async update(
@@ -43,6 +39,21 @@ export class MenuService {
       entry,
     ).exec();
     return doc;
+  }
+
+  async query(
+    keyword?: string,
+    page?: number,
+    size?: number,
+    sort?: string
+  ): Promise<PaginateResponse<MenuResponse[]>> {
+    const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
+    const docs: any = await Db.Menu.find(query).sort(sort).skip(page * size).limit(size).exec();
+    const count = await Db.Menu.find(query).count();
+    return {
+      docs: docs,
+      total: count
+    }
   }
 
   async remove(id: string): Promise<boolean> {

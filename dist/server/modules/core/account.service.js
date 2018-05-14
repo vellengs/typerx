@@ -11,10 +11,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typescript_rest_1 = require("typescript-rest");
 const core_database_1 = require("./core.database");
 const helper_1 = require("../../util/helper");
+const account_appearance_1 = require("./appearance/account.appearance");
 class AccountService {
     getAppearance() {
         return __awaiter(this, void 0, void 0, function* () {
-            return null;
+            return account_appearance_1.appearance;
         });
     }
     getAccountsByKeyword(keyword) {
@@ -61,9 +62,6 @@ class AccountService {
             return picked;
         });
     }
-    valuable(value) {
-        return value;
-    }
     update(entry, admin) {
         return __awaiter(this, void 0, void 0, function* () {
             if (admin && admin.isAdmin) {
@@ -88,6 +86,17 @@ class AccountService {
             return {
                 id: user.id,
                 name: user.name,
+            };
+        });
+    }
+    query(keyword, page, size, sort) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
+            const docs = yield core_database_1.CoreDatabase.Account.find(query).sort(sort).skip(page * size).limit(size).exec();
+            const count = yield core_database_1.CoreDatabase.Account.find(query).count();
+            return {
+                docs: docs,
+                total: count
             };
         });
     }

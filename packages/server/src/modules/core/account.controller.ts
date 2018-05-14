@@ -11,7 +11,7 @@ import {
   Preprocessor,
 } from 'typescript-rest';
 import { Tags, Security } from 'typescript-rest-swagger';
-import { Appearance } from './../../types/appearance';
+import { Appearance, PaginateResponse } from './../../types/appearance';
 import { AccountService } from './account.service';
 import { Account } from './interfaces/account.interface';
 import { validator } from '../../util/validator';
@@ -69,7 +69,6 @@ export class AccountController {
    */
   @Path('search')
   @GET
-  @Preprocessor(validator)
   async getAccountsByKeyword(
     @QueryParam('keyword') keyword?: string,
   ): Promise<AccountResponse[]> {
@@ -82,11 +81,13 @@ export class AccountController {
    */
   @Path('query')
   @GET
-  @Preprocessor(validator)
   async query(
     @QueryParam('keyword') keyword?: string,
-  ): Promise<AccountResponse[]> {
-    return this.service.getAccountsByKeyword(keyword);
+    @QueryParam('page') page?: number,
+    @QueryParam('size') size?: number,
+    @QueryParam('sort') sort?: string
+  ): Promise<PaginateResponse<AccountResponse[]>> {
+    return this.service.query(keyword, page, size, sort);
   }
 
   /**

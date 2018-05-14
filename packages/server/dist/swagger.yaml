@@ -252,6 +252,40 @@ definitions:
         required:
             - columnSets
             - form
+    Error:
+        description: ""
+        properties:
+            name:
+                type: string
+                description: ""
+            message:
+                type: string
+                description: ""
+            stack:
+                type: string
+                description: ""
+        type: object
+        required:
+            - name
+            - message
+    'PaginateResponseAccountResponse[]':
+        description: ""
+        properties:
+            error:
+                $ref: '#/definitions/Error'
+            docs:
+                type: array
+                items:
+                    $ref: '#/definitions/AccountResponse'
+                description: ""
+            total:
+                type: number
+                format: double
+                description: ""
+        type: object
+        required:
+            - docs
+            - total
     ProfileResponse:
         description: ""
         properties:
@@ -278,6 +312,214 @@ definitions:
         required:
             - username
             - password
+    MenuResponse:
+        description: ""
+        properties:
+            name:
+                type: string
+                description: ""
+            slug:
+                type: string
+                description: ""
+            group:
+                type: string
+                description: ""
+            link:
+                type: string
+                description: ""
+            externalLink:
+                type: string
+                description: ""
+            blank:
+                type: string
+                description: ""
+            icon:
+                type: string
+                description: ""
+            order:
+                type: number
+                format: double
+                description: ""
+            enable:
+                type: boolean
+                description: ""
+            expanded:
+                type: boolean
+                description: ""
+            acl:
+                type: string
+                description: ""
+            permissions:
+                type: array
+                items:
+                    type: string
+                description: ""
+            parent:
+                type: string
+                description: ""
+            isMenu:
+                type: boolean
+                description: ""
+        type: object
+        required:
+            - name
+            - slug
+            - group
+            - link
+            - externalLink
+            - blank
+            - icon
+            - order
+            - enable
+            - expanded
+            - acl
+            - isMenu
+    CreateMenuDto:
+        description: ""
+        properties:
+            name:
+                type: string
+                description: ""
+            slug:
+                type: string
+                description: ""
+            group:
+                type: string
+                description: ""
+            link:
+                type: string
+                description: ""
+            externalLink:
+                type: string
+                description: ""
+            blank:
+                type: string
+                description: ""
+            icon:
+                type: string
+                description: ""
+            order:
+                type: number
+                format: double
+                description: ""
+            enable:
+                type: boolean
+                description: ""
+            expanded:
+                type: boolean
+                description: ""
+            acl:
+                type: string
+                description: ""
+            permissions:
+                type: array
+                items:
+                    type: string
+                description: ""
+            parent:
+                type: string
+                description: ""
+            isMenu:
+                type: boolean
+                description: ""
+        type: object
+        required:
+            - name
+            - slug
+            - group
+            - link
+            - externalLink
+            - blank
+            - icon
+            - order
+            - enable
+            - expanded
+            - acl
+            - isMenu
+    EditMenuDto:
+        description: ""
+        properties:
+            id:
+                type: string
+                description: ""
+            name:
+                type: string
+                description: ""
+            slug:
+                type: string
+                description: ""
+            group:
+                type: string
+                description: ""
+            link:
+                type: string
+                description: ""
+            externalLink:
+                type: string
+                description: ""
+            blank:
+                type: string
+                description: ""
+            icon:
+                type: string
+                description: ""
+            order:
+                type: number
+                format: double
+                description: ""
+            enable:
+                type: boolean
+                description: ""
+            expanded:
+                type: boolean
+                description: ""
+            acl:
+                type: string
+                description: ""
+            permissions:
+                type: array
+                items:
+                    type: string
+                description: ""
+            parent:
+                type: string
+                description: ""
+            isMenu:
+                type: boolean
+                description: ""
+        type: object
+        required:
+            - id
+            - name
+            - slug
+            - group
+            - link
+            - externalLink
+            - blank
+            - icon
+            - order
+            - enable
+            - expanded
+            - acl
+            - isMenu
+    'PaginateResponseMenuResponse[]':
+        description: ""
+        properties:
+            error:
+                $ref: '#/definitions/Error'
+            docs:
+                type: array
+                items:
+                    $ref: '#/definitions/MenuResponse'
+                description: ""
+            total:
+                type: number
+                format: double
+                description: ""
+        type: object
+        required:
+            - docs
+            - total
 info:
     description: 项目标准接口
     license:
@@ -375,9 +617,7 @@ paths:
                 '200':
                     description: Ok
                     schema:
-                        type: array
-                        items:
-                            $ref: '#/definitions/AccountResponse'
+                        $ref: '#/definitions/PaginateResponseAccountResponse[]'
             description: 分页查询帐号数据
             tags:
                 - core
@@ -386,6 +626,26 @@ paths:
                     description: 关键词
                     in: query
                     name: keyword
+                    required: false
+                    type: string
+                -
+                    description: ""
+                    in: query
+                    name: page
+                    required: false
+                    type: number
+                    format: double
+                -
+                    description: ""
+                    in: query
+                    name: size
+                    required: false
+                    type: number
+                    format: double
+                -
+                    description: ""
+                    in: query
+                    name: sort
                     required: false
                     type: string
     /api/account/profile:
@@ -492,6 +752,113 @@ paths:
             tags:
                 - core
             parameters: []
+    /api/menu/search:
+        get:
+            operationId: MenuSearch
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        type: array
+                        items:
+                            $ref: '#/definitions/MenuResponse'
+            description: 获取帐号管理界面配置信息.
+            tags:
+                - core
+            parameters:
+                -
+                    description: ""
+                    in: query
+                    name: keyword
+                    required: false
+                    type: string
+    /api/menu:
+        post:
+            operationId: MenuCreate
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/MenuResponse'
+            description: 创建菜单
+            tags:
+                - core
+            consumes:
+                - application/json
+            parameters:
+                -
+                    description: 创建参数
+                    in: body
+                    name: entry
+                    required: true
+                    schema:
+                        $ref: '#/definitions/CreateMenuDto'
+        put:
+            operationId: MenuUpdate
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/MenuResponse'
+            description: 更新菜单
+            tags:
+                - core
+            consumes:
+                - application/json
+            parameters:
+                -
+                    description: 菜单参数
+                    in: body
+                    name: entry
+                    required: true
+                    schema:
+                        $ref: '#/definitions/EditMenuDto'
+    /api/menu/query:
+        get:
+            operationId: MenuQuery
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/PaginateResponseMenuResponse[]'
+            description: 查询菜单数据
+            tags:
+                - core
+            parameters:
+                -
+                    description: 关键词
+                    in: query
+                    name: keyword
+                    required: false
+                    type: string
+                -
+                    description: 第几页
+                    in: query
+                    name: page
+                    required: false
+                    type: number
+                    format: double
+                -
+                    description: 页大小
+                    in: query
+                    name: size
+                    required: false
+                    type: number
+                    format: double
+                -
+                    description: 排序
+                    in: query
+                    name: sort
+                    required: false
+                    type: string
 swagger: '2.0'
 securityDefinitions: {}
 produces:
