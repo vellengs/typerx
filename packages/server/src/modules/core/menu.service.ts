@@ -8,10 +8,11 @@ import {
   CreateMenuDto,
 } from './dto/menu.dto';
 import { Helper } from '../../util/helper';
+import { appearance } from './appearance/menu.appearance';
 
 export class MenuService {
   async getAppearance(): Promise<Appearance> {
-    return null;
+    return appearance;
   }
 
   async getMenusByKeyword(keyword?: string): Promise<MenuResponse[]> {

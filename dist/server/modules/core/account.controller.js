@@ -71,20 +71,17 @@ let AccountController = class AccountController {
         });
     }
     /**
-     * * 按分类获取帐号数据
-     *
-     * @param {string} category 分类键名
-     * @returns {Promise<AccountResponse[]>}
-     * @memberof AccountController
+     * 分页查询帐号数据
+     * @param keyword 关键词
      */
-    getAccountByCategory(category) {
+    query(keyword) {
         return __awaiter(this, void 0, void 0, function* () {
-            return [];
+            return this.service.getAccountsByKeyword(keyword);
         });
     }
     /**
-   * 帐户信息
-   */
+     * 帐户信息
+     */
     profile() {
         return __awaiter(this, void 0, void 0, function* () {
             return this.service.profile(this.context);
@@ -142,13 +139,14 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "getAccountsByKeyword", null);
 __decorate([
-    typescript_rest_1.Path('category/:category'),
+    typescript_rest_1.Path('query'),
     typescript_rest_1.GET,
-    __param(0, typescript_rest_1.PathParam('category')),
+    typescript_rest_1.Preprocessor(validator_1.validator),
+    __param(0, typescript_rest_1.QueryParam('keyword')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], AccountController.prototype, "getAccountByCategory", null);
+], AccountController.prototype, "query", null);
 __decorate([
     typescript_rest_1.GET,
     typescript_rest_1.Path('profile'),

@@ -1,1 +1,1 @@
-{"version":3,"file":"core.controllers.js","sourceRoot":"","sources":["../../../../packages/server/src/modules/core/core.controllers.ts"],"names":[],"mappings":";;AAAA,6DAAyD;AACzD,uDAAmD;AACnD,kBAAe,CAAC,sCAAiB,EAAE,gCAAc,CAAC,CAAC"}
+{"version":3,"file":"core.controllers.js","sourceRoot":"","sources":["../../../../packages/server/src/modules/core/core.controllers.ts"],"names":[],"mappings":";;AAAA,6DAAyD;AACzD,uDAAmD;AACnD,uDAAmD;AACnD,kBAAe;IACX,sCAAiB;IACjB,gCAAc;IACd,gCAAc;CACjB,CAAC"}

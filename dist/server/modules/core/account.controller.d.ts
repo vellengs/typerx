@@ -33,16 +33,13 @@ export declare class AccountController {
      */
     getAccountsByKeyword(keyword?: string): Promise<AccountResponse[]>;
     /**
-     * * 按分类获取帐号数据
-     *
-     * @param {string} category 分类键名
-     * @returns {Promise<AccountResponse[]>}
-     * @memberof AccountController
+     * 分页查询帐号数据
+     * @param keyword 关键词
      */
-    getAccountByCategory(category: string): Promise<AccountResponse[]>;
+    query(keyword?: string): Promise<AccountResponse[]>;
     /**
-   * 帐户信息
-   */
+     * 帐户信息
+     */
     profile(): Promise<ProfileResponse>;
     /**
      * 删除帐号

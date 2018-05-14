@@ -103,10 +103,155 @@ definitions:
         required:
             - id
             - nick
-    Appearance:
+    Function:
+        description: 'Creates a new function.'
+        properties:
+            prototype:
+                type: object
+                description: ""
+            length:
+                type: number
+                format: double
+                description: ""
+            arguments:
+                type: object
+                description: ""
+            caller:
+                $ref: '#/definitions/Function'
+        type: object
+        required:
+            - prototype
+            - length
+            - arguments
+            - caller
+    ColumnDefine:
+        description: ""
+        properties:
+            type:
+                type: object
+                description: ""
+            title:
+                type: string
+                description: ""
+            i18n:
+                type: string
+                description: ""
+            index:
+                type: object
+                description: ""
+            render:
+                type: string
+                description: ""
+            renderTitle:
+                type: string
+                description: ""
+            width:
+                type: string
+                description: ""
+            sort:
+                type: object
+                description: ""
+            sorter:
+                $ref: '#/definitions/Function'
+            sortKey:
+                type: string
+                description: ""
+            sortReName:
+                type: object
+                properties:
+                    ascend:
+                        type: string
+                        description: ""
+                    descend:
+                        type: string
+                        description: ""
+                description: ""
+            filter:
+                $ref: '#/definitions/Function'
+            filtered:
+                type: boolean
+                description: ""
+            filterIcon:
+                type: string
+                description: ""
+            filterConfirmText:
+                type: string
+                description: ""
+            filterClearText:
+                type: string
+                description: ""
+            filterMultiple:
+                type: boolean
+                description: ""
+            filterKey:
+                type: string
+                description: ""
+            format:
+                $ref: '#/definitions/Function'
+            className:
+                type: string
+                description: ""
+            colSpan:
+                type: number
+                format: double
+                description: ""
+            numberDigits:
+                type: string
+                description: ""
+            dateFormat:
+                type: string
+                description: ""
+            ynTruth:
+                type: object
+                description: ""
+            ynYes:
+                type: string
+                description: ""
+            ynNo:
+                type: string
+                description: ""
+            exported:
+                type: boolean
+                description: ""
+            acl:
+                type: object
+                description: ""
+            default:
+                type: string
+                description: ""
+            fixed:
+                type: object
+                description: ""
+        type: object
+        required:
+            - title
+        additionalProperties: {}
+    ColumnSets:
         description: ""
         properties: {}
         type: object
+        additionalProperties: {}
+    FormDefine:
+        description: ""
+        properties: {}
+        type: object
+    FormSets:
+        description: ""
+        properties: {}
+        type: object
+        additionalProperties:
+            $ref: '#/definitions/FormDefine'
+    Appearance:
+        description: ""
+        properties:
+            columnSets:
+                $ref: '#/definitions/ColumnSets'
+            form:
+                $ref: '#/definitions/FormSets'
+        type: object
+        required:
+            - columnSets
+            - form
     ProfileResponse:
         description: ""
         properties:
@@ -221,9 +366,9 @@ paths:
                     name: keyword
                     required: false
                     type: string
-    '/api/account/category/{category}':
+    /api/account/query:
         get:
-            operationId: AccountGetAccountByCategory
+            operationId: AccountQuery
             produces:
                 - application/json
             responses:
@@ -233,15 +378,15 @@ paths:
                         type: array
                         items:
                             $ref: '#/definitions/AccountResponse'
-            description: '* 按分类获取帐号数据'
+            description: 分页查询帐号数据
             tags:
                 - core
             parameters:
                 -
-                    description: 分类键名
-                    in: path
-                    name: category
-                    required: true
+                    description: 关键词
+                    in: query
+                    name: keyword
+                    required: false
                     type: string
     /api/account/profile:
         get:
@@ -330,6 +475,20 @@ paths:
                     schema:
                         type: boolean
             description: 退出登陆
+            tags:
+                - core
+            parameters: []
+    /api/menu/config:
+        get:
+            operationId: MenuGetConfig
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/Appearance'
+            description: 获取帐号管理界面配置信息.
             tags:
                 - core
             parameters: []
