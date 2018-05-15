@@ -84,6 +84,7 @@
     "zone.js": "^0.8.18"
   },
   "devDependencies": {
+    "@delon/form": "^1.0.0-beta.6",
     "@types/bcrypt-nodejs": "0.0.30",
     "@types/bluebird": "^3.5.20",
     "@types/compression": "0.0.36",

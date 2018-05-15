@@ -1,7 +1,9 @@
 <div class="content__title">
     <h1>菜单设置</h1>
 </div>
-<nz-card [nzExtra]="extra" [nzCover]="cover"></nz-card>
+<nz-card [nzExtra]="extra" [nzCover]="cover">
+    <sf [ui]="ui" [mode]="search" [layout]="layout" [schema]="schema" (formSubmit)="submit($event)"></sf>
+</nz-card>
 <nz-row [nzGutter]="16">
     <nz-col [nzMd]="24">
         <nz-card [nzExtra]="extra" [nzCover]="cover">

@@ -6,6 +6,9 @@ import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { _HttpClient } from '@delon/theme';
 import { ListContext } from '../../../services/list.context';
 import { SimpleTableColumn } from '@delon/abc';
+import { SFSchema, SFGridSchema, SFUISchema } from '@delon/form';
+
+import { columnSets, formSets } from 'appearances/menu.appearance';
 
 @Component({
     selector: 'app-menus-page',
@@ -18,13 +21,23 @@ export class MenusPageComponent implements OnInit {
     url = `api/menu/query`;
     params = {};
 
-    columns: SimpleTableColumn[] = [
-        { title: '编号', index: 'id.value' },
-        { title: '头像', type: 'img', width: '50px', index: 'picture.thumbnail' },
-        { title: '邮箱', index: 'email' },
-        { title: '电话', index: 'phone' },
-        { title: '注册时间', type: 'date', index: 'registered' }
-    ];
+    columns: SimpleTableColumn[] = columnSets.default;
+    schema: SFSchema = formSets.query;
+
+    layout = 'inline';
+    ui: SFUISchema = {
+        grid: {
+            span: 4
+        }
+    };
+
+    // = {
+    //     gutter: 2,
+    //     span: 2,
+    //     xl: {
+    //         span: 5
+    //     }
+
 
     constructor(public context: ListContext) {
 
@@ -33,6 +46,10 @@ export class MenusPageComponent implements OnInit {
     async ngOnInit() {
         const config = await this.context.init(this.domain);
         console.log('config:', config);
+    }
+
+    submit(value: any) {
+
     }
 
 }
