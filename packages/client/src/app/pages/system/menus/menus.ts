@@ -25,6 +25,7 @@ export class MenusPageComponent implements OnInit {
     schema: SFSchema = formSets.query;
 
     layout = 'inline';
+    
     ui: SFUISchema = {
         grid: {
             span: 4

@@ -7,7 +7,7 @@ import { DatePipe, CurrencyPipe } from '@angular/common';
 import { LocalStorageService } from 'angular-web-storage/core/service';
 import * as moment from 'moment';
 import { ModalHelper } from '@delon/theme';
-import { XlsxService, SimpleTableColumn, STExportOptions, deepGet } from '@delon/abc';
+import { XlsxService, SimpleTableColumn, STExportOptions } from '@delon/abc';
 import * as XLSX from 'xlsx';
 
 export interface CachedDict {
