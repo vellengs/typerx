@@ -44,6 +44,7 @@
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.5.1",
     "class-transformer": "^0.1.9",
+    "compression": "^1.7.2",
     "connect-mongo": "^2.0.1",
     "copy-webpack-plugin": "^4.4.1",
     "core-js": "^2.5.1",

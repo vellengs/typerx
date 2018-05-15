@@ -5,6 +5,7 @@ import { UMeditorModule } from 'ngx-umeditor';
 import { SettingsPageComponent } from './settings/settings';
 import { MenusPageComponent } from './menus/menus';
 import { ApiModule } from 'generated';
+import { AccountsPageComponent } from './accounts/accounts';
 
 const routes: Routes = [
     { path: 'settings', component: SettingsPageComponent },
@@ -20,11 +21,13 @@ const routes: Routes = [
     ],
     declarations: [
         SettingsPageComponent,
-        MenusPageComponent
+        MenusPageComponent,
+        AccountsPageComponent
     ],
     entryComponents: [
         SettingsPageComponent,
-        MenusPageComponent
+        MenusPageComponent,
+        AccountsPageComponent
     ],
     exports: [
         RouterModule

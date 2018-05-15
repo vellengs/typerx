@@ -15,6 +15,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { CountdownModule } from 'ngx-countdown';
 import { UEditorModule } from 'ngx-ueditor';
 import { NgxTinymceModule } from 'ngx-tinymce';
+import { BaseListComponent } from './base/base.list';
 
 const THIRDMODULES = [
     NgZorroAntdModule,
@@ -25,7 +26,9 @@ const THIRDMODULES = [
 // endregion
 
 // region: your componets & directives
-const COMPONENTS = [];
+const COMPONENTS = [
+    BaseListComponent
+];
 const DIRECTIVES = [];
 // endregion
 

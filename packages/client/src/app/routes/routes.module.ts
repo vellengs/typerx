@@ -15,12 +15,14 @@ import { Exception500Component } from './exception/500.component';
 import { DashboardAnalysisComponent } from './dashboard/analysis/analysis.component';
 import { DashboardComponent } from './dashboard/default/dashboard.component';
 import { CustomLoginComponent } from '../pages/login/login.component';
+import { UserLockComponent } from './passport/lock/lock.component';
 
 @NgModule({
     imports: [SharedModule, RouteRoutingModule],
     declarations: [
         DashboardAnalysisComponent,
         DashboardComponent,
+        UserLockComponent,
         // passport pages
         UserLoginComponent,
         CustomLoginComponent,
