@@ -1,3 +1,5 @@
+// tslint:disable-next-line:import-blacklist
+import { of } from 'rxjs';
 import { ColumnSets, FormSets } from 'types/types';
 
 export const columnSets: ColumnSets = {
@@ -5,21 +7,26 @@ export const columnSets: ColumnSets = {
         {
             title: 'name',
             i18n: '名称',
+            index: 'name'
         },
         {
             title: 'icon',
             i18n: '图标',
+            index: 'icon'
         },
         {
             title: 'link',
             i18n: '链接',
+            index: 'link'
         },
         {
-            title: 'slug'
+            title: 'slug',
+            index: 'slug'
         },
         {
             title: 'order',
-            i18n: '排序'
+            i18n: '排序',
+            index: 'order'
         }
     ]
 };
@@ -27,19 +34,16 @@ export const columnSets: ColumnSets = {
 export const formSets: FormSets = {
     query: {
         properties: {
-            email: {
-                type: 'string',
-                title: '邮箱',
-                format: 'email',
-                maxLength: 20,
-                ui: {
-                    
-                }
-            },
             name: {
                 type: 'string',
-                title: '姓名',
-                minLength: 3
+                title: '名称',
+                maxLength: 20,
+                ui: {
+                    widget: 'autocomplete',
+                    debounceTime: 100,
+                    placeholder: '请输入菜单名称',
+                    asyncData: (input: string) => of(input ? [input, input + input, input + input + input] : [])
+                }
             }
         }
     },
@@ -47,7 +51,7 @@ export const formSets: FormSets = {
         properties: {
             email: {
                 type: 'string',
-                title: '邮箱',
+                title: '',
                 format: 'email',
                 maxLength: 20
             },

@@ -51,7 +51,7 @@ export class MenuService {
     const docs: any = await Db.Menu.find(query).sort(sort).skip(page * size).limit(size).exec();
     const count = await Db.Menu.find(query).count();
     return {
-      docs: docs,
+      list: docs,
       total: count
     }
   }

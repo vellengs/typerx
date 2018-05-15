@@ -25,20 +25,12 @@ export class MenusPageComponent implements OnInit {
     schema: SFSchema = formSets.query;
 
     layout = 'inline';
-    
+
     ui: SFUISchema = {
         grid: {
             span: 4
         }
     };
-
-    // = {
-    //     gutter: 2,
-    //     span: 2,
-    //     xl: {
-    //         span: 5
-    //     }
-
 
     constructor(public context: ListContext) {
 
@@ -46,10 +38,13 @@ export class MenusPageComponent implements OnInit {
 
     async ngOnInit() {
         const config = await this.context.init(this.domain);
-        console.log('config:', config);
     }
 
     submit(value: any) {
+
+    }
+
+    addEntry() {
 
     }
 

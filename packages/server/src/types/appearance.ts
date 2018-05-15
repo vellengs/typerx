@@ -72,6 +72,6 @@ export declare class Error {
 
 export declare class PaginateResponse<T> {
     error?: Error;
-    docs: T;
+    list: T;
     total: number;
 }

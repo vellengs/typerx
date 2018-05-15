@@ -105,11 +105,13 @@ export class AccountService {
     size?: number,
     sort?: string
   ): Promise<PaginateResponse<AccountResponse[]>> {
+    page = page > 0 ? page : 0 || 1;
     const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
+
     const docs: any = await Db.Account.find(query).sort(sort).skip(page * size).limit(size).exec();
     const count = await Db.Account.find(query).count();
     return {
-      docs: docs,
+      list: docs,
       total: count
     }
   }
