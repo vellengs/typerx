@@ -4,8 +4,6 @@ import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { Component, OnInit, OnDestroy, Input, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { DatePipe, CurrencyPipe } from '@angular/common';
-import { LocalStorageService } from 'angular-web-storage/core/service';
-import * as moment from 'moment';
 import { ModalHelper } from '@delon/theme';
 import { XlsxService, SimpleTableColumn, STExportOptions } from '@delon/abc';
 import * as XLSX from 'xlsx';
@@ -96,7 +94,6 @@ export class BaseListComponent implements OnInit, OnDestroy {
         public message: NzMessageService,
         public modalService: NzModalService,
         public route: ActivatedRoute,
-        public storage: LocalStorageService,
         public xlsx?: XlsxService,
     ) {
         // console.log('xlsx', this.xlsx);
@@ -166,7 +163,7 @@ export class BaseListComponent implements OnInit, OnDestroy {
             date: {
                 transform: (val, f) => {
                     if (val) {
-                        return moment(val).format(f);
+                        return '';
                     } else {
                         return val;
                     }
@@ -282,7 +279,7 @@ export class BaseListComponent implements OnInit, OnDestroy {
     }
 
     disableAll() {
-        
+
     }
 
     removeItems() {

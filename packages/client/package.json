@@ -53,6 +53,7 @@
         "ngx-countdown": "^3.0.0",
         "ngx-tinymce": "^2.0.0",
         "ngx-ueditor": "^2.0.0",
+        "ngx-umeditor": "^1.0.5",
         "rxjs": "^6.0.0",
         "rxjs-compat": "^6.1.0",
         "screenfull": "^3.3.1",
