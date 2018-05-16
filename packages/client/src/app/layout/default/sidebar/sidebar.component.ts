@@ -1,3 +1,5 @@
+
+
 import { Component } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { SettingsService } from '@delon/theme';
@@ -6,16 +8,17 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html'
+  templateUrl: './sidebar.component.html',
 })
 export class SidebarComponent {
+
+
   constructor(
-    private router: Router,
     public settings: SettingsService,
     public coreService: CoreService,
-    public msgSrv: NzMessageService) {
-  }
-
+    public msgSrv: NzMessageService,
+    public router: Router,
+  ) { }
 
   logout() {
 
@@ -33,8 +36,11 @@ export class SidebarComponent {
 
   }
 
-  changePassword() {
+  setSettings() {
 
   }
 
+  changePassword() {
+
+  }
 }

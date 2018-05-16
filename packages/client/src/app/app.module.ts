@@ -92,4 +92,7 @@ export function StartupServiceFactory(
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+    constructor() {    // Create global Service Injector.
+    }
+}

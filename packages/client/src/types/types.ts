@@ -18,3 +18,24 @@ export interface FormSets {
     edit?: SFSchema;
     [key: string]: SFSchema;
 }
+
+export interface BasePage {
+    load(): void;
+    reload(): void;
+}
+
+export interface BaseTable extends BasePage {
+    domain: string;
+    columnSets: SimpleTableColumn[];
+    queryParams: {
+        [key: string]: any
+    };
+}
+
+export interface CurdPage extends BaseTable {
+    add(): void;
+    edit(entry: any): void;
+    remove(entry: any): void;
+    removeChecked(): void;
+    formSets: FormSets;
+}

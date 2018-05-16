@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { NzMessageService, NzModalService, UploadFile } from 'ng-zorro-antd';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector, Input } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { _HttpClient } from '@delon/theme';
@@ -9,35 +9,28 @@ import { SimpleTableColumn } from '@delon/abc';
 import { SFSchema, SFGridSchema, SFUISchema } from '@delon/form';
 
 import { columnSets, formSets } from 'appearances/menu.appearance';
+import { BaseListComponent } from '@shared/base/base.list.component';
+import { BaseStandComponent } from '@shared/base/base.stand.component';
 
 @Component({
     selector: 'app-menus-page',
     templateUrl: './menus.html',
     styles: []
 })
-export class MenusPageComponent implements OnInit {
+export class MenusPageComponent extends BaseStandComponent implements OnInit {
 
-    domain = 'menu';
-    url = `api/menu/query`;
-    params = {};
+    cover;
+    extra;
 
-    columns: SimpleTableColumn[] = columnSets.default;
-    schema: SFSchema = formSets.query;
-
-    layout = 'inline';
-
-    ui: SFUISchema = {
-        grid: {
-            span: 4
-        }
-    };
-
-    constructor(public context: ListContext) {
-
+    @Input() domain = 'menu';
+    
+    constructor(injector: Injector) {
+        super(injector);
     }
 
     async ngOnInit() {
-        const config = await this.context.init(this.domain);
+        console.log('this router:', this.route.data['value']);
+        this.msg.success('hello');
     }
 
     submit(value: any) {
@@ -47,5 +40,4 @@ export class MenusPageComponent implements OnInit {
     addEntry() {
 
     }
-
 }

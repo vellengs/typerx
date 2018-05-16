@@ -9,8 +9,7 @@ import { AccountsPageComponent } from './accounts/accounts';
 
 const routes: Routes = [
     { path: 'settings', component: SettingsPageComponent },
-    { path: 'menus', component: MenusPageComponent },
-
+    { path: 'menus', component: MenusPageComponent, data: { domain: 'menu', title: '菜单管理' } },
 ];
 
 @NgModule({

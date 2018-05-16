@@ -1,8 +1,8 @@
 <div class="content__title">
-    <h1>菜单设置</h1>
+    <h1>{{title}}</h1>
 </div>
 <nz-card [nzExtra]="extra" [nzCover]="cover">
-    <!-- <sf [ui]="ui" [mode]="'search'" [layout]="layout" [schema]="schema" (formSubmit)="submit($event)"></sf> -->
+    <sf [ui]="ui" [mode]="'search'" [layout]="layout" [schema]="schema" (formSubmit)="submit($event)"></sf>
 </nz-card>
 <nz-row [nzGutter]="16">
     <nz-col [nzMd]="24">
@@ -14,7 +14,7 @@
                 </button>
             </div>
 
-            <!-- <simple-table [data]="url" [extraParams]="params" [total]="total" [columns]="columns" ></simple-table> -->
+            <simple-table [data]="url" [extraParams]="params" [total]="total" [columns]="columns"></simple-table>
         </nz-card>
     </nz-col>
 </nz-row>
