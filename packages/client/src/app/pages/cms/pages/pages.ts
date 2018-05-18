@@ -7,22 +7,22 @@ import { _HttpClient } from '@delon/theme';
 import { ListContext } from '../../../services/list.context';
 import { SimpleTableColumn } from '@delon/abc';
 import { SFSchema, SFGridSchema, SFUISchema } from '@delon/form';
-
+ 
 import { BaseListComponent } from '@shared/base/base.list.component';
 import { BaseStandComponent } from '@shared/base/base.stand.component';
 
 @Component({
-    selector: 'app-menus-page',
-    templateUrl: './menus.html',
+    selector: 'app-pages-page',
+    templateUrl: './pages.html',
     styles: []
 })
-export class MenusPageComponent extends BaseStandComponent implements OnInit {
+export class PagesPageComponent extends BaseStandComponent implements OnInit {
 
     cover;
     extra;
 
     @Input() domain = 'menu';
-
+    
     constructor(injector: Injector) {
         super(injector);
     }

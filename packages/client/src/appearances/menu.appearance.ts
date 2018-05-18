@@ -1,6 +1,6 @@
 // tslint:disable-next-line:import-blacklist
 import { of } from 'rxjs';
-import { ColumnSets, FormSets } from 'types/types';
+import { ColumnSets, FormSets } from './../types/types';
 
 export const columnSets: ColumnSets = {
     default: [
@@ -64,3 +64,7 @@ export const formSets: FormSets = {
     }
 };
 
+export default {
+    columnSets: columnSets,
+    formSets: formSets
+};

@@ -22,12 +22,12 @@
                 "icon": "icon-screen-desktop",
                 "children": [{
                         "text": "页面管理",
-                        "link": "/pages/pages",
+                        "link": "/cms/pages",
                         "icon": "icon-people"
                     },
                     {
                         "text": "文章管理",
-                        "link": "/articles/articles",
+                        "link": "/cms/articles",
                         "icon": "icon-people"
                     }
                 ]

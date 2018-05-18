@@ -12,6 +12,7 @@ import {
     Optional,
     SkipSelf,
     ModuleWithProviders,
+    SystemJsNgModuleLoader,
 } from '@angular/core';
 import { RouteReuseStrategy } from '@angular/router';
 import { throwIfAlreadyLoaded } from '@core/module-import-guard';
@@ -76,6 +77,7 @@ export function apiConfig(): Configuration {
         ListContext,
         CanAdminProvide,
         CanAuthProvide,
+        SystemJsNgModuleLoader,
     ]
 })
 export class DelonModule {

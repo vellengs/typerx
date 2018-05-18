@@ -28,6 +28,8 @@ const routes: Routes = [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
             { path: 'dashboard', canActivate: [CanAuthProvide], component: DashboardComponent, data: { title: '仪表盘' } },
             { path: 'system', loadChildren: './../pages/system/system.module#SystemModule' },
+            { path: 'cms', loadChildren: './../pages/cms/cms.module#CmsModule' },
+            { path: 'appearances', loadChildren: './../../appearances/appearance.module#AppearanceModule' },
         ]
     },
     {
