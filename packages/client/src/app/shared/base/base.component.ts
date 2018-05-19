@@ -34,6 +34,8 @@ export class BaseComponent implements BasePage {
         this.loader = this.injector.get(SystemJsNgModuleLoader);
         this.client = this.injector.get(HttpClient);
         this.lazy = this.injector.get(LazyService);
+        const routeData = this.route.data['value'] || {};
+        this.title = routeData.title;
     }
 
     load(): void {

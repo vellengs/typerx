@@ -1,6 +1,7 @@
 import { Appearance, SchemaTypes as t, WidgetTypes as w } from "../../../types/appearance";
 
 const addForm = {
+    title: '添加菜单',
     properties: {
         name: {
             title: '名称',
@@ -49,20 +50,24 @@ const addForm = {
             title: '顺序',
             type: t.number,
         },
-        permissions: {
-            title: '权限列表',
-            type: t.array,
-            items: {
-                type: 'string',
-            },
-            ui: {
-                widget: 'listBox',
-                title: '选择API',
-                dialog: 'apiSelector',
-                params: {
-                    multiple: true
-                }
-            }
+        // permissions: {
+        //     title: '权限列表',
+        //     type: 'array',
+        //     items: {
+        //         type: 'object',
+        //         properties: {
+        //             a: { type: 'string' },
+        //             b: { type: 'number', ui: { spanLabel: 10 } }
+        //         }
+        //     },
+        //     ui: { spanLabel: 5, grid: { arraySpan: 12 } }
+        // }
+    },
+    required: ['name', 'link'],
+    ui: {
+        spanLabelFixed: 100,
+        grid: {
+            span: 8
         }
     }
 };

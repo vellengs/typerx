@@ -19,6 +19,8 @@ import { BaseListComponent } from './base/base.list.component';
 import { BaseComponent } from './base/base.component';
 import { BaseTableComponent } from './base/base.table.component';
 import { BaseStandComponent } from '@shared/base/base.stand.component';
+import { BaseTreeTableComponent } from '@shared/base/base.tree.table';
+import { BaseDetailComponent } from '@shared/base/base.detail.component';
 
 const THIRDMODULES = [
     NgZorroAntdModule,
@@ -34,6 +36,8 @@ const COMPONENTS = [
     BaseListComponent,
     BaseTableComponent,
     BaseStandComponent,
+    BaseTreeTableComponent,
+    BaseDetailComponent,
 ];
 const DIRECTIVES = [];
 // endregion

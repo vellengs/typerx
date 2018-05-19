@@ -10,12 +10,13 @@ import * as XLSX from 'xlsx';
 import { BaseComponent } from './base.component';
 import { SFSchema, SFUISchema } from '@delon/form';
 import { BaseTable, FormSets } from 'types/types';
+import { BaseStandComponent } from '@shared/base/base.stand.component';
 
 @Component({
-    selector: 'app-base-table',
-    template: './base.table.html'
+    selector: 'app-base-tree-table',
+    template: './base.tree.table.html'
 })
-export class BaseTableComponent extends BaseComponent implements BaseTable {
+export class BaseTreeTableComponent extends BaseStandComponent implements BaseTable {
 
     @Input() domain;
     @Input() queryParams: any = {};
@@ -25,11 +26,12 @@ export class BaseTableComponent extends BaseComponent implements BaseTable {
     total = 0;
 
     constructor(public injector: Injector) {
-        super(injector);
+        super(injector); 
     }
 
     load(): void {
 
+        
     }
 
     reload(): void {

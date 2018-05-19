@@ -12,6 +12,7 @@ import { SFSchema, SFUISchema } from '@delon/form';
 import { BaseTable, CurdPage, Appearance } from 'types/types';
 import { BaseTableComponent } from '@shared/base/base.table.component';
 import { Subject } from 'rxjs/Subject';
+import { BaseDetailComponent } from '@shared/base/base.detail.component';
 declare var System;
 
 @Component({
@@ -19,11 +20,14 @@ declare var System;
     template: './base.stand.html'
 })
 export class BaseStandComponent extends BaseTableComponent implements CurdPage {
- 
+
 
     private loaded = false;
     private list: any = {};
     private emitter: Subject<boolean> = new Subject<boolean>();
+
+    public onEditFormChanged: EventEmitter<any> = new EventEmitter();
+    public onAddFormChanged: EventEmitter<any> = new EventEmitter();
 
     constructor(public injector: Injector) {
         super(injector);
@@ -31,7 +35,6 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
             this.loadConfig();
         }, 0);
     }
-
 
     private async loadConfig() {
         const url = `api/${this.domain}/config`;
@@ -43,9 +46,25 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
         }
     }
 
-
     add(): void {
 
+        const params = {
+            nzTitle: this.formSets.add.title
+        };
+        this.modalHelper
+            .open(BaseDetailComponent, {
+                schema: this.formSets.add,
+                onFormChanged: this.onAddFormChanged
+            }, 'lg',
+                params
+            )
+            .subscribe(res => {
+                // this.ajax.proxy.post(`api/${this.domain}`, res.value).subscribe((entry) => {
+                //     this.message.info('保存成功');
+                //     res.dialog.destroy();
+                //     this.load();
+                // });
+            });
     }
 
     edit(entry: any): void {

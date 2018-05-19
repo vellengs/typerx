@@ -34,6 +34,7 @@ export enum WidgetTypes {
     upload = 'upload',
     tinymce = 'tinymce',
     ueditor = 'ueditor',
+    listBox = 'listBox',
 }
 
 export interface ColumnSets {

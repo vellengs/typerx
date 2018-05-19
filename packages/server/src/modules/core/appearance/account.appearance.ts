@@ -20,7 +20,7 @@ export const appearance: Appearance = {
             }
         ]
     },
-    form: {
+    formSets: {
         add: {
 
         },

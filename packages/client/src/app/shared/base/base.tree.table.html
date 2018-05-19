@@ -1,5 +1,5 @@
 <div class="content__title">
-    <h1>菜单设置</h1>
+    <h1>{{title}}</h1>
 </div>
 <nz-card [nzExtra]="extra" [nzCover]="cover">
     <sf *ngIf="formSets" [mode]="'search'" [layout]="'inline'" [schema]="formSets.query" (formSubmit)="submit($event)"></sf>
@@ -9,7 +9,7 @@
         <nz-card [nzExtra]="extra" [nzCover]="cover">
             <div class="mb-md">
                 <button class="mr-sm" type="button" nz-button [nzType]="'primary'" (click)="add()">
-                    <i class="anticon anticon-plus"></i>新增2
+                    <i class="anticon anticon-plus"></i>新增1
                 </button>
             </div>
 

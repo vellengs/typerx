@@ -10,13 +10,14 @@ import { SFSchema, SFGridSchema, SFUISchema } from '@delon/form';
 
 import { BaseListComponent } from '@shared/base/base.list.component';
 import { BaseStandComponent } from '@shared/base/base.stand.component';
+import { BaseTreeTableComponent } from '@shared/base/base.tree.table';
 
 @Component({
     selector: 'app-menus-page',
     templateUrl: './menus.html',
     styles: []
 })
-export class MenusPageComponent extends BaseStandComponent implements OnInit {
+export class MenusPageComponent extends BaseTreeTableComponent implements OnInit {
 
     cover;
     extra;
