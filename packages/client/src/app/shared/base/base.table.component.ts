@@ -9,7 +9,7 @@ import { XlsxService, SimpleTableColumn, STExportOptions } from '@delon/abc';
 import * as XLSX from 'xlsx';
 import { BaseComponent } from './base.component';
 import { SFSchema, SFUISchema } from '@delon/form';
-import { BaseTable } from 'types/types';
+import { BaseTable, FormSets } from 'types/types';
 
 @Component({
     selector: 'app-base-table',
@@ -18,8 +18,11 @@ import { BaseTable } from 'types/types';
 export class BaseTableComponent extends BaseComponent implements BaseTable {
 
     @Input() domain;
-    columnSets: SimpleTableColumn[];
     @Input() queryParams: any = {};
+    
+    columnSets: SimpleTableColumn[];
+    formSets: FormSets;
+    total = 0;
 
     constructor(public injector: Injector) {
         super(injector);

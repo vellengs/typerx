@@ -1,6 +1,39 @@
 export class Appearance {
     columnSets: ColumnSets;
-    form: FormSets;
+    formSets: FormSets;
+}
+
+export enum SchemaTypes {
+    array = 'array',
+    string = 'string',
+    boolean = 'boolean',
+    number = 'number',
+    object = 'object',
+}
+
+export enum WidgetTypes {
+    array = 'array',
+    autocomplete = 'autocomplete',
+    boolean = 'boolean',
+    checkbox = 'checkbox',
+    cascader = 'cascader',
+    date = 'date',
+    mention = 'mention',
+    number = 'number',
+    object = 'object',
+    radio = 'radio',
+    range = 'range',
+    rate = 'rate',
+    select = 'select',
+    search = 'search',
+    string = 'string',
+    tag = 'tag',
+    textarea = 'textarea',
+    time = 'time',
+    transfer = 'transfer',
+    upload = 'upload',
+    tinymce = 'tinymce',
+    ueditor = 'ueditor',
 }
 
 export interface ColumnSets {

@@ -28,8 +28,7 @@ export class MenusPageComponent extends BaseStandComponent implements OnInit {
     }
 
     async ngOnInit() {
-        console.log('this router:', this.route.data['value']);
-        this.msg.success('hello');
+        console.log('this.formSets', this.formSets);
     }
 
     submit(value: any) {

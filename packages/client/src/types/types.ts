@@ -30,6 +30,7 @@ export interface BaseTable extends BasePage {
     queryParams: {
         [key: string]: any
     };
+    total: number;
 }
 
 export interface CurdPage extends BaseTable {

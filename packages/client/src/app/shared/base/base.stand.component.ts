@@ -9,7 +9,7 @@ import { XlsxService, SimpleTableColumn, STExportOptions } from '@delon/abc';
 import * as XLSX from 'xlsx';
 import { BaseComponent } from './base.component';
 import { SFSchema, SFUISchema } from '@delon/form';
-import { BaseTable, CurdPage } from 'types/types';
+import { BaseTable, CurdPage, Appearance } from 'types/types';
 import { BaseTableComponent } from '@shared/base/base.table.component';
 import { Subject } from 'rxjs/Subject';
 declare var System;
@@ -19,8 +19,7 @@ declare var System;
     template: './base.stand.html'
 })
 export class BaseStandComponent extends BaseTableComponent implements CurdPage {
-
-    formSets;
+ 
 
     private loaded = false;
     private list: any = {};
@@ -35,65 +34,15 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
 
 
     private async loadConfig() {
-        // console.log('domain:', this.domain);
-        const path = `/assets/scripts/appearances/${this.domain}.appearance.js`;
-        // const appearances = await SystemJS.import(path);
-        // console.log('module:', appearances);
-
-        // const m = await this.loader.load('./../appearances/appearance.module#AppearanceModule');
-        // console.log('m:', m);
-        console.log('System:', System);
-        const dn = await System.import(path);
-        console.log('dn', dn);
-        // });
-
+        const url = `api/${this.domain}/config`;
+        const config: any = await this.client.get(url).toPromise();
+        if (config) {
+            this.columnSets = config.columnSets;
+            this.formSets = config.formSets;
+            console.log('formSets', config);
+        }
     }
 
-    private async loadScript(path: string): Promise<any> {
-        return new Promise((resolve, reject) => {
-            if (this.list[path] === true) {
-                resolve(<any>{
-                    path: path,
-                    loaded: true,
-                    status: 'Loaded'
-                });
-                return;
-            }
-
-            this.list[path] = true;
-
-            const node: any = document.createElement('script');
-            node.type = 'text/javascript';
-            node.src = path;
-            node.charset = 'utf-8';
-            if (node.readyState) { // IE
-                node.onreadystatechange = () => {
-                    if (node.readyState === 'loaded' || node.readyState === 'complete') {
-                        node.onreadystatechange = null;
-                        resolve(<any>{
-                            path: path,
-                            loaded: true,
-                            status: 'Loaded'
-                        });
-                    }
-                };
-            } else {
-                node.onload = () => {
-                    resolve(<any>{
-                        path: path,
-                        loaded: true,
-                        status: 'Loaded'
-                    });
-                };
-            }
-            node.onerror = (error: any) => resolve(<any>{
-                path: path,
-                loaded: false,
-                status: 'Loaded'
-            });
-            document.getElementsByTagName('head')[0].appendChild(node);
-        });
-    }
 
     add(): void {
 
