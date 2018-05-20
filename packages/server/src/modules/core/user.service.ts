@@ -54,7 +54,7 @@ export class UserService {
               if (err) {
                 reject(false);
               }
-              const picked = pick(user, ['username', 'nick', 'avatar', 'type',
+              const picked: LoginResponse = pick(user, ['username', 'nick', 'avatar', 'type',
                 'email', 'mobile', 'roles', 'isDisable', 'isAdmin', 'isApproved', 'expired']);
               resolve(picked);
             });
