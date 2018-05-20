@@ -10,6 +10,8 @@ import {
 import { Helper } from '../../util/helper';
 import { appearance } from './appearance/menu.appearance';
 import { KeyValue } from './dto/pairs';
+import { Document } from 'mongoose';
+import { pick } from 'lodash';
 
 export class MenuService {
   async getAppearance(): Promise<Appearance> {
@@ -56,10 +58,31 @@ export class MenuService {
     sort?: string
   ): Promise<PaginateResponse<MenuResponse[]>> {
     const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
-    const docs: any = await Db.Menu.find(query).sort(sort).skip(page * size).limit(size).exec();
+    const docs: any = await Db.Menu.find(query).sort(sort).skip(page * size).limit(size).exec() || [];
     const count = await Db.Menu.find(query).count();
+    const list = docs.map((item: Menu) => {
+      const instance: MenuResponse = pick(item, [
+        'id',
+        'name',
+        'slug',
+        'group',
+        'link',
+        'externalLink',
+        'blank',
+        'icon',
+        'order',
+        'enable',
+        'expanded',
+        'acl',
+        'permissions',
+        'parent',
+        'isMenu',
+      ]);
+      return instance;
+    });
+
     return {
-      list: docs,
+      list: list,
       total: count
     }
   }

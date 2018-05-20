@@ -1,4 +1,5 @@
 export interface Menu {
+    id: string;
     name: string;								// 菜单名称
     slug: string;								// 标识串
     group: boolean;								// 是否是分组

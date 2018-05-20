@@ -88,6 +88,23 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
 
     remove(entry: any): void {
 
+        const self = this;
+        this.modal.confirm({
+            nzOkText: '确定',
+            nzCancelText: '取消',
+            nzTitle: '提示',
+            nzContent: '确定删除该记录吗？',
+            async nzOnOk() {
+                self.client.delete(`api/${self.domain}/${entry.id}`).subscribe((item) => {
+                    if (item) {
+                        self.msg.info('删除成功');
+                        self.load();
+                    }
+                });
+            },
+            nzOnCancel() {
+            }
+        });
     }
 
     removeChecked(): void {

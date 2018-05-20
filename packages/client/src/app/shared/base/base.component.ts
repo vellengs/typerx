@@ -7,6 +7,7 @@ import { SFSchema, SFUISchema } from '@delon/form';
 import { BasePage } from 'types/types';
 import { HttpClient } from '@angular/common/http';
 import { LazyService } from '@delon/util';
+import { CoreService } from 'generated';
 
 @Component({
     selector: 'app-base-component',
@@ -24,6 +25,7 @@ export class BaseComponent implements BasePage {
     loader: SystemJsNgModuleLoader;
     client: HttpClient;
     lazy: LazyService;
+    coreService: CoreService;
 
     constructor(public injector: Injector) {
         this.modalHelper = this.injector.get(ModalHelper);
@@ -34,6 +36,7 @@ export class BaseComponent implements BasePage {
         this.loader = this.injector.get(SystemJsNgModuleLoader);
         this.client = this.injector.get(HttpClient);
         this.lazy = this.injector.get(LazyService);
+        this.coreService = this.injector.get(CoreService);
         const routeData = this.route.data['value'] || {};
         this.title = routeData.title;
     }

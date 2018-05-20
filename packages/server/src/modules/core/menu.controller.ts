@@ -83,4 +83,25 @@ export class MenuController {
   }
 
 
+  /**
+ * 删除菜单
+ * @param id 菜单编号
+ */
+  @Path(':id')
+  @DELETE
+  async remove(@PathParam('id') id: string): Promise<boolean> {
+    return this.service.remove(id);
+  }
+
+  /**
+   * 查询菜单
+   * @param id 菜单编号
+   */
+  @Path(':id')
+  @GET
+  async get(@PathParam('id') id: string): Promise<MenuResponse> {
+    return this.service.get(id);
+  }
+
+
 }
