@@ -1,13 +1,13 @@
-export interface LoginDto {
+export class LoginDto {
   username: string;
   password: string;
 }
 
-export interface LocalStrategyInfo {
+export class LocalStrategyInfo {
   message: string;
 }
 
-export interface LoginResponse {
+export class LoginResponse {
   username: string;
   nick: string;
   avatar: string;
@@ -21,7 +21,7 @@ export interface LoginResponse {
   expired: Date;
 }
 
-export interface ProfileResponse {
+export class ProfileResponse {
   id: string;
   name: string;
 }

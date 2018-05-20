@@ -11,6 +11,7 @@ import {
 import { Helper } from '../../util/helper';
 import { ProfileResponse } from './dto/login.dto';
 import { appearance } from './appearance/account.appearance';
+import { pick } from 'lodash';
 
 export class AccountService {
   async getAppearance(): Promise<Appearance> {
@@ -44,29 +45,8 @@ export class AccountService {
   async create(entry: CreateAccountDto): Promise<AccountResponse> {
     const doc = new Db.Account(entry);
     const result = await doc.save();
-    const picked = (({ username,
-      nick,
-      avatar,
-      type,
-      email,
-      mobile,
-      roles,
-      isDisable,
-      isAdmin,
-      isApproved,
-      expired }) => ({
-        username,
-        nick,
-        avatar,
-        type,
-        email,
-        mobile,
-        roles,
-        isDisable,
-        isAdmin,
-        isApproved,
-        expired
-      }))(result);
+    const picked = pick(result, ['username', 'nick', 'avatar', 'type',
+      'email', 'mobile', 'roles', 'isDisable', 'isAdmin', 'isApproved', 'expired']);
     return picked;
   }
 

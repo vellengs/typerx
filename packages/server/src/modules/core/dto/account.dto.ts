@@ -1,4 +1,4 @@
-export interface CreateAccountDto {
+export class CreateAccountDto {
   avatar?: string;
   email?: string;
   mobile?: string;
@@ -7,7 +7,7 @@ export interface CreateAccountDto {
   nick: string;
 }
 
-export interface EditAccountDto {
+export class EditAccountDto {
   id: string;
   avatar?: string;
   email?: string;
@@ -16,7 +16,7 @@ export interface EditAccountDto {
   nick: string;
 }
 
-export interface AccountResponse {
+export class AccountResponse {
   username: string;
   nick: string;
   avatar: string;
@@ -30,7 +30,7 @@ export interface AccountResponse {
   expired: Date;
 }
 
-export interface SessionUser {
+export class SessionUser {
   id: string;
   username: string;
   nick: string;

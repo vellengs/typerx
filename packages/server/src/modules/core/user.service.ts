@@ -11,6 +11,7 @@ import {
 } from './dto/login.dto';
 import { LogService } from './log.service';
 import { Request, Response, NextFunction } from 'express';
+import { pick } from 'lodash';
 
 export class UserService {
   async login(
@@ -53,29 +54,8 @@ export class UserService {
               if (err) {
                 reject(false);
               }
-              const picked = (({ username,
-                nick,
-                avatar,
-                type,
-                email,
-                mobile,
-                roles,
-                isDisable,
-                isAdmin,
-                isApproved,
-                expired }) => ({
-                  username,
-                  nick,
-                  avatar,
-                  type,
-                  email,
-                  mobile,
-                  roles,
-                  isDisable,
-                  isAdmin,
-                  isApproved,
-                  expired
-                }))(user);
+              const picked = pick(user, ['username', 'nick', 'avatar', 'type',
+                'email', 'mobile', 'roles', 'isDisable', 'isAdmin', 'isApproved', 'expired']);
               resolve(picked);
             });
           } else {
@@ -86,4 +66,8 @@ export class UserService {
     });
     return result as LoginResponse;
   }
+
+
+
+
 }

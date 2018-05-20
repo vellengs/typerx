@@ -29,7 +29,9 @@ export class MenusPageComponent extends BaseTreeTableComponent implements OnInit
     }
 
     async ngOnInit() {
-        console.log('this.formSets', this.formSets);
+        this.onConfigChanged.subscribe(() => {
+            console.log('formSets', this.formSets);
+        });
     }
 
     submit(value: any) {

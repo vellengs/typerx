@@ -1,35 +1,101 @@
 import { Component, OnInit } from '@angular/core';
-import { ControlWidget } from '@delon/form';
+import { ControlWidget, SFSchemaEnum, SFSchema, SFUISchemaItem } from '@delon/form';
+import { getData } from './../../util';
 
 @Component({
     selector: 'sf-search',
-    template: `
-    <sf-item-wrap [id]="id" [schema]="schema" [ui]="ui" [showError]="showError" [error]="error" [showTitle]="schema.title">
-        <!-- 开始自定义控件区域 -->
-                search ...
-        <!-- 结束自定义控件区域 -->
-    </sf-item-wrap>`
+    template:
+        `<sf-item-wrap [id]="id" [schema]="schema" [ui]="ui" [showError]="showError" [error]="error" [showTitle]="schema.title">
+    <nz-select
+      [nzDisabled]="disabled"
+      [nzSize]="ui.size"
+      [ngModel]="value"
+      (ngModelChange)="setValue($event)"
+      [nzPlaceHolder]="ui.placeholder"
+      [nzAllowClear]="i.allowClear"
+      [nzAutoFocus]="i.autoFocus"
+      [nzDropdownClassName]="i.dropdownClassName"
+      [nzDropdownMatchSelectWidth]="i.dropdownMatchSelectWidth"
+      [nzServerSearch]="i.serverSearch"
+      [nzMaxMultipleCount]="i.maxMultipleCount"
+      [nzMode]="i.mode"
+      [nzNotFoundContent]="i.notFoundContent"
+      [nzShowSearch]="i.showSearch"
+      (nzOpenChange)="openChange($event)"
+      (nzOnSearch)="searchChange($event)"
+      (nzScrollToBottom)="scrollToBottom($event)">
+      <ng-container *ngIf="!hasGroup">
+        <nz-option
+          *ngFor="let o of data"
+          [nzLabel]="o.label"
+          [nzValue]="o.value"
+          [nzDisabled]="o.disabled">
+        </nz-option>
+      </ng-container>
+      <ng-container *ngIf="hasGroup">
+        <nz-option-group *ngFor="let i of data" [nzLabel]="i.label">
+          <nz-option
+            *ngFor="let o of i.children"
+            [nzLabel]="o.label"
+            [nzValue]="o.value"
+            [nzDisabled]="o.disabled">
+          </nz-option>
+        </nz-option-group>
+      </ng-container>
+    </nz-select>
+  </sf-item-wrap>`,
+    preserveWhitespaces: false,
+
 })
 export class SearchWidgetComponent extends ControlWidget implements OnInit {
     /* 用于注册小部件 KEY 值 */
     static readonly KEY = 'search';
 
-    // 组件所需要的参数，建议使用 `ngOnInit` 获取
-    config: any;
-    loadingTip: string;
+    i: any;
+    data: SFSchemaEnum[];
+    hasGroup = false;
 
     ngOnInit(): void {
-        this.loadingTip = this.ui.loadingTip || '加载中……';
-        this.config = this.ui.config || {};
+        this.i = {
+            allowClear: this.ui.allowClear,
+            autoFocus: this.ui.autoFocus || false,
+            dropdownClassName: this.ui.dropdownClassName || null,
+            dropdownMatchSelectWidth: this.ui.dropdownMatchSelectWidth || true,
+            serverSearch: this.ui.serverSearch || false,
+            maxMultipleCount: this.ui.maxMultipleCount || Infinity,
+            mode: this.ui.mode || 'default',
+            notFoundContent: this.ui.notFoundContent || '无法找到',
+            showSearch: this.ui.showSearch || true,
+        };
     }
 
-    // reset 可以更好的解决表单重置过程中所需要的新数据问题
-    reset(value: string) {
-
+    reset(value: any) {
+        getData(this.schema, this.ui, this.formProperty.formData).subscribe(
+            list => {
+                this.data = list;
+                this.hasGroup = list.filter(w => w.group === true).length > 0;
+                this.detectChanges();
+            },
+        );
     }
 
-    change(value: string) {
-        if (this.ui.change) this.ui.change(value);
-        this.setValue(value);
+    openChange(value: any) {
+        if (this.ui.openChange) this.ui.openChange(value);
+    }
+
+    searchChange(text: string) {
+        if (this.ui.onSearch) {
+            this.ui.onSearch(text).then((res: any[]) => {
+                this.data = res;
+                this.detectChanges();
+            });
+            return;
+        }
+        this.detectChanges();
+    }
+
+
+    scrollToBottom(value: any) {
+        if (this.ui.scrollToBottom) this.ui.scrollToBottom(value);
     }
 }

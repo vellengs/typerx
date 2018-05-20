@@ -1,6 +1,6 @@
 import { async } from '@angular/core/testing';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { NzMessageService, NzModalService } from 'ng-zorro-antd';
+import { NzMessageService, NzModalService, ModalOptionsForService } from 'ng-zorro-antd';
 import { Component, OnInit, OnDestroy, Input, EventEmitter, Output, Injector, NgModuleFactoryLoader } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { DatePipe, CurrencyPipe } from '@angular/common';
@@ -21,11 +21,11 @@ declare var System;
 })
 export class BaseStandComponent extends BaseTableComponent implements CurdPage {
 
-
     private loaded = false;
     private list: any = {};
     private emitter: Subject<boolean> = new Subject<boolean>();
 
+    public onConfigChanged: EventEmitter<any> = new EventEmitter();
     public onEditFormChanged: EventEmitter<any> = new EventEmitter();
     public onAddFormChanged: EventEmitter<any> = new EventEmitter();
 
@@ -42,17 +42,32 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
         if (config) {
             this.columnSets = config.columnSets;
             this.formSets = config.formSets;
-            console.log('formSets', config);
+            this.onConfigChanged.emit(config);
         }
     }
 
     add(): void {
 
-        const params = {
-            nzTitle: this.formSets.add.title
+        const params: ModalOptionsForService = {
+            nzTitle: this.formSets.add.title,
+            nzMaskClosable: false,
+            nzFooter: [{
+                label: '取消',
+                onClick: (instance) => {
+                    instance.modalRef.close();
+                }
+            },
+            {
+                label: '保存',
+                type: 'primary',
+                onClick: (instance) => {
+
+                }
+            },
+            ]
         };
         this.modalHelper
-            .open(BaseDetailComponent, {
+            .static(BaseDetailComponent, {
                 schema: this.formSets.add,
                 onFormChanged: this.onAddFormChanged
             }, 'lg',

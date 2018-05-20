@@ -1,5 +1,5 @@
 import { ModalHelper } from '@delon/theme';
-import { NzMessageService, NzModalService } from 'ng-zorro-antd';
+import { NzMessageService, NzModalService, NzModalRef } from 'ng-zorro-antd';
 import { ActivatedRoute } from '@angular/router';
 import { XlsxService, SimpleTableColumn } from '@delon/abc';
 import { Component, Injector, Input, NgModuleFactoryLoader, SystemJsNgModuleLoader, EventEmitter, OnInit } from '@angular/core';
@@ -15,18 +15,17 @@ import { BaseComponent } from '@shared/base/base.component';
 })
 export class BaseDetailComponent extends BaseComponent implements OnInit {
 
-
     @Input() schema: any;
     @Input() model: any = {};
     @Input() domain: string;
     @Input() keyword: string;
     @Input() field: string[];
     @Input() onFormChanged: EventEmitter<any>;
+    modalRef;
 
     constructor(public injector: Injector) {
         super(injector);
-
-
+        this.modalRef = this.injector.get(NzModalRef);
     }
 
     ngOnInit(): void {

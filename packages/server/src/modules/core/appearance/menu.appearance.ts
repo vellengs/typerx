@@ -1,5 +1,5 @@
 import { Appearance, SchemaTypes as t, WidgetTypes as w } from "../../../types/appearance";
-
+import { cloneDeep } from 'lodash';
 const addForm = {
     title: '添加菜单',
     properties: {
@@ -72,7 +72,8 @@ const addForm = {
     }
 };
 
-const editForm = addForm;
+const editForm = cloneDeep(addForm);
+editForm.title = '编辑菜单';
 
 export const appearance: Appearance = {
     columnSets: {
