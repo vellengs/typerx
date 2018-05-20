@@ -9,18 +9,26 @@ import {
 } from './dto/menu.dto';
 import { Helper } from '../../util/helper';
 import { appearance } from './appearance/menu.appearance';
+import { KeyValue } from './dto/pairs';
 
 export class MenuService {
   async getAppearance(): Promise<Appearance> {
     return appearance;
   }
 
-  async getMenusByKeyword(keyword?: string): Promise<MenuResponse[]> {
+  async search(keyword?: string): Promise<KeyValue[]> {
     const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
-    const docs: any = await Db.Menu.find(query)
+    const docs: any = await Db.Menu.find(query).select({
+      name: 1,
+    })
       .limit(25)
-      .exec();
-    return docs;
+      .exec() || [];
+    return docs.map((item: any) => {
+      return {
+        label: item.name,
+        value: item._id
+      }
+    });
   }
 
   async create(entry: CreateMenuDto): Promise<MenuResponse> {

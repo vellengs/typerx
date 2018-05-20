@@ -15,6 +15,7 @@ const addForm = {
             type: 'string',
             ui: {
                 widget: w.search,
+                allowClear: true,
                 domain: 'menu'
             }
         },
@@ -49,6 +50,7 @@ const addForm = {
         order: {
             title: '顺序',
             type: t.number,
+            default: 100,
         },
         // permissions: {
         //     title: '权限列表',

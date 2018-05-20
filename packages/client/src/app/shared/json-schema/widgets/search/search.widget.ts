@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ControlWidget, SFSchemaEnum, SFSchema, SFUISchemaItem } from '@delon/form';
+import { Component, OnInit, ChangeDetectorRef, Inject } from '@angular/core';
+import { ControlWidget, SFSchemaEnum, SFSchema, SFUISchemaItem, SFComponent, SFSchemaEnumType } from '@delon/form';
 import { getData } from './../../util';
+// tslint:disable-next-line:import-blacklist
+import { of, Observable } from 'rxjs';
+import { delay } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'sf-search',
@@ -55,6 +59,14 @@ export class SearchWidgetComponent extends ControlWidget implements OnInit {
     data: SFSchemaEnum[];
     hasGroup = false;
 
+    constructor(
+        @Inject(ChangeDetectorRef) public readonly cd: ChangeDetectorRef,
+        @Inject(SFComponent) public readonly sfComp: SFComponent,
+        public client: HttpClient,
+    ) {
+        super(cd, sfComp);
+    }
+
     ngOnInit(): void {
         this.i = {
             allowClear: this.ui.allowClear,
@@ -69,7 +81,20 @@ export class SearchWidgetComponent extends ControlWidget implements OnInit {
         };
     }
 
+    getSelectData(text?: string): Observable<SFSchemaEnumType[]> {
+        console.log('search ...');
+        const domain = this.ui.domain;
+        const url = `api/${domain}/search`;
+        return this.client.get(url, {
+            params: {
+                keyword: text || ''
+            }
+        }) as any;
+    }
+
     reset(value: any) {
+        this.ui.asyncData = () => this.getSelectData();
+        this.ui.onSearch = (text: string) => this.getSelectData(text);
         getData(this.schema, this.ui, this.formProperty.formData).subscribe(
             list => {
                 this.data = list;
@@ -85,7 +110,7 @@ export class SearchWidgetComponent extends ControlWidget implements OnInit {
 
     searchChange(text: string) {
         if (this.ui.onSearch) {
-            this.ui.onSearch(text).then((res: any[]) => {
+            this.ui.onSearch(text).subscribe((res: any[]) => {
                 this.data = res;
                 this.detectChanges();
             });

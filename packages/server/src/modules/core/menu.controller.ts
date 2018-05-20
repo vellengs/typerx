@@ -13,6 +13,7 @@ import { Tags } from 'typescript-rest-swagger';
 import { MenuService } from './menu.service';
 import { Appearance, PaginateResponse } from '../../types/appearance';
 import { MenuResponse, CreateMenuDto, EditMenuDto } from './dto/menu.dto';
+import { KeyValue } from './dto/pairs';
 
 /**
  * 菜单接口.
@@ -39,8 +40,8 @@ export class MenuController {
   @GET
   async search(
     @QueryParam('keyword') keyword?: string
-  ): Promise<MenuResponse[]> {
-    return this.service.getMenusByKeyword(keyword);
+  ): Promise<KeyValue[]> {
+    return this.service.search(keyword);
   }
 
 
