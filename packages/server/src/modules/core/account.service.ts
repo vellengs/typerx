@@ -12,13 +12,14 @@ import { Helper } from '../../util/helper';
 import { ProfileResponse } from './dto/login.dto';
 import { appearance } from './appearance/account.appearance';
 import { pick } from 'lodash';
+import { Document } from 'mongoose';
 
 export class AccountService {
   async getAppearance(): Promise<Appearance> {
     return appearance;
   }
 
-  async getAccountsByKeyword(keyword?: string): Promise<AccountResponse[]> {
+  async search(keyword?: string): Promise<AccountResponse[]> {
     const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
     const docs = await Db.Account.find(query)
       .limit(25)
@@ -88,12 +89,31 @@ export class AccountService {
     page = page > 0 ? page : 0 || 1;
     const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
 
-    const docs: any = await Db.Account.find(query).sort(sort).skip(page * size).limit(size).exec();
+    const docs: any = await Db.Account.find(query).sort(sort).skip(page * size).limit(size).exec() || [];
     const count = await Db.Account.find(query).count();
+    const list = docs.map((item: Account & Document) => {
+      const instance: AccountResponse = pick(item, [
+        'id',
+        'username',
+        'nick',
+        'avatar',
+        'type',
+        'email',
+        'mobile',
+        'roles',
+        'isDisable',
+        'isAdmin',
+        'isApproved',
+        'expired',
+      ]);
+      return instance;
+    });
+
     return {
-      list: docs,
+      list: list,
       total: count
     }
+
   }
 
   async get(id: string): Promise<AccountResponse> {

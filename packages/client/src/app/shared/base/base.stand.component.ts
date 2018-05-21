@@ -29,6 +29,8 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
     public onEditFormChanged: EventEmitter<any> = new EventEmitter();
     public onAddFormChanged: EventEmitter<any> = new EventEmitter();
 
+    public entries = [];
+
     constructor(public injector: Injector) {
         super(injector);
         setTimeout(() => {
@@ -96,7 +98,6 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
     }
 
     remove(entry: any): void {
-
         const self = this;
         this.modal.confirm({
             nzOkText: '确定',
@@ -122,6 +123,14 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
 
     load(): void {
 
+        const url = `api/${this.domain}/query`;
+        const params = Object.assign({}, this.queryParams);
+        this.client.get(url, params).subscribe((res: any) => {
+            if (res) {
+                this.entries = res.list;
+                console.log('entries:', this.entries);
+            }
+        });
     }
 
     reload(): void {

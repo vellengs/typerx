@@ -72,7 +72,7 @@ export class AccountController {
   async getAccountsByKeyword(
     @QueryParam('keyword') keyword?: string,
   ): Promise<AccountResponse[]> {
-    return this.service.getAccountsByKeyword(keyword);
+    return this.service.search(keyword);
   }
 
   /**
