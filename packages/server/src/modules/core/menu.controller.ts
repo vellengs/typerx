@@ -33,15 +33,19 @@ export class MenuController {
     return this.service.getAppearance();
   }
 
+
   /**
-   * 获取帐号管理界面配置信息.
+   * 查询菜单
+   * @param keyword 关键词
+   * @param value 已选中的菜单编号
    */
   @Path('search')
   @GET
   async search(
-    @QueryParam('keyword') keyword?: string
+    @QueryParam('keyword') keyword?: string,
+    @QueryParam('value') value?: string
   ): Promise<KeyValue[]> {
-    return this.service.search(keyword);
+    return this.service.search(keyword, value);
   }
 
 

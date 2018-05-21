@@ -1,4 +1,4 @@
-export class KeyValue {
-    title: string;
+export interface KeyValue {
+    label: string;
     value: string;
 }

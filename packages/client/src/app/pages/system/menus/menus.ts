@@ -43,9 +43,6 @@ export class MenusPageComponent extends BaseTreeTableComponent implements OnInit
         this.treeData.forEach(item => {
             this.expandDataCache[item.id] = this.convertTreeToList(item);
         });
-        console.log('treeData:', this.treeData);
-        console.log('expandDataCache:', this.expandDataCache);
-
     }
 
     async getMenuTreeData() {
@@ -53,6 +50,7 @@ export class MenusPageComponent extends BaseTreeTableComponent implements OnInit
         const res: any = await this.client.get(url, {
             params: {
                 size: '1000',
+                isMenu: 'true'
             }
         }).toPromise();
 

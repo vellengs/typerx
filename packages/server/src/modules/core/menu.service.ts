@@ -10,26 +10,38 @@ import {
 import { Helper } from '../../util/helper';
 import { appearance } from './appearance/menu.appearance';
 import { KeyValue } from './dto/pairs';
-import { Document } from 'mongoose';
-import { pick } from 'lodash';
+import { Document, Types } from 'mongoose';
+import { pick, merge } from 'lodash';
 
 export class MenuService {
   async getAppearance(): Promise<Appearance> {
     return appearance;
   }
 
-  async search(keyword?: string): Promise<KeyValue[]> {
+  async search(keyword?: string, value?: string, limit = 10): Promise<KeyValue[]> {
     const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
-    const docs: any = await Db.Menu.find(query).select({
+    const fields = {
       name: 1,
-    })
-      .limit(25)
+    };
+    
+    const docs = await Db.Menu.find(query).select(fields)
+      .limit(limit)
       .exec() || [];
-    return docs.map((item: any) => {
-      return {
+
+    if (Types.ObjectId.isValid(value)) {
+      const selected = await Db.Menu.findById(value).select(fields);
+      const found = docs.findIndex(doc => doc._id == value);
+      if (found === -1) {
+        docs.push(selected);
+      }
+    } 
+
+    return docs.map((item) => {
+      const result: KeyValue = {
         label: item.name,
         value: item._id
-      }
+      };
+      return result;
     });
   }
 

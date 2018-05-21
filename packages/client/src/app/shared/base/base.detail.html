@@ -1,4 +1,3 @@
-<sf #sf *ngIf="schema" (formChange)="formChanged($event)" [mode]="'edit'" [layout]="'inline'" [schema]="schema" (formSubmit)="submit($event)">
- </sf>
-{{value | json}}
-<button (click)="submit(schema)" nz-button>test</button>
+<sf #sf *ngIf="schema" [button]="'none'" [formData]="formData" (formChange)="formChanged($event)" [mode]="'edit'" [layout]="'inline'"
+    [schema]="schema" (formSubmit)="submit($event)">
+</sf>

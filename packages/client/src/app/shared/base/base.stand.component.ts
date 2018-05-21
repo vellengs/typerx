@@ -52,15 +52,15 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
             nzTitle: this.formSets.add.title,
             nzMaskClosable: false,
             nzFooter: [{
-                label: '取消',
-                onClick: (instance) => {
-                    instance.modalRef.close();
+                label: '重置',
+                onClick: (dialog) => {
+                    dialog.reset();
                 }
             },
             {
                 label: '保存',
                 type: 'primary',
-                onClick: (instance) => {
+                onClick: (dialog) => {
 
                 }
             },
@@ -74,16 +74,41 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
                 params
             )
             .subscribe(res => {
-                // this.ajax.proxy.post(`api/${this.domain}`, res.value).subscribe((entry) => {
-                //     this.message.info('保存成功');
-                //     res.dialog.destroy();
-                //     this.load();
-                // });
+
             });
     }
 
     edit(entry: any): void {
 
+        const params: ModalOptionsForService = {
+            nzTitle: this.formSets.edit.title,
+            nzMaskClosable: false,
+            nzFooter: [{
+                label: '重置',
+                onClick: (dialog) => {
+                    dialog.reset();
+                }
+            },
+            {
+                label: '保存',
+                type: 'primary',
+                onClick: (dialog) => {
+
+                }
+            },
+            ]
+        };
+        this.modalHelper
+            .static(BaseDetailComponent, {
+                schema: this.formSets.edit,
+                onFormChanged: this.onEditFormChanged,
+                formData: entry
+            }, 'lg',
+                params
+            )
+            .subscribe(res => {
+
+            });
     }
 
     remove(entry: any): void {
