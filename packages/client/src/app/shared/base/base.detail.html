@@ -1,1 +1,4 @@
-<sf *ngIf="schema" [button]="'none'" [mode]="'edit'" [layout]="'inline'" [schema]="schema" (formSubmit)="submit($event)"></sf>
+<sf #sf *ngIf="schema" (formChange)="formChanged($event)" [mode]="'edit'" [layout]="'inline'" [schema]="schema" (formSubmit)="submit($event)">
+ </sf>
+{{value | json}}
+<button (click)="submit(schema)" nz-button>test</button>

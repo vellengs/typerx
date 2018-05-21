@@ -82,7 +82,6 @@ export class SearchWidgetComponent extends ControlWidget implements OnInit {
     }
 
     getSelectData(text?: string): Observable<SFSchemaEnumType[]> {
-        console.log('search ...');
         const domain = this.ui.domain;
         const url = `api/${domain}/search`;
         return this.client.get(url, {

@@ -21,11 +21,13 @@ export class BaseDetailComponent extends BaseComponent implements OnInit {
     @Input() keyword: string;
     @Input() field: string[];
     @Input() onFormChanged: EventEmitter<any>;
-    modalRef;
+    modalRef: NzModalRef;
+    value: any = {};
 
     constructor(public injector: Injector) {
         super(injector);
         this.modalRef = this.injector.get(NzModalRef);
+        // this.modalRef.
     }
 
     ngOnInit(): void {
@@ -39,7 +41,15 @@ export class BaseDetailComponent extends BaseComponent implements OnInit {
 
     }
 
+    formChanged($event) {
+        this.value = $event;
+    }
+
     submit(event?) {
+
+        console.log('event:', event);
+
+        // this.modalRef.next({ value: this.value, dialog: this.subject });
 
     }
 }
