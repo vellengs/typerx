@@ -1,4 +1,4 @@
-import { ModalHelper } from '@delon/theme';
+import { ModalHelper, _HttpClient } from '@delon/theme';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { ActivatedRoute } from '@angular/router';
 import { XlsxService, SimpleTableColumn } from '@delon/abc';
@@ -23,7 +23,7 @@ export class BaseComponent implements BasePage {
     route: ActivatedRoute;
     xlsx: XlsxService;
     loader: SystemJsNgModuleLoader;
-    client: HttpClient;
+    client: _HttpClient;
     lazy: LazyService;
     coreService: CoreService;
 
@@ -34,7 +34,7 @@ export class BaseComponent implements BasePage {
         this.route = this.injector.get(ActivatedRoute);
         this.xlsx = this.injector.get(XlsxService);
         this.loader = this.injector.get(SystemJsNgModuleLoader);
-        this.client = this.injector.get(HttpClient);
+        this.client = this.injector.get(_HttpClient);
         this.lazy = this.injector.get(LazyService);
         this.coreService = this.injector.get(CoreService);
         const routeData = this.route.data['value'] || {};

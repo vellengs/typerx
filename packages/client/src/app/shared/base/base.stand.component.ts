@@ -51,20 +51,20 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
         const params: ModalOptionsForService = {
             nzTitle: this.formSets.add.title,
             nzMaskClosable: false,
-            nzFooter: [{
-                label: '重置',
-                onClick: (dialog) => {
-                    dialog.reset();
-                }
-            },
-            {
-                label: '保存',
-                type: 'primary',
-                onClick: (dialog) => {
-
-                }
-            },
-            ]
+            // nzFooter: [{
+            //     label: '重置',
+            //     onClick: (dialog) => {
+            //         dialog.reset();
+            //     }
+            // },
+            // {
+            //     label: '保存',
+            //     type: 'primary',
+            //     onClick: (dialog) => {
+            //         dialog.save();
+            //     }
+            // },
+            // ]
         };
         this.modalHelper
             .static(BaseDetailComponent, {
@@ -83,20 +83,20 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
         const params: ModalOptionsForService = {
             nzTitle: this.formSets.edit.title,
             nzMaskClosable: false,
-            nzFooter: [{
-                label: '重置',
-                onClick: (dialog) => {
-                    dialog.reset();
-                }
-            },
-            {
-                label: '保存',
-                type: 'primary',
-                onClick: (dialog) => {
-
-                }
-            },
-            ]
+            // nzFooter: [{
+            //     label: '重置',
+            //     onClick: (dialog) => {
+            //         dialog.reset();
+            //     }
+            // },
+            // {
+            //     label: '保存',
+            //     type: 'primary',
+            //     onClick: (dialog) => {
+            //         dialog.save();
+            //     }
+            // },
+            // ]
         };
 
         const modelData = await this.client.get(`api/${this.domain}/` + entry.id).toPromise();

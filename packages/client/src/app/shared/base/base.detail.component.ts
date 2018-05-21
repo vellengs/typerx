@@ -2,7 +2,7 @@ import { ModalHelper } from '@delon/theme';
 import { NzMessageService, NzModalService, NzModalRef } from 'ng-zorro-antd';
 import { ActivatedRoute } from '@angular/router';
 import { XlsxService, SimpleTableColumn } from '@delon/abc';
-import { Component, Injector, Input, NgModuleFactoryLoader, SystemJsNgModuleLoader, EventEmitter, OnInit, ViewChild } from '@angular/core';
+import { Component, Injector, Input, NgModuleFactoryLoader, SystemJsNgModuleLoader, EventEmitter, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { SFSchema, SFUISchema, SFComponent } from '@delon/form';
 import { BasePage } from 'types/types';
 import { HttpClient } from '@angular/common/http';
@@ -13,7 +13,7 @@ import { BaseComponent } from '@shared/base/base.component';
     selector: 'app-base-detail',
     templateUrl: './base.detail.html'
 })
-export class BaseDetailComponent extends BaseComponent implements OnInit {
+export class BaseDetailComponent extends BaseComponent implements OnInit, AfterViewInit {
 
     @Input() schema: any;
     @Input() model: any = {};
@@ -29,10 +29,13 @@ export class BaseDetailComponent extends BaseComponent implements OnInit {
 
     @ViewChild('sf') formRef: SFComponent;
 
-
-    constructor(public injector: Injector) {
+    constructor(public injector: Injector, private elRef: ElementRef) {
         super(injector);
         this.modalRef = this.injector.get(NzModalRef);
+    }
+
+    ngAfterViewInit() {
+
     }
 
     ngOnInit(): void {
@@ -55,6 +58,10 @@ export class BaseDetailComponent extends BaseComponent implements OnInit {
     }
 
     submit(event?) {
-        console.log('event:', event);
+
+    }
+
+    save() {
+        console.log('this.formRef.valid:', this.formRef);
     }
 }
