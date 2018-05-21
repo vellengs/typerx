@@ -23,7 +23,7 @@ export class MenuService {
     const fields = {
       name: 1,
     };
-    
+
     const docs = await Db.Menu.find(query).select(fields)
       .limit(limit)
       .exec() || [];
@@ -34,7 +34,7 @@ export class MenuService {
       if (found === -1) {
         docs.push(selected);
       }
-    } 
+    }
 
     return docs.map((item) => {
       const result: KeyValue = {
@@ -104,12 +104,31 @@ export class MenuService {
   }
 
   async get(id: string): Promise<MenuResponse> {
-    const result = Helper.get(Db.Menu, id, [
+    const result = await Helper.get(Db.Menu, id, [
       {
         path: 'roles',
         select: 'name',
       },
     ]);
-    return result;
+
+    const picked: MenuResponse = pick(result, [
+      'id',
+      'name',
+      'slug',
+      'group',
+      'link',
+      'externalLink',
+      'blank',
+      'icon',
+      'order',
+      'enable',
+      'expanded',
+      'acl',
+      'permissions',
+      'parent',
+      'isMenu'
+    ]);
+
+    return picked;
   }
 }

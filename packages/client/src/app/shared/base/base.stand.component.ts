@@ -47,34 +47,20 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
     }
 
     add(): void {
-
         const params: ModalOptionsForService = {
             nzTitle: this.formSets.add.title,
-            nzMaskClosable: false,
-            // nzFooter: [{
-            //     label: '重置',
-            //     onClick: (dialog) => {
-            //         dialog.reset();
-            //     }
-            // },
-            // {
-            //     label: '保存',
-            //     type: 'primary',
-            //     onClick: (dialog) => {
-            //         dialog.save();
-            //     }
-            // },
-            // ]
+            nzMaskClosable: false
         };
         this.modalHelper
             .static(BaseDetailComponent, {
                 schema: this.formSets.add,
-                onFormChanged: this.onAddFormChanged
+                onFormChanged: this.onAddFormChanged,
+                onSave: this.save,
+                context: this
             }, 'lg',
                 params
-            )
-            .subscribe(res => {
-
+            ).subscribe(() => {
+                this.load();
             });
     }
 
@@ -82,21 +68,7 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
 
         const params: ModalOptionsForService = {
             nzTitle: this.formSets.edit.title,
-            nzMaskClosable: false,
-            // nzFooter: [{
-            //     label: '重置',
-            //     onClick: (dialog) => {
-            //         dialog.reset();
-            //     }
-            // },
-            // {
-            //     label: '保存',
-            //     type: 'primary',
-            //     onClick: (dialog) => {
-            //         dialog.save();
-            //     }
-            // },
-            // ]
+            nzMaskClosable: false
         };
 
         const modelData = await this.client.get(`api/${this.domain}/` + entry.id).toPromise();
@@ -104,13 +76,23 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
             .static(BaseDetailComponent, {
                 schema: this.formSets.edit,
                 onFormChanged: this.onEditFormChanged,
-                formData: modelData
+                formData: modelData,
+                onSave: this.save,
+                context: this
             }, 'lg',
                 params
-            )
-            .subscribe(res => {
-
+            ).subscribe(() => {
+                this.load();
             });
+    }
+
+    async save(entry) {
+        const url = `api/${this.domain}`;
+        if (entry.id) {
+            return this.client.put(url, entry).toPromise();
+        } else {
+            return this.client.post(url, entry).toPromise();
+        }
     }
 
     remove(entry: any): void {
@@ -144,6 +126,12 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
 
     reload(): void {
 
+    }
+
+    query(params: any) {
+        this.queryParams = params;
+        this.load();
+        // console.log('query:', params);
     }
 
 }

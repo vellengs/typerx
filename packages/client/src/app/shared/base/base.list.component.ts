@@ -18,6 +18,10 @@ export class BaseListComponent extends BaseComponent {
 
     constructor(public injector: Injector) {
         super(injector);
-    } 
-    
+    }
+
+    query(params: any) {
+        console.log('params', params);
+    }
+
 }

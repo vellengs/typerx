@@ -2,7 +2,7 @@
     <h1>{{title}}</h1>
 </div>
 <nz-card [nzExtra]="extra" [nzCover]="cover">
-    <sf [ui]="ui" [mode]="'search'" [layout]="layout" [schema]="schema" (formSubmit)="submit($event)"></sf>
+    <sf [ui]="ui" [mode]="'search'" [layout]="layout" [schema]="schema" (formSubmit)="query($event)"></sf>
 </nz-card>
 <nz-row [nzGutter]="16">
     <nz-col [nzMd]="24">

@@ -2,7 +2,7 @@
     <h1>菜单设置</h1>
 </div>
 <nz-card [nzExtra]="extra" [nzCover]="cover">
-    <sf *ngIf="formSets" [mode]="'search'" [layout]="'inline'" [schema]="formSets.query" (formSubmit)="submit($event)"></sf>
+    <sf *ngIf="formSets" [mode]="'search'" [layout]="'inline'" [schema]="formSets.query" (formSubmit)="query($event)"></sf>
 </nz-card>
 <nz-row [nzGutter]="16">
     <nz-col [nzMd]="24">

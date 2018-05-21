@@ -22,6 +22,9 @@ export class BaseDetailComponent extends BaseComponent implements OnInit, AfterV
     @Input() keyword: string;
     @Input() field: string[];
     @Input() onFormChanged: EventEmitter<any>;
+    @Input() onSave: (entry: any) => Promise<any>;
+    @Input() context: any;
+
     modalRef: NzModalRef;
     value: any = {
 
@@ -61,7 +64,8 @@ export class BaseDetailComponent extends BaseComponent implements OnInit, AfterV
 
     }
 
-    save() {
-        console.log('this.formRef.valid:', this.formRef);
+    async save(value) {
+        const result = await this.onSave.call(this.context, value);
+        this.modalRef.destroy(result);
     }
 }

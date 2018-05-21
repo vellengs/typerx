@@ -47,15 +47,11 @@ export class MenusPageComponent extends BaseTreeTableComponent implements OnInit
 
     async getMenuTreeData() {
         const url = `api/menu/query`;
-        const res: any = await this.client.get(url, {
-            params: {
-                size: '1000',
-                isMenu: 'true'
-            }
-        }).toPromise();
-
-        // const res = await this.coreService.
-
+        const params = Object.assign({
+            size: '1000',
+            isMenu: true
+        }, this.queryParams);
+        const res: any = await this.client.get(url, params).toPromise();
         const docs = res.list;
         const tree = arrayToTree(docs, {
             parentProperty: 'parent',

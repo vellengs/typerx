@@ -116,7 +116,7 @@ export const appearance: Appearance = {
     formSets: {
         query: {
             properties: {
-                name: {
+                keyword: {
                     type: 'string',
                     title: '名称',
                     maxLength: 20,
