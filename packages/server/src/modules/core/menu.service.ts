@@ -65,11 +65,16 @@ export class MenuService {
 
   async query(
     keyword?: string,
+    isMenu?: boolean,
     page?: number,
     size?: number,
     sort?: string
   ): Promise<PaginateResponse<MenuResponse[]>> {
-    const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
+    const query: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
+
+    if (isMenu)
+      query.isMenu = true;
+
     const docs: any = await Db.Menu.find(query).sort(sort).skip(page * size).limit(size).exec() || [];
     const count = await Db.Menu.find(query).count();
     const list = docs.map((item: Menu) => {

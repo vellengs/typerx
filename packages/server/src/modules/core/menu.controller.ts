@@ -79,11 +79,12 @@ export class MenuController {
   @GET
   async query(
     @QueryParam('keyword') keyword?: string,
+    @QueryParam('isMenu') isMenu?: boolean,
     @QueryParam('page') page?: number,
     @QueryParam('size') size?: number,
     @QueryParam('sort') sort?: string
   ): Promise<PaginateResponse<MenuResponse[]>> {
-    return this.service.query(keyword, page, size, sort);
+    return this.service.query(keyword, isMenu, page, size, sort);
   }
 
 
