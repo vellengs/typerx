@@ -78,7 +78,7 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
             });
     }
 
-    edit(entry: any): void {
+    async edit(entry: any) {
 
         const params: ModalOptionsForService = {
             nzTitle: this.formSets.edit.title,
@@ -98,11 +98,13 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
             },
             ]
         };
+
+        const modelData = await this.client.get(`api/${this.domain}/` + entry.id).toPromise();
         this.modalHelper
             .static(BaseDetailComponent, {
                 schema: this.formSets.edit,
                 onFormChanged: this.onEditFormChanged,
-                formData: entry
+                formData: modelData
             }, 'lg',
                 params
             )

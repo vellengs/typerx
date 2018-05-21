@@ -45,7 +45,7 @@ export class Helper {
                 if (err) {
                     reject(err);
                 } else {
-                    resolve(res && res.pure());
+                    resolve(res );
                 }
             });
         });
