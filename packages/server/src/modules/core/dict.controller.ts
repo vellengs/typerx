@@ -21,7 +21,7 @@ import { SSL_OP_EPHEMERAL_RSA } from 'constants';
 import { PaginateResponse, Appearance } from '../../types/appearance';
 import { DictService } from './dict.service';
 import { DictResponse, CreateDictDto, EditDictDto } from './dto/dict.dto';
-import { KeyValue } from './dto/pairs';
+import { KeyValue } from '../../types/data.types';
 
 /**
  * 字典表.

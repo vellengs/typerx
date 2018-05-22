@@ -7,11 +7,11 @@ import {
   EditMenuDto,
   CreateMenuDto,
 } from './dto/menu.dto';
-import { Helper } from '../../util/helper';
 import { appearance } from './appearance/menu.appearance';
-import { KeyValue } from './dto/pairs';
 import { Document, Types } from 'mongoose';
 import { pick, merge } from 'lodash';
+import { Repository } from '../../database/repository';
+import { KeyValue } from '../../types/data.types';
 
 export class MenuService {
   async getAppearance(): Promise<Appearance> {
@@ -19,7 +19,7 @@ export class MenuService {
   }
 
   async search(keyword?: string, value?: string, limit = 10): Promise<KeyValue[]> {
-    return Helper.search(Db.Menu, keyword, value, limit);
+    return Repository.search(Db.Menu, keyword, value, limit);
   }
 
   async create(entry: CreateMenuDto): Promise<MenuResponse> {
@@ -52,7 +52,7 @@ export class MenuService {
     if (isMenu)
       query.isMenu = true;
 
- 
+
     const docs: any = await Db.Menu.find(query).sort(sort).skip(page * size).limit(size).exec() || [];
     const count = await Db.Menu.find(query).count();
 
@@ -67,11 +67,11 @@ export class MenuService {
   }
 
   async remove(id: string): Promise<boolean> {
-    return Helper.remove(Db.Menu, id);
+    return Repository.remove(Db.Menu, id);
   }
 
   async get(id: string): Promise<MenuResponse> {
-    const result = await Helper.get(Db.Menu, id, [
+    const result = await Repository.get(Db.Menu, id, [
       {
         path: 'roles',
         select: 'name',

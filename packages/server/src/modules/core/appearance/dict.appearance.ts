@@ -3,12 +3,6 @@ import { cloneDeep } from 'lodash';
 const addForm = {
     title: '添加字典',
     properties: {
-        name: {
-            title: '字典键',
-            type: 'string',
-            maxLength: 30,
-            placeholder: '请输入字典名称',
-        },
         category: {
             title: '字典分类',
             type: t.string,
@@ -17,6 +11,12 @@ const addForm = {
                 domain: 'dict',
                 category: 'category'
             },
+        },
+        name: {
+            title: '字典键',
+            type: 'string',
+            maxLength: 30,
+            placeholder: '请输入字典名称',
         },
         translate: {
             title: '名称',

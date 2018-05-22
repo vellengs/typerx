@@ -9,8 +9,9 @@ import { Setting } from './interfaces/setting.interface';
 import { SettingResponse, CreateSettingDto, EditSettingDto } from './dto/setting.dto';
 import { Helper } from '../../util/helper';
 import { Document } from 'mongoose';
-import { KeyValue } from './dto/pairs';
-
+import { KeyValue } from '../../types/data.types';
+import { Repository } from '../../database/repository';
+ 
 export class SettingService {
 
   async getMainSettings(keys?: string): Promise<SettingResponse[]> {
@@ -45,7 +46,7 @@ export class SettingService {
   }
 
   async search(keyword?: string, value?: string, limit = 10): Promise<KeyValue[]> {
-    return Helper.search(Db.Setting, keyword, value, limit);
+    return Repository.search(Db.Setting, keyword, value, limit);
   }
 
   async create(entry: CreateSettingDto): Promise<SettingResponse> {
@@ -92,13 +93,13 @@ export class SettingService {
   }
 
   async get(id: string): Promise<SettingResponse> {
-    const result: any = Helper.get(Db.Setting, id);
+    const result: any = Repository.get(Db.Setting, id);
     const picked = this.pure(result);
     return picked;
   }
 
   async remove(id: string): Promise<boolean> {
-    return Helper.remove(Db.Setting, id);
+    return Repository.remove(Db.Setting, id);
   }
 
   private pure(entry: Setting & Document): SettingResponse {

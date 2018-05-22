@@ -13,8 +13,8 @@ import { Tags } from 'typescript-rest-swagger';
 import { MenuService } from './menu.service';
 import { Appearance, PaginateResponse } from '../../types/appearance';
 import { MenuResponse, CreateMenuDto, EditMenuDto } from './dto/menu.dto';
-import { KeyValue } from './dto/pairs';
-
+import { KeyValue } from '../../types/data.types';
+ 
 /**
  * 菜单接口.
  */
