@@ -52,27 +52,12 @@ export class MenuService {
     if (isMenu)
       query.isMenu = true;
 
+ 
     const docs: any = await Db.Menu.find(query).sort(sort).skip(page * size).limit(size).exec() || [];
     const count = await Db.Menu.find(query).count();
-    const list = docs.map((item: Menu) => {
-      const instance: MenuResponse = pick(item, [
-        'id',
-        'name',
-        'slug',
-        'group',
-        'link',
-        'externalLink',
-        'blank',
-        'icon',
-        'order',
-        'enable',
-        'expanded',
-        'acl',
-        'permissions',
-        'parent',
-        'isMenu',
-      ]);
-      return instance;
+
+    const list = docs.map((item: Menu & Document) => {
+      return this.pure(item);
     });
 
     return {
@@ -92,8 +77,11 @@ export class MenuService {
         select: 'name',
       },
     ]);
+    return this.pure(result);
+  }
 
-    const picked: MenuResponse = pick(result, [
+  private pure(entry: Menu & Document): MenuResponse {
+    return pick(entry, [
       'id',
       'name',
       'slug',
@@ -109,8 +97,6 @@ export class MenuService {
       'permissions',
       'parent',
       'isMenu'
-    ]);
-
-    return picked;
+    ])
   }
 }

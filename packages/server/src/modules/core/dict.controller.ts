@@ -21,6 +21,7 @@ import { SSL_OP_EPHEMERAL_RSA } from 'constants';
 import { PaginateResponse, Appearance } from '../../types/appearance';
 import { DictService } from './dict.service';
 import { DictResponse, CreateDictDto, EditDictDto } from './dto/dict.dto';
+import { KeyValue } from './dto/pairs';
 
 /**
  * 字典表.
@@ -51,8 +52,8 @@ export class DictController {
   @GET
   async search(@QueryParam('keyword') keyword?: string,
     @QueryParam('value') value?: string,
-  ): Promise<DictResponse[]> {
-    return this.search(keyword, value);
+  ): Promise<KeyValue[]> {
+    return this.service.search(keyword, value);
   }
 
   /**

@@ -4,15 +4,33 @@ const addForm = {
     title: '添加字典',
     properties: {
         name: {
-            title: '名称',
+            title: '字典键',
             type: 'string',
             maxLength: 30,
             placeholder: '请输入字典名称',
-            required: true
         },
-
+        category: {
+            title: '字典分类',
+            type: t.string,
+            ui: {
+                widget: w.search,
+                domain: 'dict',
+                category: 'category'
+            },
+        },
+        translate: {
+            title: '名称',
+            type: t.string,
+        },
+        expand: {
+            title: '拓展数据',
+            type: t.string,
+            ui: {
+                widget: w.textarea
+            }
+        }
     },
-    required: ['name'],
+    required: ['name', 'category', 'translate'],
     ui: {
         spanLabelFixed: 100,
         grid: {
@@ -28,35 +46,19 @@ export const appearance: Appearance = {
     columnSets: {
         default: [
             {
+                title: 'category',
+                i18n: '字典分类',
+                index: ['category']
+            },
+            {
                 title: 'name',
-                i18n: '名称',
+                i18n: '字典键',
                 index: ['name']
             },
             {
-                title: 'icon',
-                i18n: '图标',
-                index: ['icon']
-            },
-            {
-                title: 'link',
-                i18n: '链接',
-                index: ['link']
-            },
-            {
-                title: 'externalLink',
-                i18n: '扩展链接',
-                index: ['externalLink']
-            },
-            {
-                title: 'slug',
-                index: ['externalLink']
-            },
-            {
-                title: 'order',
-                index: ['order'],
-                click: () => {
-                    console.log('click ..');
-                }
+                title: 'translate',
+                i18n: '值',
+                index: ['translate']
             }
         ]
     },
@@ -70,8 +72,7 @@ export const appearance: Appearance = {
                     ui: {
                         widget: 'autocomplete',
                         debounceTime: 100,
-                        placeholder: '请输入字典名称',
-                        // asyncData: (input: string) => of(input ? [input, input + input, input + input + input] : [])
+                        placeholder: '请输入字典名称'
                     }
                 }
             }

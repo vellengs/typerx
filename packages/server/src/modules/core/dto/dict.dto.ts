@@ -1,6 +1,6 @@
 export class CreateDictDto {
   category: string;
-  key: string;
+  translate: string;
   name: string;
   expand: Object;
 }
@@ -8,7 +8,7 @@ export class CreateDictDto {
 export class EditDictDto {
   id: string;
   category: string;
-  key: string;
+  translate: string;
   name: string;
   expand: Object;
 }
@@ -16,7 +16,15 @@ export class EditDictDto {
 export class DictResponse {
   id: string;
   category: string;
-  key: string;
   name: string;
+  translate: string;
   expand: Object;
 }
+
+export const DictResponseFields = [
+  'id',
+  'category',
+  'name',
+  'translate',
+  'expand'
+];

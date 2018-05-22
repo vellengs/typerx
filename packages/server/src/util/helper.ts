@@ -1,6 +1,8 @@
 
-import { Model, Document, Types } from 'mongoose';
+import { Model, Document, Types, DocumentQuery, Query, Connection } from 'mongoose';
 import { KeyValue } from '../modules/core/dto/pairs';
+import { pick, PartialDeep } from 'lodash';
+import { PaginateResponse } from '../types/appearance';
 
 export class Helper {
 
@@ -78,5 +80,23 @@ export class Helper {
             return result;
         });
     }
+
+    static async query<T extends Document, TResponse>(
+        query: DocumentQuery<T[], T>,
+        collection: DocumentQuery<T[], T>,
+        page: number = 1,
+        size: number = 20,
+        fields: string[]
+    ) {
+        page = page - 1;
+        const count = await collection.count().exec();
+        const docs = await query.skip(page * size).limit(size).exec('find') || [];
+        const list = docs.map((doc) => pick(doc, fields) as TResponse);
+        return {
+            list: list,
+            total: count
+        }
+    }
+
 
 }

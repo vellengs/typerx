@@ -9,7 +9,7 @@ import { Dict } from './interfaces/dict.interface';
 import { Helper } from '../../util/helper';
 import { Document } from 'mongoose';
 import { KeyValue } from './dto/pairs';
-import { DictResponse, CreateDictDto, EditDictDto } from './dto/dict.dto';
+import { DictResponse, CreateDictDto, EditDictDto, DictResponseFields as fields } from './dto/dict.dto';
 import { appearance } from './appearance/dict.appearance';
 
 export class DictService {
@@ -43,18 +43,11 @@ export class DictService {
     sort?: string
   ): Promise<PaginateResponse<DictResponse[]>> {
     page = page > 0 ? page : 0 || 1;
-    const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
-
-    const docs: any = await Db.Dict.find(query).sort(sort).skip(page * size).limit(size).exec() || [];
-    const count = await Db.Dict.find(query).count();
-    const list = docs.map((item: Dict & Document) => {
-      const instance: DictResponse = this.pure(item);
-    });
-
-    return {
-      list: list,
-      total: count
-    }
+    const condition = keyword ? { name: new RegExp(keyword, 'i') } : {};
+    const query = Db.Dict.find(condition).sort(sort);
+    const collection = Db.Dict.find(condition);
+    const result = Helper.query<Dict & Document, DictResponse>(query, collection, page, size, fields);
+    return result;
   }
 
   async get(id: string): Promise<DictResponse> {
@@ -71,8 +64,8 @@ export class DictService {
     return pick(entry, [
       'id',
       'category',
-      'key',
       'name',
+      'translate',
       'expand',
     ])
   }
