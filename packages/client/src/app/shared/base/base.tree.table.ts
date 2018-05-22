@@ -18,24 +18,8 @@ import { BaseStandComponent } from '@shared/base/base.stand.component';
 })
 export class BaseTreeTableComponent extends BaseStandComponent implements BaseTable {
 
-    @Input() domain;
-    @Input() queryParams: any = {};
-
-    columnSets: SimpleTableColumn[];
-    formSets: FormSets;
-    total = 0;
-
     constructor(public injector: Injector) {
-        super(injector); 
-    }
-
-    load(): void {
-
-        
-    }
-
-    reload(): void {
-
+        super(injector);
     }
 
 }

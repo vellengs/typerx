@@ -6,12 +6,14 @@ import { TinymceWidget } from './widgets/tinymce/tinymce.widget';
 import { UeditorWidget } from './widgets/ueditor/ueditor.widget';
 import { SearchWidgetComponent } from '@shared/json-schema/widgets/search/search.widget';
 import { ListBoxWidgetComponent } from '@shared/json-schema/widgets/list-box/list-box';
+import { DictWidgetComponent } from '@shared/json-schema/widgets/dict/search.widget';
 
 export const SCHEMA_THIRDS_COMPONENTS = [
     TinymceWidget,
     UeditorWidget,
     SearchWidgetComponent,
     ListBoxWidgetComponent,
+    DictWidgetComponent,
 ];
 
 @NgModule({
@@ -31,6 +33,7 @@ export class JsonSchemaModule {
         widgetRegistry.register(UeditorWidget.KEY, UeditorWidget);
         widgetRegistry.register(SearchWidgetComponent.KEY, SearchWidgetComponent);
         widgetRegistry.register(ListBoxWidgetComponent.KEY, ListBoxWidgetComponent);
+        widgetRegistry.register(DictWidgetComponent.KEY, DictWidgetComponent);
 
     }
 }

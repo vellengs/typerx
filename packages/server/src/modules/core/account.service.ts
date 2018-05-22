@@ -8,11 +8,11 @@ import {
   SessionUser,
   CreateAccountDto,
 } from './dto/account.dto';
-import { Helper } from '../../util/helper';
 import { ProfileResponse } from './dto/login.dto';
 import { appearance } from './appearance/account.appearance';
 import { pick } from 'lodash';
 import { Document } from 'mongoose';
+import { Repository } from '../../database/repository';
 
 export class AccountService {
   async getAppearance(): Promise<Appearance> {
@@ -69,7 +69,7 @@ export class AccountService {
   }
 
   async remove(id: string): Promise<boolean> {
-    return Helper.remove(Db.Account, id);
+    return Repository.remove(Db.Account, id);
   }
 
   async profile(context: ServiceContext): Promise<ProfileResponse> {
@@ -116,7 +116,7 @@ export class AccountService {
   }
 
   async get(id: string): Promise<AccountResponse> {
-    const result = Helper.get(Db.Account, id, [
+    const result = Repository.get(Db.Account, id, [
       {
         path: 'roles',
         select: 'name',
@@ -124,4 +124,9 @@ export class AccountService {
     ]);
     return result;
   }
+
+  
+
+
+
 }

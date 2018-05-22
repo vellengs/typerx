@@ -5,31 +5,31 @@ import { CoreDatabase as Db } from './core.database';
 
 import { Request, Response, NextFunction } from 'express';
 import { pick } from 'lodash';
-import { Dict } from './interfaces/dict.interface';
 import { Document } from 'mongoose';
-import { DictResponse, CreateDictDto, EditDictDto, DictResponseFields as fields } from './dto/dict.dto';
-import { appearance } from './appearance/dict.appearance';
+import { RoleResponse, CreateRoleDto, EditRoleDto, RoleResponseFields as fields } from './dto/role.dto';
 import { Repository } from '../../database/repository';
 import { KeyValue } from '../../types/data.types';
+import { Role } from './interfaces/role.interface';
+import { appearance } from './appearance/role.appearance';
 
-export class DictService {
+export class RoleService {
 
   async getAppearance(): Promise<Appearance> {
     return appearance;
   }
 
   async search(keyword?: string, value?: string, category?: string, limit = 15): Promise<KeyValue[]> {
-    return Repository.search(Db.Dict, keyword, value, category, limit, 'translate');
+    return Repository.search(Db.Role, keyword, value, category, limit, 'translate');
   }
 
-  async create(entry: CreateDictDto): Promise<DictResponse> {
-    const doc = new Db.Dict(entry);
+  async create(entry: CreateRoleDto): Promise<RoleResponse> {
+    const doc = new Db.Role(entry);
     const result = await doc.save();
     return this.pure(result);
   }
 
-  async update(entry: EditDictDto): Promise<DictResponse> {
-    const result = await Db.Dict.findOneAndUpdate(
+  async update(entry: EditRoleDto): Promise<RoleResponse> {
+    const result = await Db.Role.findOneAndUpdate(
       { _id: entry.id },
       { $set: entry },
       { upsert: true, 'new': true }).exec();
@@ -41,32 +41,32 @@ export class DictService {
     page?: number,
     size?: number,
     sort?: string
-  ): Promise<PaginateResponse<DictResponse[]>> {
+  ): Promise<PaginateResponse<RoleResponse[]>> {
     page = page > 0 ? page : 0 || 1;
     const condition = keyword ? { name: new RegExp(keyword, 'i') } : {};
-    const query = Db.Dict.find(condition).sort(sort);
-    const collection = Db.Dict.find(condition);
-    const result = Repository.query<Dict & Document, DictResponse>(query, collection, page, size, fields);
+    const query = Db.Role.find(condition).sort(sort);
+    const collection = Db.Role.find(condition);
+    const result = Repository.query<Role & Document, RoleResponse>(query, collection, page, size, fields);
     return result;
   }
 
-  async get(id: string): Promise<DictResponse> {
-    const result: any = Repository.get(Db.Dict, id);
+  async get(id: string): Promise<RoleResponse> {
+    const result: any = Repository.get(Db.Role, id);
     const picked = this.pure(result);
     return picked;
   }
 
   async remove(id: string): Promise<boolean> {
-    return Repository.remove(Db.Dict, id);
+    return Repository.remove(Db.Role, id);
   }
 
-  private pure(entry: Dict & Document): DictResponse {
+  private pure(entry: Role & Document): RoleResponse {
     return pick(entry, [
       'id',
-      'category',
+      'role',
       'name',
-      'translate',
-      'expand',
+      'description',
+      'permissions'
     ])
   }
 

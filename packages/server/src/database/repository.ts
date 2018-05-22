@@ -54,11 +54,17 @@ export class Repository {
         });
     }
 
-    static async search(model: Model<Document>, keyword?: string, value?: string, limit = 10, labelField = 'name'): Promise<KeyValue[]> {
-        const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
-        const fields = {
-            name: 1,
-        };
+    static async search(model: Model<Document>,
+        keyword?: string, value?: string,
+        category = '', limit: number = 10, labelField = 'name'): Promise<KeyValue[]> {
+        const query: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
+
+        if (category) {
+            query.category = category;
+        }
+
+        const fields: any = {};
+        fields[labelField] = 1;
 
         const docs = await model.find(query).select(fields)
             .limit(limit)

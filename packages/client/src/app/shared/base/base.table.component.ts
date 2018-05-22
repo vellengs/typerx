@@ -20,7 +20,10 @@ export class BaseTableComponent extends BaseComponent implements BaseTable {
     @Input() domain;
     @Input() queryParams: any = {};
 
-    columnSets: SimpleTableColumn[];
+    columnSets: {
+        [key: string]: SimpleTableColumn[]
+    };
+    
     formSets: FormSets;
     total = 0;
 

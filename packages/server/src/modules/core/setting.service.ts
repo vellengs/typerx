@@ -11,7 +11,7 @@ import { Helper } from '../../util/helper';
 import { Document } from 'mongoose';
 import { KeyValue } from '../../types/data.types';
 import { Repository } from '../../database/repository';
- 
+
 export class SettingService {
 
   async getMainSettings(keys?: string): Promise<SettingResponse[]> {
@@ -45,8 +45,8 @@ export class SettingService {
     return setting;
   }
 
-  async search(keyword?: string, value?: string, limit = 10): Promise<KeyValue[]> {
-    return Repository.search(Db.Setting, keyword, value, limit);
+  async search(keyword?: string, value?: string, limit = 15): Promise<KeyValue[]> {
+    return Repository.search(Db.Setting, keyword, value, '', limit);
   }
 
   async create(entry: CreateSettingDto): Promise<SettingResponse> {

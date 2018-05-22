@@ -18,22 +18,21 @@ import {
   ProfileResponse,
 } from './dto/login.dto';
 import { PaginateResponse, Appearance } from '../../types/appearance';
-import { DictService } from './dict.service';
-import { DictResponse, CreateDictDto, EditDictDto } from './dto/dict.dto';
 import { KeyValue } from '../../types/data.types';
+import { LogService } from './log.service';
+import { LogResponse } from './dto/log.dto';
 
 /**
- * 字典表.
+ * 系统日志.
  */
 @Tags('core')
-@Path('/api/dict')
-export class DictController {
+@Path('/api/log')
+export class LogController {
   @Context context: ServiceContext;
-  constructor(private readonly service = new DictService()) { }
-
+  constructor(private readonly service = new LogService()) { }
 
   /**
-   * 获取帐号管理界面配置信息.
+   * 获取日志管理界面配置信息.
    */
   @Path('config')
   @GET
@@ -41,9 +40,8 @@ export class DictController {
     return this.service.getAppearance();
   }
 
-
   /**
-   * 搜索字典表
+   * 搜索日志
    * @param keyword 关键词
    * @param value 键
    */
@@ -56,25 +54,7 @@ export class DictController {
   }
 
   /**
-   * 创建字典
-   * @param entry 设置项实体
-   */
-  @POST
-  async create(entry: CreateDictDto): Promise<DictResponse> {
-    return this.service.create(entry);
-  }
-
-  /**
-   * 更新字典
-   * @param entry 设置项实体
-   */
-  @PUT
-  async update(entry: EditDictDto): Promise<DictResponse> {
-    return this.service.update(entry);
-  }
-
-  /**
-   * 分页查询字典
+   * 分页查询日志
    * @param keyword 关键词
    * @param page 第几页
    * @param size 页大小
@@ -86,29 +66,18 @@ export class DictController {
     @QueryParam('keyword') keyword?: string,
     @QueryParam('page') page?: number,
     @QueryParam('size') size?: number,
-    @QueryParam('sort') sort?: string): Promise<PaginateResponse<DictResponse[]>> {
+    @QueryParam('sort') sort?: string): Promise<PaginateResponse<LogResponse[]>> {
     return this.service.query(keyword, page, size, sort);
   }
 
-
   /**
-   * 按编号获取字典
+   * 按编号获取日志
    * @param id 键
    */
   @Path(':id')
   @GET
-  async get(@PathParam('id') id: string): Promise<DictResponse> {
+  async get(@PathParam('id') id: string): Promise<LogResponse> {
     return this.service.get(id);
-  }
-
-  /**
-   * 删除字典
-   * @param id 键
-   */
-  @Path(':id')
-  @DELETE
-  async remove(@PathParam('id') id: string): Promise<boolean> {
-    return this.service.remove(id);
   }
 
 }

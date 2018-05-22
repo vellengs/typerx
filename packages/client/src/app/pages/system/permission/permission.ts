@@ -16,16 +16,16 @@ export class PermissionPageComponent extends BaseStandComponent implements OnIni
 
     url;
     @Input() domain = 'role';
+    title = '权限管理';
     constructor(injector: Injector) {
         super(injector);
     }
 
     async ngOnInit() {
-        this.url = `api/${this.domain}/query`;
-        this.onConfigChanged.subscribe(() => {
-
-        });
-        this.load();
+        // this.url = `api/${this.domain}/query`;
+        // this.onConfigChanged.subscribe(() => {
+        // });
+        // this.load();
     }
 
 }

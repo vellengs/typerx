@@ -18,8 +18,8 @@ export class MenuService {
     return appearance;
   }
 
-  async search(keyword?: string, value?: string, limit = 10): Promise<KeyValue[]> {
-    return Repository.search(Db.Menu, keyword, value, limit);
+  async search(keyword?: string, value?: string, limit: number = 10): Promise<KeyValue[]> {
+    return Repository.search(Db.Menu, keyword, value, '', limit);
   }
 
   async create(entry: CreateMenuDto): Promise<MenuResponse> {

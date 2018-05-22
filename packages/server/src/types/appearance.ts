@@ -35,6 +35,7 @@ export enum WidgetTypes {
     tinymce = 'tinymce',
     ueditor = 'ueditor',
     listBox = 'listBox',
+    dict = 'dict',
 }
 
 export interface ColumnSets {

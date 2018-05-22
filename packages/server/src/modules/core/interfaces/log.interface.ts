@@ -4,5 +4,6 @@ export interface Log {
     operator: string;							// 操作人
     operatorIp: string;							// 操作人 IP
     operation: string;							// 操作事件; 
-    comment: string;                            // 备注
+    comment: string;
+    createdAt: Date;                         // 备注
 }

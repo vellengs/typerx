@@ -10,5 +10,6 @@
         </button>
     </div>
 
-    <simple-table *ngIf="columnSets" #st [data]="url" [columns]="columnSets.default" [extraParams]="queryParams"></simple-table>
+    <simple-table [isPageIndexReset]="false" [toTopInChange]="false" *ngIf="columnSets" #st [data]="url" [columns]="columnSets.default"
+        [extraParams]="queryParams"></simple-table>
 </nz-card>

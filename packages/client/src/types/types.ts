@@ -26,7 +26,9 @@ export interface BasePage {
 
 export interface BaseTable extends BasePage {
     domain: string;
-    columnSets: SimpleTableColumn[];
+    columnSets: {
+        [key: string]: SimpleTableColumn[]
+    };
     queryParams: {
         [key: string]: any
     };
