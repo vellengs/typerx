@@ -20,9 +20,6 @@ import * as arrayToTree from 'array-to-tree';
 })
 export class MenusPageComponent extends BaseTreeTableComponent implements OnInit {
 
-    cover;
-    extra;
-
     @Input() domain = 'menu';
     expandDataCache = {};
     treeData = [];

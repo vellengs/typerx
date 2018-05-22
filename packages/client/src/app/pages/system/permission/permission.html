@@ -1,0 +1,14 @@
+<page-header [title]="title"></page-header>
+<nz-card>
+    <div class="mb-md">
+        <sf *ngIf="formSets" [mode]="'search'" [layout]="'inline'" [schema]="formSets.query" (formSubmit)="query($event)"></sf>
+    </div>
+    <div class="mb-md">
+        <button nz-button (click)="add()" [nzType]="'primary'">
+            <i class="anticon anticon-plus"></i>
+            <span>新建</span>
+        </button>
+    </div>
+
+    <simple-table *ngIf="columnSets" #st [data]="url" [columns]="columnSets.default" [extraParams]="queryParams"></simple-table>
+</nz-card>

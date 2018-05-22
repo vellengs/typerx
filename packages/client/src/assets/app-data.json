@@ -57,7 +57,7 @@
                         "icon": "icon-list"
                     },
                     {
-                        "text": "字典表管理",
+                        "text": "字典管理",
                         "link": "/system/dicts",
                         "icon": "icon-notebook"
                     },

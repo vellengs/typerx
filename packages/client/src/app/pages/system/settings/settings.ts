@@ -1,23 +1,26 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { NzMessageService, NzModalService, UploadFile } from 'ng-zorro-antd';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector, Input } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { _HttpClient } from '@delon/theme';
+import { BaseComponent } from '@shared/base/base.component';
 
 @Component({
     selector: 'app-settings-page',
     templateUrl: './settings.html',
     styles: []
 })
-export class SettingsPageComponent implements OnInit {
+export class SettingsPageComponent extends BaseComponent implements OnInit {
     systemLogUrl;
     recover = 0;
     systemName;
     loading = false;
+    title = '系统设置';
 
-    constructor(public client: _HttpClient) {
-
+    @Input() domain = 'dict';
+    constructor(injector: Injector) {
+        super(injector);
     }
 
     async onRecoverChange() {
@@ -47,7 +50,7 @@ export class SettingsPageComponent implements OnInit {
 
     async ngOnInit() {
         const items = await this.client.get<any[]>(
-            'setting/main',
+            'api/setting/main',
             {
                 keys: 'systemName,systemLogUrl,recoverDays'
             }

@@ -45,7 +45,7 @@ export class SettingService {
   }
 
   async search(keyword?: string, value?: string, limit = 10): Promise<KeyValue[]> {
-    return Helper.search(Db.Menu, keyword, value, limit);
+    return Helper.search(Db.Setting, keyword, value, limit);
   }
 
   async create(entry: CreateSettingDto): Promise<SettingResponse> {

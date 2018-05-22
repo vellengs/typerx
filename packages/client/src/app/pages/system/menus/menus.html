@@ -1,52 +1,47 @@
 <page-header [title]="title"></page-header>
 
-<nz-card [nzExtra]="extra" [nzCover]="cover">
-    <sf *ngIf="formSets" [mode]="'search'" [layout]="'inline'" [schema]="formSets.query" (formSubmit)="query($event)"></sf>
-</nz-card>
-<nz-row [nzGutter]="16">
-    <nz-col [nzMd]="24">
-        <nz-card [nzExtra]="extra" [nzCover]="cover">
-            <div class="mb-md">
-                <button class="mr-sm" type="button" nz-button [nzType]="'primary'" (click)="add()">
-                    <i class="anticon anticon-plus"></i>新增
-                </button>
-            </div>
+<nz-card>
+    <div class="mb-md">
+        <sf *ngIf="formSets" [mode]="'search'" [layout]="'inline'" [schema]="formSets.query" (formSubmit)="query($event)"></sf>
+    </div>
+    <div class="mb-md">
+        <button class="mr-sm" type="button" nz-button [nzType]="'primary'" (click)="add()">
+            <i class="anticon anticon-plus"></i>新增
+        </button>
+    </div>
 
-            <nz-table #nzTable [nzData]="treeData">
-                <thead>
-                    <tr>
-                        <th [nzWidth]="'40%'">
-                            <span>名称</span>
-                        </th>
-                        <th [nzWidth]="'30%'">
-                            <span>链接</span>
-                        </th>
-                        <th>
-                            <span>标识</span>
-                        </th>
-                        <th style="width:60px">
-                            <span>操作</span>
-                        </th>
+    <nz-table #nzTable [nzData]="treeData">
+        <thead>
+            <tr>
+                <th [nzWidth]="'40%'">
+                    <span>名称</span>
+                </th>
+                <th [nzWidth]="'30%'">
+                    <span>链接</span>
+                </th>
+                <th>
+                    <span>标识</span>
+                </th>
+                <th style="width:60px">
+                    <span>操作</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-template ngFor let-data [ngForOf]="nzTable.data">
+                <ng-template ngFor let-item [ngForOf]="expandDataCache[data.id]">
+                    <tr *ngIf="(item.parent&&item.parent.expand)||!(item.parent)">
+                        <td [nzIndentSize]="item.level*20" [nzShowExpand]="!!item.children" [(nzExpand)]="item.expand" (nzExpandChange)="collapse(expandDataCache[data.id],item,$event)">
+                            <a (click)="edit(item)"> {{item.name}} </a>
+                        </td>
+                        <td>{{item.link}}</td>
+                        <td>{{item.slug}}</td>
+                        <td>
+                            <a (click)="remove(item)">删除</a>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    <ng-template ngFor let-data [ngForOf]="nzTable.data">
-                        <ng-template ngFor let-item [ngForOf]="expandDataCache[data.id]">
-                            <tr *ngIf="(item.parent&&item.parent.expand)||!(item.parent)">
-                                <td [nzIndentSize]="item.level*20" [nzShowExpand]="!!item.children" [(nzExpand)]="item.expand" (nzExpandChange)="collapse(expandDataCache[data.id],item,$event)">
-                                    <a (click)="edit(item)"> {{item.name}} </a>
-                                </td>
-                                <td>{{item.link}}</td>
-                                <td>{{item.slug}}</td>
-                                <td>
-                                    <a (click)="remove(item)">删除</a>
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </ng-template>
-                </tbody>
-            </nz-table>
-
-        </nz-card>
-    </nz-col>
-</nz-row>
+                </ng-template>
+            </ng-template>
+        </tbody>
+    </nz-table>
+</nz-card>

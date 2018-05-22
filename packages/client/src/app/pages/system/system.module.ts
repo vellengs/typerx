@@ -6,11 +6,17 @@ import { MenusPageComponent } from './menus/menus';
 import { ApiModule } from 'generated';
 import { AccountsPageComponent } from './accounts/accounts';
 import { SettingsPageComponent } from './settings/settings';
+import { DictsPageComponent } from './dicts/dicts';
+import { LogsPageComponent } from './logs/logs';
+import { PermissionPageComponent } from './permission/permission';
 
 const routes: Routes = [
     { path: 'settings', component: SettingsPageComponent },
     { path: 'menus', component: MenusPageComponent, data: { domain: 'menu', title: '菜单管理' } },
     { path: 'accounts', component: AccountsPageComponent, data: { domain: 'account', title: '帐号管理' } },
+    { path: 'dicts', component: DictsPageComponent, data: { domain: 'dict', title: '字典管理' } },
+    { path: 'logs', component: LogsPageComponent, data: { domain: 'log', title: '系统日志' } },
+    { path: 'permission', component: PermissionPageComponent, data: { domain: 'role', title: '系统日志' } },
 
 ];
 
@@ -23,7 +29,10 @@ const routes: Routes = [
     declarations: [
         SettingsPageComponent,
         MenusPageComponent,
-        AccountsPageComponent
+        AccountsPageComponent,
+        LogsPageComponent,
+        DictsPageComponent,
+        PermissionPageComponent,
     ],
     exports: [
         RouterModule
