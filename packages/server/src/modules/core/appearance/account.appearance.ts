@@ -77,9 +77,9 @@ export const appearance: Appearance = {
                 index: ['username']
             },
             {
-                title: 'name',
+                title: 'nick',
                 i18n: '姓名',
-                index: ['name']
+                index: ['nick']
             },
             {
                 title: 'type',
@@ -87,9 +87,9 @@ export const appearance: Appearance = {
                 index: ['type']
             },
             {
-                title: 'mail',
+                title: 'email',
                 i18n: '邮箱',
-                index: ['mail']
+                index: ['email']
             },
             {
                 title: 'mobile',

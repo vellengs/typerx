@@ -128,7 +128,6 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
         this.client.get(url, params).subscribe((res: any) => {
             if (res) {
                 this.entries = res.list;
-                console.log('entries:', this.entries);
             }
         });
     }

@@ -19,30 +19,7 @@ export class MenuService {
   }
 
   async search(keyword?: string, value?: string, limit = 10): Promise<KeyValue[]> {
-    const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
-    const fields = {
-      name: 1,
-    };
-
-    const docs = await Db.Menu.find(query).select(fields)
-      .limit(limit)
-      .exec() || [];
-
-    if (Types.ObjectId.isValid(value)) {
-      const selected = await Db.Menu.findById(value).select(fields);
-      const found = docs.findIndex(doc => doc._id == value);
-      if (found === -1) {
-        docs.push(selected);
-      }
-    }
-
-    return docs.map((item) => {
-      const result: KeyValue = {
-        label: item.name,
-        value: item._id
-      };
-      return result;
-    });
+    return Helper.search(Db.Menu, keyword, value, limit);
   }
 
   async create(entry: CreateMenuDto): Promise<MenuResponse> {

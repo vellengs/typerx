@@ -1,5 +1,6 @@
 
-import { Model, Document } from 'mongoose';
+import { Model, Document, Types } from 'mongoose';
+import { KeyValue } from '../modules/core/dto/pairs';
 
 export class Helper {
 
@@ -45,12 +46,37 @@ export class Helper {
                 if (err) {
                     reject(err);
                 } else {
-                    resolve(res );
+                    resolve(res);
                 }
             });
         });
-
     }
 
+    static async search(model: Model<Document>, keyword?: string, value?: string, limit = 10, labelField = 'name'): Promise<KeyValue[]> {
+        const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
+        const fields = {
+            name: 1,
+        };
+
+        const docs = await model.find(query).select(fields)
+            .limit(limit)
+            .exec() || [];
+
+        if (Types.ObjectId.isValid(value)) {
+            const selected = await model.findById(value).select(fields);
+            const found = docs.findIndex(doc => doc._id == value);
+            if (found === -1) {
+                docs.push(selected);
+            }
+        }
+
+        return docs.map((item: any) => {
+            const result: KeyValue = {
+                label: item[labelField],
+                value: item._id
+            };
+            return result;
+        });
+    }
 
 }

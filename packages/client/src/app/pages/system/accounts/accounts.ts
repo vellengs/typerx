@@ -14,15 +14,14 @@ import { BaseStandComponent } from '@shared/base/base.stand.component';
 })
 export class AccountsPageComponent extends BaseStandComponent implements OnInit {
 
-    cover;
-    extra;
-
+    url;
     @Input() domain = 'account';
     constructor(injector: Injector) {
         super(injector);
     }
 
     async ngOnInit() {
+        this.url = `api/${this.domain}/query`;
         this.onConfigChanged.subscribe(() => {
 
         });

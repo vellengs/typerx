@@ -113,7 +113,6 @@ export class AccountService {
       list: list,
       total: count
     }
-
   }
 
   async get(id: string): Promise<AccountResponse> {

@@ -1,4 +1,5 @@
 export interface Account {
+  id: string;
   username: string; // 用户名
   nick: string; // 姓名
   password: string; // 密码
