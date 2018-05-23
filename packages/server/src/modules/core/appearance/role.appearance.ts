@@ -13,28 +13,32 @@ const addForm = {
             title: '角色描述',
             type: t.string,
             ui: {
-                widget: w.textarea
+                widget: w.textarea,
+                grid: {
+                    span: 24
+                },
+                size: 'large'
             }
         },
-        permissions: {
-            title: '权限列表',
-            type: t.array,
-            items: {
-                type: t.object,
-                properties: {
-                    id: {
-                        title: '编号',
-                        type: t.string,
-                    },
-                    name: {
-                        title: '名称',
-                        type: t.string,
-                    }
-                }
-            }
-        }
+        // permissions: {
+        //     title: '权限列表',
+        //     type: t.array,
+        //     items: {
+        //         type: t.object,
+        //         properties: {
+        //             id: {
+        //                 title: '编号',
+        //                 type: t.string,
+        //             },
+        //             name: {
+        //                 title: '名称',
+        //                 type: t.string,
+        //             }
+        //         }
+        //     }
+        // }
     },
-    required: ['name', 'category', 'translate'],
+    required: ['name', 'description'],
     ui: {
         spanLabelFixed: 100,
         grid: {

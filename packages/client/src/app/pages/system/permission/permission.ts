@@ -17,6 +17,7 @@ export class PermissionPageComponent extends BaseStandComponent implements OnIni
     url;
     @Input() domain = 'role';
     title = '权限管理';
+    selectedItem = {};
     constructor(injector: Injector) {
         super(injector);
     }
@@ -26,6 +27,18 @@ export class PermissionPageComponent extends BaseStandComponent implements OnIni
         this.onConfigChanged.subscribe(() => {
         });
         this.load();
+    }
+
+    addAccount() {
+
+    }
+
+    editPermission() {
+
+    }
+
+    select(item) {
+        this.selectedItem = item;
     }
 
 }

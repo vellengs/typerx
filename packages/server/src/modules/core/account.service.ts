@@ -85,7 +85,7 @@ export class AccountService {
   }
 
   async get(id: string): Promise<AccountResponse> {
-    const result = Repository.get(Db.Account, id, [
+    const result = await Repository.get(Db.Account, id, [
       {
         path: 'roles',
         select: 'name',

@@ -27,9 +27,9 @@ const routes: Routes = [
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
             { path: 'dashboard', canActivate: [CanAuthProvide], component: DashboardComponent, data: { title: '仪表盘' } },
-            { path: 'system', loadChildren: './../pages/system/system.module#SystemModule' },
-            { path: 'cms', loadChildren: './../pages/cms/cms.module#CmsModule' },
-            { path: 'appearances', loadChildren: './../../appearances/appearance.module#AppearanceModule' },
+            { path: 'system', canActivate: [CanAuthProvide], loadChildren: './../pages/system/system.module#SystemModule' },
+            { path: 'cms', canActivate: [CanAuthProvide], loadChildren: './../pages/cms/cms.module#CmsModule' },
+            { path: 'appearances', canActivate: [CanAuthProvide], loadChildren: './../../appearances/appearance.module#AppearanceModule' },
         ]
     },
     {

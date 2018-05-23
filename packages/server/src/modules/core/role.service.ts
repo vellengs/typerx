@@ -51,7 +51,7 @@ export class RoleService {
   }
 
   async get(id: string): Promise<RoleResponse> {
-    const result: any = Repository.get(Db.Role, id);
+    const result: any = await Repository.get(Db.Role, id);
     const picked = this.pure(result);
     return picked;
   }

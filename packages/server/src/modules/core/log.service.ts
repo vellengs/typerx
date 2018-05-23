@@ -36,7 +36,7 @@ export class LogService {
   }
 
   async get(id: string): Promise<LogResponse> {
-    const result: any = Repository.get(Db.Dict, id);
+    const result: any = await Repository.get(Db.Dict, id);
     const picked = this.pure(result);
     return picked;
   }

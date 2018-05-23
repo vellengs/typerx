@@ -93,7 +93,7 @@ export class SettingService {
   }
 
   async get(id: string): Promise<SettingResponse> {
-    const result: any = Repository.get(Db.Setting, id);
+    const result: any = await Repository.get(Db.Setting, id);
     const picked = this.pure(result);
     return picked;
   }
