@@ -21,6 +21,7 @@ import {
   AccountResponse,
 } from './dto/account.dto';
 import { ProfileResponse } from './dto/login.dto';
+import { KeyValue } from '../../types/data.types';
 
 /**
  * 帐号管理.
@@ -71,8 +72,9 @@ export class AccountController {
   @GET
   async getAccountsByKeyword(
     @QueryParam('keyword') keyword?: string,
-  ): Promise<AccountResponse[]> {
-    return this.service.search(keyword);
+    @QueryParam('value') value?: string,
+  ): Promise<KeyValue[]> {
+    return this.service.search(keyword, value);
   }
 
   /**

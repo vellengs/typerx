@@ -13,22 +13,16 @@ import { appearance } from './appearance/account.appearance';
 import { pick } from 'lodash';
 import { Document } from 'mongoose';
 import { Repository } from '../../database/repository';
+import { KeyValue } from '../../types/data.types';
 
 export class AccountService {
   async getAppearance(): Promise<Appearance> {
     return appearance;
   }
 
-  async search(keyword?: string): Promise<AccountResponse[]> {
-    const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
-    const docs = await Db.Account.find(query)
-      .limit(25)
-      .exec();
 
-    const result = docs.map(doc => {
-      return this.pure(doc);
-    });
-    return result;
+  async search(keyword?: string, value?: string, limit: number = 10): Promise<KeyValue[]> {
+    return Repository.search(Db.Account, keyword, value, '', limit, 'nick');
   }
 
   async create(entry: CreateAccountDto): Promise<AccountResponse> {

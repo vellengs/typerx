@@ -28,6 +28,7 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
     public onConfigChanged: EventEmitter<any> = new EventEmitter();
     public onEditFormChanged: EventEmitter<any> = new EventEmitter();
     public onAddFormChanged: EventEmitter<any> = new EventEmitter();
+    public onEntriesLoaded: EventEmitter<any> = new EventEmitter();
 
     public entries = [];
 
@@ -67,16 +68,13 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
     }
 
     async edit(entry: any) {
- 
+
         const params: ModalOptionsForService = {
             nzTitle: this.formSets.edit.title,
             nzMaskClosable: false
         };
-        console.log('edit:', entry);
 
         const modelData = await this.client.get(`api/${this.domain}/` + entry.id).toPromise();
-
-        console.log('edit:', modelData);
 
         this.modalHelper
             .static(BaseDetailComponent, {
@@ -132,6 +130,7 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
         this.client.get(url, params).subscribe((res: any) => {
             if (res) {
                 this.entries = res.list;
+                this.onEntriesLoaded.emit(this.entries);
             }
         });
     }

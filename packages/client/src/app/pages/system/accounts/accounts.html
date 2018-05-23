@@ -1,5 +1,5 @@
 <page-header [title]="title"></page-header>
-<nz-card>
+<!-- <nz-card>
     <div class="mb-md">
         <sf *ngIf="formSets" [mode]="'search'" [layout]="'inline'" [schema]="formSets.query" (formSubmit)="query($event)"></sf>
     </div>
@@ -11,4 +11,44 @@
     </div>
 
     <simple-table *ngIf="columnSets" #st [data]="url" [columns]="columnSets.default" [extraParams]="queryParams"></simple-table>
-</nz-card>
+</nz-card> -->
+
+
+<nz-row [nzGutter]="24" class="py-lg">
+    <nz-col [nzSpan]="8">
+
+        <nz-card nzTitle="用户组设置" [nzExtra]="groupTpl">
+
+
+            <nz-input-group [nzSuffix]="suffixIcon">
+                <input type="text" nz-input placeholder="搜索用户组" [(ngModel)]="searchValue">
+            </nz-input-group>
+            <ng-template #suffixIcon>
+                <i class="anticon anticon-search"></i>
+            </ng-template>
+
+            <nz-tree
+            [nzSearchValue]="searchValue"
+            [(ngModel)]="nodes" [nzShowLine]="true" [nzDefaultExpandedKeys]="expandKeys" (nzExpandChange)="mouseAction('expand',$event)"
+                (nzDblClick)="mouseAction('dblclick',$event)" (nzContextMenu)="mouseAction('contextmenu', $event)" (nzClick)="mouseAction('click',$event)">
+            </nz-tree>
+
+            <ng-template #groupTpl>
+                <a (click)="add()">
+                    <i class="anticon anticon-plus"></i>
+                    新建</a>
+            </ng-template>
+        </nz-card>
+    </nz-col>
+    <nz-col [nzSpan]="16">
+        <nz-card *ngIf="selectedItem.title" [nzTitle]="selectedItem.title + '的成员'" [nzExtra]="accountTpl">
+
+            <ng-template #accountTpl>
+                <a (click)="add()">
+                    <i class="anticon anticon-plus"></i>
+                    添加帐号</a>
+            </ng-template>
+
+        </nz-card>
+    </nz-col>
+</nz-row>
