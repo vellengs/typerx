@@ -22,10 +22,10 @@ export class PermissionPageComponent extends BaseStandComponent implements OnIni
     }
 
     async ngOnInit() {
-        // this.url = `api/${this.domain}/query`;
-        // this.onConfigChanged.subscribe(() => {
-        // });
-        // this.load();
+        this.url = `api/${this.domain}/query`;
+        this.onConfigChanged.subscribe(() => {
+        });
+        this.load();
     }
 
 }

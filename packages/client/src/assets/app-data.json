@@ -3,11 +3,6 @@
         "name": "Typerx",
         "description": "Ng-zorro admin panel front-end framework"
     },
-    "user": {
-        "name": "Admin",
-        "avatar": "./assets/img/zorro.svg",
-        "email": "vellengs@qq.com"
-    },
     "menu": [{
         "text": "主导航",
         "group": true,
@@ -37,7 +32,7 @@
                 "icon": "icon-settings",
                 "group": true,
                 "children": [{
-                        "text": "系统设置",
+                        "text": "设置管理",
                         "link": "/system/settings",
                         "icon": "icon-settings"
                     },

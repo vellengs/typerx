@@ -1,4 +1,4 @@
- import { Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Component, Inject, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SettingsService } from '@delon/theme';
@@ -32,7 +32,6 @@ export class CustomLoginComponent implements OnDestroy {
             userName: [null, [Validators.required, Validators.minLength(5)]],
             password: [null, Validators.required],
             mobile: [null, [Validators.required, Validators.pattern(/^1\d{10}$/)]],
-            captcha: [null, [Validators.required]],
             remember: [true]
         });
     }
@@ -40,17 +39,6 @@ export class CustomLoginComponent implements OnDestroy {
     get userName() { return this.form.controls.userName; }
     get password() { return this.form.controls.password; }
     get mobile() { return this.form.controls.mobile; }
-    get captcha() { return this.form.controls.captcha; }
-
-    getCaptcha() {
-        this.count = 59;
-        this.interval$ = setInterval(() => {
-            this.count -= 1;
-            if (this.count <= 0) {
-                clearInterval(this.interval$);
-            }
-        }, 1000);
-    }
 
     async submit() {
         try {

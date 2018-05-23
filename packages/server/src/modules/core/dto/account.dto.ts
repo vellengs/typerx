@@ -17,6 +17,7 @@ export class EditAccountDto {
 }
 
 export class AccountResponse {
+  id: string;
   username: string;
   nick: string;
   avatar: string;

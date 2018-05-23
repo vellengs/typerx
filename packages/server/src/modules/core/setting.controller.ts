@@ -22,7 +22,7 @@ import { SettingResponse, CreateSettingDto, EditSettingDto } from './dto/setting
 import { PaginateResponse } from '../../types/appearance';
 
 /**
- * 系统设置接口.
+ * 设置管理接口.
  */
 @Tags('core')
 @Path('/api/setting')

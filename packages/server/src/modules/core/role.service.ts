@@ -63,7 +63,6 @@ export class RoleService {
   private pure(entry: Role & Document): RoleResponse {
     return pick(entry, [
       'id',
-      'role',
       'name',
       'description',
       'permissions'

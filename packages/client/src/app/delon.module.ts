@@ -1,12 +1,3 @@
-
-
-
-
-
-/**
- * 进一步对基础模块的导入提炼
- * 有关模块注册指导原则请参考：https://github.com/cipchk/ng-alain/issues/180
- */
 import {
     NgModule,
     Optional,

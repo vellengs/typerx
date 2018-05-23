@@ -1,13 +1,13 @@
 {
-    "name": "ng-alain",
-    "version": "1.0.0-beta.8",
+    "name": "typerx-client",
+    "version": "0.1.0",
     "description": "ng-zorro-antd admin panel front-end framework",
-    "homepage": "https://cipchk.github.io/ng-alain/",
+    "homepage": "https://vellengs.github.io/typerx/",
     "bugs": {
-        "url": "https://github.com/cipchk/ng-alain/issues"
+        "url": "https://github.com/vellengs/typerx/issues"
     },
     "license": "MIT",
-    "author": "cipchk",
+    "author": "vellengs",
     "scripts": {
         "analyze": "ng build --prod --build-optimizer --stats-json",
         "build": "ng build --prod --build-optimizer",

@@ -95,7 +95,6 @@ export class MenusPageComponent extends BaseTreeTableComponent implements OnInit
         }
     }
 
-
     checkAll(value) {
         if (value) {
             this.treeData.forEach(data => data.checked = true);

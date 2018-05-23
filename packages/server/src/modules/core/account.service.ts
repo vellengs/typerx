@@ -26,19 +26,7 @@ export class AccountService {
       .exec();
 
     const result = docs.map(doc => {
-      return {
-        username: doc.username,
-        nick: doc.nick,
-        avatar: doc.avatar,
-        type: doc.type,
-        email: doc.email,
-        mobile: doc.mobile,
-        roles: doc.roles,
-        isDisable: doc.isDisable,
-        isAdmin: doc.isAdmin,
-        isApproved: doc.isApproved,
-        expired: doc.expired,
-      };
+      return this.pure(doc);
     });
     return result;
   }
@@ -46,9 +34,7 @@ export class AccountService {
   async create(entry: CreateAccountDto): Promise<AccountResponse> {
     const doc = new Db.Account(entry);
     const result = await doc.save();
-    const picked: AccountResponse = pick(result, ['username', 'nick', 'avatar', 'type',
-      'email', 'mobile', 'roles', 'isDisable', 'isAdmin', 'isApproved', 'expired']);
-    return picked;
+    return this.pure(result);
   }
 
   async update(
@@ -73,11 +59,8 @@ export class AccountService {
   }
 
   async profile(context: ServiceContext): Promise<ProfileResponse> {
-    const { user } = context.request;
-    return {
-      id: user.id,
-      name: user.name,
-    };
+    const { user } = context.request as any;
+    return this.pure(user);
   }
 
   async query(
@@ -92,21 +75,7 @@ export class AccountService {
     const docs: any = await Db.Account.find(query).sort(sort).skip(page * size).limit(size).exec() || [];
     const count = await Db.Account.find(query).count();
     const list = docs.map((item: Account & Document) => {
-      const instance: AccountResponse = pick(item, [
-        'id',
-        'username',
-        'nick',
-        'avatar',
-        'type',
-        'email',
-        'mobile',
-        'roles',
-        'isDisable',
-        'isAdmin',
-        'isApproved',
-        'expired',
-      ]);
-      return instance;
+      return this.pure(item);
     });
 
     return {
@@ -125,8 +94,22 @@ export class AccountService {
     return result;
   }
 
-  
 
-
+  private pure(entry: Account & Document): AccountResponse {
+    return pick(entry, [
+      'id',
+      'username',
+      'nick',
+      'avatar',
+      'type',
+      'email',
+      'mobile',
+      'roles',
+      'isDisable',
+      'isAdmin',
+      'isApproved',
+      'expired',
+    ])
+  }
 
 }

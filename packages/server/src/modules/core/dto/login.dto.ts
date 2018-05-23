@@ -23,5 +23,15 @@ export class LoginResponse {
 
 export class ProfileResponse {
   id: string;
-  name: string;
+  username: string;
+  nick: string;
+  avatar: string;
+  type: string;
+  email: string;
+  mobile: string;
+  roles: string[];
+  isDisable: boolean;
+  isAdmin: boolean;
+  isApproved: boolean;
+  expired: Date;
 }

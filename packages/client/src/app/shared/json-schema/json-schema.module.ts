@@ -4,9 +4,10 @@ import { DelonFormModule, WidgetRegistry } from '@delon/form';
 
 import { TinymceWidget } from './widgets/tinymce/tinymce.widget';
 import { UeditorWidget } from './widgets/ueditor/ueditor.widget';
-import { SearchWidgetComponent } from '@shared/json-schema/widgets/search/search.widget';
-import { ListBoxWidgetComponent } from '@shared/json-schema/widgets/list-box/list-box';
-import { DictWidgetComponent } from '@shared/json-schema/widgets/dict/search.widget';
+import { SearchWidgetComponent } from './widgets/search/search.widget';
+import { ListBoxWidgetComponent } from './widgets/list-box/list-box';
+import { DictWidgetComponent } from './widgets/dict/search.widget';
+import { TreeWidgetComponent } from './widgets/tree/search.widget';
 
 export const SCHEMA_THIRDS_COMPONENTS = [
     TinymceWidget,
@@ -14,6 +15,7 @@ export const SCHEMA_THIRDS_COMPONENTS = [
     SearchWidgetComponent,
     ListBoxWidgetComponent,
     DictWidgetComponent,
+    TreeWidgetComponent,
 ];
 
 @NgModule({
@@ -34,6 +36,6 @@ export class JsonSchemaModule {
         widgetRegistry.register(SearchWidgetComponent.KEY, SearchWidgetComponent);
         widgetRegistry.register(ListBoxWidgetComponent.KEY, ListBoxWidgetComponent);
         widgetRegistry.register(DictWidgetComponent.KEY, DictWidgetComponent);
-
+        widgetRegistry.register(TreeWidgetComponent.KEY, TreeWidgetComponent);
     }
 }

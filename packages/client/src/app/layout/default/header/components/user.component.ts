@@ -29,22 +29,21 @@ export class HeaderUserComponent implements OnInit {
         @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService) { }
 
     ngOnInit(): void {
-        this.tokenService.change().subscribe((res: any) => {
-            this.settings.setUser(res);
-        });
+        // this.tokenService.change().subscribe((res: any) => {
+        //     this.settings.setUser(res);
+        // });
         // mock
-        const token = this.tokenService.get() || {
-            token: 'nothing',
-            name: 'Admin',
-            avatar: './assets/img/zorro.svg',
-            email: 'vellengs@qq.com'
-        };
-        this.tokenService.set(token);
+        // const token = this.tokenService.get() || {
+        //     token: 'nothing',
+        //     name: 'Admin',
+        //     avatar: './assets/img/zorro.svg',
+        //     email: 'vellengs@qq.com'
+        // };
+        // this.tokenService.set(token);
     }
 
     async  logout() {
         await this.coreService.userLogout().toPromise();
-        console.log('logout ...');
         this.tokenService.clear();
         this.router.navigateByUrl(this.tokenService.login_url);
     }

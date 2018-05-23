@@ -83,7 +83,7 @@ export class SettingService {
     const docs: any = await Db.Setting.find(query).sort(sort).skip(page * size).limit(size).exec() || [];
     const count = await Db.Setting.find(query).count();
     const list = docs.map((item: Setting & Document) => {
-      const instance: SettingResponse = this.pure(item);
+      return this.pure(item);
     });
 
     return {
