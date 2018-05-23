@@ -36,7 +36,6 @@ export class UserService {
     return result;
   }
 
-
   private async validate(
     request: Request,
     response: Response,
