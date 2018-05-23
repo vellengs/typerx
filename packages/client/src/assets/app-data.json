@@ -47,8 +47,8 @@
                         "icon": "icon-list"
                     },
                     {
-                        "text": "权限管理",
-                        "link": "/system/permission",
+                        "text": "角色权限",
+                        "link": "/system/roles",
                         "icon": "icon-list"
                     },
                     {

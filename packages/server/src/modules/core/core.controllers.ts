@@ -5,6 +5,7 @@ import { SettingController } from './setting.controller';
 import { DictController } from './dict.controller';
 import { RoleController } from './role.controller';
 import { LogController } from './log.controller';
+import { GroupController } from './group.controller';
 export default [
     AccountController,
     UserController,
@@ -13,4 +14,5 @@ export default [
     DictController,
     RoleController,
     LogController,
+    GroupController,
 ];
