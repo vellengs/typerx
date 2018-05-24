@@ -1,7 +1,8 @@
 import { Appearance, SchemaTypes as t, WidgetTypes as w } from "../../../types/appearance";
 import { cloneDeep } from 'lodash';
-const addForm = {
-    title: '添加字典',
+import { SFSchema } from "../../../types/schema.types";
+const addForm: SFSchema = {
+    title: '新建字典',
     properties: {
         category: {
             title: '字典分类',
@@ -15,7 +16,9 @@ const addForm = {
             title: '字典键',
             type: 'string',
             maxLength: 30,
-            placeholder: '请输入字典名称',
+            ui: {
+                placeholder: '请输入字典名称',
+            }
         },
         translate: {
             title: '名称',

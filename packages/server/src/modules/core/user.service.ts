@@ -12,6 +12,7 @@ import {
 import { LogService } from './log.service';
 import { Request, Response, NextFunction } from 'express';
 import { pick } from 'lodash';
+import { Document } from 'mongoose';
 
 export class UserService {
   async login(
@@ -44,7 +45,7 @@ export class UserService {
     const result = await new Promise((resolve, reject) => {
       passport.authenticate(
         'local',
-        (err: Error, user: LoginResponse, info: LocalStrategyInfo) => {
+        (err: Error, user: Account & Document, info: LocalStrategyInfo) => {
           if (err) {
             reject(false);
           }
@@ -53,8 +54,7 @@ export class UserService {
               if (err) {
                 reject(false);
               }
-              const picked: LoginResponse = pick(user, ['username', 'nick', 'avatar', 'type',
-                'email', 'mobile', 'roles', 'isDisable', 'isAdmin', 'isApproved', 'expired']);
+              const picked: LoginResponse = this.pure(user);
               resolve(picked);
             });
           } else {
@@ -66,6 +66,23 @@ export class UserService {
     return result as LoginResponse;
   }
 
+  private pure(entry: Account & Document): LoginResponse {
+    return pick(entry, [
+      'id',
+      'username',
+      'nick',
+      'avatar',
+      'type',
+      'email',
+      'groups',
+      'roles',
+      'mobile',
+      'isDisable',
+      'isAdmin',
+      'isApproved',
+      'expired',
+    ])
+  }
 
 
 

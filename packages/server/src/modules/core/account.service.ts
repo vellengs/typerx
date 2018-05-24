@@ -3,6 +3,7 @@ import { ServiceContext, Errors } from 'typescript-rest';
 import { Account } from './interfaces/account.interface';
 import { CoreDatabase as Db } from './core.database';
 import {
+  AccountResponseFields as fields,
   AccountResponse,
   EditAccountDto,
   SessionUser,
@@ -44,7 +45,7 @@ export class AccountService {
       ).exec();
       return doc;
     } else {
-      throw new Errors.ForbiddenError('禁止非管理员更新账号信息！');
+      throw new Errors.ForbiddenError('禁止非管理员更新帐号信息！');
     }
   }
 
@@ -59,23 +60,36 @@ export class AccountService {
 
   async query(
     keyword?: string,
+    group?: string,
+    role?: string,
     page?: number,
     size?: number,
     sort?: string
   ): Promise<PaginateResponse<AccountResponse[]>> {
     page = page > 0 ? page : 0 || 1;
-    const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
 
-    const docs: any = await Db.Account.find(query).sort(sort).skip(page * size).limit(size).exec() || [];
-    const count = await Db.Account.find(query).count();
-    const list = docs.map((item: Account & Document) => {
-      return this.pure(item);
-    });
+    const condition: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
 
-    return {
-      list: list,
-      total: count
+    if (group) {
+      const groups = await Db.Group.find({
+        paths: { $in: [group] }
+      }).select({ _id: 1 }).exec() || [];
+      const ids = groups.map((item) => { return item.id });
+      condition.groups = {
+        $in: ids
+      };
     }
+
+    if (role) {
+      condition.roles = {
+        $in: [role]
+      };
+    }
+
+    const query = Db.Account.find(condition).sort(sort);
+    const collection = Db.Account.find(condition);
+    const result = Repository.query<Account & Document, AccountResponse>(query, collection, page, size, fields);
+    return result;
   }
 
   async get(id: string): Promise<AccountResponse> {
@@ -85,7 +99,8 @@ export class AccountService {
         select: 'name',
       },
     ]);
-    return result;
+
+    return this.pure(result);
   }
 
 
@@ -97,8 +112,9 @@ export class AccountService {
       'avatar',
       'type',
       'email',
-      'mobile',
+      'groups',
       'roles',
+      'mobile',
       'isDisable',
       'isAdmin',
       'isApproved',

@@ -1,7 +1,9 @@
 import { Appearance, SchemaTypes as t, WidgetTypes as w } from "../../../types/appearance";
 import { cloneDeep } from 'lodash';
-const addForm = {
-    title: '添加用户组',
+
+import { SFSchema } from "../../../types/schema.types";
+const addForm: SFSchema = {
+    title: '新建用户组',
     properties: {
         name: {
             title: '名称',

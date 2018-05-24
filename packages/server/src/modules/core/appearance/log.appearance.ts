@@ -1,6 +1,7 @@
 import { Appearance, SchemaTypes as t, WidgetTypes as w } from "../../../types/appearance";
 import { cloneDeep } from 'lodash';
-
+import { SFSchema } from "../../../types/schema.types";
+ 
 export const appearance: Appearance = {
     columnSets: {
         default: [

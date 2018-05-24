@@ -14,6 +14,7 @@ export class LoginResponse {
   type: string;
   email: string;
   mobile: string;
+  groups: string[];
   roles: string[];
   isDisable: boolean;
   isAdmin: boolean;
@@ -29,6 +30,7 @@ export class ProfileResponse {
   type: string;
   email: string;
   mobile: string;
+  groups: string[];
   roles: string[];
   isDisable: boolean;
   isAdmin: boolean;

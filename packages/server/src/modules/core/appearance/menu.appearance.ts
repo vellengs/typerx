@@ -1,14 +1,17 @@
 import { Appearance, SchemaTypes as t, WidgetTypes as w } from "../../../types/appearance";
 import { cloneDeep } from 'lodash';
-const addForm = {
-    title: '添加菜单',
+import { SFSchema } from "../../../types/schema.types";
+
+const addForm: SFSchema = {
+    title: '新建菜单',
     properties: {
         name: {
             title: '名称',
             type: 'string',
             maxLength: 30,
-            placeholder: '请输入菜单名称',
-            required: true
+            ui: {
+                placeholder: '请输入菜单名称',
+            }
         },
         parent: {
             title: '父级菜单',
@@ -23,13 +26,17 @@ const addForm = {
             title: '链接',
             type: 'string',
             maxLength: 512,
-            placeholder: '请输入链接'
+            ui: {
+                placeholder: '请输入链接'
+            }
         },
         slug: {
             title: '标识',
             type: 'string',
             maxLength: 30,
-            placeholder: '请输标识'
+            ui: {
+                placeholder: '请输标识'
+            }
         },
         group: {
             title: '是否分组',
@@ -52,18 +59,6 @@ const addForm = {
             type: t.number,
             default: 100,
         },
-        // permissions: {
-        //     title: '权限列表',
-        //     type: 'array',
-        //     items: {
-        //         type: 'object',
-        //         properties: {
-        //             a: { type: 'string' },
-        //             b: { type: 'number', ui: { spanLabel: 10 } }
-        //         }
-        //     },
-        //     ui: { spanLabel: 5, grid: { arraySpan: 12 } }
-        // }
     },
     required: ['name', 'link'],
     ui: {

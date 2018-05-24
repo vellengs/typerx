@@ -598,7 +598,7 @@ paths:
                         type: array
                         items:
                             $ref: '#/definitions/AccountResponse'
-            description: 按关键词查询账号
+            description: 按关键词查询帐号
             tags:
                 - core
             parameters:

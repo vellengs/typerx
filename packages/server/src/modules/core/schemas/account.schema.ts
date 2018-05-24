@@ -23,6 +23,12 @@ export const schema = new Schema(
         ref: 'Role',
       },
     ],
+    groups: [
+      {
+        type: t.ObjectId,
+        ref: 'Group',
+      },
+    ],
     isDisable: {
       type: t.Boolean,
     },

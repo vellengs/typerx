@@ -1,3 +1,5 @@
+import { SFSchema } from "./schema.types";
+
 export class Appearance {
     columnSets: ColumnSets;
     formSets: FormSets;
@@ -43,7 +45,7 @@ export interface ColumnSets {
 }
 
 export interface FormSets {
-    [key: string]: FormDefine
+    [key: string]: SFSchema
 }
 
 export interface ColumnDefine {
@@ -89,7 +91,13 @@ export interface ColumnDefine {
 }
 
 export interface FormDefine {
-
+    title: string;
+    type?: string;
+    required?: string[];
+    properties: {
+        [key: string]: FormDefine
+    };
+    [key: string]: any;
 }
 
 export declare class Paginate {

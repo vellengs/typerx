@@ -1,20 +1,23 @@
-import { Appearance, SchemaTypes as t, WidgetTypes as w } from "../../../types/appearance";
+import { Appearance, SchemaTypes as t, WidgetTypes as w, FormDefine } from "../../../types/appearance";
 import { cloneDeep } from 'lodash';
-const addForm = {
-    title: '添加帐号',
+import { SFSchema } from "../../../types/schema.types";
+
+const addForm: SFSchema = {
+    title: '新建帐号',
     properties: {
         username: {
-            title: '账号名',
-            type: t.string,
-        },
-        nick: {
-            title: '昵称',
+            title: '帐号名',
             type: t.string,
         },
         password: {
             title: '密码',
             type: t.string
         },
+        nick: {
+            title: '昵称',
+            type: t.string,
+        },
+
         type: {
             title: '类型',
             type: t.string
@@ -50,10 +53,14 @@ const addForm = {
                 widget: w.date
             }
         },
-        secret: {
-            title: '密保',
-            type: t.string
-        }
+        groups: {
+            title: '用户组',
+            type: t.array,
+        },
+        roles: {
+            title: '角色',
+            type: t.array,
+        },
     },
     required: ['username', 'password'],
     ui: {
@@ -67,24 +74,25 @@ const addForm = {
 const editForm = cloneDeep(addForm);
 editForm.title = '编辑帐号';
 editForm.required = ['username'];
+editForm.properties.secret = {
+    title: '密保',
+    type: t.string
+};
 
 export const appearance: Appearance = {
     columnSets: {
         default: [
             {
                 title: 'username',
-                i18n: '账号名称',
-                index: ['username']
+                i18n: '帐号名称',
+                index: ['username'],
+                type: 'link',
+                action: 'edit'
             },
             {
                 title: 'nick',
                 i18n: '姓名',
                 index: ['nick']
-            },
-            {
-                title: 'type',
-                i18n: '类型',
-                index: ['type']
             },
             {
                 title: 'email',
@@ -102,11 +110,11 @@ export const appearance: Appearance = {
         query: {
             properties: {
                 username: {
-                    title: '账号',
+                    title: '帐号',
                     type: t.string,
                     maxLength: 30,
                     ui: {
-                        placeholder: '请输入账号名称'
+                        placeholder: '请输入帐号名称'
                     }
                 },
                 mobile: {

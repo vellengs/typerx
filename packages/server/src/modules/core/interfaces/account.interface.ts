@@ -5,9 +5,10 @@ export interface Account {
   password: string; // 密码
   avatar: string; // 照片
   type: string; // 类型
+  groups: string[];
+  roles: string[];
   email: string; // 邮箱
   mobile: string; // 手机号码
-  roles: string[]; // 角色分组
   isDisable: boolean; // 是否禁用
   isAdmin: boolean; // 是否管理员
   isApproved: boolean; // 是否审核

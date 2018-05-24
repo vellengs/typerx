@@ -62,7 +62,7 @@ export class AccountController {
   }
 
   /**
-   * 按关键词查询账号
+   * 按关键词查询帐号
    *
    * @param {string} [keyword]
    * @returns {Promise<Account[]>}
@@ -85,11 +85,13 @@ export class AccountController {
   @GET
   async query(
     @QueryParam('keyword') keyword?: string,
+    @QueryParam('group') group?: string,
+    @QueryParam('role') role?: string,
     @QueryParam('page') page?: number,
     @QueryParam('size') size?: number,
     @QueryParam('sort') sort?: string
   ): Promise<PaginateResponse<AccountResponse[]>> {
-    return this.service.query(keyword, page, size, sort);
+    return this.service.query(keyword, group, role, page, size, sort);
   }
 
   /**
