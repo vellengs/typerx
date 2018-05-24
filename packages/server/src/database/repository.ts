@@ -107,7 +107,7 @@ export class Repository {
             return [currentId];
         }
 
-        const result: string[] = [];
+        const result: string[] = [currentId];
         const stack = [];
         stack.push(...children);
 

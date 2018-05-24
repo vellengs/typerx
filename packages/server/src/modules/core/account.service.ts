@@ -95,13 +95,7 @@ export class AccountService {
   }
 
   async get(id: string): Promise<AccountResponse> {
-    const result = await Repository.get(Db.Account, id, [
-      {
-        path: 'roles',
-        select: 'name',
-      },
-    ]);
-
+    const result = await Repository.get(Db.Account, id);
     return this.pure(result);
   }
 

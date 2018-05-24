@@ -15,7 +15,7 @@
             </ng-template>
 
             <nz-tree [nzSearchValue]="searchValue" [(ngModel)]="nodes" [nzShowLine]="true" [nzDefaultExpandedKeys]="expandKeys" (nzExpandChange)="selectNode('expand',$event)"
-                (nzContextMenu)="selectNode('contextmenu', $event)" (nzClick)="selectNode('click',$event)">
+                (nzContextMenu)="selectNode('contextmenu', $event)" (nzClick)="treeNodeClick('click',$event)">
             </nz-tree>
 
             <ng-template #groupTpl>

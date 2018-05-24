@@ -64,21 +64,22 @@ export class AccountsPageComponent extends BaseStandComponent implements OnInit 
         this.accounts.add();
     }
 
-    selectNode(name: string, e: any): void {
-
-        if (e && e.node) {
-
-            if (e.node.key === this.selectedItem.key) {
-                this.selectedItem = {};
-                this.accountQueryParams = {};
-            } else {
-                this.selectedItem = e.node;
-                this.accountQueryParams.group = this.selectedItem.key;
-                if (this.accounts) {
-                    this.accounts.load();
-                }
+    treeNodeClick(name: string, e: any) {
+        if (e.node.key === this.selectedItem.key) {
+            this.selectedItem = {};
+            this.accountQueryParams = {};
+        } else {
+            this.selectedItem = e.node;
+            this.accountQueryParams.group = this.selectedItem.key;
+            if (this.accounts) {
+                this.accounts.load();
             }
+        }
+    }
 
+    selectNode(name: string, e: any): void {
+        if (name === 'contextmenu') {
+            console.log('test ..', e);
         }
     }
 
