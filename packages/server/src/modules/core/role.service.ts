@@ -19,7 +19,7 @@ export class RoleService {
   }
 
   async search(keyword?: string, value?: string, category?: string, limit = 15): Promise<KeyValue[]> {
-    return Repository.search(Db.Role, keyword, value, category, limit, 'translate');
+    return Repository.search(Db.Role, keyword, value, category, limit, 'name');
   }
 
   async create(entry: CreateRoleDto): Promise<RoleResponse> {

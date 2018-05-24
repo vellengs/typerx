@@ -1,5 +1,1 @@
-<page-header [title]="title"></page-header>
-<nz-card>
-    <sf *ngIf="formSets" [mode]="'search'" [layout]="'inline'" [schema]="formSets.query" (formSubmit)="query($event)"></sf>
-    <simple-table *ngIf="columnSets" #st [data]="url" [columns]="columnSets.default" [extraParams]="queryParams"></simple-table>
-</nz-card>
+<simple-table *ngIf="columnSets" #simpleTable [data]="url" [columns]="columnSets.default" [extraParams]="queryParams"></simple-table>

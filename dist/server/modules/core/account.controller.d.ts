@@ -25,7 +25,7 @@ export declare class AccountController {
      */
     getConfig(): Promise<Appearance>;
     /**
-     * 按关键词查询账号
+     * 按关键词查询帐号
      *
      * @param {string} [keyword]
      * @returns {Promise<Account[]>}

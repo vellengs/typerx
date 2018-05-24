@@ -189,7 +189,7 @@ export class CoreService {
 
     /**
      * 
-     * 按关键词查询账号
+     * 按关键词查询帐号
      * @param keyword 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.

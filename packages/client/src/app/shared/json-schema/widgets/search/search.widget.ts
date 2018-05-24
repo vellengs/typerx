@@ -81,7 +81,7 @@ export class SearchWidgetComponent extends ControlWidget implements OnInit {
         };
     }
 
-    getSelectData(value: string, text?: string): Observable<SFSchemaEnumType[]> {
+    getRemoteData(value: string, text?: string): Observable<SFSchemaEnumType[]> {
         const domain = this.ui.domain;
         const url = `api/${domain}/search`;
         return this.client.get(url, {
@@ -93,8 +93,8 @@ export class SearchWidgetComponent extends ControlWidget implements OnInit {
     }
 
     reset(value: any) {
-        this.ui.asyncData = () => this.getSelectData(value);
-        this.ui.onSearch = (text: string) => this.getSelectData(value, text);
+        this.ui.asyncData = () => this.getRemoteData(value);
+        this.ui.onSearch = (text: string) => this.getRemoteData(value, text);
         getData(this.schema, this.ui, this.formProperty.formData).subscribe(
             list => {
                 this.data = list;

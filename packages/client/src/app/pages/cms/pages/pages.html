@@ -1,5 +1,5 @@
 <div class="content__title">
-    <h1>菜单设置</h1>
+    <h1>页面管理</h1>
 </div>
 <nz-card [nzExtra]="extra" [nzCover]="cover">
     <!-- <sf [ui]="ui" [mode]="'search'" [layout]="layout" [schema]="schema" (formSubmit)="submit($event)"></sf> -->
@@ -13,8 +13,7 @@
                     新增
                 </button>
             </div>
-
-            <!-- <simple-table [data]="url" [extraParams]="params" [total]="total" [columns]="columns" ></simple-table> -->
+            <app-base-stand [domain]="'account'"></app-base-stand>
         </nz-card>
     </nz-col>
 </nz-row>

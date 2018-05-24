@@ -15,6 +15,7 @@ import { pick } from 'lodash';
 import { Document } from 'mongoose';
 import { Repository } from '../../database/repository';
 import { KeyValue } from '../../types/data.types';
+import { Group } from './interfaces/group.interface';
 
 export class AccountService {
   async getAppearance(): Promise<Appearance> {
@@ -71,10 +72,11 @@ export class AccountService {
     const condition: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
 
     if (group) {
-      const groups = await Db.Group.find({
-        paths: { $in: [group] }
-      }).select({ _id: 1 }).exec() || [];
-      const ids = groups.map((item) => { return item.id });
+      // const groups = await Db.Group.find({
+      //   paths: { $in: [group] }
+      // }).select({ _id: 1 }).exec() || [];
+
+      const ids = await Repository.deeplyFind(Db.Group, group);
       condition.groups = {
         $in: ids
       };

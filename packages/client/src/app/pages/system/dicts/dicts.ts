@@ -16,8 +16,7 @@ import { SimpleTableComponent } from '@delon/abc';
 export class DictsPageComponent extends BaseStandComponent implements OnInit {
 
     url;
-
-
+    
     @ViewChild('st') simpleTable: SimpleTableComponent;
 
     @Input() domain = 'dict';

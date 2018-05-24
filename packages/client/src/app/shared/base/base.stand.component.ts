@@ -1,15 +1,15 @@
 import { async } from '@angular/core/testing';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { NzMessageService, NzModalService, ModalOptionsForService } from 'ng-zorro-antd';
-import { Component, OnInit, OnDestroy, Input, EventEmitter, Output, Injector, NgModuleFactoryLoader } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, EventEmitter, Output, Injector, NgModuleFactoryLoader, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { DatePipe, CurrencyPipe } from '@angular/common';
 import { ModalHelper } from '@delon/theme';
-import { XlsxService, SimpleTableColumn, STExportOptions } from '@delon/abc';
+import { XlsxService, SimpleTableColumn, STExportOptions, SimpleTableComponent } from '@delon/abc';
 import * as XLSX from 'xlsx';
 import { BaseComponent } from './base.component';
 import { SFSchema, SFUISchema } from '@delon/form';
-import { BaseTable, CurdPage, Appearance } from 'types/types';
+import { BaseTable, CurdPage, Appearance, FormSets } from 'types/types';
 import { BaseTableComponent } from '@shared/base/base.table.component';
 import { Subject } from 'rxjs/Subject';
 import { BaseDetailComponent } from '@shared/base/base.detail.component';
@@ -17,20 +17,29 @@ declare var System;
 
 @Component({
     selector: 'app-base-stand',
-    template: './base.stand.html'
+    templateUrl: './base.stand.html'
 })
-export class BaseStandComponent extends BaseTableComponent implements CurdPage {
+export class BaseStandComponent extends BaseComponent implements CurdPage {
 
+
+    total: number;
     private loaded = false;
     private list: any = {};
     private emitter: Subject<boolean> = new Subject<boolean>();
+    entries = [];
+
+    @ViewChild('simpleTable') simpleTable: SimpleTableComponent;
+
+    @Input() url: string;
+    @Input() domain: string;
+    @Input() columnSets: { [key: string]: SimpleTableColumn[]; };
+    @Input() queryParams: { [key: string]: any; };
+    @Input() formSets: FormSets;
 
     public onConfigChanged: EventEmitter<any> = new EventEmitter();
     public onEditFormChanged: EventEmitter<any> = new EventEmitter();
     public onAddFormChanged: EventEmitter<any> = new EventEmitter();
     public onEntriesLoaded: EventEmitter<any> = new EventEmitter();
-
-    public entries = [];
 
     constructor(public injector: Injector) {
         super(injector);
@@ -45,6 +54,24 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
         if (config) {
             this.columnSets = config.columnSets;
             this.formSets = config.formSets;
+            if (this.columnSets && Array.isArray(this.columnSets.default)) {
+                this.columnSets.default.map((col) => {
+                    switch (col.action) {
+                        case 'edit':
+                            col.click = (item) => {
+                                this.edit(item);
+                            };
+                            break;
+                        case 'delete':
+                            col.click = (item) => {
+                                this.remove(item);
+                            };
+                            break;
+                        default:
+                            break;
+                    }
+                });
+            }
             this.onConfigChanged.emit(config);
         }
     }
@@ -123,26 +150,44 @@ export class BaseStandComponent extends BaseTableComponent implements CurdPage {
 
     }
 
-    load(): void {
+    getTable(): SimpleTableComponent {
+        return this.simpleTable;
+    }
 
-        const url = `api/${this.domain}/query`;
-        const params = Object.assign({}, this.queryParams);
-        this.client.get(url, params).subscribe((res: any) => {
-            if (res) {
-                this.entries = res.list;
-                this.onEntriesLoaded.emit(this.entries);
-            }
-        });
+    load(pageIndex?: number): void {
+        if (this.simpleTable) {
+            this.simpleTable.load(pageIndex, this.queryParams);
+        } else {
+            const url = `api/${this.domain}/query`;
+            const params = Object.assign({}, this.queryParams);
+            this.client.get(url, params).subscribe((res: any) => {
+                if (res) {
+                    this.entries = res.list;
+                    this.onEntriesLoaded.emit(this.entries);
+                }
+            });
+        }
     }
 
     reload(): void {
-
+        if (this.simpleTable) {
+            this.simpleTable.reload();
+        } else {
+            this.load();
+        }
+        // const url = `api/${this.domain}/query`;
+        // const params = Object.assign({}, this.queryParams);
+        // this.client.get(url, params).subscribe((res: any) => {
+        //     if (res) {
+        //         this.entries = res.list;
+        //         this.onEntriesLoaded.emit(this.entries);
+        //     }
+        // }); 
     }
 
     query(params: any) {
-        this.queryParams = params;
-        this.load();
-        // console.log('query:', params);
+        this.queryParams = Object.assign(this.queryParams, params);
+        this.reload();
     }
 
 }

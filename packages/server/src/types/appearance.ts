@@ -38,6 +38,7 @@ export enum WidgetTypes {
     ueditor = 'ueditor',
     listBox = 'listBox',
     dict = 'dict',
+    choices = 'choices',
 }
 
 export interface ColumnSets {

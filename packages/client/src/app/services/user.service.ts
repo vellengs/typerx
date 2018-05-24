@@ -53,7 +53,6 @@ export class UserService {
 
     async login(model: LoginDto) {
         const user = await this.coreService.userLogin(model).toPromise();
-        console.log('user:', user);
         this.settings.setUser(user);
         return user;
     }
@@ -64,7 +63,6 @@ export class UserService {
         }
         this.authenticating = true;
         const user = await this.coreService.accountProfile().toPromise();
-        console.log('user:', user);
         this.settings.setUser(user);
         return user;
     }

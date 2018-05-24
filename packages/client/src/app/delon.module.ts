@@ -10,7 +10,7 @@ import { throwIfAlreadyLoaded } from '@core/module-import-guard';
 
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { AlainThemeModule } from '@delon/theme';
-import { DelonABCModule, ReuseTabService, ReuseTabStrategy } from '@delon/abc';
+import { DelonABCModule, ReuseTabService, ReuseTabStrategy, AdSimpleTableConfig } from '@delon/abc';
 import { DelonAuthModule } from '@delon/auth';
 import { DelonACLModule } from '@delon/acl';
 import { DelonCacheModule } from '@delon/cache';
@@ -44,6 +44,15 @@ export function delonAuthConfig(): DelonAuthConfig {
 export function apiConfig(): Configuration {
     return new Configuration({
         basePath: `${location.protocol}//${location.host}`
+    });
+}
+
+export function simpleTableConfig() {
+    return Object.assign(new AdSimpleTableConfig(), <AdSimpleTableConfig>{
+        reqReName: {
+            pi: 'page',
+            ps: 'size'
+        }
     });
 }
 
@@ -90,7 +99,7 @@ export class DelonModule {
                     deps: [ReuseTabService],
                 },
                 // TIPS：@delon/abc 有大量的全局配置信息，例如设置所有 `simple-table` 的页码默认为 `20` 行
-                // { provide: SimpleTableConfig, useFactory: simpleTableConfig }
+                { provide: AdSimpleTableConfig, useFactory: simpleTableConfig },
                 { provide: AdPageHeaderConfig, useFactory: pageHeaderConfig },
                 { provide: DelonAuthConfig, useFactory: delonAuthConfig },
             ],

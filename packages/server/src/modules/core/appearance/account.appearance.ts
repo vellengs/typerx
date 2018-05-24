@@ -11,13 +11,15 @@ const addForm: SFSchema = {
         },
         password: {
             title: '密码',
-            type: t.string
+            type: t.string,
+            ui: {
+                type: 'password'
+            }
         },
         nick: {
             title: '昵称',
             type: t.string,
         },
-
         type: {
             title: '类型',
             type: t.string
@@ -55,14 +57,28 @@ const addForm: SFSchema = {
         },
         groups: {
             title: '用户组',
-            type: t.array,
+            type: t.string,
+            ui: {
+                widget: w.choices,
+                domain: 'group',
+                grid: {
+                    span: 24
+                }
+            }
         },
         roles: {
             title: '角色',
-            type: t.array,
+            type: t.string,
+            ui: {
+                widget: w.choices,
+                domain: 'role',
+                grid: {
+                    span: 24
+                }
+            }
         },
     },
-    required: ['username', 'password'],
+    required: ['username', 'password', 'mobile'],
     ui: {
         spanLabelFixed: 100,
         grid: {

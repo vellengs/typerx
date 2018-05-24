@@ -1,8 +1,10 @@
 
 import { Model, Document, Types, DocumentQuery, Query, Connection } from 'mongoose';
-import { pick, PartialDeep } from 'lodash';
+import { pick, PartialDeep, groupBy } from 'lodash';
 import { PaginateResponse } from '../types/appearance';
 import { KeyValue } from '../types/data.types';
+const treeify = require('array-to-tree');
+
 
 export class Repository {
 
@@ -85,6 +87,42 @@ export class Repository {
             };
             return result;
         });
+    }
+
+    static async deeplyFind(
+        query: Model<Document>,
+        id: string
+    ): Promise<string[]> {
+
+        let current: any = await query.findOne({ _id: id }).select({ _id: 1, parent: 1 }).exec();
+        if (!current) { return []; }
+        const items = await query.find().select({ _id: 1, parent: 1 }).exec() || [];
+        const currentId = current.toObject()._id;
+
+        const data = items.map(item => item.toObject());
+        const cached = groupBy(data, 'parent');
+        const children = cached[currentId];
+
+        if (!Array.isArray(children)) {
+            return [currentId];
+        }
+
+        const result: string[] = [];
+        const stack = [];
+        stack.push(...children);
+
+        while (stack.length > 0) {
+            const node: any = stack.pop();
+            result.push(node._id);
+            const items = cached[node._id];
+
+            if (Array.isArray(items)) {
+                for (let item of items) {
+                    stack.push(item);
+                }
+            }
+        }
+        return result;
     }
 
     static async query<T extends Document, TResponse>(

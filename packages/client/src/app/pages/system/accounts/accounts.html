@@ -1,17 +1,4 @@
 <page-header [title]="title"></page-header>
-<!-- <nz-card>
-    <div class="mb-md">
-        <sf *ngIf="formSets" [mode]="'search'" [layout]="'inline'" [schema]="formSets.query" (formSubmit)="query($event)"></sf>
-    </div>
-    <div class="mb-md">
-        <button nz-button (click)="add()" [nzType]="'primary'">
-            <i class="anticon anticon-plus"></i>
-            <span>新建</span>
-        </button>
-    </div>
-
-    <simple-table *ngIf="columnSets" #st [data]="url" [columns]="columnSets.default" [extraParams]="queryParams"></simple-table>
-</nz-card> -->
 
 
 <nz-row [nzGutter]="24" class="py-lg">
@@ -27,26 +14,25 @@
                 <i class="anticon anticon-search"></i>
             </ng-template>
 
-            <nz-tree
-            [nzSearchValue]="searchValue"
-            [(ngModel)]="nodes" [nzShowLine]="true" [nzDefaultExpandedKeys]="expandKeys" (nzExpandChange)="mouseAction('expand',$event)"
-                (nzDblClick)="mouseAction('dblclick',$event)" (nzContextMenu)="mouseAction('contextmenu', $event)" (nzClick)="mouseAction('click',$event)">
+            <nz-tree [nzSearchValue]="searchValue" [(ngModel)]="nodes" [nzShowLine]="true" [nzDefaultExpandedKeys]="expandKeys" (nzExpandChange)="selectNode('expand',$event)"
+                (nzContextMenu)="selectNode('contextmenu', $event)" (nzClick)="selectNode('click',$event)">
             </nz-tree>
 
             <ng-template #groupTpl>
                 <a (click)="add()">
                     <i class="anticon anticon-plus"></i>
-                    新建</a>
+                    新建组</a>
             </ng-template>
         </nz-card>
     </nz-col>
     <nz-col [nzSpan]="16">
         <nz-card *ngIf="selectedItem.title" [nzTitle]="selectedItem.title + '的成员'" [nzExtra]="accountTpl">
 
+            <app-base-stand #accountList [url]="'api/account/query'" [queryParams]="accountQueryParams" [domain]="'account'"></app-base-stand>
             <ng-template #accountTpl>
-                <a (click)="add()">
+                <a (click)="addAccount()">
                     <i class="anticon anticon-plus"></i>
-                    添加帐号</a>
+                    新建帐号</a>
             </ng-template>
 
         </nz-card>
