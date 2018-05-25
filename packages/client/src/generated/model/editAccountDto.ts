@@ -30,6 +30,14 @@ export interface EditAccountDto {
     /**
      * 
      */
+    groups?: Array<string>;
+    /**
+     * 
+     */
+    roles?: Array<string>;
+    /**
+     * 
+     */
     mobile?: string;
     /**
      * 

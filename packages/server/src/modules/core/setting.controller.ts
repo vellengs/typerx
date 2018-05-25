@@ -36,7 +36,7 @@ export class SettingController {
    */
   @Path('main')
   @GET
-  async getMainSettings(@QueryParam('keys') keys?: string): Promise<SettingResponse[]> {
+  async getMainSettings(@QueryParam('keys') keys?: string): Promise<Array<SettingResponse>> {
     return this.service.getMainSettings(keys);
   }
 
@@ -59,7 +59,7 @@ export class SettingController {
   @GET
   async search(@QueryParam('keyword') keyword?: string,
     @QueryParam('value') value?: string,
-  ): Promise<SettingResponse[]> {
+  ): Promise<Array<SettingResponse>> {
     return this.search(keyword, value);
   }
 
@@ -94,7 +94,7 @@ export class SettingController {
     @QueryParam('keyword') keyword?: string,
     @QueryParam('page') page?: number,
     @QueryParam('size') size?: number,
-    @QueryParam('sort') sort?: string): Promise<PaginateResponse<SettingResponse[]>> {
+    @QueryParam('sort') sort?: string): Promise<PaginateResponse<Array<SettingResponse>>> {
     return this.service.query(keyword, page, size, sort);
   }
 

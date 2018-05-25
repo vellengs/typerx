@@ -18,7 +18,7 @@ export class RoleService {
     return appearance;
   }
 
-  async search(keyword?: string, value?: string, category?: string, limit = 15): Promise<KeyValue[]> {
+  async search(keyword?: string, value?: string, category?: string, limit = 15): Promise<Array<KeyValue>> {
     return Repository.search(Db.Role, keyword, value, category, limit, 'name');
   }
 
@@ -41,7 +41,7 @@ export class RoleService {
     page?: number,
     size?: number,
     sort?: string
-  ): Promise<PaginateResponse<RoleResponse[]>> {
+  ): Promise<PaginateResponse<Array<RoleResponse>>> {
     page = page > 0 ? page : 0 || 1;
     const condition = keyword ? { name: new RegExp(keyword, 'i') } : {};
     const query = Db.Role.find(condition).sort(sort);

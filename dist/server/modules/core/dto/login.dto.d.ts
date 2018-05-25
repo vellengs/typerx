@@ -1,24 +1,36 @@
-export interface LoginDto {
+export declare class LoginDto {
     username: string;
     password: string;
 }
-export interface LocalStrategyInfo {
+export declare class LocalStrategyInfo {
     message: string;
 }
-export interface LoginResponse {
+export declare class LoginResponse {
     username: string;
     nick: string;
     avatar: string;
     type: string;
     email: string;
     mobile: string;
+    groups: string[];
     roles: string[];
     isDisable: boolean;
     isAdmin: boolean;
     isApproved: boolean;
     expired: Date;
 }
-export interface ProfileResponse {
+export declare class ProfileResponse {
     id: string;
-    name: string;
+    username: string;
+    nick: string;
+    avatar: string;
+    type: string;
+    email: string;
+    mobile: string;
+    groups: string[];
+    roles: string[];
+    isDisable: boolean;
+    isAdmin: boolean;
+    isApproved: boolean;
+    expired: Date;
 }

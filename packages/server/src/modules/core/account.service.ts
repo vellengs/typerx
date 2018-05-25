@@ -23,7 +23,7 @@ export class AccountService {
   }
 
 
-  async search(keyword?: string, value?: string, limit: number = 10): Promise<KeyValue[]> {
+  async search(keyword?: string, value?: string, limit: number = 10): Promise<Array<KeyValue>> {
     return Repository.search(Db.Account, keyword, value, '', limit, 'nick');
   }
 
@@ -66,7 +66,7 @@ export class AccountService {
     page?: number,
     size?: number,
     sort?: string
-  ): Promise<PaginateResponse<AccountResponse[]>> {
+  ): Promise<PaginateResponse<Array<AccountResponse>>> {
     page = page > 0 ? page : 0 || 1;
 
     const condition: any = keyword ? { name: new RegExp(keyword, 'i') } : {};

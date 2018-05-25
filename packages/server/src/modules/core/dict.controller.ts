@@ -51,7 +51,7 @@ export class DictController {
   @GET
   async search(@QueryParam('keyword') keyword?: string,
     @QueryParam('value') value?: string,
-  ): Promise<KeyValue[]> {
+  ): Promise<Array<KeyValue>> {
     return this.service.search(keyword, value);
   }
 
@@ -86,7 +86,7 @@ export class DictController {
     @QueryParam('keyword') keyword?: string,
     @QueryParam('page') page?: number,
     @QueryParam('size') size?: number,
-    @QueryParam('sort') sort?: string): Promise<PaginateResponse<DictResponse[]>> {
+    @QueryParam('sort') sort?: string): Promise<PaginateResponse<Array<DictResponse>>> {
     return this.service.query(keyword, page, size, sort);
   }
 

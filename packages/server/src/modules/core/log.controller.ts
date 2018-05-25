@@ -49,7 +49,7 @@ export class LogController {
   @GET
   async search(@QueryParam('keyword') keyword?: string,
     @QueryParam('value') value?: string,
-  ): Promise<KeyValue[]> {
+  ): Promise<Array<KeyValue>> {
     return this.service.search(keyword, value);
   }
 
@@ -66,7 +66,7 @@ export class LogController {
     @QueryParam('keyword') keyword?: string,
     @QueryParam('page') page?: number,
     @QueryParam('size') size?: number,
-    @QueryParam('sort') sort?: string): Promise<PaginateResponse<LogResponse[]>> {
+    @QueryParam('sort') sort?: string): Promise<PaginateResponse<Array<LogResponse>>> {
     return this.service.query(keyword, page, size, sort);
   }
 

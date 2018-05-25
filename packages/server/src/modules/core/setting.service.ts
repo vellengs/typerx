@@ -14,7 +14,7 @@ import { Repository } from '../../database/repository';
 
 export class SettingService {
 
-  async getMainSettings(keys?: string): Promise<SettingResponse[]> {
+  async getMainSettings(keys?: string): Promise<Array<SettingResponse>> {
 
     if (!keys) {
       return [];
@@ -45,7 +45,7 @@ export class SettingService {
     return setting;
   }
 
-  async search(keyword?: string, value?: string, limit = 15): Promise<KeyValue[]> {
+  async search(keyword?: string, value?: string, limit = 15): Promise<Array<KeyValue>> {
     return Repository.search(Db.Setting, keyword, value, '', limit);
   }
 
@@ -76,7 +76,7 @@ export class SettingService {
     page?: number,
     size?: number,
     sort?: string
-  ): Promise<PaginateResponse<SettingResponse[]>> {
+  ): Promise<PaginateResponse<Array<SettingResponse>>> {
     page = page > 0 ? page : 0 || 1;
     const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
 

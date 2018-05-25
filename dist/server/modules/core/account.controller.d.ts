@@ -3,6 +3,7 @@ import { Appearance, PaginateResponse } from './../../types/appearance';
 import { AccountService } from './account.service';
 import { CreateAccountDto, EditAccountDto, AccountResponse } from './dto/account.dto';
 import { ProfileResponse } from './dto/login.dto';
+import { KeyValue } from '../../types/data.types';
 /**
  * 帐号管理.
  */
@@ -31,12 +32,12 @@ export declare class AccountController {
      * @returns {Promise<Account[]>}
      * @memberof AccountController
      */
-    getAccountsByKeyword(keyword?: string): Promise<AccountResponse[]>;
+    getAccountsByKeyword(keyword?: string, value?: string): Promise<Array<KeyValue>>;
     /**
      * 分页查询帐号数据
      * @param keyword 关键词
      */
-    query(keyword?: string, page?: number, size?: number, sort?: string): Promise<PaginateResponse<AccountResponse[]>>;
+    query(keyword?: string, group?: string, role?: string, page?: number, size?: number, sort?: string): Promise<PaginateResponse<Array<AccountResponse>>>;
     /**
      * 帐户信息
      */

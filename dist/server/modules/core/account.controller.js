@@ -23,6 +23,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typescript_rest_1 = require("typescript-rest");
 const typescript_rest_swagger_1 = require("typescript-rest-swagger");
 const account_service_1 = require("./account.service");
+const account_dto_1 = require("./dto/account.dto");
 /**
  * 帐号管理.
  */
@@ -58,24 +59,24 @@ let AccountController = class AccountController {
         });
     }
     /**
-     * 按关键词查询账号
+     * 按关键词查询帐号
      *
      * @param {string} [keyword]
      * @returns {Promise<Account[]>}
      * @memberof AccountController
      */
-    getAccountsByKeyword(keyword) {
+    getAccountsByKeyword(keyword, value) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.service.getAccountsByKeyword(keyword);
+            return this.service.search(keyword, value);
         });
     }
     /**
      * 分页查询帐号数据
      * @param keyword 关键词
      */
-    query(keyword, page, size, sort) {
+    query(keyword, group, role, page, size, sort) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.service.query(keyword, page, size, sort);
+            return this.service.query(keyword, group, role, page, size, sort);
         });
     }
     /**
@@ -112,13 +113,13 @@ __decorate([
 __decorate([
     typescript_rest_1.POST,
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [account_dto_1.CreateAccountDto]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "create", null);
 __decorate([
     typescript_rest_1.PUT,
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [account_dto_1.EditAccountDto]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "update", null);
 __decorate([
@@ -132,19 +133,22 @@ __decorate([
     typescript_rest_1.Path('search'),
     typescript_rest_1.GET,
     __param(0, typescript_rest_1.QueryParam('keyword')),
+    __param(1, typescript_rest_1.QueryParam('value')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "getAccountsByKeyword", null);
 __decorate([
     typescript_rest_1.Path('query'),
     typescript_rest_1.GET,
     __param(0, typescript_rest_1.QueryParam('keyword')),
-    __param(1, typescript_rest_1.QueryParam('page')),
-    __param(2, typescript_rest_1.QueryParam('size')),
-    __param(3, typescript_rest_1.QueryParam('sort')),
+    __param(1, typescript_rest_1.QueryParam('group')),
+    __param(2, typescript_rest_1.QueryParam('role')),
+    __param(3, typescript_rest_1.QueryParam('page')),
+    __param(4, typescript_rest_1.QueryParam('size')),
+    __param(5, typescript_rest_1.QueryParam('sort')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Number, Number, String]),
+    __metadata("design:paramtypes", [String, String, String, Number, Number, String]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "query", null);
 __decorate([

@@ -44,7 +44,7 @@ import {
     async search(
       @QueryParam('keyword') keyword?: string,
       @QueryParam('value') value?: string
-    ): Promise<KeyValue[]> {
+    ): Promise<Array<KeyValue>> {
       return this.service.search(keyword, value);
     }
   
@@ -83,7 +83,7 @@ import {
       @QueryParam('page') page?: number,
       @QueryParam('size') size?: number,
       @QueryParam('sort') sort?: string
-    ): Promise<PaginateResponse<GroupResponse[]>> {
+    ): Promise<PaginateResponse<Array<GroupResponse>>> {
       return this.service.query(keyword, isGroup, page, size, sort);
     }
   

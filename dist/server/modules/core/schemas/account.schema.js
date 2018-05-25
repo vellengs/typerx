@@ -16,6 +16,12 @@ exports.schema = new mongoose_1.Schema({
             ref: 'Role',
         },
     ],
+    groups: [
+        {
+            type: mongoose_1.SchemaTypes.ObjectId,
+            ref: 'Group',
+        },
+    ],
     isDisable: {
         type: mongoose_1.SchemaTypes.Boolean,
     },

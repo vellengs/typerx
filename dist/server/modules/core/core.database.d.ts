@@ -6,6 +6,7 @@ import { Dict } from './interfaces/dict.interface';
 import { Menu } from './interfaces/menu.interface';
 import { Role } from './interfaces/role.interface';
 import { Setting } from './interfaces/setting.interface';
+import { Group } from './interfaces/group.interface';
 export declare const CoreDatabase: {
     Account: Model<Account & Document>;
     Dict: Model<Dict & Document>;
@@ -13,4 +14,5 @@ export declare const CoreDatabase: {
     Menu: Model<Menu & Document>;
     Role: Model<Role & Document>;
     Setting: Model<Setting & Document>;
+    Group: Model<Group & Document>;
 };

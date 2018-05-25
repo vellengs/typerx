@@ -44,7 +44,7 @@ export class MenuController {
   async search(
     @QueryParam('keyword') keyword?: string,
     @QueryParam('value') value?: string
-  ): Promise<KeyValue[]> {
+  ): Promise<Array<KeyValue>> {
     return this.service.search(keyword, value);
   }
 
@@ -83,7 +83,7 @@ export class MenuController {
     @QueryParam('page') page?: number,
     @QueryParam('size') size?: number,
     @QueryParam('sort') sort?: string
-  ): Promise<PaginateResponse<MenuResponse[]>> {
+  ): Promise<PaginateResponse<Array<MenuResponse>>> {
     return this.service.query(keyword, isMenu, page, size, sort);
   }
 

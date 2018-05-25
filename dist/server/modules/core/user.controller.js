@@ -19,6 +19,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const typescript_rest_1 = require("typescript-rest");
 const typescript_rest_swagger_1 = require("typescript-rest-swagger");
+const login_dto_1 = require("./dto/login.dto");
 const user_service_1 = require("./user.service");
 /**
  * 系统接口.
@@ -54,7 +55,7 @@ __decorate([
     typescript_rest_1.POST,
     typescript_rest_1.Path('login'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [login_dto_1.LoginDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "login", null);
 __decorate([

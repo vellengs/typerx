@@ -73,7 +73,7 @@ export class AccountController {
   async getAccountsByKeyword(
     @QueryParam('keyword') keyword?: string,
     @QueryParam('value') value?: string,
-  ): Promise<KeyValue[]> {
+  ): Promise<Array<KeyValue>> {
     return this.service.search(keyword, value);
   }
 
@@ -90,7 +90,7 @@ export class AccountController {
     @QueryParam('page') page?: number,
     @QueryParam('size') size?: number,
     @QueryParam('sort') sort?: string
-  ): Promise<PaginateResponse<AccountResponse[]>> {
+  ): Promise<PaginateResponse<Array<AccountResponse>>> {
     return this.service.query(keyword, group, role, page, size, sort);
   }
 

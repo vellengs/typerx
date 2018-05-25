@@ -18,6 +18,10 @@ export interface AccountResponse {
     /**
      * 
      */
+    id: string;
+    /**
+     * 
+     */
     username: string;
     /**
      * 
@@ -34,15 +38,19 @@ export interface AccountResponse {
     /**
      * 
      */
+    groups: Array<string>;
+    /**
+     * 
+     */
+    roles: Array<string>;
+    /**
+     * 
+     */
     email: string;
     /**
      * 
      */
     mobile: string;
-    /**
-     * 
-     */
-    roles: Array<string>;
     /**
      * 
      */

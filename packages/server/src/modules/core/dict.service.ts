@@ -18,7 +18,7 @@ export class DictService {
     return appearance;
   }
 
-  async search(keyword?: string, value?: string, category?: string, limit = 15): Promise<KeyValue[]> {
+  async search(keyword?: string, value?: string, category?: string, limit = 15): Promise<Array<KeyValue>> {
     return Repository.search(Db.Dict, keyword, value, category, limit, 'translate');
   }
 
@@ -41,7 +41,7 @@ export class DictService {
     page?: number,
     size?: number,
     sort?: string
-  ): Promise<PaginateResponse<DictResponse[]>> {
+  ): Promise<PaginateResponse<Array<DictResponse>>> {
     page = page > 0 ? page : 0 || 1;
     const condition = keyword ? { name: new RegExp(keyword, 'i') } : {};
     const query = Db.Dict.find(condition).sort(sort);

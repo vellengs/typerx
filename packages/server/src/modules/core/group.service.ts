@@ -20,7 +20,7 @@ export class GroupService {
     return appearance;
   }
 
-  async search(keyword?: string, value?: string, limit: number = 10): Promise<KeyValue[]> {
+  async search(keyword?: string, value?: string, limit: number = 10): Promise<Array<KeyValue>> {
     return Repository.search(Db.Group, keyword, value, '', limit);
   }
 
@@ -48,7 +48,7 @@ export class GroupService {
     page?: number,
     size?: number,
     sort?: string
-  ): Promise<PaginateResponse<GroupResponse[]>> {
+  ): Promise<PaginateResponse<Array<GroupResponse>>> {
     const query: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
 
     if (isGroup)

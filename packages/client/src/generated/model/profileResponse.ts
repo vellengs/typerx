@@ -22,5 +22,49 @@ export interface ProfileResponse {
     /**
      * 
      */
-    name: string;
+    username: string;
+    /**
+     * 
+     */
+    nick: string;
+    /**
+     * 
+     */
+    avatar: string;
+    /**
+     * 
+     */
+    type: string;
+    /**
+     * 
+     */
+    email: string;
+    /**
+     * 
+     */
+    mobile: string;
+    /**
+     * 
+     */
+    groups: Array<string>;
+    /**
+     * 
+     */
+    roles: Array<string>;
+    /**
+     * 
+     */
+    isDisable: boolean;
+    /**
+     * 
+     */
+    isAdmin: boolean;
+    /**
+     * 
+     */
+    isApproved: boolean;
+    /**
+     * 
+     */
+    expired: Date;
 }

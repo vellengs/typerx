@@ -4,6 +4,10 @@
 		"AccountResponse": {
 			"description": "",
 			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
 				"username": {
 					"type": "string",
 					"description": ""
@@ -20,12 +24,11 @@
 					"type": "string",
 					"description": ""
 				},
-				"email": {
-					"type": "string",
-					"description": ""
-				},
-				"mobile": {
-					"type": "string",
+				"groups": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
 					"description": ""
 				},
 				"roles": {
@@ -33,6 +36,14 @@
 					"items": {
 						"type": "string"
 					},
+					"description": ""
+				},
+				"email": {
+					"type": "string",
+					"description": ""
+				},
+				"mobile": {
+					"type": "string",
 					"description": ""
 				},
 				"isDisable": {
@@ -55,13 +66,15 @@
 			},
 			"type": "object",
 			"required": [
+				"id",
 				"username",
 				"nick",
 				"avatar",
 				"type",
+				"groups",
+				"roles",
 				"email",
 				"mobile",
-				"roles",
 				"isDisable",
 				"isAdmin",
 				"isApproved",
@@ -81,6 +94,20 @@
 				},
 				"mobile": {
 					"type": "string",
+					"description": ""
+				},
+				"groups": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": ""
+				},
+				"roles": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
 					"description": ""
 				},
 				"username": {
@@ -116,6 +143,20 @@
 				},
 				"email": {
 					"type": "string",
+					"description": ""
+				},
+				"groups": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": ""
+				},
+				"roles": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
 					"description": ""
 				},
 				"mobile": {
@@ -309,18 +350,11 @@
 			"type": "object",
 			"additionalProperties": {}
 		},
-		"FormDefine": {
-			"description": "",
-			"properties": {},
-			"type": "object"
-		},
 		"FormSets": {
 			"description": "",
 			"properties": {},
 			"type": "object",
-			"additionalProperties": {
-				"$ref": "#/definitions/FormDefine"
-			}
+			"additionalProperties": {}
 		},
 		"Appearance": {
 			"description": "",
@@ -328,14 +362,32 @@
 				"columnSets": {
 					"$ref": "#/definitions/ColumnSets"
 				},
-				"form": {
+				"formSets": {
 					"$ref": "#/definitions/FormSets"
 				}
 			},
 			"type": "object",
 			"required": [
 				"columnSets",
-				"form"
+				"formSets"
+			]
+		},
+		"KeyValue": {
+			"description": "",
+			"properties": {
+				"label": {
+					"type": "string",
+					"description": ""
+				},
+				"value": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"label",
+				"value"
 			]
 		},
 		"Error": {
@@ -360,13 +412,13 @@
 				"message"
 			]
 		},
-		"PaginateResponseAccountResponse[]": {
+		"PaginateResponseArray": {
 			"description": "",
 			"properties": {
 				"error": {
 					"$ref": "#/definitions/Error"
 				},
-				"docs": {
+				"list": {
 					"type": "array",
 					"items": {
 						"$ref": "#/definitions/AccountResponse"
@@ -381,7 +433,7 @@
 			},
 			"type": "object",
 			"required": [
-				"docs",
+				"list",
 				"total"
 			]
 		},
@@ -392,15 +444,77 @@
 					"type": "string",
 					"description": ""
 				},
-				"name": {
+				"username": {
 					"type": "string",
+					"description": ""
+				},
+				"nick": {
+					"type": "string",
+					"description": ""
+				},
+				"avatar": {
+					"type": "string",
+					"description": ""
+				},
+				"type": {
+					"type": "string",
+					"description": ""
+				},
+				"email": {
+					"type": "string",
+					"description": ""
+				},
+				"mobile": {
+					"type": "string",
+					"description": ""
+				},
+				"groups": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": ""
+				},
+				"roles": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": ""
+				},
+				"isDisable": {
+					"type": "boolean",
+					"description": ""
+				},
+				"isAdmin": {
+					"type": "boolean",
+					"description": ""
+				},
+				"isApproved": {
+					"type": "boolean",
+					"description": ""
+				},
+				"expired": {
+					"type": "string",
+					"format": "date-time",
 					"description": ""
 				}
 			},
 			"type": "object",
 			"required": [
 				"id",
-				"name"
+				"username",
+				"nick",
+				"avatar",
+				"type",
+				"email",
+				"mobile",
+				"groups",
+				"roles",
+				"isDisable",
+				"isAdmin",
+				"isApproved",
+				"expired"
 			]
 		},
 		"LoginDto": {
@@ -424,6 +538,10 @@
 		"MenuResponse": {
 			"description": "",
 			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
 				"name": {
 					"type": "string",
 					"description": ""
@@ -433,7 +551,7 @@
 					"description": ""
 				},
 				"group": {
-					"type": "string",
+					"type": "boolean",
 					"description": ""
 				},
 				"link": {
@@ -445,7 +563,7 @@
 					"description": ""
 				},
 				"blank": {
-					"type": "string",
+					"type": "boolean",
 					"description": ""
 				},
 				"icon": {
@@ -477,7 +595,7 @@
 					"description": ""
 				},
 				"parent": {
-					"type": "string",
+					"type": "object",
 					"description": ""
 				},
 				"isMenu": {
@@ -487,6 +605,7 @@
 			},
 			"type": "object",
 			"required": [
+				"id",
 				"name",
 				"slug",
 				"group",
@@ -513,7 +632,7 @@
 					"description": ""
 				},
 				"group": {
-					"type": "string",
+					"type": "boolean",
 					"description": ""
 				},
 				"link": {
@@ -525,7 +644,7 @@
 					"description": ""
 				},
 				"blank": {
-					"type": "string",
+					"type": "boolean",
 					"description": ""
 				},
 				"icon": {
@@ -557,7 +676,7 @@
 					"description": ""
 				},
 				"parent": {
-					"type": "string",
+					"type": "object",
 					"description": ""
 				},
 				"isMenu": {
@@ -597,7 +716,7 @@
 					"description": ""
 				},
 				"group": {
-					"type": "string",
+					"type": "boolean",
 					"description": ""
 				},
 				"link": {
@@ -609,7 +728,7 @@
 					"description": ""
 				},
 				"blank": {
-					"type": "string",
+					"type": "boolean",
 					"description": ""
 				},
 				"icon": {
@@ -641,7 +760,7 @@
 					"description": ""
 				},
 				"parent": {
-					"type": "string",
+					"type": "object",
 					"description": ""
 				},
 				"isMenu": {
@@ -666,29 +785,496 @@
 				"isMenu"
 			]
 		},
-		"PaginateResponseMenuResponse[]": {
+		"SettingResponse": {
 			"description": "",
 			"properties": {
-				"error": {
-					"$ref": "#/definitions/Error"
-				},
-				"docs": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/MenuResponse"
-					},
+				"id": {
+					"type": "string",
 					"description": ""
 				},
-				"total": {
-					"type": "number",
-					"format": "double",
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"key": {
+					"type": "string",
+					"description": ""
+				},
+				"value": {
+					"type": "object",
+					"description": ""
+				},
+				"description": {
+					"type": "string",
 					"description": ""
 				}
 			},
 			"type": "object",
 			"required": [
-				"docs",
-				"total"
+				"id",
+				"name",
+				"key",
+				"value",
+				"description"
+			]
+		},
+		"CreateSettingDto": {
+			"description": "",
+			"properties": {
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"key": {
+					"type": "string",
+					"description": ""
+				},
+				"value": {
+					"type": "object",
+					"description": ""
+				},
+				"description": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"name",
+				"key",
+				"value",
+				"description"
+			]
+		},
+		"EditSettingDto": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"key": {
+					"type": "string",
+					"description": ""
+				},
+				"value": {
+					"type": "object",
+					"description": ""
+				},
+				"description": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"name",
+				"key",
+				"value",
+				"description"
+			]
+		},
+		"Object": {
+			"description": "Provides functionality common to all JavaScript objects.",
+			"properties": {
+				"constructor": {
+					"$ref": "#/definitions/Function"
+				}
+			},
+			"type": "object",
+			"required": [
+				"constructor"
+			]
+		},
+		"DictResponse": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
+				"category": {
+					"type": "string",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"translate": {
+					"type": "string",
+					"description": ""
+				},
+				"expand": {
+					"$ref": "#/definitions/Object"
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"category",
+				"name",
+				"translate",
+				"expand"
+			]
+		},
+		"CreateDictDto": {
+			"description": "",
+			"properties": {
+				"category": {
+					"type": "string",
+					"description": ""
+				},
+				"translate": {
+					"type": "string",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"expand": {
+					"$ref": "#/definitions/Object"
+				}
+			},
+			"type": "object",
+			"required": [
+				"category",
+				"translate",
+				"name",
+				"expand"
+			]
+		},
+		"EditDictDto": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
+				"category": {
+					"type": "string",
+					"description": ""
+				},
+				"translate": {
+					"type": "string",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"expand": {
+					"$ref": "#/definitions/Object"
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"category",
+				"translate",
+				"name",
+				"expand"
+			]
+		},
+		"RoleResponse": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"description": {
+					"type": "string",
+					"description": ""
+				},
+				"permissions": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"name",
+				"description",
+				"permissions"
+			]
+		},
+		"CreateRoleDto": {
+			"description": "",
+			"properties": {
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"description": {
+					"type": "string",
+					"description": ""
+				},
+				"permissions": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"name",
+				"description",
+				"permissions"
+			]
+		},
+		"EditRoleDto": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"description": {
+					"type": "string",
+					"description": ""
+				},
+				"permissions": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"name",
+				"description",
+				"permissions"
+			]
+		},
+		"LogResponse": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"operator": {
+					"type": "string",
+					"description": ""
+				},
+				"operatorIp": {
+					"type": "string",
+					"description": ""
+				},
+				"operation": {
+					"type": "string",
+					"description": ""
+				},
+				"comment": {
+					"type": "string",
+					"description": ""
+				},
+				"createdAt": {
+					"type": "string",
+					"format": "date-time",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"name",
+				"operator",
+				"operatorIp",
+				"operation",
+				"comment",
+				"createdAt"
+			]
+		},
+		"GroupResponse": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
+				"outid": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"icon": {
+					"type": "string",
+					"description": ""
+				},
+				"parent": {
+					"type": "string",
+					"description": ""
+				},
+				"paths": {
+					"type": "array",
+					"items": {
+						"type": "object"
+					},
+					"description": ""
+				},
+				"director": {
+					"type": "string",
+					"description": ""
+				},
+				"order": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"isRegion": {
+					"type": "boolean",
+					"description": ""
+				},
+				"description": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"name",
+				"order"
+			]
+		},
+		"CreateGroupDto": {
+			"description": "",
+			"properties": {
+				"outid": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"icon": {
+					"type": "string",
+					"description": ""
+				},
+				"parent": {
+					"type": "string",
+					"description": ""
+				},
+				"paths": {
+					"type": "array",
+					"items": {
+						"type": "object"
+					},
+					"description": ""
+				},
+				"director": {
+					"type": "string",
+					"description": ""
+				},
+				"order": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"isRegion": {
+					"type": "boolean",
+					"description": ""
+				},
+				"description": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"name",
+				"order"
+			]
+		},
+		"EditGroupDto": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
+				"outid": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"icon": {
+					"type": "string",
+					"description": ""
+				},
+				"parent": {
+					"type": "string",
+					"description": ""
+				},
+				"paths": {
+					"type": "array",
+					"items": {
+						"type": "object"
+					},
+					"description": ""
+				},
+				"director": {
+					"type": "string",
+					"description": ""
+				},
+				"order": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"isRegion": {
+					"type": "boolean",
+					"description": ""
+				},
+				"description": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"name",
+				"order"
 			]
 		}
 	},
@@ -800,7 +1386,7 @@
 						"schema": {
 							"type": "array",
 							"items": {
-								"$ref": "#/definitions/AccountResponse"
+								"$ref": "#/definitions/KeyValue"
 							}
 						}
 					}
@@ -814,6 +1400,13 @@
 						"description": "",
 						"in": "query",
 						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "",
+						"in": "query",
+						"name": "value",
 						"required": false,
 						"type": "string"
 					}
@@ -830,7 +1423,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/PaginateResponseAccountResponse[]"
+							"$ref": "#/definitions/PaginateResponseArray"
 						}
 					}
 				},
@@ -843,6 +1436,20 @@
 						"description": "关键词",
 						"in": "query",
 						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "",
+						"in": "query",
+						"name": "group",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "",
+						"in": "query",
+						"name": "role",
 						"required": false,
 						"type": "string"
 					},
@@ -1037,20 +1644,27 @@
 						"schema": {
 							"type": "array",
 							"items": {
-								"$ref": "#/definitions/MenuResponse"
+								"$ref": "#/definitions/KeyValue"
 							}
 						}
 					}
 				},
-				"description": "获取帐号管理界面配置信息.",
+				"description": "查询菜单",
 				"tags": [
 					"core"
 				],
 				"parameters": [
 					{
-						"description": "",
+						"description": "关键词",
 						"in": "query",
 						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "已选中的菜单编号",
+						"in": "query",
+						"name": "value",
 						"required": false,
 						"type": "string"
 					}
@@ -1133,11 +1747,292 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/PaginateResponseMenuResponse[]"
+							"$ref": "#/definitions/PaginateResponseArray"
 						}
 					}
 				},
 				"description": "查询菜单数据",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "",
+						"in": "query",
+						"name": "isMenu",
+						"required": false,
+						"type": "boolean"
+					},
+					{
+						"description": "第几页",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "页大小",
+						"in": "query",
+						"name": "size",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "排序",
+						"in": "query",
+						"name": "sort",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/menu/{id}": {
+			"delete": {
+				"operationId": "MenuRemove",
+				"produces": [
+					"text/html"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				},
+				"description": "删除菜单",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "菜单编号",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			},
+			"get": {
+				"operationId": "MenuGet",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/MenuResponse"
+						}
+					}
+				},
+				"description": "查询菜单",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "菜单编号",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/setting/main": {
+			"get": {
+				"operationId": "SettingGetMainSettings",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/SettingResponse"
+							}
+						}
+					}
+				},
+				"description": "获取设置项",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "设置项key的集合",
+						"in": "query",
+						"name": "keys",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/setting/key/{name}": {
+			"get": {
+				"operationId": "SettingGetSettingsByKey",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/SettingResponse"
+						}
+					}
+				},
+				"description": "通过Key获取设置项目",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "键名",
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/setting/search": {
+			"get": {
+				"operationId": "SettingSearch",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/SettingResponse"
+							}
+						}
+					}
+				},
+				"description": "查询设置项",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "键",
+						"in": "query",
+						"name": "value",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/setting": {
+			"post": {
+				"operationId": "SettingCreate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/SettingResponse"
+						}
+					}
+				},
+				"description": "创建设置项",
+				"tags": [
+					"core"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "设置项实体",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/CreateSettingDto"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "SettingUpdate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/SettingResponse"
+						}
+					}
+				},
+				"description": "更新设置项",
+				"tags": [
+					"core"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "设置项实体",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/EditSettingDto"
+						}
+					}
+				]
+			}
+		},
+		"/api/setting/query": {
+			"get": {
+				"operationId": "SettingQuery",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/PaginateResponseArray"
+						}
+					}
+				},
+				"description": "分页查询设置项",
 				"tags": [
 					"core"
 				],
@@ -1170,6 +2065,912 @@
 						"in": "query",
 						"name": "sort",
 						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/setting/{id}": {
+			"get": {
+				"operationId": "SettingGet",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/SettingResponse"
+						}
+					}
+				},
+				"description": "按编号获取设置项",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "键",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			},
+			"delete": {
+				"operationId": "SettingRemove",
+				"produces": [
+					"text/html"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				},
+				"description": "删除设置项",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "键",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/dict/config": {
+			"get": {
+				"operationId": "DictGetConfig",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/Appearance"
+						}
+					}
+				},
+				"description": "获取帐号管理界面配置信息.",
+				"tags": [
+					"core"
+				],
+				"parameters": []
+			}
+		},
+		"/api/dict/search": {
+			"get": {
+				"operationId": "DictSearch",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/KeyValue"
+							}
+						}
+					}
+				},
+				"description": "搜索字典表",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "键",
+						"in": "query",
+						"name": "value",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/dict": {
+			"post": {
+				"operationId": "DictCreate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/DictResponse"
+						}
+					}
+				},
+				"description": "创建字典",
+				"tags": [
+					"core"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "设置项实体",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/CreateDictDto"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "DictUpdate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/DictResponse"
+						}
+					}
+				},
+				"description": "更新字典",
+				"tags": [
+					"core"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "设置项实体",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/EditDictDto"
+						}
+					}
+				]
+			}
+		},
+		"/api/dict/query": {
+			"get": {
+				"operationId": "DictQuery",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/PaginateResponseArray"
+						}
+					}
+				},
+				"description": "分页查询字典",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "第几页",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "页大小",
+						"in": "query",
+						"name": "size",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "排序",
+						"in": "query",
+						"name": "sort",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/dict/{id}": {
+			"get": {
+				"operationId": "DictGet",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/DictResponse"
+						}
+					}
+				},
+				"description": "按编号获取字典",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "键",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DictRemove",
+				"produces": [
+					"text/html"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				},
+				"description": "删除字典",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "键",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/role/config": {
+			"get": {
+				"operationId": "RoleGetConfig",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/Appearance"
+						}
+					}
+				},
+				"description": "获取角色管理界面配置信息.",
+				"tags": [
+					"core"
+				],
+				"parameters": []
+			}
+		},
+		"/api/role/search": {
+			"get": {
+				"operationId": "RoleSearch",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/KeyValue"
+							}
+						}
+					}
+				},
+				"description": "搜索角色",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "键",
+						"in": "query",
+						"name": "value",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/role": {
+			"post": {
+				"operationId": "RoleCreate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/RoleResponse"
+						}
+					}
+				},
+				"description": "创建角色",
+				"tags": [
+					"core"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "设置项实体",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/CreateRoleDto"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "RoleUpdate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/RoleResponse"
+						}
+					}
+				},
+				"description": "更新角色",
+				"tags": [
+					"core"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "设置项实体",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/EditRoleDto"
+						}
+					}
+				]
+			}
+		},
+		"/api/role/query": {
+			"get": {
+				"operationId": "RoleQuery",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/PaginateResponseArray"
+						}
+					}
+				},
+				"description": "分页查询角色",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "第几页",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "页大小",
+						"in": "query",
+						"name": "size",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "排序",
+						"in": "query",
+						"name": "sort",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/role/{id}": {
+			"get": {
+				"operationId": "RoleGet",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/RoleResponse"
+						}
+					}
+				},
+				"description": "按编号获取角色",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "键",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			},
+			"delete": {
+				"operationId": "RoleRemove",
+				"produces": [
+					"text/html"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				},
+				"description": "删除角色",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "键",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/log/config": {
+			"get": {
+				"operationId": "LogGetConfig",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/Appearance"
+						}
+					}
+				},
+				"description": "获取日志管理界面配置信息.",
+				"tags": [
+					"core"
+				],
+				"parameters": []
+			}
+		},
+		"/api/log/search": {
+			"get": {
+				"operationId": "LogSearch",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/KeyValue"
+							}
+						}
+					}
+				},
+				"description": "搜索日志",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "键",
+						"in": "query",
+						"name": "value",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/log/query": {
+			"get": {
+				"operationId": "LogQuery",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/PaginateResponseArray"
+						}
+					}
+				},
+				"description": "分页查询日志",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "第几页",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "页大小",
+						"in": "query",
+						"name": "size",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "排序",
+						"in": "query",
+						"name": "sort",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/log/{id}": {
+			"get": {
+				"operationId": "LogGet",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/LogResponse"
+						}
+					}
+				},
+				"description": "按编号获取日志",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "键",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/group/config": {
+			"get": {
+				"operationId": "GroupGetConfig",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/Appearance"
+						}
+					}
+				},
+				"description": "获取用户组管理界面配置信息.",
+				"tags": [
+					"core"
+				],
+				"parameters": []
+			}
+		},
+		"/api/group/search": {
+			"get": {
+				"operationId": "GroupSearch",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/KeyValue"
+							}
+						}
+					}
+				},
+				"description": "查询用户组",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "已选中的用户组编号",
+						"in": "query",
+						"name": "value",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/group": {
+			"post": {
+				"operationId": "GroupCreate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/GroupResponse"
+						}
+					}
+				},
+				"description": "创建用户组",
+				"tags": [
+					"core"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "创建参数",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/CreateGroupDto"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "GroupUpdate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/GroupResponse"
+						}
+					}
+				},
+				"description": "更新用户组",
+				"tags": [
+					"core"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "用户组参数",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/EditGroupDto"
+						}
+					}
+				]
+			}
+		},
+		"/api/group/query": {
+			"get": {
+				"operationId": "GroupQuery",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/PaginateResponseArray"
+						}
+					}
+				},
+				"description": "查询用户组数据",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "",
+						"in": "query",
+						"name": "isGroup",
+						"required": false,
+						"type": "boolean"
+					},
+					{
+						"description": "第几页",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "页大小",
+						"in": "query",
+						"name": "size",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "排序",
+						"in": "query",
+						"name": "sort",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/group/{id}": {
+			"delete": {
+				"operationId": "GroupRemove",
+				"produces": [
+					"text/html"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				},
+				"description": "删除用户组",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "用户组编号",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			},
+			"get": {
+				"operationId": "GroupGet",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/GroupResponse"
+						}
+					}
+				},
+				"description": "查询用户组",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "用户组编号",
+						"in": "path",
+						"name": "id",
+						"required": true,
 						"type": "string"
 					}
 				]

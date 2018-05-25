@@ -1,43 +1,51 @@
-export interface CreateAccountDto {
+export declare class CreateAccountDto {
     avatar?: string;
     email?: string;
     mobile?: string;
+    groups?: string[];
+    roles?: string[];
     username: string;
     password: string;
     nick: string;
 }
-export interface EditAccountDto {
+export declare class EditAccountDto {
     id: string;
     avatar?: string;
     email?: string;
+    groups?: string[];
+    roles?: string[];
     mobile?: string;
     password?: string;
     nick: string;
 }
-export interface AccountResponse {
+export declare class AccountResponse {
+    id: string;
     username: string;
     nick: string;
     avatar: string;
     type: string;
+    groups: string[];
+    roles: string[];
     email: string;
     mobile: string;
-    roles: string[];
     isDisable: boolean;
     isAdmin: boolean;
     isApproved: boolean;
     expired: Date;
 }
-export interface SessionUser {
+export declare class SessionUser {
     id: string;
     username: string;
     nick: string;
     avatar: string;
     type: string;
     email: string;
-    mobile: string;
+    groups: string[];
     roles: string[];
+    mobile: string;
     isDisable: boolean;
     isAdmin: boolean;
     isApproved: boolean;
     expired: Date;
 }
+export declare const AccountResponseFields: string[];

@@ -18,7 +18,7 @@ export class MenuService {
     return appearance;
   }
 
-  async search(keyword?: string, value?: string, limit: number = 10): Promise<KeyValue[]> {
+  async search(keyword?: string, value?: string, limit: number = 10): Promise<Array<KeyValue>> {
     return Repository.search(Db.Menu, keyword, value, '', limit);
   }
 
@@ -46,7 +46,7 @@ export class MenuService {
     page?: number,
     size?: number,
     sort?: string
-  ): Promise<PaginateResponse<MenuResponse[]>> {
+  ): Promise<PaginateResponse<Array<MenuResponse>>> {
     const query: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
 
     if (isMenu)

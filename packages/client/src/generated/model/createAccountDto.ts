@@ -30,6 +30,14 @@ export interface CreateAccountDto {
     /**
      * 
      */
+    groups?: Array<string>;
+    /**
+     * 
+     */
+    roles?: Array<string>;
+    /**
+     * 
+     */
     username: string;
     /**
      * 

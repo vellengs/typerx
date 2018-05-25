@@ -1,6 +1,7 @@
 export interface Dict {
+    id: string;
     category: string;
-    key: string;
+    translate: string;
     name: string;
     expand: Object;
 }

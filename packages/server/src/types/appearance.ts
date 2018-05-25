@@ -46,7 +46,7 @@ export interface ColumnSets {
 }
 
 export interface FormSets {
-    [key: string]: SFSchema
+    [key: string]: any // TODO 
 }
 
 export interface ColumnDefine {

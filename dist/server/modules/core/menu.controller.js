@@ -39,11 +39,13 @@ let MenuController = class MenuController {
         });
     }
     /**
-     * 获取帐号管理界面配置信息.
+     * 查询菜单
+     * @param keyword 关键词
+     * @param value 已选中的菜单编号
      */
-    search(keyword) {
+    search(keyword, value) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.service.getMenusByKeyword(keyword);
+            return this.service.search(keyword, value);
         });
     }
     /**
@@ -71,9 +73,27 @@ let MenuController = class MenuController {
      * @param size 页大小
      * @param sort 排序
      */
-    query(keyword, page, size, sort) {
+    query(keyword, isMenu, page, size, sort) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.service.query(keyword, page, size, sort);
+            return this.service.query(keyword, isMenu, page, size, sort);
+        });
+    }
+    /**
+   * 删除菜单
+   * @param id 菜单编号
+   */
+    remove(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.service.remove(id);
+        });
+    }
+    /**
+     * 查询菜单
+     * @param id 菜单编号
+     */
+    get(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.service.get(id);
         });
     }
 };
@@ -92,8 +112,9 @@ __decorate([
     typescript_rest_1.Path('search'),
     typescript_rest_1.GET,
     __param(0, typescript_rest_1.QueryParam('keyword')),
+    __param(1, typescript_rest_1.QueryParam('value')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], MenuController.prototype, "search", null);
 __decorate([
@@ -112,13 +133,30 @@ __decorate([
     typescript_rest_1.Path('query'),
     typescript_rest_1.GET,
     __param(0, typescript_rest_1.QueryParam('keyword')),
-    __param(1, typescript_rest_1.QueryParam('page')),
-    __param(2, typescript_rest_1.QueryParam('size')),
-    __param(3, typescript_rest_1.QueryParam('sort')),
+    __param(1, typescript_rest_1.QueryParam('isMenu')),
+    __param(2, typescript_rest_1.QueryParam('page')),
+    __param(3, typescript_rest_1.QueryParam('size')),
+    __param(4, typescript_rest_1.QueryParam('sort')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Number, Number, String]),
+    __metadata("design:paramtypes", [String, Boolean, Number, Number, String]),
     __metadata("design:returntype", Promise)
 ], MenuController.prototype, "query", null);
+__decorate([
+    typescript_rest_1.Path(':id'),
+    typescript_rest_1.DELETE,
+    __param(0, typescript_rest_1.PathParam('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], MenuController.prototype, "remove", null);
+__decorate([
+    typescript_rest_1.Path(':id'),
+    typescript_rest_1.GET,
+    __param(0, typescript_rest_1.PathParam('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], MenuController.prototype, "get", null);
 MenuController = __decorate([
     typescript_rest_swagger_1.Tags('core'),
     typescript_rest_1.Path('api/menu'),

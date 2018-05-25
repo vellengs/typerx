@@ -1,4 +1,5 @@
 export interface Menu {
+    id: string;
     name: string;
     slug: string;
     group: boolean;

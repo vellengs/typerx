@@ -9,10 +9,14 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { ColumnSets } from './columnSets';
+import { FormSets } from './formSets';
 
 
 /**
  * 
  */
 export interface Appearance {
+    columnSets: ColumnSets;
+    formSets: FormSets;
 }

@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const passport = require("passport");
 const log_service_1 = require("./log.service");
+const lodash_1 = require("lodash");
 class UserService {
     login(context, loginDto) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -37,19 +38,7 @@ class UserService {
                             if (err) {
                                 reject(false);
                             }
-                            const picked = (({ username, nick, avatar, type, email, mobile, roles, isDisable, isAdmin, isApproved, expired }) => ({
-                                username,
-                                nick,
-                                avatar,
-                                type,
-                                email,
-                                mobile,
-                                roles,
-                                isDisable,
-                                isAdmin,
-                                isApproved,
-                                expired
-                            }))(user);
+                            const picked = this.pure(user);
                             resolve(picked);
                         });
                     }
@@ -60,6 +49,23 @@ class UserService {
             });
             return result;
         });
+    }
+    pure(entry) {
+        return lodash_1.pick(entry, [
+            'id',
+            'username',
+            'nick',
+            'avatar',
+            'type',
+            'email',
+            'groups',
+            'roles',
+            'mobile',
+            'isDisable',
+            'isAdmin',
+            'isApproved',
+            'expired',
+        ]);
     }
 }
 exports.UserService = UserService;

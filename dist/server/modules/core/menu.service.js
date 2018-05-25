@@ -9,21 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_database_1 = require("./core.database");
-const helper_1 = require("../../util/helper");
 const menu_appearance_1 = require("./appearance/menu.appearance");
+const lodash_1 = require("lodash");
+const repository_1 = require("../../database/repository");
 class MenuService {
     getAppearance() {
         return __awaiter(this, void 0, void 0, function* () {
             return menu_appearance_1.appearance;
         });
     }
-    getMenusByKeyword(keyword) {
+    search(keyword, value, limit = 10) {
         return __awaiter(this, void 0, void 0, function* () {
-            const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
-            const docs = yield core_database_1.CoreDatabase.Menu.find(query)
-                .limit(25)
-                .exec();
-            return docs;
+            return repository_1.Repository.search(core_database_1.CoreDatabase.Menu, keyword, value, '', limit);
         });
     }
     create(entry) {
@@ -41,32 +38,56 @@ class MenuService {
             return doc;
         });
     }
-    query(keyword, page, size, sort) {
+    query(keyword, isMenu, page, size, sort) {
         return __awaiter(this, void 0, void 0, function* () {
             const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
-            const docs = yield core_database_1.CoreDatabase.Menu.find(query).sort(sort).skip(page * size).limit(size).exec();
+            if (isMenu)
+                query.isMenu = true;
+            const docs = (yield core_database_1.CoreDatabase.Menu.find(query).sort(sort).skip(page * size).limit(size).exec()) || [];
             const count = yield core_database_1.CoreDatabase.Menu.find(query).count();
+            const list = docs.map((item) => {
+                return this.pure(item);
+            });
             return {
-                docs: docs,
+                list: list,
                 total: count
             };
         });
     }
     remove(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return helper_1.Helper.remove(core_database_1.CoreDatabase.Menu, id);
+            return repository_1.Repository.remove(core_database_1.CoreDatabase.Menu, id);
         });
     }
     get(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = helper_1.Helper.get(core_database_1.CoreDatabase.Menu, id, [
+            const result = yield repository_1.Repository.get(core_database_1.CoreDatabase.Menu, id, [
                 {
                     path: 'roles',
                     select: 'name',
                 },
             ]);
-            return result;
+            return this.pure(result);
         });
+    }
+    pure(entry) {
+        return lodash_1.pick(entry, [
+            'id',
+            'name',
+            'slug',
+            'group',
+            'link',
+            'externalLink',
+            'blank',
+            'icon',
+            'order',
+            'enable',
+            'expanded',
+            'acl',
+            'permissions',
+            'parent',
+            'isMenu'
+        ]);
     }
 }
 exports.MenuService = MenuService;
