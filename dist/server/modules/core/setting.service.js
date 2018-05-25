@@ -11,7 +11,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_database_1 = require("./core.database");
 const lodash_1 = require("lodash");
 const repository_1 = require("../../database/repository");
+const setting_appearance_1 = require("./appearance/setting.appearance");
 class SettingService {
+    getAppearance() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return setting_appearance_1.appearance;
+        });
+    }
     getMainSettings(keys) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!keys) {

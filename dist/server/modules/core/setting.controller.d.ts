@@ -1,7 +1,7 @@
 import { ServiceContext } from 'typescript-rest';
 import { SettingService } from './setting.service';
 import { SettingResponse, CreateSettingDto, EditSettingDto } from './dto/setting.dto';
-import { PaginateResponse } from '../../types/appearance';
+import { PaginateResponse, Appearance } from '../../types/appearance';
 /**
  * 设置管理接口.
  */
@@ -9,6 +9,10 @@ export declare class SettingController {
     private readonly service;
     context: ServiceContext;
     constructor(service?: SettingService);
+    /**
+     * 获取设置管理界面配置信息.
+     */
+    getConfig(): Promise<Appearance>;
     /**
      * 获取设置项
      * @param keys 设置项key的集合

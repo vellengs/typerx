@@ -1,7 +1,8 @@
-import { PaginateResponse } from '../../types/appearance';
+import { Appearance, PaginateResponse } from '../../types/appearance';
 import { SettingResponse, CreateSettingDto, EditSettingDto } from './dto/setting.dto';
 import { KeyValue } from '../../types/data.types';
 export declare class SettingService {
+    getAppearance(): Promise<Appearance>;
     getMainSettings(keys?: string): Promise<Array<SettingResponse>>;
     getSettingsByKey(name: string): Promise<SettingResponse>;
     search(keyword?: string, value?: string, limit?: number): Promise<Array<KeyValue>>;

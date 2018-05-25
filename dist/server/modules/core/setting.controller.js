@@ -32,6 +32,14 @@ let SettingController = class SettingController {
         this.service = service;
     }
     /**
+     * 获取设置管理界面配置信息.
+     */
+    getConfig() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.service.getAppearance();
+        });
+    }
+    /**
      * 获取设置项
      * @param keys 设置项key的集合
      */
@@ -112,6 +120,13 @@ __decorate([
     typescript_rest_1.Context,
     __metadata("design:type", typescript_rest_1.ServiceContext)
 ], SettingController.prototype, "context", void 0);
+__decorate([
+    typescript_rest_1.Path('config'),
+    typescript_rest_1.GET,
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], SettingController.prototype, "getConfig", null);
 __decorate([
     typescript_rest_1.Path('main'),
     typescript_rest_1.GET,

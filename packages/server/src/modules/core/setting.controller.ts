@@ -19,7 +19,7 @@ import {
 } from './dto/login.dto';
 import { SettingService } from './setting.service';
 import { SettingResponse, CreateSettingDto, EditSettingDto } from './dto/setting.dto';
-import { PaginateResponse } from '../../types/appearance';
+import { PaginateResponse, Appearance } from '../../types/appearance';
 
 /**
  * 设置管理接口.
@@ -30,6 +30,15 @@ export class SettingController {
   @Context context: ServiceContext;
   constructor(private readonly service = new SettingService()) { }
 
+  /**
+   * 获取设置管理界面配置信息.
+   */
+  @Path('config')
+  @GET
+  async getConfig(): Promise<Appearance> {
+    return this.service.getAppearance();
+  }
+ 
   /**
    * 获取设置项
    * @param keys 设置项key的集合

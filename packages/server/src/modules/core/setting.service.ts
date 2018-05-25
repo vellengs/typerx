@@ -11,8 +11,13 @@ import { Helper } from '../../util/helper';
 import { Document } from 'mongoose';
 import { KeyValue } from '../../types/data.types';
 import { Repository } from '../../database/repository';
+import { appearance } from './appearance/setting.appearance';
 
 export class SettingService {
+
+  async getAppearance(): Promise<Appearance> {
+    return appearance;
+  }
 
   async getMainSettings(keys?: string): Promise<Array<SettingResponse>> {
 

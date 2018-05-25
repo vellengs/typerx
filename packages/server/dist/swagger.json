@@ -1852,6 +1852,27 @@
 				]
 			}
 		},
+		"/api/setting/config": {
+			"get": {
+				"operationId": "SettingGetConfig",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/Appearance"
+						}
+					}
+				},
+				"description": "获取设置管理界面配置信息.",
+				"tags": [
+					"core"
+				],
+				"parameters": []
+			}
+		},
 		"/api/setting/main": {
 			"get": {
 				"operationId": "SettingGetMainSettings",

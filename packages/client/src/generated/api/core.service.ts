@@ -1947,6 +1947,42 @@ export class CoreService {
 
     /**
      * 
+     * 获取设置管理界面配置信息.
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public settingGetConfig(observe?: 'body', reportProgress?: boolean): Observable<Appearance>;
+    public settingGetConfig(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Appearance>>;
+    public settingGetConfig(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Appearance>>;
+    public settingGetConfig(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Appearance>(`${this.basePath}/api/setting/config`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
      * 获取设置项
      * @param keys 设置项key的集合
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
