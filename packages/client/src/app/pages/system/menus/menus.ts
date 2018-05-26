@@ -1,109 +1,142 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { NzMessageService, NzModalService, UploadFile } from 'ng-zorro-antd';
-import { Component, OnInit, Injector, Input } from '@angular/core';
+import { NzMessageService, NzModalService, UploadFile, NzTreeNode } from 'ng-zorro-antd';
+import { Component, OnInit, Injector, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { _HttpClient } from '@delon/theme';
 import { ListContext } from '../../../services/list.context';
 import { SimpleTableColumn } from '@delon/abc';
 import { SFSchema, SFGridSchema, SFUISchema } from '@delon/form';
-
-import { BaseListComponent } from '@shared/base/base.list.component';
+import * as treeify from 'array-to-tree';
+import { BaseComponent } from '@shared/base/base.component';
 import { BaseStandComponent } from '@shared/base/base.stand.component';
-import { BaseTreeTableComponent } from '@shared/base/base.tree.table';
-import * as arrayToTree from 'array-to-tree';
 
 @Component({
     selector: 'app-menus-page',
     templateUrl: './menus.html',
     styles: []
 })
-export class MenusPageComponent extends BaseTreeTableComponent implements OnInit {
+export class MenusPageComponent extends BaseStandComponent implements OnInit {
+
 
     @Input() domain = 'menu';
-    expandDataCache = {};
-    treeData = [];
+
+    nodes = [];
+    expandKeys = [];
+    searchValue = '';
+    selectedItem: any = {};
+    accountQueryParams: any = {};
+    detailSchema: any = {};
+
+    formData;
+
+    operationColumn = {
+        title: '操作区',
+        width: '180px',
+        buttons: [
+            {
+                text: '删除',
+                type: 'del',
+                click: (record: any) => {
+                }
+            },
+            {
+                text: '编辑',
+                type: 'none',
+                click: (record: any) => {
+                }
+            },
+            {
+                text: '更多',
+                children: [
+                    {
+                        text: `过期`,
+                        type: 'none',
+                    },
+                ]
+            }
+        ]
+    };
 
     constructor(injector: Injector) {
         super(injector);
     }
 
     async ngOnInit() {
+        this.loadMenuTree();
         this.onConfigChanged.subscribe(() => {
-            console.log('formSets', this.formSets);
-        });
-        this.load();
-    }
-
-    async load() {
-        this.treeData = await this.getMenuTreeData();
-        this.treeData.forEach(item => {
-            this.expandDataCache[item.id] = this.convertTreeToList(item);
+            this.detailSchema = this.formSets.edit;
+            console.log('detailSchema:', this.detailSchema);
         });
     }
 
-    async getMenuTreeData() {
-        const url = `api/menu/query`;
-        const params = Object.assign({
-            size: '1000',
-            isMenu: true
-        }, this.queryParams);
-        const res: any = await this.client.get(url, params).toPromise();
-        const docs = res.list;
-        const tree = arrayToTree(docs, {
+
+    async loadMenuTree() {
+        const menuResponse = await this.coreService.menuQuery('', true, 0, 3000).toPromise();
+        const items = menuResponse ? menuResponse.list : [];
+
+
+        const raw = items.map((item) => {
+            const isLeaf = items.findIndex(r => r.parent === item.id) === -1;
+            return {
+                title: item.name,
+                key: item.id,
+                parent: item.parent,
+                id: item.id,
+                isLeaf: isLeaf
+            };
+        });
+
+        const treeData = treeify(raw, {
             parentProperty: 'parent',
             customID: 'id'
+        }) || [];
+
+
+        this.nodes = treeData.map(doc => {
+            this.expandKeys.push(doc.id);
+            return new NzTreeNode(doc);
         });
-        return tree;
     }
 
-    collapse(array, data, $event) {
-        if ($event === false) {
-            if (data.children) {
-                data.children.forEach(d => {
-                    const target = array.find(a => a.id === d.id);
-                    target.expand = false;
-                    this.collapse(array, target, false);
-                });
-            } else {
-                return;
-            }
-        }
-    }
 
-    convertTreeToList(root) {
-        const stack = [], array = [], hashMap = {};
-        stack.push({ ...root, level: 0, expand: true });
+    treeNodeClick(name: string, e: any) {
+        if (e.node.key === this.selectedItem.key) {
 
-        while (stack.length !== 0) {
-            const node = stack.pop();
-            this.visitNode(node, hashMap, array);
-            if (node.children) {
-                for (let i = node.children.length - 1; i >= 0; i--) {
-                    stack.push({ ...node.children[i], level: node.level + 1, expand: false, parent: node });
-                }
-            }
-        }
-
-        return array;
-    }
-
-    visitNode(node, hashMap, array) {
-        if (!hashMap[node.id]) {
-            hashMap[node.id] = true;
-            array.push(node);
-        }
-    }
-
-    checkAll(value) {
-        if (value) {
-            this.treeData.forEach(data => data.checked = true);
         } else {
-            this.treeData.forEach(data => data.checked = false);
+            this.selectedItem = e.node;
+
+            this.coreService.menuGet(e.node.key).subscribe((res) => {
+                this.formData = res;
+            });
+
+            this.accountQueryParams.group = this.selectedItem.key;
         }
     }
 
+    selectNode(name: string, e: any): void {
+        if (name === 'contextmenu') {
 
+        }
+    }
 
+    formChanged() {
+
+    }
+
+    onFormError(errors) {
+
+    }
+
+    removeMenu(item) {
+        super.remove({
+            id: item.key
+        });
+    }
+
+    reload() {
+        this.selectedItem = {};
+        this.loadMenuTree();
+    }
 
 }

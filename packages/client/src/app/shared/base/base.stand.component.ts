@@ -104,7 +104,6 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
         };
 
         const modelData = await this.client.get(`api/${this.domain}/` + entry.id).toPromise();
-
         this.modalHelper
             .static(BaseDetailComponent, {
                 schema: this.formSets.edit,
@@ -115,7 +114,7 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
             }, 'lg',
                 params
             ).subscribe(() => {
-                this.load();
+                this.reload();
             });
     }
 
@@ -144,7 +143,7 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
                     self.client.delete(`api/${self.domain}/${entry.id}`).subscribe((item) => {
                         if (item) {
                             self.msg.info('删除成功');
-                            self.load();
+                            self.reload();
                         }
                     });
                 },
@@ -155,7 +154,7 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
             self.client.delete(`api/${self.domain}/${entry.id}`).subscribe((item) => {
                 if (item) {
                     self.msg.info('删除成功');
-                    self.load();
+                    self.reload();
                 }
             });
         }

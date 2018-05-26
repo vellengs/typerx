@@ -15,7 +15,6 @@ import { SimpleTableColumn } from '@delon/abc';
 })
 export class AccountsPageComponent extends BaseStandComponent implements OnInit {
 
-    url;
     @Input() domain = 'group';
     @ViewChild('accountList') accounts: BaseStandComponent;
 
@@ -64,7 +63,7 @@ export class AccountsPageComponent extends BaseStandComponent implements OnInit 
     }
 
     async ngOnInit() {
-        this.url = `api/${this.domain}/query`;
+
         this.onConfigChanged.subscribe(() => {
 
         });
@@ -101,8 +100,8 @@ export class AccountsPageComponent extends BaseStandComponent implements OnInit 
 
     treeNodeClick(name: string, e: any) {
         if (e.node.key === this.selectedItem.key) {
-            this.selectedItem = {};
-            this.accountQueryParams = {};
+            // this.selectedItem = {};
+            // this.accountQueryParams = {};
         } else {
             this.selectedItem = e.node;
             this.accountQueryParams.group = this.selectedItem.key;
@@ -114,7 +113,7 @@ export class AccountsPageComponent extends BaseStandComponent implements OnInit 
 
     selectNode(name: string, e: any): void {
         if (name === 'contextmenu') {
-            console.log('test ..', e);
+
         }
     }
 

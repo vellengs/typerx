@@ -15,7 +15,7 @@ import { AccountResponse } from './accountResponse';
 /**
  * 
  */
-export interface PaginateResponseArray {
+export interface PaginateAccount {
     error?: Error;
     /**
      * 

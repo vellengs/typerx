@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { NzMessageService, NzModalService, UploadFile } from 'ng-zorro-antd';
-import { Component, OnInit, Injector, Input } from '@angular/core';
+import { Component, OnInit, Injector, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { _HttpClient } from '@delon/theme';
@@ -18,6 +18,9 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
     @Input() domain = 'role';
     title = '权限管理';
     selectedItem = {};
+    mainQueryParams = {};
+    @ViewChild('accountList') accounts: BaseStandComponent;
+
     constructor(injector: Injector) {
         super(injector);
     }
@@ -39,6 +42,9 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
 
     select(item) {
         this.selectedItem = item;
+        if (this.accounts) {
+            this.accounts.load();
+        }
     }
 
 }

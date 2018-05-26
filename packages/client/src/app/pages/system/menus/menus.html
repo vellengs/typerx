@@ -1,47 +1,45 @@
 <page-header [title]="title"></page-header>
 
-<nz-card>
-    <div class="mb-md">
-        <sf *ngIf="formSets" [mode]="'search'" [layout]="'inline'" [schema]="formSets.query" (formSubmit)="query($event)"></sf>
-    </div>
-    <div class="mb-md">
-        <button class="mr-sm" type="button" nz-button [nzType]="'primary'" (click)="add()">
-            <i class="anticon anticon-plus"></i>新增
-        </button>
-    </div>
 
-    <nz-table #nzTable [nzData]="treeData">
-        <thead>
-            <tr>
-                <th [nzWidth]="'40%'">
-                    <span>名称</span>
-                </th>
-                <th [nzWidth]="'30%'">
-                    <span>链接</span>
-                </th>
-                <th>
-                    <span>标识</span>
-                </th>
-                <th style="width:60px">
-                    <span>操作</span>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <ng-template ngFor let-data [ngForOf]="nzTable.data">
-                <ng-template ngFor let-item [ngForOf]="expandDataCache[data.id]">
-                    <tr *ngIf="(item.parent&&item.parent.expand)||!(item.parent)">
-                        <td [nzIndentSize]="item.level*20" [nzShowExpand]="!!item.children" [(nzExpand)]="item.expand" (nzExpandChange)="collapse(expandDataCache[data.id],item,$event)">
-                            <a (click)="edit(item)"> {{item.name}} </a>
-                        </td>
-                        <td>{{item.link}}</td>
-                        <td>{{item.slug}}</td>
-                        <td>
-                            <a (click)="remove(item)">删除</a>
-                        </td>
-                    </tr>
-                </ng-template>
+<nz-row [nzGutter]="24" class="py-lg">
+    <nz-col [nzSpan]="8">
+
+        <nz-card nzTitle="菜单树" [nzExtra]="groupTpl">
+
+            <nz-input-group [nzSuffix]="suffixIcon">
+                <input type="text" nz-input placeholder="搜索菜单" [(ngModel)]="searchValue">
+            </nz-input-group>
+            <ng-template #suffixIcon>
+                <i class="anticon anticon-search"></i>
             </ng-template>
-        </tbody>
-    </nz-table>
-</nz-card>
+
+            <nz-tree [nzSearchValue]="searchValue" [(ngModel)]="nodes" [nzShowLine]="true" [nzDefaultExpandedKeys]="expandKeys" (nzExpandChange)="selectNode('expand',$event)"
+                (nzContextMenu)="selectNode('contextmenu', $event)" (nzClick)="treeNodeClick('click',$event)">
+            </nz-tree>
+
+            <ng-template #groupTpl>
+                <a (click)="add()">
+                    <i class="anticon anticon-plus"></i>
+                    新建菜单</a>
+            </ng-template>
+        </nz-card>
+    </nz-col>
+    <nz-col [nzSpan]="16">
+        <nz-card *ngIf="selectedItem.title" [nzTitle]="selectedItem.title" [nzExtra]="accountTpl">
+
+            <sf #sf *ngIf="detailSchema" [formData]="formData" (formChange)="formChanged($event)" [mode]="'edit'" [layout]="'inline'"
+                (formError)="onFormError($event)" [schema]="detailSchema" (formSubmit)="submit($event)">
+                <div class="modal-footer">
+                    <button nz-button type="button" (click)="sf.reset()">重置</button>
+                    <button nz-button type="submit" [nzType]="'primary'" (click)="save(sf.value)" [disabled]="!sf.valid" [nzLoading]="client.loading">保存</button>
+                </div>
+            </sf>
+
+            <ng-template #accountTpl>
+                <a (click)="removeMenu(selectedItem)">
+                    删除</a>
+            </ng-template>
+
+        </nz-card>
+    </nz-col>
+</nz-row>

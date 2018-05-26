@@ -65,7 +65,7 @@ export class BaseDetailComponent extends BaseComponent implements OnInit, AfterV
     }
 
     onFormError(errors) {
-        
+
     }
 
     async save(value) {

@@ -39,7 +39,13 @@ import { KeyValue } from '../model/keyValue';
 import { LogResponse } from '../model/logResponse';
 import { LoginDto } from '../model/loginDto';
 import { MenuResponse } from '../model/menuResponse';
-import { PaginateResponseArray } from '../model/paginateResponseArray';
+import { PaginateAccount } from '../model/paginateAccount';
+import { PaginateDict } from '../model/paginateDict';
+import { PaginateGroup } from '../model/paginateGroup';
+import { PaginateLog } from '../model/paginateLog';
+import { PaginateMenu } from '../model/paginateMenu';
+import { PaginateRole } from '../model/paginateRole';
+import { PaginateSetting } from '../model/paginateSetting';
 import { ProfileResponse } from '../model/profileResponse';
 import { RoleResponse } from '../model/roleResponse';
 import { SettingResponse } from '../model/settingResponse';
@@ -297,9 +303,9 @@ export class CoreService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public accountQuery(keyword?: string, group?: string, role?: string, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginateResponseArray>;
-    public accountQuery(keyword?: string, group?: string, role?: string, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginateResponseArray>>;
-    public accountQuery(keyword?: string, group?: string, role?: string, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginateResponseArray>>;
+    public accountQuery(keyword?: string, group?: string, role?: string, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginateAccount>;
+    public accountQuery(keyword?: string, group?: string, role?: string, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginateAccount>>;
+    public accountQuery(keyword?: string, group?: string, role?: string, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginateAccount>>;
     public accountQuery(keyword?: string, group?: string, role?: string, page?: number, size?: number, sort?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
@@ -337,7 +343,7 @@ export class CoreService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<PaginateResponseArray>(`${this.basePath}/api/account/query`,
+        return this.httpClient.get<PaginateAccount>(`${this.basePath}/api/account/query`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -567,9 +573,9 @@ export class CoreService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public dictQuery(keyword?: string, category?: string, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginateResponseArray>;
-    public dictQuery(keyword?: string, category?: string, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginateResponseArray>>;
-    public dictQuery(keyword?: string, category?: string, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginateResponseArray>>;
+    public dictQuery(keyword?: string, category?: string, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginateDict>;
+    public dictQuery(keyword?: string, category?: string, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginateDict>>;
+    public dictQuery(keyword?: string, category?: string, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginateDict>>;
     public dictQuery(keyword?: string, category?: string, page?: number, size?: number, sort?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
@@ -604,7 +610,7 @@ export class CoreService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<PaginateResponseArray>(`${this.basePath}/api/dict/query`,
+        return this.httpClient.get<PaginateDict>(`${this.basePath}/api/dict/query`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -660,13 +666,14 @@ export class CoreService {
      * 搜索字典表
      * @param keyword 关键词
      * @param value 键
+     * @param category 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public dictSearch(keyword?: string, value?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<KeyValue>>;
-    public dictSearch(keyword?: string, value?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<KeyValue>>>;
-    public dictSearch(keyword?: string, value?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<KeyValue>>>;
-    public dictSearch(keyword?: string, value?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public dictSearch(keyword?: string, value?: string, category?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<KeyValue>>;
+    public dictSearch(keyword?: string, value?: string, category?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<KeyValue>>>;
+    public dictSearch(keyword?: string, value?: string, category?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<KeyValue>>>;
+    public dictSearch(keyword?: string, value?: string, category?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (keyword !== undefined) {
@@ -674,6 +681,9 @@ export class CoreService {
         }
         if (value !== undefined) {
             queryParameters = queryParameters.set('value', <any>value);
+        }
+        if (category !== undefined) {
+            queryParameters = queryParameters.set('category', <any>category);
         }
 
         let headers = this.defaultHeaders;
@@ -881,9 +891,9 @@ export class CoreService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public groupQuery(keyword?: string, isGroup?: boolean, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginateResponseArray>;
-    public groupQuery(keyword?: string, isGroup?: boolean, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginateResponseArray>>;
-    public groupQuery(keyword?: string, isGroup?: boolean, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginateResponseArray>>;
+    public groupQuery(keyword?: string, isGroup?: boolean, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginateGroup>;
+    public groupQuery(keyword?: string, isGroup?: boolean, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginateGroup>>;
+    public groupQuery(keyword?: string, isGroup?: boolean, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginateGroup>>;
     public groupQuery(keyword?: string, isGroup?: boolean, page?: number, size?: number, sort?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
@@ -918,7 +928,7 @@ export class CoreService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<PaginateResponseArray>(`${this.basePath}/api/group/query`,
+        return this.httpClient.get<PaginateGroup>(`${this.basePath}/api/group/query`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -1148,9 +1158,9 @@ export class CoreService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public logQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginateResponseArray>;
-    public logQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginateResponseArray>>;
-    public logQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginateResponseArray>>;
+    public logQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginateLog>;
+    public logQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginateLog>>;
+    public logQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginateLog>>;
     public logQuery(keyword?: string, page?: number, size?: number, sort?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
@@ -1182,7 +1192,7 @@ export class CoreService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<PaginateResponseArray>(`${this.basePath}/api/log/query`,
+        return this.httpClient.get<PaginateLog>(`${this.basePath}/api/log/query`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -1373,9 +1383,9 @@ export class CoreService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public menuQuery(keyword?: string, isMenu?: boolean, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginateResponseArray>;
-    public menuQuery(keyword?: string, isMenu?: boolean, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginateResponseArray>>;
-    public menuQuery(keyword?: string, isMenu?: boolean, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginateResponseArray>>;
+    public menuQuery(keyword?: string, isMenu?: boolean, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginateMenu>;
+    public menuQuery(keyword?: string, isMenu?: boolean, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginateMenu>>;
+    public menuQuery(keyword?: string, isMenu?: boolean, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginateMenu>>;
     public menuQuery(keyword?: string, isMenu?: boolean, page?: number, size?: number, sort?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
@@ -1410,7 +1420,7 @@ export class CoreService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<PaginateResponseArray>(`${this.basePath}/api/menu/query`,
+        return this.httpClient.get<PaginateMenu>(`${this.basePath}/api/menu/query`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -1686,9 +1696,9 @@ export class CoreService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public roleQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginateResponseArray>;
-    public roleQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginateResponseArray>>;
-    public roleQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginateResponseArray>>;
+    public roleQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginateRole>;
+    public roleQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginateRole>>;
+    public roleQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginateRole>>;
     public roleQuery(keyword?: string, page?: number, size?: number, sort?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
@@ -1720,7 +1730,7 @@ export class CoreService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<PaginateResponseArray>(`${this.basePath}/api/role/query`,
+        return this.httpClient.get<PaginateRole>(`${this.basePath}/api/role/query`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -2079,9 +2089,9 @@ export class CoreService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public settingQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginateResponseArray>;
-    public settingQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginateResponseArray>>;
-    public settingQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginateResponseArray>>;
+    public settingQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginateSetting>;
+    public settingQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginateSetting>>;
+    public settingQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginateSetting>>;
     public settingQuery(keyword?: string, page?: number, size?: number, sort?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
@@ -2113,7 +2123,7 @@ export class CoreService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<PaginateResponseArray>(`${this.basePath}/api/setting/query`,
+        return this.httpClient.get<PaginateSetting>(`${this.basePath}/api/setting/query`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
