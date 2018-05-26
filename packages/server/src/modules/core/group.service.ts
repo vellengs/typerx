@@ -1,6 +1,6 @@
 
 
-import { Appearance, PaginateResponse } from '../../types/appearance';
+import { Appearance } from '../../types/appearance';
 import { ServiceContext, Errors } from 'typescript-rest';
 import { Group } from './interfaces/Group.interface';
 import { CoreDatabase as Db } from './core.database';
@@ -8,6 +8,7 @@ import {
   GroupResponse,
   EditGroupDto,
   CreateGroupDto,
+  PaginateGroup,
 } from './dto/group.dto';
 import { appearance } from './appearance/group.appearance';
 import { Document, Types } from 'mongoose';
@@ -48,7 +49,7 @@ export class GroupService {
     page?: number,
     size?: number,
     sort?: string
-  ): Promise<PaginateResponse<Array<GroupResponse>>> {
+  ): Promise<PaginateGroup> {
     const query: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
 
     if (isGroup)

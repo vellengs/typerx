@@ -11,10 +11,10 @@ import {
 } from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
 import { MenuService } from './menu.service';
-import { Appearance, PaginateResponse } from '../../types/appearance';
-import { MenuResponse, CreateMenuDto, EditMenuDto } from './dto/menu.dto';
+import { Appearance } from '../../types/appearance';
+import { MenuResponse, CreateMenuDto, EditMenuDto, PaginateMenu } from './dto/menu.dto';
 import { KeyValue } from '../../types/data.types';
- 
+
 /**
  * 菜单接口.
  */
@@ -83,7 +83,7 @@ export class MenuController {
     @QueryParam('page') page?: number,
     @QueryParam('size') size?: number,
     @QueryParam('sort') sort?: string
-  ): Promise<PaginateResponse<Array<MenuResponse>>> {
+  ): Promise<PaginateMenu> {
     return this.service.query(keyword, isMenu, page, size, sort);
   }
 

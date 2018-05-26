@@ -1,4 +1,4 @@
-import { Appearance, PaginateResponse } from '../../types/appearance';
+import { Appearance } from '../../types/appearance';
 import { ServiceContext, Errors } from 'typescript-rest';
 import { Account } from './interfaces/account.interface';
 import { CoreDatabase as Db } from './core.database';
@@ -7,7 +7,7 @@ import { Request, Response, NextFunction } from 'express';
 import { pick } from 'lodash';
 import { Dict } from './interfaces/dict.interface';
 import { Document } from 'mongoose';
-import { DictResponse, CreateDictDto, EditDictDto, DictResponseFields as fields } from './dto/dict.dto';
+import { DictResponse, CreateDictDto, EditDictDto, DictResponseFields as fields, PaginateDict } from './dto/dict.dto';
 import { appearance } from './appearance/dict.appearance';
 import { Repository } from '../../database/repository';
 import { KeyValue } from '../../types/data.types';
@@ -42,7 +42,7 @@ export class DictService {
     page?: number,
     size?: number,
     sort?: string
-  ): Promise<PaginateResponse<Array<DictResponse>>> {
+  ): Promise<PaginateDict> {
     page = page > 0 ? page : 0 || 1;
     const condition: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
     if (category) {

@@ -1,4 +1,4 @@
-import { Appearance, PaginateResponse } from '../../types/appearance';
+import { Appearance } from '../../types/appearance';
 import { ServiceContext, Errors } from 'typescript-rest';
 import { Menu } from './interfaces/Menu.interface';
 import { CoreDatabase as Db } from './core.database';
@@ -6,6 +6,7 @@ import {
   MenuResponse,
   EditMenuDto,
   CreateMenuDto,
+  PaginateMenu,
 } from './dto/menu.dto';
 import { appearance } from './appearance/menu.appearance';
 import { Document, Types } from 'mongoose';
@@ -46,12 +47,11 @@ export class MenuService {
     page?: number,
     size?: number,
     sort?: string
-  ): Promise<PaginateResponse<Array<MenuResponse>>> {
+  ): Promise<PaginateMenu> {
     const query: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
 
     if (isMenu)
       query.isMenu = true;
-
 
     const docs: any = await Db.Menu.find(query).sort(sort).skip(page * size).limit(size).exec() || [];
     const count = await Db.Menu.find(query).count();

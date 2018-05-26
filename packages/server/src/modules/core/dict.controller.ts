@@ -17,9 +17,9 @@ import {
   LoginResponse,
   ProfileResponse,
 } from './dto/login.dto';
-import { PaginateResponse, Appearance } from '../../types/appearance';
+import { Appearance } from '../../types/appearance';
 import { DictService } from './dict.service';
-import { DictResponse, CreateDictDto, EditDictDto } from './dto/dict.dto';
+import { DictResponse, CreateDictDto, EditDictDto, PaginateDict } from './dto/dict.dto';
 import { KeyValue } from '../../types/data.types';
 
 /**
@@ -89,7 +89,7 @@ export class DictController {
     @QueryParam('category') category?: string,
     @QueryParam('page') page?: number,
     @QueryParam('size') size?: number,
-    @QueryParam('sort') sort?: string): Promise<PaginateResponse<Array<DictResponse>>> {
+    @QueryParam('sort') sort?: string): Promise<PaginateDict> {
     return this.service.query(keyword, category, page, size, sort);
   }
 

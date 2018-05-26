@@ -12,7 +12,7 @@
 		"noImplicitThis": false,
 		"noUnusedParameters": false,
 		"noUnusedLocals": false,
-		"outDir": "./../../dist/server",
+		"outDir": "./dist",
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strictNullChecks": false,
@@ -25,6 +25,7 @@
 		"./src/**/*.ts"
 	],
 	"exclude": [
-		"node_modules"
+		"node_modules",
+		"./dist/**/*"
 	]
 }

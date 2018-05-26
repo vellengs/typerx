@@ -1,4 +1,4 @@
-import { Appearance, PaginateResponse } from '../../types/appearance';
+import { Appearance } from '../../types/appearance';
 import { ServiceContext, Errors } from 'typescript-rest';
 import { Account } from './interfaces/account.interface';
 import { CoreDatabase as Db } from './core.database';
@@ -6,7 +6,7 @@ import { CoreDatabase as Db } from './core.database';
 import { Request, Response, NextFunction } from 'express';
 import { pick } from 'lodash';
 import { Setting } from './interfaces/setting.interface';
-import { SettingResponse, CreateSettingDto, EditSettingDto } from './dto/setting.dto';
+import { SettingResponse, CreateSettingDto, EditSettingDto, PaginateSetting } from './dto/setting.dto';
 import { Helper } from '../../util/helper';
 import { Document } from 'mongoose';
 import { KeyValue } from '../../types/data.types';
@@ -81,7 +81,7 @@ export class SettingService {
     page?: number,
     size?: number,
     sort?: string
-  ): Promise<PaginateResponse<Array<SettingResponse>>> {
+  ): Promise<PaginateSetting> {
     page = page > 0 ? page : 0 || 1;
     const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
 

@@ -52,3 +52,10 @@ export class MenuResponse {
   parent?: string | Menu;
   isMenu: boolean;
 }
+
+
+export declare interface PaginateMenu {
+  error?: Error;
+  list: Array<MenuResponse>;
+  total: number;
+}

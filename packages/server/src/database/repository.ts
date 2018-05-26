@@ -1,7 +1,6 @@
 
 import { Model, Document, Types, DocumentQuery, Query, Connection } from 'mongoose';
 import { pick, PartialDeep, groupBy } from 'lodash';
-import { PaginateResponse } from '../types/appearance';
 import { KeyValue } from '../types/data.types';
 const treeify = require('array-to-tree');
 
@@ -80,9 +79,11 @@ export class Repository {
             const conditions: any = {};
             conditions[valueField] = id;
             const selected = await model.findOne(conditions).select(fields);
-            const found = docs.findIndex((doc: any) => doc[valueField] == id);
-            if (found === -1) {
-                docs.push(selected);
+            if (selected) {
+                const found = docs.findIndex((doc: any) => doc[valueField] == id);
+                if (found === -1) {
+                    docs.push(selected);
+                }
             }
         }
 

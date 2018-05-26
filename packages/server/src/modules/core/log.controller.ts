@@ -17,10 +17,10 @@ import {
   LoginResponse,
   ProfileResponse,
 } from './dto/login.dto';
-import { PaginateResponse, Appearance } from '../../types/appearance';
+import { Appearance } from '../../types/appearance';
 import { KeyValue } from '../../types/data.types';
 import { LogService } from './log.service';
-import { LogResponse } from './dto/log.dto';
+import { LogResponse, PaginateLog } from './dto/log.dto';
 
 /**
  * 系统日志.
@@ -66,7 +66,7 @@ export class LogController {
     @QueryParam('keyword') keyword?: string,
     @QueryParam('page') page?: number,
     @QueryParam('size') size?: number,
-    @QueryParam('sort') sort?: string): Promise<PaginateResponse<Array<LogResponse>>> {
+    @QueryParam('sort') sort?: string): Promise<PaginateLog> {
     return this.service.query(keyword, page, size, sort);
   }
 

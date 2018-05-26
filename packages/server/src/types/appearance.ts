@@ -1,4 +1,5 @@
 import { SFSchema } from "./schema.types";
+import { AccountResponse } from "../modules/core/dto/account.dto";
 
 export class Appearance {
     columnSets: ColumnSets;
@@ -113,9 +114,8 @@ export declare class Error {
     [key: string]: any;
 }
 
-
-export declare class PaginateResponse<T> {
-    error?: Error;
-    list: T;
-    total: number;
-}
+// export declare interface PaginateResponse<T> {
+//     error?: Error;
+//     list: any;
+//     total: number;
+// }

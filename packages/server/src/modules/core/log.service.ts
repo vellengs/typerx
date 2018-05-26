@@ -1,8 +1,8 @@
-import { Appearance, PaginateResponse } from '../../types/appearance';
+import { Appearance } from '../../types/appearance';
 import { ServiceContext, Errors } from 'typescript-rest';
 import { Account } from './interfaces/account.interface';
 import { CoreDatabase as Db } from './core.database';
-import { LogResponseFields as fields, LogResponse, CreateLogDto } from './dto/log.dto';
+import { LogResponseFields as fields, LogResponse, CreateLogDto, PaginateLog } from './dto/log.dto';
 import { appearance } from './appearance/log.appearance';
 import { Log } from './interfaces/log.interface';
 import { Document } from 'mongoose';
@@ -26,7 +26,7 @@ export class LogService {
     page?: number,
     size?: number,
     sort?: string
-  ): Promise<PaginateResponse<Array<LogResponse>>> {
+  ): Promise<PaginateLog> {
     page = page > 0 ? page : 0 || 1;
     const condition = keyword ? { name: new RegExp(keyword, 'i') } : {};
     const query = Db.Log.find(condition).sort(sort);

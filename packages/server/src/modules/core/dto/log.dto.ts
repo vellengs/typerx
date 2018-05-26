@@ -25,3 +25,10 @@ export const LogResponseFields = [
   'comment',
   'createdAt'
 ];
+
+
+export declare interface PaginateLog {
+  error?: Error;
+  list: Array<LogResponse>;
+  total: number;
+}

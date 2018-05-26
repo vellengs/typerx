@@ -17,9 +17,9 @@ import {
   LoginResponse,
   ProfileResponse,
 } from './dto/login.dto';
-import { PaginateResponse, Appearance } from '../../types/appearance';
+import { Appearance } from '../../types/appearance';
 import { KeyValue } from '../../types/data.types';
-import { CreateRoleDto, RoleResponse, EditRoleDto } from './dto/role.dto';
+import { CreateRoleDto, RoleResponse, EditRoleDto, PaginateRole } from './dto/role.dto';
 import { RoleService } from './role.service';
 
 /**
@@ -86,7 +86,7 @@ export class RoleController {
     @QueryParam('keyword') keyword?: string,
     @QueryParam('page') page?: number,
     @QueryParam('size') size?: number,
-    @QueryParam('sort') sort?: string): Promise<PaginateResponse<Array<RoleResponse>>> {
+    @QueryParam('sort') sort?: string): Promise<PaginateRole> {
     return this.service.query(keyword, page, size, sort);
   }
 

@@ -18,8 +18,8 @@ import {
   ProfileResponse,
 } from './dto/login.dto';
 import { SettingService } from './setting.service';
-import { SettingResponse, CreateSettingDto, EditSettingDto } from './dto/setting.dto';
-import { PaginateResponse, Appearance } from '../../types/appearance';
+import { SettingResponse, CreateSettingDto, EditSettingDto, PaginateSetting } from './dto/setting.dto';
+import { Appearance } from '../../types/appearance';
 
 /**
  * 设置管理接口.
@@ -38,7 +38,7 @@ export class SettingController {
   async getConfig(): Promise<Appearance> {
     return this.service.getAppearance();
   }
- 
+
   /**
    * 获取设置项
    * @param keys 设置项key的集合
@@ -103,7 +103,7 @@ export class SettingController {
     @QueryParam('keyword') keyword?: string,
     @QueryParam('page') page?: number,
     @QueryParam('size') size?: number,
-    @QueryParam('sort') sort?: string): Promise<PaginateResponse<Array<SettingResponse>>> {
+    @QueryParam('sort') sort?: string): Promise<PaginateSetting> {
     return this.service.query(keyword, page, size, sort);
   }
 

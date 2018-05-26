@@ -412,7 +412,7 @@
 				"message"
 			]
 		},
-		"PaginateResponseArray": {
+		"PaginateAccount": {
 			"description": "",
 			"properties": {
 				"error": {
@@ -822,6 +822,31 @@
 				"isMenu"
 			]
 		},
+		"PaginateMenu": {
+			"description": "",
+			"properties": {
+				"error": {
+					"$ref": "#/definitions/Error"
+				},
+				"list": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/MenuResponse"
+					},
+					"description": ""
+				},
+				"total": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"list",
+				"total"
+			]
+		},
 		"SettingResponse": {
 			"description": "",
 			"properties": {
@@ -914,6 +939,31 @@
 				"key",
 				"value",
 				"description"
+			]
+		},
+		"PaginateSetting": {
+			"description": "",
+			"properties": {
+				"error": {
+					"$ref": "#/definitions/Error"
+				},
+				"list": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/SettingResponse"
+					},
+					"description": ""
+				},
+				"total": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"list",
+				"total"
 			]
 		},
 		"Object": {
@@ -1019,6 +1069,31 @@
 				"expand"
 			]
 		},
+		"PaginateDict": {
+			"description": "",
+			"properties": {
+				"error": {
+					"$ref": "#/definitions/Error"
+				},
+				"list": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/DictResponse"
+					},
+					"description": ""
+				},
+				"total": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"list",
+				"total"
+			]
+		},
 		"RoleResponse": {
 			"description": "",
 			"properties": {
@@ -1107,6 +1182,31 @@
 				"permissions"
 			]
 		},
+		"PaginateRole": {
+			"description": "",
+			"properties": {
+				"error": {
+					"$ref": "#/definitions/Error"
+				},
+				"list": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/RoleResponse"
+					},
+					"description": ""
+				},
+				"total": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"list",
+				"total"
+			]
+		},
 		"LogResponse": {
 			"description": "",
 			"properties": {
@@ -1149,6 +1249,31 @@
 				"operation",
 				"comment",
 				"createdAt"
+			]
+		},
+		"PaginateLog": {
+			"description": "",
+			"properties": {
+				"error": {
+					"$ref": "#/definitions/Error"
+				},
+				"list": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/LogResponse"
+					},
+					"description": ""
+				},
+				"total": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"list",
+				"total"
 			]
 		},
 		"GroupResponse": {
@@ -1313,6 +1438,31 @@
 				"name",
 				"order"
 			]
+		},
+		"PaginateGroup": {
+			"description": "",
+			"properties": {
+				"error": {
+					"$ref": "#/definitions/Error"
+				},
+				"list": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/GroupResponse"
+					},
+					"description": ""
+				},
+				"total": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"list",
+				"total"
+			]
 		}
 	},
 	"info": {
@@ -1460,7 +1610,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/PaginateResponseArray"
+							"$ref": "#/definitions/PaginateAccount"
 						}
 					}
 				},
@@ -1818,7 +1968,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/PaginateResponseArray"
+							"$ref": "#/definitions/PaginateMenu"
 						}
 					}
 				},
@@ -2120,7 +2270,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/PaginateResponseArray"
+							"$ref": "#/definitions/PaginateSetting"
 						}
 					}
 				},
@@ -2274,6 +2424,13 @@
 						"name": "value",
 						"required": false,
 						"type": "string"
+					},
+					{
+						"description": "",
+						"in": "query",
+						"name": "category",
+						"required": false,
+						"type": "string"
 					}
 				]
 			}
@@ -2354,7 +2511,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/PaginateResponseArray"
+							"$ref": "#/definitions/PaginateDict"
 						}
 					}
 				},
@@ -2595,7 +2752,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/PaginateResponseArray"
+							"$ref": "#/definitions/PaginateRole"
 						}
 					}
 				},
@@ -2763,7 +2920,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/PaginateResponseArray"
+							"$ref": "#/definitions/PaginateLog"
 						}
 					}
 				},
@@ -2970,7 +3127,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/PaginateResponseArray"
+							"$ref": "#/definitions/PaginateGroup"
 						}
 					}
 				},

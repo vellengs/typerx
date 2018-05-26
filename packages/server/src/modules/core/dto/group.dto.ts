@@ -48,3 +48,10 @@ export const GroupResponseFields = [
   'isRegion',
   'description'
 ];
+
+
+export declare interface PaginateGroup {
+  error?: Error;
+  list: Array<GroupResponse>;
+  total: number;
+}

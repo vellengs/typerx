@@ -11,8 +11,8 @@ import {
   } from 'typescript-rest';
   import { Tags } from 'typescript-rest-swagger';
   import { GroupService } from './group.service';
-  import { Appearance, PaginateResponse } from '../../types/appearance';
-  import { GroupResponse, CreateGroupDto, EditGroupDto } from './dto/group.dto';
+  import { Appearance } from '../../types/appearance';
+  import { GroupResponse, CreateGroupDto, EditGroupDto, PaginateGroup } from './dto/group.dto';
   import { KeyValue } from '../../types/data.types';
    
   /**
@@ -83,7 +83,7 @@ import {
       @QueryParam('page') page?: number,
       @QueryParam('size') size?: number,
       @QueryParam('sort') sort?: string
-    ): Promise<PaginateResponse<Array<GroupResponse>>> {
+    ): Promise<PaginateGroup> {
       return this.service.query(keyword, isGroup, page, size, sort);
     }
   

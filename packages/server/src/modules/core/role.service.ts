@@ -1,4 +1,4 @@
-import { Appearance, PaginateResponse } from '../../types/appearance';
+import { Appearance } from '../../types/appearance';
 import { ServiceContext, Errors } from 'typescript-rest';
 import { Account } from './interfaces/account.interface';
 import { CoreDatabase as Db } from './core.database';
@@ -6,7 +6,7 @@ import { CoreDatabase as Db } from './core.database';
 import { Request, Response, NextFunction } from 'express';
 import { pick } from 'lodash';
 import { Document } from 'mongoose';
-import { RoleResponse, CreateRoleDto, EditRoleDto, RoleResponseFields as fields } from './dto/role.dto';
+import { RoleResponse, CreateRoleDto, EditRoleDto, RoleResponseFields as fields, PaginateRole } from './dto/role.dto';
 import { Repository } from '../../database/repository';
 import { KeyValue } from '../../types/data.types';
 import { Role } from './interfaces/role.interface';
@@ -41,7 +41,7 @@ export class RoleService {
     page?: number,
     size?: number,
     sort?: string
-  ): Promise<PaginateResponse<Array<RoleResponse>>> {
+  ): Promise<PaginateRole> {
     page = page > 0 ? page : 0 || 1;
     const condition = keyword ? { name: new RegExp(keyword, 'i') } : {};
     const query = Db.Role.find(condition).sort(sort);

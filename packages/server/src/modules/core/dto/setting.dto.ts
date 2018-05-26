@@ -21,3 +21,8 @@ export class SettingResponse {
   description: string;
 }
 
+export declare interface PaginateSetting {
+  error?: Error;
+  list: Array<SettingResponse>;
+  total: number;
+}

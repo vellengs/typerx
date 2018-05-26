@@ -28,3 +28,9 @@ export const DictResponseFields = [
   'translate',
   'expand'
 ];
+
+export declare interface PaginateDict {
+  error?: Error;
+  list: Array<DictResponse>;
+  total: number;
+}

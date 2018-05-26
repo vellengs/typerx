@@ -67,3 +67,9 @@ export const AccountResponseFields = [
   'isApproved',
   'expired'
 ];
+
+export declare interface PaginateAccount {
+  error?: Error;
+  list: Array<AccountResponse>;
+  total: number;
+}

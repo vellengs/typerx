@@ -1,4 +1,4 @@
-import { Appearance, PaginateResponse } from '../../types/appearance';
+import { Appearance } from '../../types/appearance';
 import { ServiceContext, Errors } from 'typescript-rest';
 import { Account } from './interfaces/account.interface';
 import { CoreDatabase as Db } from './core.database';
@@ -8,6 +8,7 @@ import {
   EditAccountDto,
   SessionUser,
   CreateAccountDto,
+  PaginateAccount,
 } from './dto/account.dto';
 import { ProfileResponse } from './dto/login.dto';
 import { appearance } from './appearance/account.appearance';
@@ -21,7 +22,6 @@ export class AccountService {
   async getAppearance(): Promise<Appearance> {
     return appearance;
   }
-
 
   async search(keyword?: string, value?: string, limit: number = 10): Promise<Array<KeyValue>> {
     return Repository.search(Db.Account, keyword, value, '', limit, 'nick');
@@ -66,16 +66,11 @@ export class AccountService {
     page?: number,
     size?: number,
     sort?: string
-  ): Promise<PaginateResponse<Array<AccountResponse>>> {
+  ): Promise<PaginateAccount> {
     page = page > 0 ? page : 0 || 1;
 
     const condition: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
-
     if (group) {
-      // const groups = await Db.Group.find({
-      //   paths: { $in: [group] }
-      // }).select({ _id: 1 }).exec() || [];
-
       const ids = await Repository.deeplyFind(Db.Group, group);
       condition.groups = {
         $in: ids

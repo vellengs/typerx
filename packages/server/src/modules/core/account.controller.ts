@@ -11,7 +11,7 @@ import {
   Preprocessor,
 } from 'typescript-rest';
 import { Tags, Security } from 'typescript-rest-swagger';
-import { Appearance, PaginateResponse } from './../../types/appearance';
+import { Appearance } from './../../types/appearance';
 import { AccountService } from './account.service';
 import { Account } from './interfaces/account.interface';
 import { validator } from '../../util/validator';
@@ -19,6 +19,7 @@ import {
   CreateAccountDto,
   EditAccountDto,
   AccountResponse,
+  PaginateAccount,
 } from './dto/account.dto';
 import { ProfileResponse } from './dto/login.dto';
 import { KeyValue } from '../../types/data.types';
@@ -90,7 +91,7 @@ export class AccountController {
     @QueryParam('page') page?: number,
     @QueryParam('size') size?: number,
     @QueryParam('sort') sort?: string
-  ): Promise<PaginateResponse<Array<AccountResponse>>> {
+  ): Promise<PaginateAccount> {
     return this.service.query(keyword, group, role, page, size, sort);
   }
 
