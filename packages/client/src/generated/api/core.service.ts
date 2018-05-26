@@ -31,6 +31,7 @@ import { EditAccountDto } from '../model/editAccountDto';
 import { EditDictDto } from '../model/editDictDto';
 import { EditGroupDto } from '../model/editGroupDto';
 import { EditMenuDto } from '../model/editMenuDto';
+import { EditProfileDto } from '../model/editProfileDto';
 import { EditRoleDto } from '../model/editRoleDto';
 import { EditSettingDto } from '../model/editSettingDto';
 import { GroupResponse } from '../model/groupResponse';
@@ -559,20 +560,24 @@ export class CoreService {
      * 
      * 分页查询字典
      * @param keyword 关键词
+     * @param category 
      * @param page 第几页
      * @param size 页大小
      * @param sort 排序
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public dictQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginateResponseArray>;
-    public dictQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginateResponseArray>>;
-    public dictQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginateResponseArray>>;
-    public dictQuery(keyword?: string, page?: number, size?: number, sort?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public dictQuery(keyword?: string, category?: string, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginateResponseArray>;
+    public dictQuery(keyword?: string, category?: string, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginateResponseArray>>;
+    public dictQuery(keyword?: string, category?: string, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginateResponseArray>>;
+    public dictQuery(keyword?: string, category?: string, page?: number, size?: number, sort?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (keyword !== undefined) {
             queryParameters = queryParameters.set('keyword', <any>keyword);
+        }
+        if (category !== undefined) {
+            queryParameters = queryParameters.set('category', <any>category);
         }
         if (page !== undefined) {
             queryParameters = queryParameters.set('page', <any>page);
@@ -2325,6 +2330,52 @@ export class CoreService {
         ];
 
         return this.httpClient.get<boolean>(`${this.basePath}/user/logout`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 更新帐号
+     * @param entry 帐号信息
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public userUpdate(entry: EditProfileDto, observe?: 'body', reportProgress?: boolean): Observable<ProfileResponse>;
+    public userUpdate(entry: EditProfileDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ProfileResponse>>;
+    public userUpdate(entry: EditProfileDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ProfileResponse>>;
+    public userUpdate(entry: EditProfileDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (entry === null || entry === undefined) {
+            throw new Error('Required parameter entry was null or undefined when calling userUpdate.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+            'application/json'
+        ];
+        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set("Content-Type", httpContentTypeSelected);
+        }
+
+        return this.httpClient.put<ProfileResponse>(`${this.basePath}/user`,
+            entry,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

@@ -21,6 +21,7 @@ const typescript_rest_1 = require("typescript-rest");
 const typescript_rest_swagger_1 = require("typescript-rest-swagger");
 const login_dto_1 = require("./dto/login.dto");
 const user_service_1 = require("./user.service");
+const profile_dto_1 = require("./dto/profile.dto");
 /**
  * 系统接口.
  */
@@ -35,6 +36,15 @@ let UserController = class UserController {
     login(dto) {
         return __awaiter(this, void 0, void 0, function* () {
             return this.service.login(this.context, dto);
+        });
+    }
+    /**
+   * 更新帐号
+   * @param entry 帐号信息
+   */
+    update(entry) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.service.update(entry);
         });
     }
     /**
@@ -58,6 +68,12 @@ __decorate([
     __metadata("design:paramtypes", [login_dto_1.LoginDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "login", null);
+__decorate([
+    typescript_rest_1.PUT,
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [profile_dto_1.EditProfileDto]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "update", null);
 __decorate([
     typescript_rest_1.Path('logout'),
     typescript_rest_1.GET,

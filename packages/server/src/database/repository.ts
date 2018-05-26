@@ -9,7 +9,6 @@ const treeify = require('array-to-tree');
 export class Repository {
 
     static async remove(model: Model<Document>, id: string): Promise<any> {
-
         const ids = id.split(',');
         if (ids.length > 1) {
             return this.removeItems(model, ids);
@@ -19,7 +18,11 @@ export class Repository {
                     if (err) {
                         reject(err);
                     } else {
-                        resolve(true);
+                        if (res)
+                            resolve(true);
+                        else {
+                            resolve(false);
+                        }
                     }
                 });
             });
@@ -57,8 +60,8 @@ export class Repository {
     }
 
     static async search(model: Model<Document>,
-        keyword?: string, value?: string,
-        category = '', limit: number = 10, labelField = 'name'): Promise<Array<KeyValue>> {
+        keyword?: string, id?: string,
+        category = '', limit: number = 10, labelField = 'name', valueField = '_id'): Promise<Array<KeyValue>> {
         const query: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
 
         if (category) {
@@ -67,14 +70,17 @@ export class Repository {
 
         const fields: any = {};
         fields[labelField] = 1;
+        fields[valueField] = 1;
 
         const docs = await model.find(query).select(fields)
             .limit(limit)
             .exec() || [];
 
-        if (Types.ObjectId.isValid(value)) {
-            const selected = await model.findById(value).select(fields);
-            const found = docs.findIndex(doc => doc._id == value);
+        if (Types.ObjectId.isValid(id) || valueField !== '_id') {
+            const conditions: any = {};
+            conditions[valueField] = id;
+            const selected = await model.findOne(conditions).select(fields);
+            const found = docs.findIndex((doc: any) => doc[valueField] == id);
             if (found === -1) {
                 docs.push(selected);
             }
@@ -83,7 +89,7 @@ export class Repository {
         return docs.map((item: any) => {
             const result: KeyValue = {
                 label: item[labelField],
-                value: item._id
+                value: item[valueField]
             };
             return result;
         });

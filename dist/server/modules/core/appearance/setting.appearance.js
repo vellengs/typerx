@@ -8,10 +8,6 @@ const profile = {
             title: '昵称',
             type: appearance_1.SchemaTypes.string,
         },
-        type: {
-            title: '类型',
-            type: appearance_1.SchemaTypes.string
-        },
         email: {
             title: '邮箱',
             type: appearance_1.SchemaTypes.string
@@ -21,18 +17,33 @@ const profile = {
             pattern: '^1[0-9]{10}$',
             type: appearance_1.SchemaTypes.string
         },
-        address: {
-            title: '地址',
-            type: appearance_1.SchemaTypes.string
-        },
         siteUrl: {
             title: '网址',
-            type: appearance_1.SchemaTypes.string
+            type: appearance_1.SchemaTypes.string,
+            ui: {
+                grid: {
+                    span: 12
+                }
+            }
         },
         company: {
             title: '公司名称',
-            type: appearance_1.SchemaTypes.string
-        }
+            type: appearance_1.SchemaTypes.string,
+            ui: {
+                grid: {
+                    span: 12
+                }
+            }
+        },
+        address: {
+            title: '地址',
+            type: appearance_1.SchemaTypes.string,
+            ui: {
+                grid: {
+                    span: 24
+                }
+            }
+        },
     },
     required: ['nick', 'email', 'mobile'],
     ui: {
@@ -47,12 +58,26 @@ const sysSetting = {
     properties: {
         name: {
             title: '系统名称',
-            type: appearance_1.SchemaTypes.string,
+            type: appearance_1.SchemaTypes.string
         },
         logo: {
             title: '系统标志',
             type: appearance_1.SchemaTypes.string,
+            ui: {
+                widget: appearance_1.WidgetTypes.upload,
+                fileType: 'image/png,image/jpeg,image/gif,image/bmp',
+                listType: 'picture-card',
+                grid: {
+                    span: 24
+                }
+            },
         },
+    },
+    ui: {
+        spanLabelFixed: 100,
+        grid: {
+            span: 12
+        }
     }
 };
 exports.appearance = {

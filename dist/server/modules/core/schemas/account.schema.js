@@ -3,8 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const bcrypt = require("bcrypt-nodejs");
 exports.schema = new mongoose_1.Schema({
-    username: { type: mongoose_1.SchemaTypes.String, unique: true },
-    password: mongoose_1.SchemaTypes.String,
+    username: { type: mongoose_1.SchemaTypes.String, required: true, unique: true },
+    password: {
+        type: mongoose_1.SchemaTypes.String, required: true,
+    },
     avatar: mongoose_1.SchemaTypes.String,
     email: mongoose_1.SchemaTypes.String,
     nick: mongoose_1.SchemaTypes.String,
@@ -22,14 +24,23 @@ exports.schema = new mongoose_1.Schema({
             ref: 'Group',
         },
     ],
+    profile: [
+        {
+            type: mongoose_1.SchemaTypes.ObjectId,
+            ref: 'Profile',
+        },
+    ],
     isDisable: {
         type: mongoose_1.SchemaTypes.Boolean,
+        default: false,
     },
     isAdmin: {
         type: mongoose_1.SchemaTypes.Boolean,
+        default: false,
     },
     isApproved: {
         type: mongoose_1.SchemaTypes.Boolean,
+        default: false,
     },
     expired: {
         type: mongoose_1.SchemaTypes.Date,

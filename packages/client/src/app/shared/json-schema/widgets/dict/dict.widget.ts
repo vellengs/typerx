@@ -7,7 +7,7 @@ import { delay } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-    selector: 'sf-search',
+    selector: 'sf-dict',
     template:
         `<sf-item-wrap [id]="id" [schema]="schema" [ui]="ui" [showError]="showError" [error]="error" [showTitle]="schema.title">
     <nz-select

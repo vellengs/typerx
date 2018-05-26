@@ -37,10 +37,13 @@ class DictService {
             return this.pure(result);
         });
     }
-    query(keyword, page, size, sort) {
+    query(keyword, category, page, size, sort) {
         return __awaiter(this, void 0, void 0, function* () {
             page = page > 0 ? page : 0 || 1;
             const condition = keyword ? { name: new RegExp(keyword, 'i') } : {};
+            if (category) {
+                condition.category = category;
+            }
             const query = core_database_1.CoreDatabase.Dict.find(condition).sort(sort);
             const collection = core_database_1.CoreDatabase.Dict.find(condition);
             const result = repository_1.Repository.query(query, collection, page, size, dict_dto_1.DictResponseFields);

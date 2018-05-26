@@ -49,10 +49,12 @@ export class DictController {
    */
   @Path('search')
   @GET
-  async search(@QueryParam('keyword') keyword?: string,
+  async search(
+    @QueryParam('keyword') keyword?: string,
     @QueryParam('value') value?: string,
+    @QueryParam('category') category?: string,
   ): Promise<Array<KeyValue>> {
-    return this.service.search(keyword, value);
+    return this.service.search(keyword, value, category);
   }
 
   /**
@@ -84,10 +86,11 @@ export class DictController {
   @GET
   async query(
     @QueryParam('keyword') keyword?: string,
+    @QueryParam('category') category?: string,
     @QueryParam('page') page?: number,
     @QueryParam('size') size?: number,
     @QueryParam('sort') sort?: string): Promise<PaginateResponse<Array<DictResponse>>> {
-    return this.service.query(keyword, page, size, sort);
+    return this.service.query(keyword, category, page, size, sort);
   }
 
 

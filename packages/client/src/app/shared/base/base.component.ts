@@ -1,4 +1,4 @@
-import { ModalHelper, _HttpClient, CNCurrencyPipe, YNPipe, AlainI18NService } from '@delon/theme';
+import { ModalHelper, _HttpClient, CNCurrencyPipe, YNPipe, AlainI18NService, SettingsService } from '@delon/theme';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { ActivatedRoute } from '@angular/router';
 import { XlsxService, SimpleTableColumn } from '@delon/abc';
@@ -18,6 +18,8 @@ export class BaseComponent implements BasePage {
 
     @Input() title = '';
     modalHelper: ModalHelper;
+    settings: SettingsService;
+
     msg: NzMessageService;
     modal: NzModalService;
     route: ActivatedRoute;
@@ -27,11 +29,12 @@ export class BaseComponent implements BasePage {
     lazy: LazyService;
     coreService: CoreService;
     http: HttpClient;
-    renderer: Renderer2; 
+    renderer: Renderer2;
 
 
     constructor(public injector: Injector) {
         this.modalHelper = this.injector.get(ModalHelper);
+        this.settings = this.injector.get(SettingsService);
         this.msg = this.injector.get(NzMessageService);
         this.modal = this.injector.get(NzModalService);
         this.route = this.injector.get(ActivatedRoute);
@@ -40,7 +43,7 @@ export class BaseComponent implements BasePage {
         this.client = this.injector.get(_HttpClient);
         this.lazy = this.injector.get(LazyService);
         this.http = this.injector.get(HttpClient);
-        this.renderer = this.injector.get(Renderer2); 
+        this.renderer = this.injector.get(Renderer2);
         this.coreService = this.injector.get(CoreService);
         const routeData = this.route.data['value'] || {};
         this.title = routeData.title;

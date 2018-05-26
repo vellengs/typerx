@@ -19,6 +19,7 @@ import {
 } from './dto/login.dto';
 import { LogService } from './log.service';
 import { UserService } from './user.service';
+import { EditProfileDto } from './dto/profile.dto';
 
 /**
  * 系统接口.
@@ -38,6 +39,16 @@ export class UserController {
   async login(dto: LoginDto): Promise<LoginResponse | false> {
     return this.service.login(this.context, dto);
   }
+
+  /**
+ * 更新帐号
+ * @param entry 帐号信息
+ */
+  @PUT
+  async update(entry: EditProfileDto): Promise<ProfileResponse> {
+    return this.service.update(entry);
+  }
+
 
   /**
    * 退出登陆

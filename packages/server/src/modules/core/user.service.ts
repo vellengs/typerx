@@ -1,5 +1,5 @@
 import { Appearance } from '../../types/appearance';
-import { ServiceContext, Errors } from 'typescript-rest';
+import { ServiceContext, Errors, PUT } from 'typescript-rest';
 import { Account } from './interfaces/account.interface';
 import { CoreDatabase as Db } from './core.database';
 import * as passport from 'passport';
@@ -13,6 +13,7 @@ import { LogService } from './log.service';
 import { Request, Response, NextFunction } from 'express';
 import { pick } from 'lodash';
 import { Document } from 'mongoose';
+import { EditProfileDto } from './dto/profile.dto';
 
 export class UserService {
   async login(
@@ -35,6 +36,18 @@ export class UserService {
     });
 
     return result;
+  }
+
+  async update(
+    entry: EditProfileDto,
+  ): Promise<ProfileResponse> {
+    const doc: any = await Db.Profile.findOneAndUpdate(
+      {
+        _id: entry.id,
+      },
+      entry,
+    ).exec();
+    return doc;
   }
 
   private async validate(

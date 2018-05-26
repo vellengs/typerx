@@ -37,7 +37,7 @@ export declare class DictController {
      * @param size 页大小
      * @param sort 排序
      */
-    query(keyword?: string, page?: number, size?: number, sort?: string): Promise<PaginateResponse<Array<DictResponse>>>;
+    query(keyword?: string, category?: string, page?: number, size?: number, sort?: string): Promise<PaginateResponse<Array<DictResponse>>>;
     /**
      * 按编号获取字典
      * @param id 键

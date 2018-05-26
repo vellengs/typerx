@@ -14,6 +14,7 @@ export * from './editAccountDto';
 export * from './editDictDto';
 export * from './editGroupDto';
 export * from './editMenuDto';
+export * from './editProfileDto';
 export * from './editRoleDto';
 export * from './editSettingDto';
 export * from './formSets';

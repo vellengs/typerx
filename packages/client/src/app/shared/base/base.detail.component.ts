@@ -64,6 +64,10 @@ export class BaseDetailComponent extends BaseComponent implements OnInit, AfterV
 
     }
 
+    onFormError(errors) {
+        console.log('error --', JSON.stringify(errors));
+    }
+
     async save(value) {
         const result = await this.onSave.call(this.context, value);
         this.modalRef.destroy(result);

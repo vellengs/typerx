@@ -19,7 +19,7 @@ export class DictService {
   }
 
   async search(keyword?: string, value?: string, category?: string, limit = 15): Promise<Array<KeyValue>> {
-    return Repository.search(Db.Dict, keyword, value, category, limit, 'translate');
+    return Repository.search(Db.Dict, keyword, value, category, limit, 'translate', 'name');
   }
 
   async create(entry: CreateDictDto): Promise<DictResponse> {
@@ -38,12 +38,16 @@ export class DictService {
 
   async query(
     keyword?: string,
+    category?: string,
     page?: number,
     size?: number,
     sort?: string
   ): Promise<PaginateResponse<Array<DictResponse>>> {
     page = page > 0 ? page : 0 || 1;
-    const condition = keyword ? { name: new RegExp(keyword, 'i') } : {};
+    const condition: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
+    if (category) {
+      condition.category = category;
+    }
     const query = Db.Dict.find(condition).sort(sort);
     const collection = Db.Dict.find(condition);
     const result = Repository.query<Dict & Document, DictResponse>(query, collection, page, size, fields);
@@ -57,6 +61,7 @@ export class DictService {
   }
 
   async remove(id: string): Promise<boolean> {
+
     return Repository.remove(Db.Dict, id);
   }
 

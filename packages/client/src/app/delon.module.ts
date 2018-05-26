@@ -34,6 +34,8 @@ import { UserService } from './services/user.service';
 import { ListContext } from './services/list.context';
 import { CanAdminProvide } from './services/can.admin.provide';
 import { CanAuthProvide } from './services/can.auth.provide';
+import { DelonFormConfig, SchemaValidatorFactory } from '@delon/form';
+import { CustomSchemaValidatorFactory } from './custom.form.factory';
 
 export function delonAuthConfig(): DelonAuthConfig {
     return Object.assign(new DelonAuthConfig(), <DelonAuthConfig>{
@@ -52,7 +54,9 @@ export function simpleTableConfig() {
         reqReName: {
             pi: 'page',
             ps: 'size'
-        }
+        },
+        isPageIndexReset: false,
+        toTopInChange: false,
     });
 }
 
@@ -102,6 +106,10 @@ export class DelonModule {
                 { provide: AdSimpleTableConfig, useFactory: simpleTableConfig },
                 { provide: AdPageHeaderConfig, useFactory: pageHeaderConfig },
                 { provide: DelonAuthConfig, useFactory: delonAuthConfig },
+                {
+                    provide: SchemaValidatorFactory,
+                    useClass: CustomSchemaValidatorFactory,
+                },
             ],
         };
     }

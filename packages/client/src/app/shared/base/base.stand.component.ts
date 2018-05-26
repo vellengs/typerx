@@ -35,6 +35,7 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
     @Input() columnSets: { [key: string]: SimpleTableColumn[]; };
     @Input() queryParams: { [key: string]: any; };
     @Input() formSets: FormSets;
+    @Input() operations: SimpleTableColumn;
 
     public onConfigChanged: EventEmitter<any> = new EventEmitter();
     public onEditFormChanged: EventEmitter<any> = new EventEmitter();
@@ -71,6 +72,7 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
                             break;
                     }
                 });
+                this.columnSets.default.push(this.operations);
             }
             this.onConfigChanged.emit(config);
         }
@@ -126,24 +128,37 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
         }
     }
 
-    remove(entry: any): void {
+    async changeStatus(entry) {
+
+    }
+
+    remove(entry: any, confirm = true): void {
         const self = this;
-        this.modal.confirm({
-            nzOkText: '确定',
-            nzCancelText: '取消',
-            nzTitle: '提示',
-            nzContent: '确定删除该记录吗？',
-            async nzOnOk() {
-                self.client.delete(`api/${self.domain}/${entry.id}`).subscribe((item) => {
-                    if (item) {
-                        self.msg.info('删除成功');
-                        self.load();
-                    }
-                });
-            },
-            nzOnCancel() {
-            }
-        });
+        if (confirm) {
+            this.modal.confirm({
+                nzOkText: '确定',
+                nzCancelText: '取消',
+                nzTitle: '提示',
+                nzContent: '确定删除该记录吗？',
+                async nzOnOk() {
+                    self.client.delete(`api/${self.domain}/${entry.id}`).subscribe((item) => {
+                        if (item) {
+                            self.msg.info('删除成功');
+                            self.load();
+                        }
+                    });
+                },
+                nzOnCancel() {
+                }
+            });
+        } else {
+            self.client.delete(`api/${self.domain}/${entry.id}`).subscribe((item) => {
+                if (item) {
+                    self.msg.info('删除成功');
+                    self.load();
+                }
+            });
+        }
     }
 
     removeChecked(): void {

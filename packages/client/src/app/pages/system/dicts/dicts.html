@@ -1,14 +1,42 @@
 <page-header [title]="title"></page-header>
 <nz-card>
-    <div class="mb-md">
-        <sf *ngIf="formSets" [mode]="'search'" [layout]="'inline'" [schema]="formSets.query" (formSubmit)="query($event)"></sf>
-    </div>
-    <div class="mb-md">
-        <button nz-button (click)="add()" [nzType]="'primary'">
-            <i class="anticon anticon-plus"></i>
-            <span>新建</span>
-        </button>
-    </div>
-    <simple-table [isPageIndexReset]="false" [toTopInChange]="false" *ngIf="columnSets" #st [data]="url" [columns]="columnSets.default"
-        [extraParams]="queryParams"></simple-table>
+
+    <nz-row [nzGutter]="24" class="py-lg">
+        <nz-col [nzSpan]="8">
+            <nz-card nzTitle="字典分类" class="ant-card__body-nopadding" [nzExtra]="roleTemplate">
+                <nz-table #table [nzShowPagination]="false" [nzData]="categories">
+                    <thead>
+                        <tr>
+                            <th>分类</th>
+                            <th style="text-align: center;">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr [ngClass]="{'selected':item.id === selectedItem.id}" *ngFor="let item of table.data" (click)="select(item)">
+                            <td>
+                                {{item.translate}}
+                            </td>
+                            <td style="width:120px;">
+                                <a (click)="edit(item)">编辑</a>
+                                <nz-divider nzType="vertical"></nz-divider>
+                                <a (click)="remove(item)">删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+
+                <ng-template #roleTemplate>
+                    <a (click)="add()">
+                        <i class="anticon anticon-plus"></i>
+                        新建分类</a>
+                </ng-template>
+            </nz-card>
+        </nz-col>
+        <nz-col [nzSpan]="16">
+
+        </nz-col>
+    </nz-row>
+
+
+
 </nz-card>

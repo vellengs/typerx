@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const core_database_1 = require("./core.database");
 const passport = require("passport");
 const log_service_1 = require("./log.service");
 const lodash_1 = require("lodash");
@@ -24,6 +25,14 @@ class UserService {
                 comment: '用户登录',
             });
             return result;
+        });
+    }
+    update(entry) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const doc = yield core_database_1.CoreDatabase.Profile.findOneAndUpdate({
+                _id: entry.id,
+            }, entry).exec();
+            return doc;
         });
     }
     validate(request, response, next) {

@@ -1,12 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { NzMessageService, NzModalService, UploadFile, NzTreeNode } from 'ng-zorro-antd';
-import { Component, OnInit, Injector, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Injector, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { _HttpClient } from '@delon/theme';
 import { ListContext } from '../../../services/list.context';
 import { BaseStandComponent } from '@shared/base/base.stand.component';
 import * as treeify from 'array-to-tree';
+import { SimpleTableColumn } from '@delon/abc';
 @Component({
     selector: 'app-account-page',
     templateUrl: './accounts.html',
@@ -23,6 +24,40 @@ export class AccountsPageComponent extends BaseStandComponent implements OnInit 
     searchValue = '';
     selectedItem: any = {};
     accountQueryParams: any = {};
+
+    operationColumn = {
+        title: '操作区',
+        width: '180px',
+        buttons: [
+            {
+                text: '删除',
+                type: 'del',
+                click: (record: any) => {
+                    if (this.accounts) {
+                        this.accounts.remove(record, false);
+                    }
+                }
+            },
+            {
+                text: '编辑',
+                type: 'none',
+                click: (record: any) => {
+                    if (this.accounts) {
+                        this.accounts.edit(record);
+                    }
+                }
+            },
+            {
+                text: '更多',
+                children: [
+                    {
+                        text: `过期`,
+                        type: 'none',
+                    },
+                ]
+            }
+        ]
+    };
 
     constructor(injector: Injector) {
         super(injector);

@@ -10,8 +10,10 @@ import * as crypto from 'crypto';
 
 export const schema = new Schema(
   {
-    username: { type: t.String, unique: true },
-    password: t.String,
+    username: { type: t.String, required: true, unique: true },
+    password: {
+      type: t.String, required: true,
+    },
     avatar: t.String,
     email: t.String,
     nick: t.String,
@@ -29,14 +31,23 @@ export const schema = new Schema(
         ref: 'Group',
       },
     ],
+    profile: [
+      {
+        type: t.ObjectId,
+        ref: 'Profile',
+      },
+    ],
     isDisable: {
       type: t.Boolean,
+      default: false,
     },
     isAdmin: {
       type: t.Boolean,
+      default: false,
     },
     isApproved: {
       type: t.Boolean,
+      default: false,
     },
     expired: {
       type: t.Date,

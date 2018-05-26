@@ -399,6 +399,33 @@ definitions:
         required:
             - username
             - password
+    EditProfileDto:
+        description: ""
+        properties:
+            id:
+                type: string
+                description: ""
+            nick:
+                type: string
+                description: ""
+            email:
+                type: string
+                description: ""
+            mobile:
+                type: string
+                description: ""
+            company:
+                type: string
+                description: ""
+            siteUrl:
+                type: string
+                description: ""
+            address:
+                type: string
+                description: ""
+        type: object
+        required:
+            - id
     MenuResponse:
         description: ""
         properties:
@@ -1183,6 +1210,29 @@ paths:
                     required: true
                     schema:
                         $ref: '#/definitions/LoginDto'
+    /user:
+        put:
+            operationId: UserUpdate
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/ProfileResponse'
+            description: 更新帐号
+            tags:
+                - core
+            consumes:
+                - application/json
+            parameters:
+                -
+                    description: 帐号信息
+                    in: body
+                    name: entry
+                    required: true
+                    schema:
+                        $ref: '#/definitions/EditProfileDto'
     /user/logout:
         get:
             operationId: UserLogout
@@ -1682,6 +1732,12 @@ paths:
                     description: 关键词
                     in: query
                     name: keyword
+                    required: false
+                    type: string
+                -
+                    description: ""
+                    in: query
+                    name: category
                     required: false
                     type: string
                 -

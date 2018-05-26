@@ -9,10 +9,6 @@ const profile: SFSchema = {
             title: '昵称',
             type: t.string,
         },
-        type: {
-            title: '类型',
-            type: t.string
-        },
         email: {
             title: '邮箱',
             type: t.string
@@ -22,18 +18,33 @@ const profile: SFSchema = {
             pattern: '^1[0-9]{10}$',
             type: t.string
         },
-        address: {
-            title: '地址',
-            type: t.string
-        },
         siteUrl: {
             title: '网址',
-            type: t.string
+            type: t.string,
+            ui: {
+                grid: {
+                    span: 12
+                }
+            }
         },
         company: {
             title: '公司名称',
-            type: t.string
-        }
+            type: t.string,
+            ui: {
+                grid: {
+                    span: 12
+                }
+            }
+        },
+        address: {
+            title: '地址',
+            type: t.string,
+            ui: {
+                grid: {
+                    span: 24
+                }
+            }
+        },
     },
     required: ['nick', 'email', 'mobile'],
     ui: {
@@ -49,12 +60,26 @@ const sysSetting: SFSchema = {
     properties: {
         name: {
             title: '系统名称',
-            type: t.string,
+            type: t.string
         },
         logo: {
             title: '系统标志',
             type: t.string,
+            ui: {
+                widget: w.upload,
+                fileType: 'image/png,image/jpeg,image/gif,image/bmp',
+                listType: 'picture-card',
+                grid: {
+                    span: 24
+                }
+            }, 
         },
+    },
+    ui: {
+        spanLabelFixed: 100,
+        grid: {
+            span: 12
+        }
     }
 };
 

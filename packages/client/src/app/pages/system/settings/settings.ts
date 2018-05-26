@@ -24,16 +24,16 @@ export class SettingsPageComponent extends BaseComponent implements OnInit {
     @ViewChild('profileForm') formRef: SFComponent;
 
     profileValue = {};
+    profileData = {};
 
     constructor(injector: Injector) {
         super(injector);
-
+        this.profileData = this.settings.user;
         this.coreService.settingGetConfig().subscribe((config) => {
             if (config && config.formSets) {
                 this.formSets = config.formSets as any;
             }
         });
-
     }
 
     ngOnInit(): void {
