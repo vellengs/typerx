@@ -17,10 +17,11 @@ export class DictsPageComponent extends BaseStandComponent implements OnInit {
 
     url;
 
-    @ViewChild('st') simpleTable: SimpleTableComponent;
+    @ViewChild('dictList') dictTable: BaseStandComponent;
     @Input() domain = 'dict';
     selectedItem: any = {};
     categories: any = [];
+    dictQueryParams: any = {};
 
     constructor(injector: Injector) {
         super(injector);
@@ -36,7 +37,7 @@ export class DictsPageComponent extends BaseStandComponent implements OnInit {
         });
 
         this.operations = {
-            title: '操作区',
+            title: '操作',
             width: '180px',
             buttons: [
                 {
@@ -56,15 +57,6 @@ export class DictsPageComponent extends BaseStandComponent implements OnInit {
                         //     this.accounts.edit(record);
                         // }
                     }
-                },
-                {
-                    text: '更多',
-                    children: [
-                        {
-                            text: `过期`,
-                            type: 'none',
-                        },
-                    ]
                 }
             ]
         };
@@ -83,6 +75,10 @@ export class DictsPageComponent extends BaseStandComponent implements OnInit {
 
     select(item) {
         this.selectedItem = item;
+        this.dictQueryParams.category = this.selectedItem.name;
+        if (this.dictTable) {
+            this.dictTable.load();
+        }
     }
 
 

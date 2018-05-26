@@ -76,7 +76,7 @@ export class Repository {
             .limit(limit)
             .exec() || [];
 
-        if (Types.ObjectId.isValid(id) || valueField !== '_id') {
+        if (id && (Types.ObjectId.isValid(id) || valueField !== '_id')) {
             const conditions: any = {};
             conditions[valueField] = id;
             const selected = await model.findOne(conditions).select(fields);

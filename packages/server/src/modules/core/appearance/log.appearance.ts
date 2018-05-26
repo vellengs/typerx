@@ -23,6 +23,7 @@ export const appearance: Appearance = {
             {
                 title: 'createAt',
                 i18n: '日期',
+                type: 'date',
                 index: ['createdAt']
             },
             {
