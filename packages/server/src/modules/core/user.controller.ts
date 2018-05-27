@@ -70,9 +70,10 @@ export class UserController {
    */
   @POST
   @Path("upload")
-  fileUpload(@FileParam("file") file: Express.Multer.File,
+  async fileUpload(@FileParam("file") file: Express.Multer.File,
     @FormParam("field") field?: string) {
-    this.service.fileUpload(file, field);
+    const result = await this.service.fileUpload(file, field);
+    return result;
   }
 
 }
