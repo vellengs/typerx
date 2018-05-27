@@ -83,7 +83,7 @@ export class UserService {
               if (err) {
                 reject(false);
               }
- 
+              console.log('authenticate:', user);
               const picked: LoginResponse = this.pure(user);
               resolve(picked);
             });

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { SettingsService } from '@delon/theme';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 import { CoreService } from 'generated';
+import { UserService } from '@services/user.service';
 
 @Component({
     selector: 'header-user',
@@ -26,6 +27,7 @@ export class HeaderUserComponent implements OnInit {
         public settings: SettingsService,
         public coreService: CoreService,
         private router: Router,
+        private userService: UserService,
         @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService) { }
 
     ngOnInit(): void {
@@ -43,8 +45,10 @@ export class HeaderUserComponent implements OnInit {
     }
 
     async  logout() {
-        await this.coreService.userLogout().toPromise();
-        this.tokenService.clear();
+        // await this.coreService.userLogout().toPromise();
+        console.log('logout ....');
+        await this.userService.logout();
         this.router.navigateByUrl(this.tokenService.login_url);
+        this.tokenService.clear();
     }
 }

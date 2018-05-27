@@ -1,11 +1,12 @@
 
 
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { NzMessageService, ModalOptionsForService } from 'ng-zorro-antd';
 import { SettingsService, ModalHelper, _HttpClient } from '@delon/theme';
 import { CoreService } from 'generated';
 import { Router } from '@angular/router';
 import { BaseDetailComponent } from '@shared/base/base.detail.component';
+import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 
 @Component({
   selector: 'app-sidebar',
@@ -49,6 +50,8 @@ export class SidebarComponent {
     public router: Router,
     public modalHelper: ModalHelper,
     public client: _HttpClient,
+    @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService
+
   ) { }
 
   logout() {
@@ -57,7 +60,7 @@ export class SidebarComponent {
       (result) => {
         if (result) {
           this.msgSrv.success('成功退出');
-          this.router.navigate(['/login']);
+          this.router.navigateByUrl(this.tokenService.login_url);
         }
       }
     );
@@ -89,16 +92,6 @@ export class SidebarComponent {
       ).subscribe(() => {
 
       });
-    // this.ajax.proxy.ajax({
-    //   url: `account/password`,
-    //   method: 'PUT',
-    //   options: {
-    //     body: res.value
-    //   }
-    // }).subscribe((result) => {
-    //   this.msgSrv.success('密码修改成功');
-    //   res.dialog.destroy();
-    // });
   }
 
   async save(entry) {

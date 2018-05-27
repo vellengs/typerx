@@ -31,12 +31,10 @@ export const schema = new Schema(
         ref: 'Group',
       },
     ],
-    profile: [
-      {
-        type: t.ObjectId,
-        ref: 'Profile',
-      },
-    ],
+    profile: {
+      type: t.ObjectId,
+      ref: 'Profile',
+    },
     isDisable: {
       type: t.Boolean,
       default: false,

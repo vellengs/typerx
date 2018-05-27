@@ -1,6 +1,7 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter, Inject } from '@angular/core';
 import { SettingsService, _HttpClient } from '@delon/theme';
 import { CoreService, LoginDto } from 'generated';
+import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 
 interface User {
     name?: string;
@@ -17,7 +18,6 @@ export class UserService {
         public client: _HttpClient,
         public settings: SettingsService,
         public coreService: CoreService
-
     ) {
 
     }
@@ -68,8 +68,10 @@ export class UserService {
     }
 
     async logout() {
+  
         const result = await this.coreService.userLogout().toPromise();
         this.settings.setUser(null);
         this.user = {};
+
     }
 }

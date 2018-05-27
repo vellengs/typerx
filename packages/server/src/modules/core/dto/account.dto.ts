@@ -30,6 +30,7 @@ export class AccountResponse {
   roles: string[];
   email: string;
   mobile: string;
+  profile: any;
   isDisable: boolean;
   isAdmin: boolean;
   isApproved: boolean;
@@ -46,6 +47,7 @@ export class SessionUser {
   groups: string[];
   roles: string[];
   mobile: string;
+  profile: any;
   isDisable: boolean;
   isAdmin: boolean;
   isApproved: boolean;
@@ -65,6 +67,7 @@ export const AccountResponseFields = [
   'isDisable',
   'isAdmin',
   'isApproved',
+  'profile',
   'expired'
 ];
 
