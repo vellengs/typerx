@@ -14,6 +14,7 @@ import { Request, Response, NextFunction } from 'express';
 import { pick } from 'lodash';
 import { Document } from 'mongoose';
 import { EditProfileDto } from './dto/profile.dto';
+import { Repository } from '../../database/repository';
 
 export class UserService {
   async login(
@@ -50,16 +51,25 @@ export class UserService {
     entry: EditProfileDto,
   ): Promise<ProfileResponse> {
 
-    const { request } = context;   // TODO profile is empty;
-    const doc: any = await Db.Profile.findOneAndUpdate(
+    const { request } = context;
+    const profile: any = await Db.Profile.findOneAndUpdate(
       {
         _id: request.user.id,
       },
       entry, { upsert: true, new: true },
     ).exec();
 
-    if (doc) {
-      return doc;
+    entry.profile = profile._id;
+    const account = await Db.Account.findOneAndUpdate(
+      {
+        _id: request.user.id,
+      },
+      entry, { new: true },
+    ).populate('profile').exec();
+
+    if (profile) {
+      const instance = Repository.mergeProfile(account);
+      return instance;
     } else {
       throw new Errors.BadRequestError('user not found');
     }
@@ -83,7 +93,6 @@ export class UserService {
               if (err) {
                 reject(false);
               }
-              console.log('authenticate:', user);
               const picked: LoginResponse = this.pure(user);
               resolve(picked);
             });

@@ -149,5 +149,22 @@ export class Repository {
         }
     }
 
+    static mergeProfile(user?: Document) {
+        if (!user) {
+            return null;
+        }
+        const doc = user.toObject();
+        const instance = Object.assign({}, doc, doc.profile);
+        instance.id = doc._id;
+        delete instance.profile;
+        delete instance._id;
+        delete instance.__v;
+        delete instance.password;
+        instance.createdAt = doc.createdAt;
+        return instance;
+    }
+
+
+
 
 }

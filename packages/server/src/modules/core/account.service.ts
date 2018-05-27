@@ -56,10 +56,7 @@ export class AccountService {
 
   async profile(context: ServiceContext): Promise<ProfileResponse> {
     const { user } = context.request as any;
-
-    console.log('user:', user);
-
-    return this.pure(user);
+    return user;
   }
 
   async query(
@@ -109,10 +106,10 @@ export class AccountService {
       'groups',
       'roles',
       'mobile',
-      'profile',
       'isDisable',
       'isAdmin',
       'isApproved',
+      'profile',
       'expired',
     ])
   }

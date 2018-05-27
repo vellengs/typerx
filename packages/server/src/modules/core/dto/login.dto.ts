@@ -36,4 +36,5 @@ export class ProfileResponse {
   isAdmin: boolean;
   isApproved: boolean;
   expired: Date;
+  [key: string]: any;
 }

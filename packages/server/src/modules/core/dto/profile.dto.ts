@@ -1,15 +1,16 @@
- 
+
 
 export class EditProfileDto {
   id: string;
+  profile?: string;
   nick?: string;
-  email?: string; 
+  email?: string;
   mobile?: string;
   company?: string;
   siteUrl?: string;
   address?: string;
- }
- 
+}
+
 export const ProfileResponseFields = [
   'id',
   'username',
@@ -25,4 +26,3 @@ export const ProfileResponseFields = [
   'isApproved',
   'expired'
 ];
- 

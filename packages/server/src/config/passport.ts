@@ -4,6 +4,7 @@ import * as _ from "lodash";
 
 import { Request, Response, NextFunction } from "express";
 import { CoreDatabase as Db } from './../modules/core/core.database';
+import { Repository } from "../database/repository";
 
 const LocalStrategy = passportLocal.Strategy;
 
@@ -19,7 +20,8 @@ export function init() {
 
     passport.deserializeUser((id, done) => {
         Db.Account.findById(id).populate('profile').exec((err, user) => {
-            done(err, user);
+            const instance = Repository.mergeProfile(user);
+            done(err, instance);
         });
     });
 

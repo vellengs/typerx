@@ -73,6 +73,7 @@ export class SettingsPageComponent extends BaseComponent implements OnInit {
         const entry: EditProfileDto = Object.assign({}, event);
         this.coreService.userUpdate(entry).subscribe((res) => {
             if (res) {
+                this.settings.setUser(res);
                 this.msg.success('个人资料修改成功');
             }
         });
