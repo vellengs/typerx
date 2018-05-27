@@ -37,6 +37,8 @@ export class ApiServer {
     init();
     this.app.use('/api', isAuthenticated);
 
+    const uploads = path.resolve(process.cwd(), 'public', 'uploads');
+    Server.setFileDest(uploads);
     Server.buildServices(this.app, ...controllers);
 
     if (process.env.SWAGGER && existsSync(path.resolve(process.env.SWAGGER))) {
@@ -56,9 +58,11 @@ export class ApiServer {
    * Configure the express app.
    */
   private config(): void {
+    
     this.app.use(compression());
+    const staticSrc = path.resolve(process.cwd(), 'public');
     this.app.use(
-      express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }),
+      express.static(staticSrc, { maxAge: 31557600000 }),
     );
     this.app.use(cors());
 

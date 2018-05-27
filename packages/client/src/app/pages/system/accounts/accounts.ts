@@ -100,8 +100,7 @@ export class AccountsPageComponent extends BaseStandComponent implements OnInit 
 
     treeNodeClick(name: string, e: any) {
         if (e.node.key === this.selectedItem.key) {
-            // this.selectedItem = {};
-            // this.accountQueryParams = {};
+
         } else {
             this.selectedItem = e.node;
             this.accountQueryParams.group = this.selectedItem.key;

@@ -11,7 +11,14 @@ import { SFComponent } from '@delon/form';
 @Component({
     selector: 'app-settings-page',
     templateUrl: './settings.html',
-    styles: []
+    styles: [
+        `
+        :host ::ng-deep .ant-upload img {
+            width: 128px;
+            height: 128px;
+          }
+        `
+    ]
 })
 export class SettingsPageComponent extends BaseComponent implements OnInit {
 
@@ -57,6 +64,10 @@ export class SettingsPageComponent extends BaseComponent implements OnInit {
     }
 
     profileFormChanged(event) {
+
+    }
+
+    handleChange(event) {
 
     }
 

@@ -15,8 +15,6 @@ import { SimpleTableComponent } from '@delon/abc';
 })
 export class DictsPageComponent extends BaseStandComponent implements OnInit {
 
-    url;
-
     @ViewChild('dictList') dictTable: BaseStandComponent;
     @Input() domain = 'dict';
     selectedItem: any = {};
@@ -28,7 +26,6 @@ export class DictsPageComponent extends BaseStandComponent implements OnInit {
     }
 
     async ngOnInit() {
-
 
         this.url = `api/${this.domain}/query`;
         this.onConfigChanged.subscribe(() => {
@@ -72,7 +69,6 @@ export class DictsPageComponent extends BaseStandComponent implements OnInit {
         super.load();
     }
 
-
     select(item) {
         this.selectedItem = item;
         this.dictQueryParams.category = this.selectedItem.name;
@@ -80,6 +76,5 @@ export class DictsPageComponent extends BaseStandComponent implements OnInit {
             this.dictTable.load();
         }
     }
-
-
+    
 }

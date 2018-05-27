@@ -5,6 +5,21 @@ import { SFSchema } from "../../../types/schema.types";
 const profile: SFSchema = {
     title: '个人信息',
     properties: {
+        avatar: {
+            title: '头像',
+            type: t.string,
+            ui: {
+                widget: w.avatar,
+                fileType: 'image/png,image/jpeg,image/gif,image/bmp',
+                listType: 'picture-card',
+                action: 'user/upload',
+                limit: 1,
+                name: 'file',
+                grid: {
+                    span: 24
+                }
+            },
+        },
         nick: {
             title: '昵称',
             type: t.string,
@@ -66,13 +81,16 @@ const sysSetting: SFSchema = {
             title: '系统标志',
             type: t.string,
             ui: {
-                widget: w.upload,
+                widget: w.avatar,
                 fileType: 'image/png,image/jpeg,image/gif,image/bmp',
                 listType: 'picture-card',
+                action: 'user/upload',
+                limit: 1,
+                name: 'file',
                 grid: {
                     span: 24
                 }
-            }, 
+            },
         },
     },
     ui: {

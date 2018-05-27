@@ -8,6 +8,8 @@ import {
   QueryParam,
   Context,
   ServiceContext,
+  FileParam,
+  FormParam,
 } from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
 import * as passport from 'passport';
@@ -59,4 +61,18 @@ export class UserController {
     await this.context.request.logOut();
     return true;
   }
+
+  @POST
+  @Path("upload")
+  userFileUpload(@FileParam("file") file: Express.Multer.File,
+    @FormParam("field") field?: string) {
+
+    console.log('file:', file);
+    return {
+      url: 'uploads/' + file.filename
+    }
+  }
+
+
+
 }

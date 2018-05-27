@@ -9,6 +9,8 @@ import { ListBoxWidgetComponent } from './widgets/list-box/list-box';
 import { DictWidgetComponent } from './widgets/dict/dict.widget';
 import { TreeWidgetComponent } from './widgets/tree/search.widget';
 import { ChoicesWidgetComponent } from '@shared/json-schema/widgets/choices/choices.widget';
+import { ImageWidgetComponent } from '@shared/json-schema/widgets/image/image.widget';
+import { AvatarWidgetComponent } from '@shared/json-schema/widgets/avatar/avatar.widget';
 
 export const SCHEMA_THIRDS_COMPONENTS = [
     TinymceWidget,
@@ -18,6 +20,8 @@ export const SCHEMA_THIRDS_COMPONENTS = [
     DictWidgetComponent,
     TreeWidgetComponent,
     ChoicesWidgetComponent,
+    ImageWidgetComponent,
+    AvatarWidgetComponent,
 ];
 
 @NgModule({
@@ -40,5 +44,8 @@ export class JsonSchemaModule {
         widgetRegistry.register(DictWidgetComponent.KEY, DictWidgetComponent);
         widgetRegistry.register(TreeWidgetComponent.KEY, TreeWidgetComponent);
         widgetRegistry.register(ChoicesWidgetComponent.KEY, ChoicesWidgetComponent);
+        widgetRegistry.register(ImageWidgetComponent.KEY, ImageWidgetComponent);
+        widgetRegistry.register(AvatarWidgetComponent.KEY, AvatarWidgetComponent);
+
     }
 }
