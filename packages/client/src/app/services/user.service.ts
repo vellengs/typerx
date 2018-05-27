@@ -62,13 +62,14 @@ export class UserService {
             return true;
         }
         this.authenticating = true;
-        const user = await this.coreService.accountProfile().toPromise();
+        const user = await this.coreService.accountProfile().toPromise() || {};
         this.settings.setUser(user);
         return user;
     }
 
     async logout() {
         const result = await this.coreService.userLogout().toPromise();
-        this.user.name = null;
+        this.settings.setUser(null);
+        this.user = {};
     }
 }

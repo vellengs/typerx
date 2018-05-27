@@ -18,7 +18,7 @@ export function init() {
     });
 
     passport.deserializeUser((id, done) => {
-        Db.Account.findById(id, (err, user) => {
+        Db.Account.findById(id).populate('profile').exec((err, user) => {
             done(err, user);
         });
     });

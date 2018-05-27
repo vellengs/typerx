@@ -38,16 +38,32 @@ export class UserService {
     return result;
   }
 
+  async fileUpload(file: Express.Multer.File,
+    field?: string) {
+    return {
+      url: 'uploads/' + file.filename
+    }
+  }
+
   async update(
+    context: ServiceContext,
     entry: EditProfileDto,
   ): Promise<ProfileResponse> {
+
+    const { request } = context;   // TODO profile is empty;
     const doc: any = await Db.Profile.findOneAndUpdate(
       {
-        _id: entry.id,
+        _id: request.user.id,
       },
-      entry,
+      entry, { upsert: true, new: true },
     ).exec();
-    return doc;
+
+    if (doc) {
+      return doc;
+    } else {
+      throw new Errors.BadRequestError('user not found');
+    }
+
   }
 
   private async validate(
@@ -67,6 +83,7 @@ export class UserService {
               if (err) {
                 reject(false);
               }
+ 
               const picked: LoginResponse = this.pure(user);
               resolve(picked);
             });

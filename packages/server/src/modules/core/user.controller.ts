@@ -48,7 +48,7 @@ export class UserController {
  */
   @PUT
   async update(entry: EditProfileDto): Promise<ProfileResponse> {
-    return this.service.update(entry);
+    return this.service.update(this.context, entry);
   }
 
 
@@ -62,17 +62,17 @@ export class UserController {
     return true;
   }
 
+
+  /**
+   * 上传附件
+   * @param file 
+   * @param field 
+   */
   @POST
   @Path("upload")
-  userFileUpload(@FileParam("file") file: Express.Multer.File,
+  fileUpload(@FileParam("file") file: Express.Multer.File,
     @FormParam("field") field?: string) {
-
-    console.log('file:', file);
-    return {
-      url: 'uploads/' + file.filename
-    }
+    this.service.fileUpload(file, field);
   }
-
-
 
 }

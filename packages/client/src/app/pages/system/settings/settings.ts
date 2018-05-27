@@ -7,6 +7,7 @@ import { _HttpClient } from '@delon/theme';
 import { BaseComponent } from '@shared/base/base.component';
 import { FormSets } from '../../../../types/types';
 import { SFComponent } from '@delon/form';
+import { EditProfileDto } from 'generated';
 
 @Component({
     selector: 'app-settings-page',
@@ -55,9 +56,6 @@ export class SettingsPageComponent extends BaseComponent implements OnInit {
         this.profileValue = $event;
     }
 
-    submit(event?) {
-
-    }
 
     sysSettingFormChanged(event) {
 
@@ -68,6 +66,20 @@ export class SettingsPageComponent extends BaseComponent implements OnInit {
     }
 
     handleChange(event) {
+
+    }
+
+    profileSave(event?) {
+        const entry: EditProfileDto = Object.assign({}, event);
+        this.coreService.userUpdate(entry).subscribe((res) => {
+            if (res) {
+                this.msg.success('个人资料修改成功');
+            }
+        });
+
+    }
+
+    saveSysSettings(event) {
 
     }
 
