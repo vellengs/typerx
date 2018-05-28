@@ -53,6 +53,8 @@ export class ImageWidgetComponent extends ControlWidget implements OnInit {
     i: any;
     fileList: UploadFile[] = [];
     btnType = '';
+    static readonly KEY = 'image';
+
 
     constructor(cd: ChangeDetectorRef, private modalSrv: NzModalService) {
         super(cd);

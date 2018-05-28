@@ -21,6 +21,10 @@ export class SettingResponse {
   description: string;
 }
 
+export class SettingsGroup {
+  [key: string]: string;
+}
+
 export declare interface PaginateSetting {
   error?: Error;
   list: Array<SettingResponse>;

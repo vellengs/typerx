@@ -18,7 +18,7 @@ import {
   ProfileResponse,
 } from './dto/login.dto';
 import { SettingService } from './setting.service';
-import { SettingResponse, CreateSettingDto, EditSettingDto, PaginateSetting } from './dto/setting.dto';
+import { SettingResponse, CreateSettingDto, EditSettingDto, PaginateSetting, SettingsGroup } from './dto/setting.dto';
 import { Appearance } from '../../types/appearance';
 
 /**
@@ -40,23 +40,36 @@ export class SettingController {
   }
 
   /**
-   * 获取设置项
+   * 按分组获取多个设置项
    * @param keys 设置项key的集合
    */
-  @Path('main')
+  @Path('name/:name')
   @GET
-  async getMainSettings(@QueryParam('keys') keys?: string): Promise<Array<SettingResponse>> {
-    return this.service.getMainSettings(keys);
+  async getSettingsByName(@PathParam('name') name?: string): Promise<SettingsGroup> {
+    return this.service.getSettingsByName(name);
+  }
+
+
+  /**
+  * 更新设置项
+  * @param entry 设置项实体
+  */
+  @PUT
+  @Path('name/:name')
+  async updateSettingsByName(
+    @PathParam('name') name: string,
+    entry: SettingsGroup): Promise<SettingsGroup> {
+    return this.service.updateSettingsByName(name, entry);
   }
 
   /**
    * 通过Key获取设置项目
-   * @param name 键名
+   * @param key 键名
    */
-  @Path('key/:name')
+  @Path('key/:key')
   @GET
-  async getSettingsByKey(@PathParam('name') name: string): Promise<SettingResponse> {
-    return this.service.getSettingsByKey(name);
+  async getSettingsByKey(@PathParam('key') key: string): Promise<SettingResponse> {
+    return this.service.getSettingsByKey(key);
   }
 
   /**

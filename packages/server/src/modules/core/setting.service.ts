@@ -6,7 +6,7 @@ import { CoreDatabase as Db } from './core.database';
 import { Request, Response, NextFunction } from 'express';
 import { pick } from 'lodash';
 import { Setting } from './interfaces/setting.interface';
-import { SettingResponse, CreateSettingDto, EditSettingDto, PaginateSetting } from './dto/setting.dto';
+import { SettingResponse, CreateSettingDto, EditSettingDto, PaginateSetting, SettingsGroup } from './dto/setting.dto';
 import { Helper } from '../../util/helper';
 import { Document } from 'mongoose';
 import { KeyValue } from '../../types/data.types';
@@ -19,35 +19,28 @@ export class SettingService {
     return appearance;
   }
 
-  async getMainSettings(keys?: string): Promise<Array<SettingResponse>> {
+  async getSettingsByName(name?: string): Promise<SettingsGroup> {
+    const result = new SettingsGroup();
 
-    if (!keys) {
-      return [];
-    }
-
-    const names = keys.split(',');
-    const docs = await Db.Setting.find({
-      key: {
-        $in: names
+    if (name) {
+      const docs = await Db.Setting.find({
+        name: name
+      }).exec();
+      if (docs) {
+        docs.forEach((doc) => {
+          result[doc.key] = doc.value;
+        });
       }
-    }).exec();
-
-    if (docs) {
-      return docs.map((res) => {
-        return this.pure(res);
-      });
-    } else {
-      return [];
     }
+
+    return result;
   }
 
   async getSettingsByKey(name: string): Promise<SettingResponse> {
-
-    const setting: any = await Db.Setting.findOne({
-      name: name
+    const setting = await Db.Setting.findOne({
+      key: name
     }).exec();
-
-    return setting;
+    return this.pure(setting);
   }
 
   async search(keyword?: string, value?: string, limit = 15): Promise<Array<KeyValue>> {
@@ -60,6 +53,22 @@ export class SettingService {
     return this.pure(result);
   }
 
+  async updateSettingsByName(name: string, entry: SettingsGroup): Promise<SettingsGroup> {
+
+    const keys = Object.keys(entry);
+    for (let key of keys) {
+      const instance = {
+        key: key,
+        value: entry[key]
+      };
+      await Db.Setting.findOneAndUpdate(
+        { key: key, name: name },
+        { $set: instance },
+        { upsert: true, 'new': true }).exec();
+    }
+    return this.getSettingsByName(name);
+  }
+
   async update(entry: EditSettingDto): Promise<SettingResponse> {
     if (entry.id) {
       const result = await Db.Setting.findOneAndUpdate(
@@ -68,11 +77,7 @@ export class SettingService {
         { upsert: true, 'new': true }).exec();
       return this.pure(result);
     } else {
-      const result = await Db.Setting.findOneAndUpdate(
-        { key: entry.key },
-        { $set: entry },
-        { upsert: true, 'new': true }).exec();
-      return this.pure(result);
+      throw new Errors.BadRequestError('settings not found');
     }
   }
 

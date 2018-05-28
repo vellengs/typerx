@@ -92,6 +92,36 @@ const sysSetting: SFSchema = {
                 }
             },
         },
+        logoFull: {
+            title: '系统完整标志',
+            type: t.string,
+            ui: {
+                widget: w.avatar,
+                fileType: 'image/png,image/jpeg,image/gif,image/bmp',
+                listType: 'picture-card',
+                action: 'user/upload',
+                limit: 1,
+                name: 'file',
+                grid: {
+                    span: 24
+                }
+            },
+        },
+        logoFullColor: {
+            title: '系统彩色标志',
+            type: t.string,
+            ui: {
+                widget: w.avatar,
+                fileType: 'image/png,image/jpeg,image/gif,image/bmp',
+                listType: 'picture-card',
+                action: 'user/upload',
+                limit: 1,
+                name: 'file',
+                grid: {
+                    span: 24
+                }
+            },
+        },
     },
     ui: {
         spanLabelFixed: 100,
