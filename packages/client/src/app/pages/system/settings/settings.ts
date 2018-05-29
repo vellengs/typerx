@@ -33,6 +33,7 @@ export class SettingsPageComponent extends BaseComponent implements OnInit {
 
     profileValue = {};
     profileData = {};
+    settingsData = {};
 
     constructor(injector: Injector) {
         super(injector);
@@ -45,7 +46,7 @@ export class SettingsPageComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
+        this.load();
     }
 
     reset() {
@@ -81,10 +82,20 @@ export class SettingsPageComponent extends BaseComponent implements OnInit {
     }
 
     saveSysSettings(event) {
-        const entry = Object.assign({}, event);
+        const entry = Object.assign({}, event); 
+
         this.coreService.settingUpdateSettingsByName('main', entry).subscribe((res) => {
             if (res) {
+                this.settingsData = res;
                 this.msg.success('系统设置更新成功');
+            }
+        });
+    }
+
+    load() {
+        this.coreService.settingGetSettingsByName('main').subscribe((res) => {
+            if (res) {
+                this.settingsData = res;
             }
         });
     }

@@ -65,12 +65,8 @@ export class AvatarWidgetComponent extends ControlWidget implements OnInit {
         if (args.type !== 'success') return;
         if (args.file && args.file.response) {
             const value = args.file.response.url;
-            this.formProperty.setValue(value, true);
+            this.formProperty.setValue(value, false);
         }
-    }
-
-    reset(value: any) {
-        super.reset(value);
     }
 
     handlePreview = (file: UploadFile) => {
