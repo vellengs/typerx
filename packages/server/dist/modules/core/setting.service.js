@@ -8,8 +8,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const typescript_rest_1 = require("typescript-rest");
 const core_database_1 = require("./core.database");
 const lodash_1 = require("lodash");
+const setting_dto_1 = require("./dto/setting.dto");
 const repository_1 = require("../../database/repository");
 const setting_appearance_1 = require("./appearance/setting.appearance");
 class SettingService {
@@ -18,33 +20,28 @@ class SettingService {
             return setting_appearance_1.appearance;
         });
     }
-    getMainSettings(keys) {
+    getSettingsByName(name) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!keys) {
-                return [];
-            }
-            const names = keys.split(',');
-            const docs = yield core_database_1.CoreDatabase.Setting.find({
-                key: {
-                    $in: names
+            const result = new setting_dto_1.SettingsGroup();
+            if (name) {
+                const docs = yield core_database_1.CoreDatabase.Setting.find({
+                    name: name
+                }).exec();
+                if (docs) {
+                    docs.forEach((doc) => {
+                        result[doc.key] = doc.value;
+                    });
                 }
-            }).exec();
-            if (docs) {
-                return docs.map((res) => {
-                    return this.pure(res);
-                });
             }
-            else {
-                return [];
-            }
+            return result;
         });
     }
     getSettingsByKey(name) {
         return __awaiter(this, void 0, void 0, function* () {
             const setting = yield core_database_1.CoreDatabase.Setting.findOne({
-                name: name
+                key: name
             }).exec();
-            return setting;
+            return this.pure(setting);
         });
     }
     search(keyword, value, limit = 15) {
@@ -59,6 +56,19 @@ class SettingService {
             return this.pure(result);
         });
     }
+    updateSettingsByName(name, entry) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const keys = Object.keys(entry);
+            for (let key of keys) {
+                const instance = {
+                    key: key,
+                    value: entry[key]
+                };
+                yield core_database_1.CoreDatabase.Setting.findOneAndUpdate({ key: key, name: name }, { $set: instance }, { upsert: true, 'new': true }).exec();
+            }
+            return this.getSettingsByName(name);
+        });
+    }
     update(entry) {
         return __awaiter(this, void 0, void 0, function* () {
             if (entry.id) {
@@ -66,8 +76,7 @@ class SettingService {
                 return this.pure(result);
             }
             else {
-                const result = yield core_database_1.CoreDatabase.Setting.findOneAndUpdate({ key: entry.key }, { $set: entry }, { upsert: true, 'new': true }).exec();
-                return this.pure(result);
+                throw new typescript_rest_1.Errors.BadRequestError('settings not found');
             }
         });
     }

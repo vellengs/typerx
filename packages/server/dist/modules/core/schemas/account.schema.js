@@ -24,12 +24,10 @@ exports.schema = new mongoose_1.Schema({
             ref: 'Group',
         },
     ],
-    profile: [
-        {
-            type: mongoose_1.SchemaTypes.ObjectId,
-            ref: 'Profile',
-        },
-    ],
+    profile: {
+        type: mongoose_1.SchemaTypes.ObjectId,
+        ref: 'Profile',
+    },
     isDisable: {
         type: mongoose_1.SchemaTypes.Boolean,
         default: false,

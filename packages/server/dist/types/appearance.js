@@ -38,6 +38,8 @@ var WidgetTypes;
     WidgetTypes["listBox"] = "listBox";
     WidgetTypes["dict"] = "dict";
     WidgetTypes["choices"] = "choices";
+    WidgetTypes["image"] = "image";
+    WidgetTypes["avatar"] = "avatar";
 })(WidgetTypes = exports.WidgetTypes || (exports.WidgetTypes = {}));
 // export declare interface PaginateResponse<T> {
 //     error?: Error;

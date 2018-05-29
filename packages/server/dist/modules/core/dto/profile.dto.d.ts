@@ -1,5 +1,6 @@
 export declare class EditProfileDto {
     id: string;
+    profile?: string;
     nick?: string;
     email?: string;
     mobile?: string;

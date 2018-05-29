@@ -18,6 +18,9 @@ export declare class SettingResponse {
     value: any;
     description: string;
 }
+export declare class SettingsGroup {
+    [key: string]: string;
+}
 export interface PaginateSetting {
     error?: Error;
     list: Array<SettingResponse>;

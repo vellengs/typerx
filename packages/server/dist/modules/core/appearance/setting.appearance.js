@@ -4,6 +4,21 @@ const appearance_1 = require("../../../types/appearance");
 const profile = {
     title: '个人信息',
     properties: {
+        avatar: {
+            title: '头像',
+            type: appearance_1.SchemaTypes.string,
+            ui: {
+                widget: appearance_1.WidgetTypes.avatar,
+                fileType: 'image/png,image/jpeg,image/gif,image/bmp',
+                listType: 'picture-card',
+                action: 'user/upload',
+                limit: 1,
+                name: 'file',
+                grid: {
+                    span: 24
+                }
+            },
+        },
         nick: {
             title: '昵称',
             type: appearance_1.SchemaTypes.string,
@@ -64,9 +79,42 @@ const sysSetting = {
             title: '系统标志',
             type: appearance_1.SchemaTypes.string,
             ui: {
-                widget: appearance_1.WidgetTypes.upload,
+                widget: appearance_1.WidgetTypes.avatar,
                 fileType: 'image/png,image/jpeg,image/gif,image/bmp',
                 listType: 'picture-card',
+                action: 'user/upload',
+                limit: 1,
+                name: 'file',
+                grid: {
+                    span: 24
+                }
+            },
+        },
+        logoFull: {
+            title: '系统完整标志',
+            type: appearance_1.SchemaTypes.string,
+            ui: {
+                widget: appearance_1.WidgetTypes.avatar,
+                fileType: 'image/png,image/jpeg,image/gif,image/bmp',
+                listType: 'picture-card',
+                action: 'user/upload',
+                limit: 1,
+                name: 'file',
+                grid: {
+                    span: 24
+                }
+            },
+        },
+        logoFullColor: {
+            title: '系统彩色标志',
+            type: appearance_1.SchemaTypes.string,
+            ui: {
+                widget: appearance_1.WidgetTypes.avatar,
+                fileType: 'image/png,image/jpeg,image/gif,image/bmp',
+                listType: 'picture-card',
+                action: 'user/upload',
+                limit: 1,
+                name: 'file',
                 grid: {
                     span: 24
                 }

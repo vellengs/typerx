@@ -1,6 +1,6 @@
 import { ServiceContext } from 'typescript-rest';
 import { SettingService } from './setting.service';
-import { SettingResponse, CreateSettingDto, EditSettingDto, PaginateSetting } from './dto/setting.dto';
+import { SettingResponse, CreateSettingDto, EditSettingDto, PaginateSetting, SettingsGroup } from './dto/setting.dto';
 import { Appearance } from '../../types/appearance';
 /**
  * 设置管理接口.
@@ -14,15 +14,20 @@ export declare class SettingController {
      */
     getConfig(): Promise<Appearance>;
     /**
-     * 获取设置项
+     * 按分组获取多个设置项
      * @param keys 设置项key的集合
      */
-    getMainSettings(keys?: string): Promise<Array<SettingResponse>>;
+    getSettingsByName(name?: string): Promise<SettingsGroup>;
+    /**
+    * 更新设置项
+    * @param entry 设置项实体
+    */
+    updateSettingsByName(name: string, entry: SettingsGroup): Promise<SettingsGroup>;
     /**
      * 通过Key获取设置项目
-     * @param name 键名
+     * @param key 键名
      */
-    getSettingsByKey(name: string): Promise<SettingResponse>;
+    getSettingsByKey(key: string): Promise<SettingResponse>;
     /**
      * 查询设置项
      * @param keyword 关键词

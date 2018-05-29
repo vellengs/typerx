@@ -1,3 +1,4 @@
+/// <reference types="multer" />
 import { ServiceContext } from 'typescript-rest';
 import { LoginDto, LoginResponse, ProfileResponse } from './dto/login.dto';
 import { UserService } from './user.service';
@@ -23,4 +24,12 @@ export declare class UserController {
      * 退出登陆
      */
     logout(): Promise<boolean>;
+    /**
+     * 上传附件
+     * @param file
+     * @param field
+     */
+    fileUpload(file: Express.Multer.File, field?: string): Promise<{
+        url: string;
+    }>;
 }

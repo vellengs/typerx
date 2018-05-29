@@ -49,6 +49,7 @@ import { PaginateSetting } from '../model/paginateSetting';
 import { ProfileResponse } from '../model/profileResponse';
 import { RoleResponse } from '../model/roleResponse';
 import { SettingResponse } from '../model/settingResponse';
+import { SettingsGroup } from '../model/settingsGroup';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -1998,19 +1999,17 @@ export class CoreService {
 
     /**
      * 
-     * 获取设置项
-     * @param keys 设置项key的集合
+     * 通过Key获取设置项目
+     * @param key 键名
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public settingGetMainSettings(keys?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<SettingResponse>>;
-    public settingGetMainSettings(keys?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SettingResponse>>>;
-    public settingGetMainSettings(keys?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SettingResponse>>>;
-    public settingGetMainSettings(keys?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (keys !== undefined) {
-            queryParameters = queryParameters.set('keys', <any>keys);
+    public settingGetSettingsByKey(key: string, observe?: 'body', reportProgress?: boolean): Observable<SettingResponse>;
+    public settingGetSettingsByKey(key: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SettingResponse>>;
+    public settingGetSettingsByKey(key: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SettingResponse>>;
+    public settingGetSettingsByKey(key: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (key === null || key === undefined) {
+            throw new Error('Required parameter key was null or undefined when calling settingGetSettingsByKey.');
         }
 
         let headers = this.defaultHeaders;
@@ -2028,9 +2027,8 @@ export class CoreService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<Array<SettingResponse>>(`${this.basePath}/api/setting/main`,
+        return this.httpClient.get<SettingResponse>(`${this.basePath}/api/setting/key/${encodeURIComponent(String(key))}`,
             {
-                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -2041,17 +2039,17 @@ export class CoreService {
 
     /**
      * 
-     * 通过Key获取设置项目
-     * @param name 键名
+     * 按分组获取多个设置项
+     * @param name 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public settingGetSettingsByKey(name: string, observe?: 'body', reportProgress?: boolean): Observable<SettingResponse>;
-    public settingGetSettingsByKey(name: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SettingResponse>>;
-    public settingGetSettingsByKey(name: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SettingResponse>>;
-    public settingGetSettingsByKey(name: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public settingGetSettingsByName(name: string, observe?: 'body', reportProgress?: boolean): Observable<SettingsGroup>;
+    public settingGetSettingsByName(name: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SettingsGroup>>;
+    public settingGetSettingsByName(name: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SettingsGroup>>;
+    public settingGetSettingsByName(name: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (name === null || name === undefined) {
-            throw new Error('Required parameter name was null or undefined when calling settingGetSettingsByKey.');
+            throw new Error('Required parameter name was null or undefined when calling settingGetSettingsByName.');
         }
 
         let headers = this.defaultHeaders;
@@ -2069,7 +2067,7 @@ export class CoreService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<SettingResponse>(`${this.basePath}/api/setting/key/${encodeURIComponent(String(name))}`,
+        return this.httpClient.get<SettingsGroup>(`${this.basePath}/api/setting/name/${encodeURIComponent(String(name))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -2258,6 +2256,120 @@ export class CoreService {
 
         return this.httpClient.put<SettingResponse>(`${this.basePath}/api/setting`,
             entry,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 更新设置项
+     * @param name 
+     * @param entry 设置项实体
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public settingUpdateSettingsByName(name: string, entry: SettingsGroup, observe?: 'body', reportProgress?: boolean): Observable<SettingsGroup>;
+    public settingUpdateSettingsByName(name: string, entry: SettingsGroup, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SettingsGroup>>;
+    public settingUpdateSettingsByName(name: string, entry: SettingsGroup, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SettingsGroup>>;
+    public settingUpdateSettingsByName(name: string, entry: SettingsGroup, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (name === null || name === undefined) {
+            throw new Error('Required parameter name was null or undefined when calling settingUpdateSettingsByName.');
+        }
+        if (entry === null || entry === undefined) {
+            throw new Error('Required parameter entry was null or undefined when calling settingUpdateSettingsByName.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+            'application/json'
+        ];
+        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set("Content-Type", httpContentTypeSelected);
+        }
+
+        return this.httpClient.put<SettingsGroup>(`${this.basePath}/api/setting/name/${encodeURIComponent(String(name))}`,
+            entry,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 上传附件
+     * @param file 
+     * @param field 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public userFileUpload(file: Blob, field?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public userFileUpload(file: Blob, field?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public userFileUpload(file: Blob, field?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public userFileUpload(file: Blob, field?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (file === null || file === undefined) {
+            throw new Error('Required parameter file was null or undefined when calling userFileUpload.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/html'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+            'multipart/form-data'
+        ];
+
+        const canConsumeForm = this.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): void; };
+        let useForm = false;
+        let convertFormParamsToString = false;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+        useForm = canConsumeForm;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        }
+
+        if (file !== undefined) {
+            formParams = formParams.append('file', <any>file) || formParams;
+        }
+        if (field !== undefined) {
+            formParams = formParams.append('field', <any>field) || formParams;
+        }
+
+        return this.httpClient.post<any>(`${this.basePath}/user/upload`,
+            convertFormParamsToString ? formParams.toString() : formParams,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

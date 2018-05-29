@@ -4,6 +4,7 @@ const passport = require("passport");
 const passportLocal = require("passport-local");
 const _ = require("lodash");
 const core_database_1 = require("./../modules/core/core.database");
+const repository_1 = require("../database/repository");
 const LocalStrategy = passportLocal.Strategy;
 function init() {
     passport.serializeUser((user, done) => {
@@ -15,8 +16,9 @@ function init() {
         }
     });
     passport.deserializeUser((id, done) => {
-        core_database_1.CoreDatabase.Account.findById(id, (err, user) => {
-            done(err, user);
+        core_database_1.CoreDatabase.Account.findById(id).populate('profile').exec((err, user) => {
+            const instance = repository_1.Repository.mergeProfile(user);
+            done(err, instance);
         });
     });
     passport.use(new LocalStrategy({ usernameField: "username" }, (username, password, done) => {

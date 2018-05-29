@@ -22,6 +22,10 @@ export interface EditProfileDto {
     /**
      * 
      */
+    profile?: string;
+    /**
+     * 
+     */
     nick?: string;
     /**
      * 

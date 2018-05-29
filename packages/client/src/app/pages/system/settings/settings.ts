@@ -81,7 +81,12 @@ export class SettingsPageComponent extends BaseComponent implements OnInit {
     }
 
     saveSysSettings(event) {
-
+        const entry = Object.assign({}, event);
+        this.coreService.settingUpdateSettingsByName('main', entry).subscribe((res) => {
+            if (res) {
+                this.msg.success('系统设置更新成功');
+            }
+        });
     }
 
 }

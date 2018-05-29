@@ -34,6 +34,9 @@ definitions:
             mobile:
                 type: string
                 description: ""
+            profile:
+                type: object
+                description: ""
             isDisable:
                 type: boolean
                 description: ""
@@ -58,6 +61,7 @@ definitions:
             - roles
             - email
             - mobile
+            - profile
             - isDisable
             - isAdmin
             - isApproved
@@ -405,6 +409,9 @@ definitions:
             id:
                 type: string
                 description: ""
+            profile:
+                type: string
+                description: ""
             nick:
                 type: string
                 description: ""
@@ -638,6 +645,10 @@ definitions:
         required:
             - list
             - total
+    SettingsGroup:
+        description: ""
+        properties: {}
+        type: object
     SettingResponse:
         description: ""
         properties:
@@ -1355,6 +1366,32 @@ paths:
             tags:
                 - core
             parameters: []
+    /user/upload:
+        post:
+            operationId: UserFileUpload
+            produces:
+                - text/html
+            responses:
+                '204':
+                    description: 'No content'
+            description: 上传附件
+            tags:
+                - core
+            consumes:
+                - multipart/form-data
+            parameters:
+                -
+                    description: ""
+                    in: formData
+                    name: file
+                    required: true
+                    type: file
+                -
+                    description: ""
+                    in: formData
+                    name: field
+                    required: false
+                    type: string
     /api/menu/config:
         get:
             operationId: MenuGetConfig
@@ -1541,29 +1578,55 @@ paths:
             tags:
                 - core
             parameters: []
-    /api/setting/main:
+    '/api/setting/name/{name}':
         get:
-            operationId: SettingGetMainSettings
+            operationId: SettingGetSettingsByName
             produces:
                 - application/json
             responses:
                 '200':
                     description: Ok
                     schema:
-                        type: array
-                        items:
-                            $ref: '#/definitions/SettingResponse'
-            description: 获取设置项
+                        $ref: '#/definitions/SettingsGroup'
+            description: 按分组获取多个设置项
             tags:
                 - core
             parameters:
                 -
-                    description: 设置项key的集合
-                    in: query
-                    name: keys
-                    required: false
+                    description: ""
+                    in: path
+                    name: name
+                    required: true
                     type: string
-    '/api/setting/key/{name}':
+        put:
+            operationId: SettingUpdateSettingsByName
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/SettingsGroup'
+            description: 更新设置项
+            tags:
+                - core
+            consumes:
+                - application/json
+            parameters:
+                -
+                    description: ""
+                    in: path
+                    name: name
+                    required: true
+                    type: string
+                -
+                    description: 设置项实体
+                    in: body
+                    name: entry
+                    required: true
+                    schema:
+                        $ref: '#/definitions/SettingsGroup'
+    '/api/setting/key/{key}':
         get:
             operationId: SettingGetSettingsByKey
             produces:
@@ -1580,7 +1643,7 @@ paths:
                 -
                     description: 键名
                     in: path
-                    name: name
+                    name: key
                     required: true
                     type: string
     /api/setting/search:

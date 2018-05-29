@@ -54,6 +54,10 @@ export interface AccountResponse {
     /**
      * 
      */
+    profile: any;
+    /**
+     * 
+     */
     isDisable: boolean;
     /**
      * 

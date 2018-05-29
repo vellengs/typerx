@@ -36,3 +36,4 @@ export * from './paginateSetting';
 export * from './profileResponse';
 export * from './roleResponse';
 export * from './settingResponse';
+export * from './settingsGroup';

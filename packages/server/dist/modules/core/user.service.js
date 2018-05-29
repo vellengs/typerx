@@ -8,10 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const typescript_rest_1 = require("typescript-rest");
 const core_database_1 = require("./core.database");
 const passport = require("passport");
 const log_service_1 = require("./log.service");
 const lodash_1 = require("lodash");
+const repository_1 = require("../../database/repository");
 class UserService {
     login(context, loginDto) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -27,12 +29,30 @@ class UserService {
             return result;
         });
     }
-    update(entry) {
+    fileUpload(file, field) {
         return __awaiter(this, void 0, void 0, function* () {
-            const doc = yield core_database_1.CoreDatabase.Profile.findOneAndUpdate({
-                _id: entry.id,
-            }, entry).exec();
-            return doc;
+            return {
+                url: 'uploads/' + file.filename
+            };
+        });
+    }
+    update(context, entry) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { request } = context;
+            const profile = yield core_database_1.CoreDatabase.Profile.findOneAndUpdate({
+                _id: request.user.id,
+            }, entry, { upsert: true, new: true }).exec();
+            entry.profile = profile._id;
+            const account = yield core_database_1.CoreDatabase.Account.findOneAndUpdate({
+                _id: request.user.id,
+            }, entry, { new: true }).populate('profile').exec();
+            if (profile) {
+                const instance = repository_1.Repository.mergeProfile(account);
+                return instance;
+            }
+            else {
+                throw new typescript_rest_1.Errors.BadRequestError('user not found');
+            }
         });
     }
     validate(request, response, next) {

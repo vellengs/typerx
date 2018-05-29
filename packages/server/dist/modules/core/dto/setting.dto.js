@@ -9,4 +9,7 @@ exports.EditSettingDto = EditSettingDto;
 class SettingResponse {
 }
 exports.SettingResponse = SettingResponse;
+class SettingsGroup {
+}
+exports.SettingsGroup = SettingsGroup;
 //# sourceMappingURL=setting.dto.js.map

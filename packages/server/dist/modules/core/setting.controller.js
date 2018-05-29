@@ -40,21 +40,30 @@ let SettingController = class SettingController {
         });
     }
     /**
-     * 获取设置项
+     * 按分组获取多个设置项
      * @param keys 设置项key的集合
      */
-    getMainSettings(keys) {
+    getSettingsByName(name) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.service.getMainSettings(keys);
+            return this.service.getSettingsByName(name);
+        });
+    }
+    /**
+    * 更新设置项
+    * @param entry 设置项实体
+    */
+    updateSettingsByName(name, entry) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.service.updateSettingsByName(name, entry);
         });
     }
     /**
      * 通过Key获取设置项目
-     * @param name 键名
+     * @param key 键名
      */
-    getSettingsByKey(name) {
+    getSettingsByKey(key) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.service.getSettingsByKey(name);
+            return this.service.getSettingsByKey(key);
         });
     }
     /**
@@ -128,17 +137,25 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], SettingController.prototype, "getConfig", null);
 __decorate([
-    typescript_rest_1.Path('main'),
+    typescript_rest_1.Path('name/:name'),
     typescript_rest_1.GET,
-    __param(0, typescript_rest_1.QueryParam('keys')),
+    __param(0, typescript_rest_1.PathParam('name')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], SettingController.prototype, "getMainSettings", null);
+], SettingController.prototype, "getSettingsByName", null);
 __decorate([
-    typescript_rest_1.Path('key/:name'),
-    typescript_rest_1.GET,
+    typescript_rest_1.PUT,
+    typescript_rest_1.Path('name/:name'),
     __param(0, typescript_rest_1.PathParam('name')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, setting_dto_1.SettingsGroup]),
+    __metadata("design:returntype", Promise)
+], SettingController.prototype, "updateSettingsByName", null);
+__decorate([
+    typescript_rest_1.Path('key/:key'),
+    typescript_rest_1.GET,
+    __param(0, typescript_rest_1.PathParam('key')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)

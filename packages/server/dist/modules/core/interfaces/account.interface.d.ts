@@ -9,6 +9,7 @@ export interface Account {
     roles: string[];
     email: string;
     mobile: string;
+    profile: any;
     isDisable: boolean;
     isAdmin: boolean;
     isApproved: boolean;

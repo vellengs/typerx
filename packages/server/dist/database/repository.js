@@ -84,9 +84,11 @@ class Repository {
                 const conditions = {};
                 conditions[valueField] = id;
                 const selected = yield model.findOne(conditions).select(fields);
-                const found = docs.findIndex((doc) => doc[valueField] == id);
-                if (found === -1) {
-                    docs.push(selected);
+                if (selected) {
+                    const found = docs.findIndex((doc) => doc[valueField] == id);
+                    if (found === -1) {
+                        docs.push(selected);
+                    }
                 }
             }
             return docs.map((item) => {
@@ -139,6 +141,20 @@ class Repository {
                 total: count
             };
         });
+    }
+    static mergeProfile(user) {
+        if (!user) {
+            return null;
+        }
+        const doc = user.toObject();
+        const instance = Object.assign({}, doc, doc.profile);
+        instance.id = doc._id;
+        delete instance.profile;
+        delete instance._id;
+        delete instance.__v;
+        delete instance.password;
+        instance.createdAt = doc.createdAt;
+        return instance;
     }
 }
 exports.Repository = Repository;

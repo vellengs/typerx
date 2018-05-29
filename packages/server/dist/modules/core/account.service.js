@@ -53,7 +53,7 @@ class AccountService {
     profile(context) {
         return __awaiter(this, void 0, void 0, function* () {
             const { user } = context.request;
-            return this.pure(user);
+            return user;
         });
     }
     query(keyword, group, role, page, size, sort) {
@@ -97,6 +97,7 @@ class AccountService {
             'isDisable',
             'isAdmin',
             'isApproved',
+            'profile',
             'expired',
         ]);
     }

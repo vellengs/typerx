@@ -11,4 +11,5 @@ export declare class Repository {
         list: TResponse[];
         total: number;
     }>;
+    static mergeProfile(user?: Document): any;
 }

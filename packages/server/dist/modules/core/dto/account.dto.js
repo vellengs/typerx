@@ -25,6 +25,7 @@ exports.AccountResponseFields = [
     'isDisable',
     'isAdmin',
     'isApproved',
+    'profile',
     'expired'
 ];
 //# sourceMappingURL=account.dto.js.map
