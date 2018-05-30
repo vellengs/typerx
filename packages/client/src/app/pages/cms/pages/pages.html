@@ -1,19 +1,7 @@
-<div class="content__title">
-    <h1>页面管理</h1>
-</div>
-<nz-card [nzExtra]="extra" [nzCover]="cover">
-    <!-- <sf [ui]="ui" [mode]="'search'" [layout]="layout" [schema]="schema" (formSubmit)="submit($event)"></sf> -->
+<page-header [title]="title"></page-header>
+
+<nz-card>
+
+
+
 </nz-card>
-<nz-row [nzGutter]="16">
-    <nz-col [nzMd]="24">
-        <nz-card [nzExtra]="extra" [nzCover]="cover">
-            <div class="mb-md">
-                <button class="mr-sm" type="button" nz-button [nzType]="'primary'" (click)="addEntry()">
-                    <i class="anticon anticon-plus"></i>
-                    新增
-                </button>
-            </div>
-            <app-base-stand [domain]="'account'"></app-base-stand>
-        </nz-card>
-    </nz-col>
-</nz-row>

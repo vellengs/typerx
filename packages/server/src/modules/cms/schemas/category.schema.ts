@@ -1,6 +1,11 @@
 import { Schema, SchemaTypes as t, SchemaOptions, model } from 'mongoose';
- 
+
 export const schema = new Schema({
-    name: t.String,
+    name: { type: t.String },
+    slug: { type: t.String },
+    order: { type: t.Number },
+    parent: { type: t.ObjectId, ref: 'Category' },
+    paths: [{ type: t.ObjectId, ref: 'Category' }],
+    description: { type: t.String }
 },
     { timestamps: true }); 
