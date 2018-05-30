@@ -34,7 +34,7 @@
     <nz-col [nzSpan]="16">
         <nz-card *ngIf="selectedItem.translate" [nzTitle]="selectedItem.translate + '的列表'" [nzExtra]="dictTpl">
 
-            <app-base-stand #dictList [operations]="operations" [url]="'api/dict/query'" [queryParams]="dictQueryParams" [domain]="'dict'"></app-base-stand>
+            <app-base-stand #dictList [operations]="operations" [queryUrl]="'api/dict/query'" [queryParams]="dictQueryParams" [domain]="'dict'"></app-base-stand>
             <ng-template #dictTpl>
                 <a (click)="add()">
                     <i class="anticon anticon-plus"></i>

@@ -8,6 +8,9 @@ export const schema = new Schema({
     author: t.String,
     sort: t.Number,
     disable: t.Boolean,
+    category: {
+        ref: 'Category', type: t.ObjectId
+    },
     meta: {
         ref: 'Meta', type: t.ObjectId
     },

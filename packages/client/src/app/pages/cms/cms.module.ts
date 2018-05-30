@@ -4,8 +4,11 @@ import { SharedModule } from '@shared/shared.module';
 import { UMeditorModule } from 'ngx-umeditor';
 import { ApiModule } from 'generated';
 import { PagesPageComponent } from './pages/pages';
+import { ArticlesPageComponent } from './articles/articles';
 const routes: Routes = [
     { path: 'pages', component: PagesPageComponent },
+    { path: 'articles', component: ArticlesPageComponent },
+
 ];
 
 @NgModule({
@@ -15,7 +18,8 @@ const routes: Routes = [
         UMeditorModule,
     ],
     declarations: [
-        PagesPageComponent
+        PagesPageComponent,
+        ArticlesPageComponent,
     ],
     entryComponents: [
     ],

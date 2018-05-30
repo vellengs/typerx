@@ -11,13 +11,13 @@ import { BaseComponent } from '@shared/base/base.component';
 import { BaseStandComponent } from '@shared/base/base.stand.component';
 
 @Component({
-    selector: 'app-pages-page',
-    templateUrl: './pages.html',
+    selector: 'app-articles-page',
+    templateUrl: './articles.html',
     styles: []
 })
-export class PagesPageComponent extends BaseStandComponent implements OnInit {
+export class ArticlesPageComponent extends BaseStandComponent implements OnInit {
 
-    @Input() domain = 'page';
+    @Input() domain = 'article';
     configReady;
     queryUrl;
 

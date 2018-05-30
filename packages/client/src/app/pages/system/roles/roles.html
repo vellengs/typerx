@@ -34,24 +34,12 @@
             </ng-template>
         </nz-card>
     </nz-col>
-    <!-- <nz-col [nzSpan]="16">
-        <nz-card *ngIf="selectedItem.name" [nzTitle]="selectedItem.name + '的成员'" [nzExtra]="extraTemplate">
 
-            <simple-table [bordered]="false" [size]="'middle'" [isPageIndexReset]="false" [toTopInChange]="false" *ngIf="columnSets"
-                #st [data]="url" [columns]="columnSets.default" [extraParams]="queryParams"></simple-table>
-
-            <ng-template #extraTemplate>
-                <a (click)="addAccount()">
-                    <i class="anticon anticon-plus"></i>
-                    添加成员</a>
-            </ng-template>
-        </nz-card>
-    </nz-col> -->
 
     <nz-col [nzSpan]="16">
         <nz-card *ngIf="selectedItem.name" [nzTitle]="selectedItem.name + '的列表'" [nzExtra]="mainTpl">
 
-            <app-base-stand #dictList [operations]="operations" [url]="'api/account/query'" [queryParams]="mainQueryParams" [domain]="'account'"></app-base-stand>
+            <app-base-stand #dictList [operations]="operations" [queryUrl]="'api/account/query'" [queryParams]="mainQueryParams" [domain]="'account'"></app-base-stand>
             <ng-template #mainTpl>
                 <a (click)="add()">
                     <i class="anticon anticon-plus"></i>

@@ -30,7 +30,7 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
 
     @ViewChild('simpleTable') simpleTable: SimpleTableComponent;
 
-    @Input() url: string;
+    @Input() queryUrl: string;
     @Input() domain: string;
     @Input() columnSets: { [key: string]: SimpleTableColumn[]; };
     @Input() queryParams: { [key: string]: any; };
@@ -50,6 +50,8 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
     }
 
     private async loadConfig() {
+        this.queryUrl = `api/${this.domain}/query`;
+        
         const url = `api/${this.domain}/config`;
         const config: any = await this.client.get(url).toPromise();
         if (config) {
@@ -170,7 +172,7 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
 
     load(pageIndex?: number): void {
         if (this.simpleTable) {
-            this.simpleTable.load(pageIndex, this.queryParams);
+            // this.simpleTable.load(pageIndex, this.queryParams);
         } else {
             const url = `api/${this.domain}/query`;
             const params = Object.assign({}, this.queryParams);

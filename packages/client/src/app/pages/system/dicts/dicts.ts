@@ -27,10 +27,9 @@ export class DictsPageComponent extends BaseStandComponent implements OnInit {
 
     async ngOnInit() {
 
-        this.url = `api/${this.domain}/query`;
+        this.queryUrl = `api/${this.domain}/query`;
         this.onConfigChanged.subscribe(() => {
             const self = this;
-
         });
 
         this.operations = {

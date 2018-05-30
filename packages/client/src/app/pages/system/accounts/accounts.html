@@ -25,7 +25,7 @@
     <nz-col [nzSpan]="16">
         <nz-card *ngIf="selectedItem.title" [nzTitle]="selectedItem.title + '的成员'" [nzExtra]="accountTpl">
 
-            <app-base-stand #accountList [operations]="operationColumn" [url]="'api/account/query'" [queryParams]="accountQueryParams"
+            <app-base-stand #accountList [operations]="operationColumn" [queryUrl]="'api/account/query'" [queryParams]="accountQueryParams"
                 [domain]="'account'"></app-base-stand>
             <ng-template #accountTpl>
                 <a (click)="addAccount()">
