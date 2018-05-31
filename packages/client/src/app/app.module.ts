@@ -63,7 +63,8 @@ export function StartupServiceFactory(
                 deps: [HttpClient],
             },
         }),
-        // thirds
+
+         // thirds
         UEditorModule.forRoot({
             // **注：** 建议使用本地路径；以下为了减少 ng-alain 脚手架的包体大小引用了CDN，可能会有部分功能受影响
             js: [

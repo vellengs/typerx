@@ -24,6 +24,21 @@
                         "text": "文章管理",
                         "link": "/cms/articles",
                         "icon": "icon-people"
+                    },
+                    {
+                        "text": "分类管理",
+                        "link": "/cms/categories",
+                        "icon": "icon-people"
+                    },
+                    {
+                        "text": "媒体管理",
+                        "link": "/cms/media",
+                        "icon": "icon-people"
+                    },
+                    {
+                        "text": "小部件管理",
+                        "link": "/cms/widgets",
+                        "icon": "icon-people"
                     }
                 ]
             },
