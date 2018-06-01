@@ -16,7 +16,7 @@ import { Content } from './interfaces/content.interface';
 import { Article } from './interfaces/article.interface';
 
 export const CmsDatabase = {
-    Article: model<Page>('Article', ArticleSchema),
+    Article: model<Article>('Article', ArticleSchema),
     Category: model<Category>('Category', CategorySchema),
     Comment: model<Comment>('Comment', CommentSchema),
     Media: model<Media>('Media', MediaSchema),

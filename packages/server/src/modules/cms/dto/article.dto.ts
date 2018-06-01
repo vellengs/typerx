@@ -2,6 +2,7 @@
 export class CreateArticleDto {
     name: string;
     title: string;
+    category:string;
     description: string;
     author: string;
     sort: number;
@@ -15,6 +16,7 @@ export class EditArticleDto {
     id: string;
     name: string;
     title: string;
+    category:string;
     description: string;
     author: string;
     sort: number;
@@ -28,6 +30,7 @@ export class ArticleResponse {
     id: string;
     name: string;
     title: string;
+    category:string;
     description: string;
     author: string;
     sort: number;
@@ -47,6 +50,7 @@ export const ArticleResponseFields = [
     'id',
     'name',
     'title',
+    'category',
     'description',
     'author',
     'sort',

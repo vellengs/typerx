@@ -1,13 +1,30 @@
 export class CreateCategoryDto {
-
+    name: string;
+    slug: string;
+    order: number;
+    parent: string;
+    paths: string[];
+    description: string;
 }
 
 export class EditCategoryDto {
     id: string;
+    name: string;
+    slug: string;
+    order: number;
+    parent: string;
+    paths: string[];
+    description: string;
 }
 
 export class CategoryResponse {
-
+    id: string;
+    name: string;
+    slug: string;
+    order: number;
+    parent: string;
+    paths: string[];
+    description: string;
 }
 
 export declare interface PaginateCategory {
@@ -20,12 +37,9 @@ export declare interface PaginateCategory {
 export const CategoryResponseFields = [
     'id',
     'name',
-    'title',
-    'description',
-    'author',
-    'sort',
-    'disable',
-    'meta',
-    'content',
-    'template',
+    'slug',
+    'order',
+    'parent',
+    'paths',
+    'description'
 ];

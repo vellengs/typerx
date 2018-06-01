@@ -71,14 +71,16 @@ export const appearance: Appearance = {
     columnSets: {
         default: [
             {
-                title: '文章名称',
-                index: 'name',
-                type: 'link',
-                action: 'edit'
-            },
-            {
                 title: '标题',
                 index: 'title'
+            },
+            {
+                title: '作者',
+                index: 'author'
+            },
+            {
+                title: '分类',
+                index: 'category.name'
             }
         ]
     },

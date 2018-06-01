@@ -3,7 +3,10 @@ import { appearance } from "./appearance/article.appearance";
 import { Repository } from "../../database/repository";
 import { CmsDatabase as Db } from './cms.database';
 import { KeyValue } from "../../types/data.types";
-import { CreateArticleDto, ArticleResponse, EditArticleDto, PaginateArticle } from "./dto/article.dto";
+import {
+    CreateArticleDto, ArticleResponse, EditArticleDto, PaginateArticle,
+    ArticleResponseFields as fields
+} from "./dto/article.dto";
 import { Article } from "./interfaces/article.interface";
 import { Document } from "mongoose";
 import { pick } from "lodash";
@@ -37,27 +40,22 @@ export class ArticleService {
 
     async query(
         keyword?: string,
-        isMenu?: boolean,
-        article?: number,
+        category?: string,
+        page?: number,
         size?: number,
         sort?: string
     ): Promise<PaginateArticle> {
-        const query: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
+        const condition: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
 
-        if (isMenu)
-            query.isMenu = true;
+        const query = Db.Article.find(condition).populate([
+            { path: 'category', select: 'name' }
+        ]).sort(sort);
+        const collection = Db.Article.find(condition);
+        const result = await Repository.query<Article & Document,
+            ArticleResponse>(query, collection, page, size, fields);
 
-        const docs: any = await Db.Article.find(query).sort(sort).skip(article * size).limit(size).exec() || [];
-        const count = await Db.Article.find(query).count();
+        return result;
 
-        const list = docs.map((item: Article & Document) => {
-            return this.pure(item);
-        });
-
-        return {
-            list: list,
-            total: count
-        }
     }
 
     async remove(id: string): Promise<boolean> {
@@ -79,6 +77,7 @@ export class ArticleService {
             'id',
             'name',
             'title',
+            'category',
             'description',
             'author',
             'sort',

@@ -48,10 +48,10 @@ export class CategoryService {
         size?: number,
         sort?: string
     ): Promise<PaginateCategory> {
-        const condition: any = keyword ? { name: new RegExp(keyword, 'i') } : {}; 
-        
+        const condition: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
+
         const query = Db.Category.find(condition).sort(sort);
-        const collection = Db.Category.find(condition); 
+        const collection = Db.Category.find(condition);
         const result = await Repository.query<Category & Document,
             CategoryResponse>(query, collection, page, size, fields);
 
@@ -77,18 +77,10 @@ export class CategoryService {
             'id',
             'name',
             'slug',
-            'group',
-            'link',
-            'externalLink',
-            'blank',
-            'icon',
             'order',
-            'enable',
-            'expanded',
-            'acl',
-            'permissions',
             'parent',
-            'isCategory'
+            'paths',
+            'description'
         ])
     }
 }

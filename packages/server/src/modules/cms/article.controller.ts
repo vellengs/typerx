@@ -68,14 +68,13 @@ export class ArticleController {
     @GET
     async query(
         @QueryParam('keyword') keyword?: string,
-        @QueryParam('isArticle') isArticle?: boolean,
-        @QueryParam('article') article?: number,
+        @QueryParam('category') category?: string,
+        @QueryParam('page') page?: number,
         @QueryParam('size') size?: number,
         @QueryParam('sort') sort?: string
     ): Promise<PaginateArticle> {
-        return this.service.query(keyword, isArticle, article, size, sort);
+        return this.service.query(keyword, category, page, size, sort);
     }
-
 
     /**
    * 删除文章

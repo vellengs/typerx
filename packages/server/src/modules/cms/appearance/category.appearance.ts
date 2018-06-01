@@ -52,17 +52,16 @@ export const appearance: Appearance = {
     columnSets: {
         default: [
             {
-                title: 'name',
-                i18n: '名称',
-                index: ['name']
+                title: '名称', 
+                index: 'name'
             },
             {
-                title: 'slug',
-                index: ['slug']
+                title: '标识',
+                index: 'slug'
             },
             {
-                title: 'order',
-                index: ['order']
+                title: '排序',
+                index: 'order'
             }
         ]
     },
