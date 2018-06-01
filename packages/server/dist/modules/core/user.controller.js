@@ -70,6 +70,11 @@ let UserController = class UserController {
             return result;
         });
     }
+    uploadConfig(action) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.service.getUploadConfig(action);
+        });
+    }
 };
 __decorate([
     typescript_rest_1.Context,
@@ -104,6 +109,14 @@ __decorate([
     __metadata("design:paramtypes", [Object, String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "fileUpload", null);
+__decorate([
+    typescript_rest_1.GET,
+    typescript_rest_1.Path("upload"),
+    __param(0, typescript_rest_1.QueryParam("action")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "uploadConfig", null);
 UserController = __decorate([
     typescript_rest_swagger_1.Tags('core'),
     typescript_rest_1.Path('/user'),

@@ -1,6 +1,6 @@
 /// <reference types="multer" />
 import { ServiceContext } from 'typescript-rest';
-import { LoginDto, LoginResponse, ProfileResponse } from './dto/login.dto';
+import { LoginDto, LoginResponse, ProfileResponse, UploadConfig } from './dto/login.dto';
 import { UserService } from './user.service';
 import { EditProfileDto } from './dto/profile.dto';
 /**
@@ -32,4 +32,5 @@ export declare class UserController {
     fileUpload(file: Express.Multer.File, field?: string): Promise<{
         url: string;
     }>;
+    uploadConfig(action?: string): Promise<UploadConfig>;
 }

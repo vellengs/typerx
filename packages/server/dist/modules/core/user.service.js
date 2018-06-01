@@ -29,6 +29,18 @@ class UserService {
             return result;
         });
     }
+    getUploadConfig(action) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = {
+                "imageUrl": "/images/",
+                "imagePath": "/ueditor/images/",
+                "imageFieldName": "file",
+                "imageMaxSize": 2048,
+                "imageAllowFiles": [".png", ".jpg", ".jpeg", ".gif", ".bmp"]
+            };
+            return result;
+        });
+    }
     fileUpload(file, field) {
         return __awaiter(this, void 0, void 0, function* () {
             return {

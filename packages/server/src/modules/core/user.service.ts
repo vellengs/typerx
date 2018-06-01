@@ -39,6 +39,18 @@ export class UserService {
     return result;
   }
 
+  async getUploadConfig(action: string) {
+    const result = {
+      "imageUrl": "/images/",
+      "imagePath": "/ueditor/images/",
+      "imageFieldName": "file",
+      "imageMaxSize": 2048,
+      "imageAllowFiles": [".png", ".jpg", ".jpeg", ".gif", ".bmp"]
+    };
+    return result;
+  }
+
+
   async fileUpload(file: Express.Multer.File,
     field?: string) {
     return {

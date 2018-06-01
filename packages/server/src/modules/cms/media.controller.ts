@@ -18,7 +18,7 @@ import { KeyValue } from '../../types/data.types';
 /**
  * 媒体接口.
  */
-@Tags('core')
+@Tags('cms')
 @Path('api/media')
 export class MediaController {
     @Context context: ServiceContext;

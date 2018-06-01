@@ -140,6 +140,9 @@ export class Repository {
         fields: string[]
     ) {
         page = page - 1;
+        if (page < 0) {
+            page = 0;
+        }
         const count = await collection.count().exec();
         const docs = await query.skip(page * size).limit(size).exec() || [];
         const list = docs.map((doc) => pick(doc, fields) as TResponse);

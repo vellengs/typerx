@@ -38,3 +38,12 @@ export class ProfileResponse {
   expired: Date;
   [key: string]: any;
 }
+
+
+export class UploadConfig {
+  imageUrl: string;
+  imagePath: string;
+  imageFieldName: string;
+  imageMaxSize: number;
+  imageAllowFiles: string[];
+}

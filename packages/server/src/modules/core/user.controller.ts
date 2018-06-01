@@ -18,6 +18,7 @@ import {
   LocalStrategyInfo,
   LoginResponse,
   ProfileResponse,
+  UploadConfig,
 } from './dto/login.dto';
 import { LogService } from './log.service';
 import { UserService } from './user.service';
@@ -79,16 +80,8 @@ export class UserController {
 
   @GET
   @Path("upload")
-  async uploadConfig(@FormParam("action") action?: string) {
-    const result = {
-      "imageUrl": "/images/",
-      "imagePath": "/ueditor/images/",
-      "imageFieldName": "file",
-      "imageMaxSize": 2048,
-      "imageAllowFiles": [".png", ".jpg", ".jpeg", ".gif", ".bmp"]
-    };
-    return result;
+  async uploadConfig(@QueryParam("action") action?: string): Promise<UploadConfig> {
+    return this.service.getUploadConfig(action);
   }
-
 
 }

@@ -581,6 +581,43 @@
 				"id"
 			]
 		},
+		"UploadConfig": {
+			"description": "",
+			"properties": {
+				"imageUrl": {
+					"type": "string",
+					"description": ""
+				},
+				"imagePath": {
+					"type": "string",
+					"description": ""
+				},
+				"imageFieldName": {
+					"type": "string",
+					"description": ""
+				},
+				"imageMaxSize": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"imageAllowFiles": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"imageUrl",
+				"imagePath",
+				"imageFieldName",
+				"imageMaxSize",
+				"imageAllowFiles"
+			]
+		},
 		"MenuResponse": {
 			"description": "",
 			"properties": {
@@ -1477,6 +1514,523 @@
 				"list",
 				"total"
 			]
+		},
+		"PageResponse": {
+			"description": "",
+			"properties": {},
+			"type": "object"
+		},
+		"CreatePageDto": {
+			"description": "",
+			"properties": {},
+			"type": "object"
+		},
+		"EditPageDto": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"id"
+			]
+		},
+		"PaginatePage": {
+			"description": "",
+			"properties": {
+				"error": {
+					"$ref": "#/definitions/Error"
+				},
+				"list": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/PageResponse"
+					},
+					"description": ""
+				},
+				"total": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"list",
+				"total"
+			]
+		},
+		"MediaResponse": {
+			"description": "",
+			"properties": {},
+			"type": "object"
+		},
+		"CreateMediaDto": {
+			"description": "",
+			"properties": {},
+			"type": "object"
+		},
+		"EditMediaDto": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"id"
+			]
+		},
+		"PaginateMedia": {
+			"description": "",
+			"properties": {
+				"error": {
+					"$ref": "#/definitions/Error"
+				},
+				"list": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/MediaResponse"
+					},
+					"description": ""
+				},
+				"total": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"list",
+				"total"
+			]
+		},
+		"WidgetResponse": {
+			"description": "",
+			"properties": {},
+			"type": "object"
+		},
+		"CreateWidgetDto": {
+			"description": "",
+			"properties": {},
+			"type": "object"
+		},
+		"EditWidgetDto": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"id"
+			]
+		},
+		"PaginateWidget": {
+			"description": "",
+			"properties": {
+				"error": {
+					"$ref": "#/definitions/Error"
+				},
+				"list": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/WidgetResponse"
+					},
+					"description": ""
+				},
+				"total": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"list",
+				"total"
+			]
+		},
+		"ArticleResponse": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"title": {
+					"type": "string",
+					"description": ""
+				},
+				"category": {
+					"type": "string",
+					"description": ""
+				},
+				"description": {
+					"type": "string",
+					"description": ""
+				},
+				"author": {
+					"type": "string",
+					"description": ""
+				},
+				"sort": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"disable": {
+					"type": "boolean",
+					"description": ""
+				},
+				"meta": {
+					"type": "string",
+					"description": ""
+				},
+				"content": {
+					"type": "string",
+					"description": ""
+				},
+				"template": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"name",
+				"title",
+				"category",
+				"description",
+				"author",
+				"sort",
+				"disable",
+				"meta",
+				"content",
+				"template"
+			]
+		},
+		"CreateArticleDto": {
+			"description": "",
+			"properties": {
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"title": {
+					"type": "string",
+					"description": ""
+				},
+				"category": {
+					"type": "string",
+					"description": ""
+				},
+				"description": {
+					"type": "string",
+					"description": ""
+				},
+				"author": {
+					"type": "string",
+					"description": ""
+				},
+				"sort": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"disable": {
+					"type": "boolean",
+					"description": ""
+				},
+				"meta": {
+					"type": "string",
+					"description": ""
+				},
+				"content": {
+					"type": "string",
+					"description": ""
+				},
+				"template": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"name",
+				"title",
+				"category",
+				"description",
+				"author",
+				"sort",
+				"disable",
+				"meta",
+				"content",
+				"template"
+			]
+		},
+		"EditArticleDto": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"title": {
+					"type": "string",
+					"description": ""
+				},
+				"category": {
+					"type": "string",
+					"description": ""
+				},
+				"description": {
+					"type": "string",
+					"description": ""
+				},
+				"author": {
+					"type": "string",
+					"description": ""
+				},
+				"sort": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"disable": {
+					"type": "boolean",
+					"description": ""
+				},
+				"meta": {
+					"type": "string",
+					"description": ""
+				},
+				"content": {
+					"type": "string",
+					"description": ""
+				},
+				"template": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"name",
+				"title",
+				"category",
+				"description",
+				"author",
+				"sort",
+				"disable",
+				"meta",
+				"content",
+				"template"
+			]
+		},
+		"PaginateArticle": {
+			"description": "",
+			"properties": {
+				"error": {
+					"$ref": "#/definitions/Error"
+				},
+				"list": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/ArticleResponse"
+					},
+					"description": ""
+				},
+				"total": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"list",
+				"total"
+			]
+		},
+		"CategoryResponse": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"slug": {
+					"type": "string",
+					"description": ""
+				},
+				"order": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"parent": {
+					"type": "string",
+					"description": ""
+				},
+				"paths": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": ""
+				},
+				"description": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"name",
+				"slug",
+				"order",
+				"parent",
+				"paths",
+				"description"
+			]
+		},
+		"CreateCategoryDto": {
+			"description": "",
+			"properties": {
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"slug": {
+					"type": "string",
+					"description": ""
+				},
+				"order": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"parent": {
+					"type": "string",
+					"description": ""
+				},
+				"paths": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": ""
+				},
+				"description": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"name",
+				"slug",
+				"order",
+				"parent",
+				"paths",
+				"description"
+			]
+		},
+		"EditCategoryDto": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"slug": {
+					"type": "string",
+					"description": ""
+				},
+				"order": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"parent": {
+					"type": "string",
+					"description": ""
+				},
+				"paths": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": ""
+				},
+				"description": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"name",
+				"slug",
+				"order",
+				"parent",
+				"paths",
+				"description"
+			]
+		},
+		"PaginateCategory": {
+			"description": "",
+			"properties": {
+				"error": {
+					"$ref": "#/definitions/Error"
+				},
+				"list": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/CategoryResponse"
+					},
+					"description": ""
+				},
+				"total": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"list",
+				"total"
+			]
 		}
 	},
 	"info": {
@@ -1876,6 +2430,33 @@
 						"description": "",
 						"in": "formData",
 						"name": "field",
+						"required": false,
+						"type": "string"
+					}
+				]
+			},
+			"get": {
+				"operationId": "UserUploadConfig",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/UploadConfig"
+						}
+					}
+				},
+				"description": "",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "",
+						"in": "query",
+						"name": "action",
 						"required": false,
 						"type": "string"
 					}
@@ -3310,6 +3891,1204 @@
 				"parameters": [
 					{
 						"description": "用户组编号",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/page/config": {
+			"get": {
+				"operationId": "PageGetConfig",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/Appearance"
+						}
+					}
+				},
+				"description": "获取页面管理界面配置信息.",
+				"tags": [
+					"cms"
+				],
+				"parameters": []
+			}
+		},
+		"/api/page/search": {
+			"get": {
+				"operationId": "PageSearch",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/KeyValue"
+							}
+						}
+					}
+				},
+				"description": "查询页面",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "已选中的页面编号",
+						"in": "query",
+						"name": "value",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/page": {
+			"post": {
+				"operationId": "PageCreate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/PageResponse"
+						}
+					}
+				},
+				"description": "创建页面",
+				"tags": [
+					"cms"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "创建参数",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/CreatePageDto"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "PageUpdate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/PageResponse"
+						}
+					}
+				},
+				"description": "更新页面",
+				"tags": [
+					"cms"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "页面参数",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/EditPageDto"
+						}
+					}
+				]
+			}
+		},
+		"/api/page/query": {
+			"get": {
+				"operationId": "PageQuery",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/PaginatePage"
+						}
+					}
+				},
+				"description": "查询页面数据",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "",
+						"in": "query",
+						"name": "isPage",
+						"required": false,
+						"type": "boolean"
+					},
+					{
+						"description": "第几页",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "页大小",
+						"in": "query",
+						"name": "size",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "排序",
+						"in": "query",
+						"name": "sort",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/page/{id}": {
+			"delete": {
+				"operationId": "PageRemove",
+				"produces": [
+					"text/html"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				},
+				"description": "删除页面",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "页面编号",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			},
+			"get": {
+				"operationId": "PageGet",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/PageResponse"
+						}
+					}
+				},
+				"description": "查询页面",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "页面编号",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/media/config": {
+			"get": {
+				"operationId": "MediaGetConfig",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/Appearance"
+						}
+					}
+				},
+				"description": "获取媒体管理界面配置信息.",
+				"tags": [
+					"cms"
+				],
+				"parameters": []
+			}
+		},
+		"/api/media/search": {
+			"get": {
+				"operationId": "MediaSearch",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/KeyValue"
+							}
+						}
+					}
+				},
+				"description": "查询媒体",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "已选中的媒体编号",
+						"in": "query",
+						"name": "value",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/media": {
+			"post": {
+				"operationId": "MediaCreate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/MediaResponse"
+						}
+					}
+				},
+				"description": "创建媒体",
+				"tags": [
+					"cms"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "创建参数",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/CreateMediaDto"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "MediaUpdate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/MediaResponse"
+						}
+					}
+				},
+				"description": "更新媒体",
+				"tags": [
+					"cms"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "媒体参数",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/EditMediaDto"
+						}
+					}
+				]
+			}
+		},
+		"/api/media/query": {
+			"get": {
+				"operationId": "MediaQuery",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/PaginateMedia"
+						}
+					}
+				},
+				"description": "查询媒体数据",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "",
+						"in": "query",
+						"name": "isMedia",
+						"required": false,
+						"type": "boolean"
+					},
+					{
+						"description": "第几页",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "页大小",
+						"in": "query",
+						"name": "size",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "排序",
+						"in": "query",
+						"name": "sort",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/media/{id}": {
+			"delete": {
+				"operationId": "MediaRemove",
+				"produces": [
+					"text/html"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				},
+				"description": "删除媒体",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "媒体编号",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			},
+			"get": {
+				"operationId": "MediaGet",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/MediaResponse"
+						}
+					}
+				},
+				"description": "查询媒体",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "媒体编号",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/widget/config": {
+			"get": {
+				"operationId": "WidgetGetConfig",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/Appearance"
+						}
+					}
+				},
+				"description": "获取小部件管理界面配置信息.",
+				"tags": [
+					"cms"
+				],
+				"parameters": []
+			}
+		},
+		"/api/widget/search": {
+			"get": {
+				"operationId": "WidgetSearch",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/KeyValue"
+							}
+						}
+					}
+				},
+				"description": "查询小部件",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "已选中的小部件编号",
+						"in": "query",
+						"name": "value",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/widget": {
+			"post": {
+				"operationId": "WidgetCreate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/WidgetResponse"
+						}
+					}
+				},
+				"description": "创建小部件",
+				"tags": [
+					"cms"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "创建参数",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/CreateWidgetDto"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "WidgetUpdate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/WidgetResponse"
+						}
+					}
+				},
+				"description": "更新小部件",
+				"tags": [
+					"cms"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "小部件参数",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/EditWidgetDto"
+						}
+					}
+				]
+			}
+		},
+		"/api/widget/query": {
+			"get": {
+				"operationId": "WidgetQuery",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/PaginateWidget"
+						}
+					}
+				},
+				"description": "查询小部件数据",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "",
+						"in": "query",
+						"name": "isWidget",
+						"required": false,
+						"type": "boolean"
+					},
+					{
+						"description": "第几页",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "页大小",
+						"in": "query",
+						"name": "size",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "排序",
+						"in": "query",
+						"name": "sort",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/widget/{id}": {
+			"delete": {
+				"operationId": "WidgetRemove",
+				"produces": [
+					"text/html"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				},
+				"description": "删除小部件",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "小部件编号",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			},
+			"get": {
+				"operationId": "WidgetGet",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/WidgetResponse"
+						}
+					}
+				},
+				"description": "查询小部件",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "小部件编号",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/article/config": {
+			"get": {
+				"operationId": "ArticleGetConfig",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/Appearance"
+						}
+					}
+				},
+				"description": "获取文章管理界面配置信息.",
+				"tags": [
+					"cms"
+				],
+				"parameters": []
+			}
+		},
+		"/api/article/search": {
+			"get": {
+				"operationId": "ArticleSearch",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/KeyValue"
+							}
+						}
+					}
+				},
+				"description": "查询文章",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "已选中的文章编号",
+						"in": "query",
+						"name": "value",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/article": {
+			"post": {
+				"operationId": "ArticleCreate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/ArticleResponse"
+						}
+					}
+				},
+				"description": "创建文章",
+				"tags": [
+					"cms"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "创建参数",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/CreateArticleDto"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "ArticleUpdate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/ArticleResponse"
+						}
+					}
+				},
+				"description": "更新文章",
+				"tags": [
+					"cms"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "文章参数",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/EditArticleDto"
+						}
+					}
+				]
+			}
+		},
+		"/api/article/query": {
+			"get": {
+				"operationId": "ArticleQuery",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/PaginateArticle"
+						}
+					}
+				},
+				"description": "查询文章数据",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "",
+						"in": "query",
+						"name": "category",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "页大小",
+						"in": "query",
+						"name": "size",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "排序",
+						"in": "query",
+						"name": "sort",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/article/{id}": {
+			"delete": {
+				"operationId": "ArticleRemove",
+				"produces": [
+					"text/html"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				},
+				"description": "删除文章",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "文章编号",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			},
+			"get": {
+				"operationId": "ArticleGet",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/ArticleResponse"
+						}
+					}
+				},
+				"description": "查询文章",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "文章编号",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/category/config": {
+			"get": {
+				"operationId": "CategoryGetConfig",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/Appearance"
+						}
+					}
+				},
+				"description": "获取分类管理界面配置信息.",
+				"tags": [
+					"cms"
+				],
+				"parameters": []
+			}
+		},
+		"/api/category/search": {
+			"get": {
+				"operationId": "CategorySearch",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/KeyValue"
+							}
+						}
+					}
+				},
+				"description": "查询分类",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "已选中的分类编号",
+						"in": "query",
+						"name": "value",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/category": {
+			"post": {
+				"operationId": "CategoryCreate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/CategoryResponse"
+						}
+					}
+				},
+				"description": "创建分类",
+				"tags": [
+					"cms"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "创建参数",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/CreateCategoryDto"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "CategoryUpdate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/CategoryResponse"
+						}
+					}
+				},
+				"description": "更新分类",
+				"tags": [
+					"cms"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "分类参数",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/EditCategoryDto"
+						}
+					}
+				]
+			}
+		},
+		"/api/category/query": {
+			"get": {
+				"operationId": "CategoryQuery",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/PaginateCategory"
+						}
+					}
+				},
+				"description": "查询分类数据",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "第几页",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "页大小",
+						"in": "query",
+						"name": "size",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "排序",
+						"in": "query",
+						"name": "sort",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/category/{id}": {
+			"delete": {
+				"operationId": "CategoryRemove",
+				"produces": [
+					"text/html"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				},
+				"description": "删除分类",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "分类编号",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			},
+			"get": {
+				"operationId": "CategoryGet",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/CategoryResponse"
+						}
+					}
+				},
+				"description": "查询分类",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "分类编号",
 						"in": "path",
 						"name": "id",
 						"required": true,

@@ -12,4 +12,7 @@ exports.LoginResponse = LoginResponse;
 class ProfileResponse {
 }
 exports.ProfileResponse = ProfileResponse;
+class UploadConfig {
+}
+exports.UploadConfig = UploadConfig;
 //# sourceMappingURL=login.dto.js.map

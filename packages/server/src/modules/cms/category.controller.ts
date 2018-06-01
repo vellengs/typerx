@@ -18,7 +18,7 @@ import { KeyValue } from '../../types/data.types';
 /**
  * 分类接口.
  */
-@Tags('core')
+@Tags('cms')
 @Path('api/category')
 export class CategoryController {
     @Context context: ServiceContext;

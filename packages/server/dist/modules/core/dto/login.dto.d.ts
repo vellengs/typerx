@@ -35,3 +35,10 @@ export declare class ProfileResponse {
     expired: Date;
     [key: string]: any;
 }
+export declare class UploadConfig {
+    imageUrl: string;
+    imagePath: string;
+    imageFieldName: string;
+    imageMaxSize: number;
+    imageAllowFiles: string[];
+}

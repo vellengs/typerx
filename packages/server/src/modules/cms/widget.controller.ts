@@ -18,7 +18,7 @@ import { KeyValue } from '../../types/data.types';
 /**
  * 小部件接口.
  */
-@Tags('core')
+@Tags('cms')
 @Path('api/widget')
 export class WidgetController {
     @Context context: ServiceContext;
