@@ -3,7 +3,7 @@ import { cloneDeep } from 'lodash';
 import { SFSchema } from "../../../types/schema.types";
 
 const addForm: SFSchema = {
-    title: '新建文章',
+    title: '新建媒体',
     properties: {
         title: {
             title: '标题',
@@ -50,7 +50,7 @@ const addForm: SFSchema = {
             }
         },
     },
-    required: ['title'],
+    required: [],
     ui: {
         spanLabelFixed: 100,
         grid: {

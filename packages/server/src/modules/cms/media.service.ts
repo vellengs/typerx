@@ -1,39 +1,38 @@
 import { Appearance } from '../../types/appearance';
 import { ServiceContext, Errors } from 'typescript-rest';
-import { Category } from './interfaces/Category.interface';
+import { Media } from './interfaces/Media.interface';
 import { CmsDatabase as Db } from './cms.database';
 import {
-    CategoryResponseFields as fields,
-    CategoryResponse,
-    EditCategoryDto,
-    CreateCategoryDto,
-    PaginateCategory,
-} from './dto/category.dto';
-import { appearance } from './appearance/category.appearance';
+    MediaResponse,
+    EditMediaDto,
+    CreateMediaDto,
+    PaginateMedia,
+} from './dto/media.dto';
+import { appearance } from './appearance/media.appearance';
 import { Document, Types } from 'mongoose';
 import { pick, merge } from 'lodash';
 import { Repository } from '../../database/repository';
 import { KeyValue } from '../../types/data.types';
 
-export class CategoryService {
+export class MediaService {
     async getAppearance(): Promise<Appearance> {
         return appearance;
     }
 
     async search(keyword?: string, value?: string, limit: number = 10): Promise<Array<KeyValue>> {
-        return Repository.search(Db.Category, keyword, value, '', limit);
+        return Repository.search(Db.Media, keyword, value, '', limit);
     }
 
-    async create(entry: CreateCategoryDto): Promise<CategoryResponse> {
-        const doc = new Db.Category(entry);
+    async create(entry: CreateMediaDto): Promise<MediaResponse> {
+        const doc = new Db.Media(entry);
         const result: any = await doc.save();
         return result;
     }
 
     async update(
-        entry: EditCategoryDto,
-    ): Promise<CategoryResponse> {
-        const doc: any = await Db.Category.findOneAndUpdate(
+        entry: EditMediaDto,
+    ): Promise<MediaResponse> {
+        const doc: any = await Db.Media.findOneAndUpdate(
             {
                 _id: entry.id,
             },
@@ -44,26 +43,35 @@ export class CategoryService {
 
     async query(
         keyword?: string,
+        isMedia?: boolean,
         page?: number,
         size?: number,
         sort?: string
-    ): Promise<PaginateCategory> {
-        const condition: any = keyword ? { name: new RegExp(keyword, 'i') } : {}; 
-        
-        const query = Db.Category.find(condition).sort(sort);
-        const collection = Db.Category.find(condition); 
-        const result = await Repository.query<Category & Document,
-            CategoryResponse>(query, collection, page, size, fields);
+    ): Promise<PaginateMedia> {
+        const query: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
 
-        return result;
+        if (isMedia)
+            query.isMedia = true;
+
+        const docs: any = await Db.Media.find(query).sort(sort).skip(page * size).limit(size).exec() || [];
+        const count = await Db.Media.find(query).count();
+
+        const list = docs.map((item: Media & Document) => {
+            return this.pure(item);
+        });
+
+        return {
+            list: list,
+            total: count
+        }
     }
 
     async remove(id: string): Promise<boolean> {
-        return Repository.remove(Db.Category, id);
+        return Repository.remove(Db.Media, id);
     }
 
-    async get(id: string): Promise<CategoryResponse> {
-        const result = await Repository.get(Db.Category, id, [
+    async get(id: string): Promise<MediaResponse> {
+        const result = await Repository.get(Db.Media, id, [
             {
                 path: 'roles',
                 select: 'name',
@@ -72,7 +80,7 @@ export class CategoryService {
         return this.pure(result);
     }
 
-    private pure(entry: Category & Document): CategoryResponse {
+    private pure(entry: Media & Document): MediaResponse {
         return pick(entry, [
             'id',
             'name',
@@ -88,7 +96,7 @@ export class CategoryService {
             'acl',
             'permissions',
             'parent',
-            'isCategory'
+            'isMedia'
         ])
     }
 }

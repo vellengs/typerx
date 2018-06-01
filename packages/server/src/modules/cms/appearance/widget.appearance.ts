@@ -14,6 +14,7 @@ const addForm: SFSchema = {
                 }
             }
         },
+
         keyword: {
             title: '关键词',
             type: t.string
@@ -50,7 +51,7 @@ const addForm: SFSchema = {
             }
         },
     },
-    required: ['title'],
+    required: [],
     ui: {
         spanLabelFixed: 100,
         grid: {

@@ -78,12 +78,11 @@ export class CategoryController {
     @GET
     async query(
         @QueryParam('keyword') keyword?: string,
-        @QueryParam('isCategory') isCategory?: boolean,
         @QueryParam('page') page?: number,
         @QueryParam('size') size?: number,
         @QueryParam('sort') sort?: string
     ): Promise<PaginateCategory> {
-        return this.service.query(keyword, isCategory, page, size, sort);
+        return this.service.query(keyword, page, size, sort);
     }
 
 

@@ -15,3 +15,17 @@ export declare interface PaginateCategory {
     list: Array<CategoryResponse>;
     total: number;
 }
+
+
+export const CategoryResponseFields = [
+    'id',
+    'name',
+    'title',
+    'description',
+    'author',
+    'sort',
+    'disable',
+    'meta',
+    'content',
+    'template',
+];

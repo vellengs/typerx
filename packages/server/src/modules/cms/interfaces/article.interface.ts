@@ -1,6 +1,7 @@
 import { Document } from 'mongoose';
 
 export interface Article extends Document {
+  id: string;
   name: string;
   title: string;
   description: string;

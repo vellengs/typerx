@@ -76,4 +76,19 @@ export class UserController {
     return result;
   }
 
+
+  @GET
+  @Path("upload")
+  async uploadConfig(@FormParam("action") action?: string) {
+    const result = {
+      "imageUrl": "/images/",
+      "imagePath": "/ueditor/images/",
+      "imageFieldName": "file",
+      "imageMaxSize": 2048,
+      "imageAllowFiles": [".png", ".jpg", ".jpeg", ".gif", ".bmp"]
+    };
+    return result;
+  }
+
+
 }

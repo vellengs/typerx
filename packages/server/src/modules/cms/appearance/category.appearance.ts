@@ -19,15 +19,7 @@ const addForm: SFSchema = {
             ui: {
                 widget: w.search,
                 allowClear: true,
-                domain: 'menu'
-            }
-        },
-        link: {
-            title: '链接',
-            type: 'string',
-            maxLength: 512,
-            ui: {
-                placeholder: '请输入链接'
+                domain: 'category'
             }
         },
         slug: {
@@ -38,29 +30,13 @@ const addForm: SFSchema = {
                 placeholder: '请输标识'
             }
         },
-        group: {
-            title: '是否分组',
-            type: t.boolean,
-            maxLength: 30,
-        },
-        icon: {
-            title: '图标',
-            type: 'string',
-            ui: {
-                widget: w.autocomplete
-            }
-        },
-        expanded: {
-            title: '是否展开',
-            type: t.boolean,
-        },
         order: {
             title: '顺序',
             type: t.number,
             default: 100,
         },
     },
-    required: ['name', 'link'],
+    required: ['name', 'slug'],
     ui: {
         spanLabelFixed: 100,
         grid: {
@@ -81,30 +57,12 @@ export const appearance: Appearance = {
                 index: ['name']
             },
             {
-                title: 'icon',
-                i18n: '图标',
-                index: ['icon']
-            },
-            {
-                title: 'link',
-                i18n: '链接',
-                index: ['link']
-            },
-            {
-                title: 'externalLink',
-                i18n: '扩展链接',
-                index: ['externalLink']
-            },
-            {
                 title: 'slug',
-                index: ['externalLink']
+                index: ['slug']
             },
             {
                 title: 'order',
-                index: ['order'],
-                click: () => {
-                    console.log('click ..');
-                }
+                index: ['order']
             }
         ]
     },

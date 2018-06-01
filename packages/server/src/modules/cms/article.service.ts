@@ -78,19 +78,14 @@ export class ArticleService {
         return pick(entry, [
             'id',
             'name',
-            'slug',
-            'group',
-            'link',
-            'externalLink',
-            'blank',
-            'icon',
-            'order',
-            'enable',
-            'expanded',
-            'acl',
-            'permissions',
-            'parent',
-            'isMenu'
+            'title',
+            'description',
+            'author',
+            'sort',
+            'disable',
+            'meta',
+            'content',
+            'template',
         ])
     }
 }

@@ -64,7 +64,7 @@ export function StartupServiceFactory(
             },
         }),
 
-         // thirds
+        // thirds
         UEditorModule.forRoot({
             // **注：** 建议使用本地路径；以下为了减少 ng-alain 脚手架的包体大小引用了CDN，可能会有部分功能受影响
             js: [
@@ -73,6 +73,8 @@ export function StartupServiceFactory(
             ],
             options: {
                 UEDITOR_HOME_URL: `//apps.bdimg.com/libs/ueditor/1.4.3.1/`,
+                serverUrl: '/user/upload',
+                lang: 'zh-cn'
             },
         }),
         NgxTinymceModule.forRoot({

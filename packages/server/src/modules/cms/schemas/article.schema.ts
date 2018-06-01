@@ -1,7 +1,7 @@
 import { Schema, SchemaTypes as t, SchemaOptions, model } from 'mongoose';
 
 export const schema = new Schema({
-    name: { type: t.String, unique: true },
+    name: { type: t.String },
     title: t.String,
     keyword: t.String,
     description: t.String,
