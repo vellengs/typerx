@@ -21,12 +21,35 @@ export class ArticlesPageComponent extends BaseStandComponent implements OnInit 
     configReady;
     queryUrl;
 
+
+
+
     constructor(injector: Injector) {
         super(injector);
     }
 
     async ngOnInit() {
         this.queryUrl = `api/${this.domain}/query`;
+
+        this.operations = {
+            title: '操作',
+            width: '180px',
+            buttons: [
+                {
+                    text: '删除',
+                    type: 'del',
+                    click: (record: any) => {
+                    }
+                },
+                {
+                    text: '编辑',
+                    type: 'none',
+                    click: (record: any) => {
+                        this.edit(record);
+                    }
+                }
+            ]
+        };
 
         this.onConfigChanged.subscribe((config) => {
             this.configReady = true;

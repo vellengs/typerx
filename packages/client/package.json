@@ -54,7 +54,7 @@
         "ng-zorro-antd": "^0.7.1",
         "ngx-countdown": "^3.0.0",
         "ngx-tinymce": "^2.0.0",
-        "ngx-ueditor": "^2.0.0",
+        "ngx-ueditor": "^2.1.0",
         "ngx-umeditor": "^1.0.5",
         "qrious": "^4.0.2",
         "rxjs": "^6.0.0",
