@@ -25,7 +25,6 @@ export class MenusPageComponent extends BaseStandComponent implements OnInit {
     expandKeys = [];
     searchValue = '';
     selectedItem: any = {};
-    accountQueryParams: any = {};
     detailSchema: any = {};
 
     formData;
@@ -109,8 +108,6 @@ export class MenusPageComponent extends BaseStandComponent implements OnInit {
             this.coreService.menuGet(e.node.key).subscribe((res) => {
                 this.formData = res;
             });
-
-            this.accountQueryParams.group = this.selectedItem.key;
         }
     }
 

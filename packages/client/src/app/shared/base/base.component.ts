@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { LazyService } from '@delon/util';
 import { CoreService } from 'generated';
 import { DatePipe, DecimalPipe } from '@angular/common';
+import { CmsService } from 'generated/api/cms.service';
 
 @Component({
     selector: 'app-base-component',
@@ -28,6 +29,8 @@ export class BaseComponent implements BasePage {
     client: _HttpClient;
     lazy: LazyService;
     coreService: CoreService;
+    cmsService: CmsService;
+
     http: HttpClient;
     renderer: Renderer2;
 
@@ -45,6 +48,7 @@ export class BaseComponent implements BasePage {
         this.http = this.injector.get(HttpClient);
         this.renderer = this.injector.get(Renderer2);
         this.coreService = this.injector.get(CoreService);
+        this.cmsService = this.injector.get(CmsService);
         const routeData = this.route.data['value'] || {};
         this.title = routeData.title;
     }

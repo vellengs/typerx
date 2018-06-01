@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Configuration } from './configuration';
 
+import { CmsService } from './api/cms.service';
 import { CoreService } from './api/core.service';
 
 @NgModule({
@@ -10,6 +11,7 @@ import { CoreService } from './api/core.service';
   declarations: [],
   exports:      [],
   providers: [
+    CmsService,
     CoreService ]
 })
 export class ApiModule {

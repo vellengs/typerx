@@ -50,6 +50,7 @@ import { ProfileResponse } from '../model/profileResponse';
 import { RoleResponse } from '../model/roleResponse';
 import { SettingResponse } from '../model/settingResponse';
 import { SettingsGroup } from '../model/settingsGroup';
+import { UploadConfig } from '../model/uploadConfig';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -2499,6 +2500,49 @@ export class CoreService {
         return this.httpClient.put<ProfileResponse>(`${this.basePath}/user`,
             entry,
             {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param action 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public userUploadConfig(action?: string, observe?: 'body', reportProgress?: boolean): Observable<UploadConfig>;
+    public userUploadConfig(action?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UploadConfig>>;
+    public userUploadConfig(action?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UploadConfig>>;
+    public userUploadConfig(action?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (action !== undefined) {
+            queryParameters = queryParameters.set('action', <any>action);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<UploadConfig>(`${this.basePath}/user/upload`,
+            {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
