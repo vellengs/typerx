@@ -7,6 +7,7 @@ import {
   EditMenuDto,
   CreateMenuDto,
   PaginateMenu,
+  MenuResponseFields as fields,
 } from './dto/menu.dto';
 import { appearance } from './appearance/menu.appearance';
 import { Document, Types } from 'mongoose';
@@ -48,22 +49,14 @@ export class MenuService {
     size?: number,
     sort?: string
   ): Promise<PaginateMenu> {
-    const query: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
+    const condition: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
 
     if (isMenu)
-      query.isMenu = true;
+      condition.isMenu = true;
 
-    const docs: any = await Db.Menu.find(query).sort(sort).skip(page * size).limit(size).exec() || [];
-    const count = await Db.Menu.find(query).count();
-
-    const list = docs.map((item: Menu & Document) => {
-      return this.pure(item);
-    });
-
-    return {
-      list: list,
-      total: count
-    }
+    const query = Db.Menu.find(condition).sort(sort);
+    const collection = Db.Menu.find(condition);
+    return Repository.query<Menu & Document, MenuResponse>(query, collection, page, size, fields);
   }
 
   async remove(id: string): Promise<boolean> {

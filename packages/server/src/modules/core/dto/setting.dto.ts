@@ -25,6 +25,14 @@ export class SettingsGroup {
   [key: string]: string;
 }
 
+export const SettingResponseFields = [
+  'id',
+  'name',
+  'key',
+  'value',
+  'description'
+];
+
 export declare interface PaginateSetting {
   error?: Error;
   list: Array<SettingResponse>;

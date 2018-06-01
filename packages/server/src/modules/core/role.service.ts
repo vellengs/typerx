@@ -42,7 +42,6 @@ export class RoleService {
     size?: number,
     sort?: string
   ): Promise<PaginateRole> {
-    page = page > 0 ? page : 0 || 1;
     const condition = keyword ? { name: new RegExp(keyword, 'i') } : {};
     const query = Db.Role.find(condition).sort(sort);
     const collection = Db.Role.find(condition);

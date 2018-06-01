@@ -53,9 +53,28 @@ export class MenuResponse {
   isMenu: boolean;
 }
 
+export const MenuResponseFields = [
+  'id',
+  'name',
+  'slug',
+  'group',
+  'link',
+  'externalLink',
+  'blank',
+  'icon',
+  'order',
+  'enable',
+  'expanded',
+  'acl',
+  'permissions',
+  'parent',
+  'isMenu'
+];
+
 
 export declare interface PaginateMenu {
   error?: Error;
   list: Array<MenuResponse>;
   total: number;
 }
+

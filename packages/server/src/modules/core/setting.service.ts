@@ -6,7 +6,11 @@ import { CoreDatabase as Db } from './core.database';
 import { Request, Response, NextFunction } from 'express';
 import { pick } from 'lodash';
 import { Setting } from './interfaces/setting.interface';
-import { SettingResponse, CreateSettingDto, EditSettingDto, PaginateSetting, SettingsGroup } from './dto/setting.dto';
+import {
+  SettingResponse, CreateSettingDto, EditSettingDto, PaginateSetting,
+  SettingsGroup,
+  SettingResponseFields as fields
+} from './dto/setting.dto';
 import { Helper } from '../../util/helper';
 import { Document } from 'mongoose';
 import { KeyValue } from '../../types/data.types';
@@ -87,19 +91,25 @@ export class SettingService {
     size?: number,
     sort?: string
   ): Promise<PaginateSetting> {
-    page = page > 0 ? page : 0 || 1;
-    const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
 
-    const docs: any = await Db.Setting.find(query).sort(sort).skip(page * size).limit(size).exec() || [];
-    const count = await Db.Setting.find(query).count();
-    const list = docs.map((item: Setting & Document) => {
-      return this.pure(item);
-    });
 
-    return {
-      list: list,
-      total: count
-    }
+    const condition = keyword ? { name: new RegExp(keyword, 'i') } : {};
+    const query = Db.Setting.find(condition).sort(sort);
+    const collection = Db.Setting.find(condition);
+    const result = Repository.query<Setting & Document, SettingResponse>(query, collection, page, size, fields);
+    return result;
+
+    // const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
+    // const docs: any = await Db.Setting.find(query).sort(sort).skip(page * size).limit(size).exec() || [];
+    // const count = await Db.Setting.find(query).count();
+    // const list = docs.map((item: Setting & Document) => {
+    //   return this.pure(item);
+    // });
+
+    // return {
+    //   list: list,
+    //   total: count
+    // }
   }
 
   async get(id: string): Promise<SettingResponse> {

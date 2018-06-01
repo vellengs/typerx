@@ -9,6 +9,7 @@ import {
   EditGroupDto,
   CreateGroupDto,
   PaginateGroup,
+  GroupResponseFields as fields,
 } from './dto/group.dto';
 import { appearance } from './appearance/group.appearance';
 import { Document, Types } from 'mongoose';
@@ -50,23 +51,16 @@ export class GroupService {
     size?: number,
     sort?: string
   ): Promise<PaginateGroup> {
-    const query: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
+    const condition: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
 
     if (isGroup)
-      query.isGroup = true;
+      condition.isGroup = true;
+
+    const query = Db.Group.find(condition).sort(sort);
+    const collection = Db.Group.find(condition);
+    return Repository.query<Group & Document, GroupResponse>(query, collection, page, size, fields);
 
 
-    const docs: any = await Db.Group.find(query).sort(sort).skip(page * size).limit(size).exec() || [];
-    const count = await Db.Group.find(query).count();
-
-    const list = docs.map((item: Group & Document) => {
-      return this.pure(item);
-    });
-
-    return {
-      list: list,
-      total: count
-    }
   }
 
   async remove(id: string): Promise<boolean> {
