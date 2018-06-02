@@ -43,12 +43,17 @@ export class ArticleService {
     async update(
         entry: EditArticleDto,
     ): Promise<ArticleResponse> {
-        const doc: any = await Db.Article.findOneAndUpdate(
+        const content = entry.content;
+        entry.content = entry.id;
+        const doc = await Db.Article.findOneAndUpdate(
             {
                 _id: entry.id,
             },
             entry,
         ).exec();
+        await Db.Content.findOneAndUpdate({ _id: entry.id }, {
+            text: content
+        }, { upsert: true, 'new': true }).exec();
         return doc;
     }
 
@@ -77,19 +82,23 @@ export class ArticleService {
     }
 
     async get(id: string): Promise<ArticleResponse> {
-        const result = await Repository.get(Db.Article, id, [
+        let result: Article & Document = await Repository.get(Db.Article, id, [
             {
                 path: 'content',
                 select: 'text',
             },
         ]);
- 
-        if (result && result.content) {
-            console.log('content:', result.content);
-            result.content = result.content.text;
-        }
 
-        return this.pure(result);
+        if (result) {
+            const instance = result.toObject();
+            instance.id = id;
+            if (instance.content) {
+                instance.content = instance.content.text;
+            }
+            return this.pure(instance);
+        } else {
+            return new ArticleResponse();
+        }
     }
 
     private pure(entry: Article & Document): ArticleResponse {

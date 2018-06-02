@@ -3,7 +3,7 @@ import { cloneDeep } from 'lodash';
 import { SFSchema } from "../../../types/schema.types";
 
 const addForm: SFSchema = {
-    title: '新建文章',
+    title: '新建小部件',
     properties: {
         title: {
             title: '标题',
@@ -14,24 +14,16 @@ const addForm: SFSchema = {
                 }
             }
         },
-
-        keyword: {
-            title: '关键词',
+        name: {
+            title: '名称',
+            type: t.string,
+        },
+        type: {
+            title: '类型',
             type: t.string
         },
-        category: {
-            title: '分类',
-            type: t.string,
-            ui: {
-                widget: w.search,
-                domain: 'category',
-                grid: {
-                    span: 16
-                }
-            }
-        },
-        description: {
-            title: '摘要',
+        params: {
+            title: '配置参数',
             type: t.string,
             ui: {
                 widget: w.textarea,
@@ -40,18 +32,8 @@ const addForm: SFSchema = {
                 }
             }
         },
-        content: {
-            title: '内容',
-            type: t.string,
-            ui: {
-                widget: w.ueditor,
-                grid: {
-                    span: 24
-                }
-            }
-        },
     },
-    required: [],
+    required: ['name', 'title', 'type'],
     ui: {
         spanLabelFixed: 100,
         grid: {
@@ -72,13 +54,17 @@ export const appearance: Appearance = {
     columnSets: {
         default: [
             {
-                title: '文章名称',
+                title: '名称',
                 index: 'name',
                 type: 'link',
                 action: 'edit'
             },
             {
                 title: '标题',
+                index: 'title'
+            },
+            {
+                title: '类型',
                 index: 'title'
             }
         ]
