@@ -5,7 +5,39 @@ import { SFSchema } from "../../../types/schema.types";
 const addForm: SFSchema = {
     title: '新建页面',
     properties: {
-
+        title: {
+            title: '标题',
+            type: t.string,
+            ui: {
+                grid: {
+                    span: 16
+                }
+            }
+        },
+        keyword: {
+            title: '关键词',
+            type: t.string
+        },
+        description: {
+            title: '摘要',
+            type: t.string,
+            ui: {
+                widget: w.textarea,
+                grid: {
+                    span: 24
+                }
+            }
+        },
+        content: {
+            title: '内容',
+            type: t.string,
+            ui: {
+                widget: w.ueditor,
+                grid: {
+                    span: 24
+                }
+            }
+        },
     },
     required: [],
     ui: {

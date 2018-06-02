@@ -21,8 +21,22 @@ export class ArticleService {
     }
 
     async create(entry: CreateArticleDto): Promise<ArticleResponse> {
+
+        const content = entry.content;
+        entry.content = null;
         const doc = new Db.Article(entry);
-        const result: any = await doc.save();
+        const result = await doc.save();
+
+        await Db.Content.findOneAndUpdate(
+            { _id: result.id },
+            {
+                $set: {
+                    _id: result.id,
+                    text: content
+                }
+            },
+            { upsert: true, 'new': true }).exec();
+
         return result;
     }
 
@@ -65,10 +79,16 @@ export class ArticleService {
     async get(id: string): Promise<ArticleResponse> {
         const result = await Repository.get(Db.Article, id, [
             {
-                path: 'roles',
-                select: 'name',
+                path: 'content',
+                select: 'text',
             },
         ]);
+ 
+        if (result && result.content) {
+            console.log('content:', result.content);
+            result.content = result.content.text;
+        }
+
         return this.pure(result);
     }
 

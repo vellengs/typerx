@@ -9,12 +9,12 @@ import { ControlWidget } from '@delon/form';
             [ngModel]="value"
             [config]="config"
             [loadingTip]="loading"
-            (onContentChange)="change($event)">
+            (ngModelChange)="change($event)">
         </ueditor>
     </sf-item-wrap>
     `,
     preserveWhitespaces: false,
-    styles: [ `:host ueditor { line-height:normal; }` ]
+    styles: [`:host ueditor { line-height:normal; }`]
 })
 // tslint:disable-next-line:component-class-suffix
 export class UeditorWidget extends ControlWidget implements OnInit {

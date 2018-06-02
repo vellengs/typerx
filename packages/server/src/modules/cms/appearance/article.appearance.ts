@@ -50,7 +50,7 @@ const addForm: SFSchema = {
             }
         },
     },
-    required: ['title'],
+    required: ['title', 'category'],
     ui: {
         spanLabelFixed: 100,
         grid: {
@@ -61,11 +61,6 @@ const addForm: SFSchema = {
 
 const editForm = cloneDeep(addForm);
 editForm.title = '编辑文章';
-editForm.required = ['username'];
-editForm.properties.secret = {
-    title: '密保',
-    type: t.string
-};
 
 export const appearance: Appearance = {
     columnSets: {

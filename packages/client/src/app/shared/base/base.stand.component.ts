@@ -51,7 +51,7 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
 
     private async loadConfig() {
         this.queryUrl = `api/${this.domain}/query`;
-        
+
         const url = `api/${this.domain}/config`;
         const config: any = await this.client.get(url).toPromise();
         if (config) {
@@ -186,19 +186,12 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
     }
 
     reload(): void {
+        console.log('reload ..');
         if (this.simpleTable) {
             this.simpleTable.reload();
         } else {
             this.load();
         }
-        // const url = `api/${this.domain}/query`;
-        // const params = Object.assign({}, this.queryParams);
-        // this.client.get(url, params).subscribe((res: any) => {
-        //     if (res) {
-        //         this.entries = res.list;
-        //         this.onEntriesLoaded.emit(this.entries);
-        //     }
-        // }); 
     }
 
     query(params: any) {

@@ -21,4 +21,37 @@ export const schema = new Schema({
         ref: 'Content', type: t.ObjectId
     }
 },
-    { timestamps: true }); 
+    { timestamps: true });
+
+
+function preSave(next: Function) {
+    const instance = this;
+    if (!instance.isModified('content')) {
+        return next();
+    }
+    // bcrypt.genSalt(10, (err: any, salt: any) => {
+    //     if (err) {
+    //         return next(err);
+    //     }
+    //     bcrypt.hash(user.password, salt, undefined, (err: Error, hash) => {
+    //         if (err) {
+    //             return next(err);
+    //         }
+    //         user.password = hash;
+    //         next();
+    //     });
+    // });
+}
+
+function preUpdate(next: Function) {
+    const updateDoc = this.getUpdate();
+    // const rawPassword = (updateDoc.$set || updateDoc).password;
+    // if (rawPassword) {
+    //   const password = bcrypt.hashSync(rawPassword, bcrypt.genSaltSync(10));
+    //   this.findOneAndUpdate({}, { password: password });
+    // }
+    next();
+}
+
+schema.pre('save', preSave);
+schema.pre('findOneAndUpdate', preUpdate);

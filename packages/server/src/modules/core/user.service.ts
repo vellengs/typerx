@@ -50,7 +50,6 @@ export class UserService {
     return result;
   }
 
-
   async fileUpload(file: Express.Multer.File,
     field?: string) {
     return {

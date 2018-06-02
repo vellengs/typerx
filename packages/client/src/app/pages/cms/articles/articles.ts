@@ -39,6 +39,7 @@ export class ArticlesPageComponent extends BaseStandComponent implements OnInit 
                     text: '删除',
                     type: 'del',
                     click: (record: any) => {
+                        this.remove(record, false);
                     }
                 },
                 {
