@@ -47,8 +47,15 @@ import { HttpClient } from '@angular/common/http';
         </nz-option-group>
       </ng-container>
     </nz-select>
+ 
   </sf-item-wrap>`,
     preserveWhitespaces: false,
+
+    styles: [
+        `:host nz-select { min-width:110px; }
+       `
+    ]
+
 
 })
 export class SearchWidgetComponent extends ControlWidget implements OnInit {
