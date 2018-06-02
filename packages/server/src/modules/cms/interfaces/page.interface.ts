@@ -1,6 +1,7 @@
 import { Document } from 'mongoose';
 
 export interface Page extends Document {
+  id: string;
   name: string;   // 页面名称
   title: string;  // 页面标题
   keyword: string;  // 关键词

@@ -78,19 +78,13 @@ export class PageService {
         return pick(entry, [
             'id',
             'name',
-            'slug',
-            'group',
-            'link',
-            'externalLink',
-            'blank',
-            'icon',
-            'order',
-            'enable',
-            'expanded',
-            'acl',
-            'permissions',
-            'parent',
-            'isMenu'
+            'title',
+            'description',
+            'sort',
+            'disable',
+            'meta',
+            'content',
+            'template'
         ])
     }
 }

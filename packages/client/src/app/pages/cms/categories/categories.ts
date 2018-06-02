@@ -69,7 +69,8 @@ export class CategoriesPageComponent extends BaseStandComponent implements OnIni
 
     async loadTreeData() {
         const treeResponse = await this.cmsService.categoryQuery('', 0, 3000).toPromise();
-        const items = treeResponse ? treeResponse.list : [];
+
+         const items = treeResponse ? treeResponse.list : [];
 
         const raw = items.map((item) => {
             const isLeaf = items.findIndex(r => r.parent === item.id) === -1;

@@ -2,7 +2,6 @@ export class CreatePageDto {
     name: string;
     title: string;
     description: string;
-    author: string;
     sort: number;
     disable: boolean;
     meta: string;
@@ -15,7 +14,6 @@ export class EditPageDto {
     name: string;
     title: string;
     description: string;
-    author: string;
     sort: number;
     disable: boolean;
     meta: string;
@@ -28,7 +26,6 @@ export class PageResponse {
     name: string;
     title: string;
     description: string;
-    author: string;
     sort: number;
     disable: boolean;
     meta: string;
@@ -41,7 +38,6 @@ export const PageResponseFields = [
     'name',
     'title',
     'description',
-    'author',
     'sort',
     'disable',
     'meta',
