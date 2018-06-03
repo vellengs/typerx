@@ -18,9 +18,11 @@ import { NgxTinymceModule } from 'ngx-tinymce';
 import { BaseListComponent } from './base/base.list.component';
 import { BaseComponent } from './base/base.component';
 import { BaseTableComponent } from './base/base.table.component';
-import { BaseStandComponent } from '@shared/base/base.stand.component';
-import { BaseTreeTableComponent } from '@shared/base/base.tree.table';
-import { BaseDetailComponent } from '@shared/base/base.detail.component';
+import { BaseStandComponent } from './base/base.stand.component';
+import { BaseTreeTableComponent } from './base/base.tree.table';
+import { BaseDetailComponent } from './base/base.detail.component';
+import { BaseSelectorComponent } from './base/base.selector';
+import { BaseTreeSelectorComponent } from '@shared/base/base.tree.selector';
 
 const THIRDMODULES = [
     NgZorroAntdModule,
@@ -30,7 +32,7 @@ const THIRDMODULES = [
 ];
 // endregion
 
-// region: your componets & directives
+// region: your components & directives
 const COMPONENTS = [
     BaseComponent,
     BaseListComponent,
@@ -38,6 +40,8 @@ const COMPONENTS = [
     BaseStandComponent,
     BaseTreeTableComponent,
     BaseDetailComponent,
+    BaseSelectorComponent,
+    BaseTreeSelectorComponent,
 ];
 const DIRECTIVES = [];
 // endregion

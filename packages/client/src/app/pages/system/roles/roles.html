@@ -39,9 +39,9 @@
     <nz-col [nzSpan]="16">
         <nz-card *ngIf="selectedItem.name" [nzTitle]="selectedItem.name + '的列表'" [nzExtra]="mainTpl">
 
-            <app-base-stand #dictList [operations]="operations" [queryUrl]="'api/account/query'" [queryParams]="mainQueryParams" [domain]="'account'"></app-base-stand>
+            <app-base-stand #accountList [operations]="operations" [queryUrl]="'api/account/query'" [queryParams]="queryParams" [domain]="'account'"></app-base-stand>
             <ng-template #mainTpl>
-                <a (click)="add()">
+                <a (click)="addAccountsToRole()">
                     <i class="anticon anticon-plus"></i>
                     添加成员</a>
             </ng-template>

@@ -6,6 +6,8 @@ import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { _HttpClient } from '@delon/theme';
 import { ListContext } from '../../../services/list.context';
 import { BaseStandComponent } from '@shared/base/base.stand.component';
+import { BaseSelectorComponent } from '@shared/base/base.selector';
+import { BaseTreeSelectorComponent } from '@shared/base/base.tree.selector';
 
 @Component({
     selector: 'app-roles-page',
@@ -18,7 +20,8 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
     @Input() domain = 'role';
     title = '权限管理';
     selectedItem: any = {};
-    mainQueryParams = {};
+    queryParams: any = {};
+
     @ViewChild('accountList') accounts: BaseStandComponent;
 
     constructor(injector: Injector) {
@@ -40,10 +43,28 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
 
     }
 
+    addAccountsToRole() {
+
+        const columns = this.accounts.columnSets.default;
+        this.modalHelper.static(BaseTreeSelectorComponent, {
+            queryUrl: this.accounts.queryUrl,
+            queryParams: {},
+            columns: columns
+        }, 'lg', {
+                nzTitle: '添加角色成员',
+            }).subscribe(() => {
+
+            });
+    }
+
     select(item) {
         this.selectedItem = item;
+        this.queryParams = {
+            role: item.id
+        };
         if (this.accounts) {
-            this.accounts.load();
+            this.accounts.queryParams = this.queryParams;
+            this.accounts.reload();
         }
     }
 

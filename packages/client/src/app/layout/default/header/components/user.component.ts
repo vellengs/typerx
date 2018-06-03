@@ -46,7 +46,6 @@ export class HeaderUserComponent implements OnInit {
 
     async  logout() {
         // await this.coreService.userLogout().toPromise();
-        console.log('logout ....');
         await this.userService.logout();
         this.router.navigateByUrl(this.tokenService.login_url);
         this.tokenService.clear();
