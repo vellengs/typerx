@@ -4,11 +4,20 @@ import { NzModalRef, NzTreeNode } from 'ng-zorro-antd';
 import { SimpleTableComponent } from '@delon/abc';
 import * as treeify from 'array-to-tree';
 import { isThisSecond } from 'date-fns';
+import { UserService } from '@services/user.service';
 
 
 @Component({
     selector: 'app-base-tree-selector',
-    templateUrl: './base.tree.selector.html'
+    templateUrl: './base.tree.selector.html',
+    styles: [
+        `
+        .anticon {
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+        `
+    ]
 })
 export class BaseTreeSelectorComponent extends BaseComponent {
     modalRef: NzModalRef;
@@ -27,44 +36,21 @@ export class BaseTreeSelectorComponent extends BaseComponent {
     selectNode = {};
     selectedItem: any = {};
 
-    constructor(public injector: Injector) {
+    constructor(
+        public injector: Injector,
+        public userService: UserService,
+
+    ) {
         super(injector);
         this.modalRef = this.injector.get(NzModalRef);
         this.loadTreeData();
     }
 
     async loadTreeData() {
-
-        const uri = `api/${this.domain}/query`;
-        const dataResponse = await this.coreService.groupQuery(this.searchValue).toPromise();
-
-        // await this.client.get(uri, {
-        // }).toPromise();
-
-        const items = dataResponse.list;
-
-        const raw = (items).map((item) => {
-            const isLeaf = items.findIndex(r => r.parent === item.id) === -1;
-            return {
-                title: item.name,
-                key: item.id,
-                parent: item.parent,
-                id: item.id,
-                isLeaf: isLeaf
-            };
-        });
-
-        const treeData = treeify(raw, {
-            parentProperty: 'parent',
-            customID: 'id'
-        }) || [];
-
-        this.nodes = treeData.map(doc => {
-            this.expandKeys.push(doc.id);
-            return new NzTreeNode(doc);
-        });
+        const treeData = await this.userService.treeUsers(true);
+        this.nodes = treeData.nodes;
+        this.expandKeys = treeData.expandKeys;
     }
-
 
     save(event?) {
         // this.selectedNodes = [];

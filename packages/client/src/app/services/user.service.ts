@@ -2,6 +2,8 @@ import { Injectable, EventEmitter, Inject } from '@angular/core';
 import { SettingsService, _HttpClient } from '@delon/theme';
 import { CoreService, LoginDto } from 'generated';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
+import * as treeify from 'array-to-tree';
+import { NzTreeNode } from 'ng-zorro-antd';
 
 interface User {
     name?: string;
@@ -51,6 +53,73 @@ export class UserService {
         return this.user.roles.includes(name);
     }
 
+    async treeUsers(attachUsers?: boolean) {
+
+        const group: any = await this.client.get('api/group/query', {
+            size: 5000,
+        }).toPromise();
+
+        const accounts: any = await this.client.get('api/account/query', {
+            size: 10000  // TODO if user too big should be lazy load.
+        }).toPromise();
+
+        // console.log('group:', group, accounts);
+
+        const groups = group.list.map((item) => {
+            return {
+                title: item.name,
+                key: item.id,
+                parent: item.parent,
+                id: item.id,
+                // isLeaf: isLeaf
+            };
+        });
+
+        const users = accounts.list.map((item) => {
+            return {
+                title: item.nick || item.username,
+                key: item.id,
+                id: item.id,
+                groups: item.groups,
+                isLeaf: true
+            };
+        });
+
+        const tree = treeify(groups, {
+            parentProperty: 'parent',
+            customID: 'id'
+        });
+
+        if (groups) {
+            groups.forEach((d) => {
+                d.children = d.children || [];
+                const items = users.filter((entry) => {
+                    entry.groups = entry.groups || [];
+                    const exist = entry.groups.indexOf(d.id) > -1; 
+                    return exist;
+                });
+
+                // console.log('users:', items);
+
+                items.forEach(i => {
+                    d.children.push(i);
+                });
+            });
+        }
+        const expandKeys = [];
+
+        console.log('tree:', tree);
+        const nodes = tree.map(doc => {
+            expandKeys.push(doc.id);
+            return new NzTreeNode(doc);
+        });
+
+        return {
+            nodes: nodes,
+            expandKeys: expandKeys
+        };
+    }
+
     async login(model: LoginDto) {
         const user = await this.coreService.userLogin(model).toPromise();
         this.settings.setUser(user);
@@ -68,7 +137,7 @@ export class UserService {
     }
 
     async logout() {
-  
+
         const result = await this.coreService.userLogout().toPromise();
         this.settings.setUser(null);
         this.user = {};

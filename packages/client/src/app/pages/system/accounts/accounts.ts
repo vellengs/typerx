@@ -11,7 +11,30 @@ import { SimpleTableColumn } from '@delon/abc';
 @Component({
     selector: 'app-account-page',
     templateUrl: './accounts.html',
-    styles: []
+    styles: [
+        ` 
+    .custom-node {
+        padding: 2px 8px;
+    }
+
+    .active {
+        background-color: #bae7ff;
+    }
+
+    .anticon {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+
+    :host ::ng-deep .ant-tree li .ant-tree-node-content-wrapper.ant-tree-node-selected {
+        width: calc(100% - 8px);
+    }
+
+    :host ::ng-deep .ant-tree li span[draggable], :host ::ng-deep .ant-tree li span[draggable="true"] {
+        width: calc(100% - 8px);
+    }
+        `
+    ]
 })
 export class AccountsPageComponent extends BaseStandComponent implements OnInit {
 
@@ -98,7 +121,23 @@ export class AccountsPageComponent extends BaseStandComponent implements OnInit 
         this.accounts.add();
     }
 
+    editGroup(item) {
+        this.edit({
+            id: item.key
+        });
+    }
+
+    removeGroup(item) {
+        this.remove({
+            id: item.key
+        });
+    }
+
     treeNodeClick(name: string, e: any) {
+
+        // event.preventDefault();
+        // event.stopPropagation(); 
+
         if (e.node.key === this.selectedItem.key) {
 
         } else {

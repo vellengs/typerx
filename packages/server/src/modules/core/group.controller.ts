@@ -89,7 +89,6 @@ export class GroupController {
     return this.service.query(keyword, isRegion, page, size, sort);
   }
 
-
   /**
  * 删除用户组
  * @param id 用户组编号

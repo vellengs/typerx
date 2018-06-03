@@ -10,6 +10,7 @@ import { LazyService } from '@delon/util';
 import { CoreService } from 'generated';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { CmsService } from 'generated/api/cms.service';
+import { UserService } from '@services/user.service';
 
 @Component({
     selector: 'app-base-component',
@@ -20,7 +21,6 @@ export class BaseComponent implements BasePage {
     @Input() title = '';
     modalHelper: ModalHelper;
     settings: SettingsService;
-
     msg: NzMessageService;
     modal: NzModalService;
     route: ActivatedRoute;
@@ -30,10 +30,8 @@ export class BaseComponent implements BasePage {
     lazy: LazyService;
     coreService: CoreService;
     cmsService: CmsService;
-
     http: HttpClient;
     renderer: Renderer2;
-
 
     constructor(public injector: Injector) {
         this.modalHelper = this.injector.get(ModalHelper);

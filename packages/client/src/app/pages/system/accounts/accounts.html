@@ -13,6 +13,23 @@
 
             <nz-tree [nzSearchValue]="searchValue" [(ngModel)]="nodes" [nzShowLine]="true" [nzDefaultExpandedKeys]="expandKeys" (nzExpandChange)="selectNode('expand',$event)"
                 (nzContextMenu)="selectNode('contextmenu', $event)" (nzClick)="treeNodeClick('click',$event)">
+
+                <ng-template #nzTreeTemplate let-node>
+                    <span class="custom-node" draggable="true" aria-grabbed="true" [class.active]="node.isSelected">
+                        <span>
+                            {{node.title}}
+
+                            <span *ngIf="node.isSelected" style="padding-left: 40px;">
+                                <a (click)="editGroup(selectedItem)">
+                                    编辑</a>
+                                <nz-divider *ngIf="node.isLeaf" nzType="vertical"></nz-divider>
+                                <a *ngIf="node.isLeaf" (click)="removeGroup(selectedItem)">
+                                    删除</a>
+                            </span>
+                        </span>
+                    </span>
+                </ng-template>
+
             </nz-tree>
 
             <ng-template #groupTpl>
@@ -28,7 +45,6 @@
                 [domain]="'account'"></app-base-stand>
             <ng-template #accountTpl>
                 <a (click)="addAccount()">
-                    <i class="anticon anticon-plus"></i>
                     新建帐号</a>
             </ng-template>
 

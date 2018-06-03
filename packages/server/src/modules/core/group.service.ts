@@ -59,8 +59,6 @@ export class GroupService {
     const query = Db.Group.find(condition).sort(sort);
     const collection = Db.Group.find(condition);
     return Repository.query<Group & Document, GroupResponse>(query, collection, page, size, fields);
-
-
   }
 
   async remove(id: string): Promise<boolean> {
