@@ -46,15 +46,15 @@ export class GroupService {
 
   async query(
     keyword?: string,
-    isGroup?: boolean,
+    isRegion?: boolean,
     page?: number,
     size?: number,
     sort?: string
   ): Promise<PaginateGroup> {
     const condition: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
 
-    if (isGroup)
-      condition.isGroup = true;
+    if (isRegion)
+      condition.isRegion = true;
 
     const query = Db.Group.find(condition).sort(sort);
     const collection = Db.Group.find(condition);
