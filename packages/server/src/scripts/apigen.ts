@@ -9,7 +9,6 @@ const gateway = 'https://generator.swagger.io/api/gen/clients/typescript-angular
 async function loadSwagger() {
     const jsonPath = path.resolve(process.cwd(), 'dist', 'swagger.json');
     const json = require(jsonPath);
-    // console.log('json', json);
     const client = axios.create({
         httpsAgent: new https.Agent({
             rejectUnauthorized: false
@@ -18,7 +17,6 @@ async function loadSwagger() {
 
     const result = await client.post(gateway, { spec: json });
     if (result.data && result.data.link) {
-        // console.log('result.data.link', result.data.link);
         const response = await client({
             method: 'GET',
             url: result.data.link,
@@ -31,5 +29,4 @@ async function loadSwagger() {
 }
 
 loadSwagger().catch((error) => {
-    console.log('error:', error);
 });

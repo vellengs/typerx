@@ -32,10 +32,11 @@ import { NgxTinymceModule } from 'ngx-tinymce';
 
 // @delon/form: JSON Schema form
 import { JsonSchemaModule } from '@shared/json-schema/json-schema.module';
+import { environment } from '@env/environment';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http, `assets/i18n/`, '.json');
+    return new TranslateHttpLoader(http, environment.SERVER_URL + `assets/i18n/`, '.json');
 }
 
 export function StartupServiceFactory(
@@ -73,7 +74,7 @@ export function StartupServiceFactory(
             ],
             options: {
                 UEDITOR_HOME_URL: `//apps.bdimg.com/libs/ueditor/1.4.3.1/`,
-                serverUrl: '/user/upload',
+                serverUrl: environment.SERVER_URL + '/user/upload',
                 lang: 'zh-cn'
             },
         }),

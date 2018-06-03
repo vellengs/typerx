@@ -78,11 +78,10 @@ export class SettingsPageComponent extends BaseComponent implements OnInit {
                 this.msg.success('个人资料修改成功');
             }
         });
-
     }
 
     saveSysSettings(event) {
-        const entry = Object.assign({}, event); 
+        const entry = Object.assign({}, event);
 
         this.coreService.settingUpdateSettingsByName('main', entry).subscribe((res) => {
             if (res) {

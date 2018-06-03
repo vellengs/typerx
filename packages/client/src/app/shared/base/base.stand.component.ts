@@ -186,7 +186,6 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
     }
 
     reload(): void {
-        console.log('reload ..');
         if (this.simpleTable) {
             this.simpleTable.reload(this.queryParams);
         } else {

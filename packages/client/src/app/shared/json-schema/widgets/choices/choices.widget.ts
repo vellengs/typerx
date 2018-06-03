@@ -91,7 +91,6 @@ export class ChoicesWidgetComponent extends ControlWidget {
         getData(this.schema, this.ui, this.formProperty.formData).subscribe(
             list => {
                 this.data = list;
-                console.log('data', list);
                 this.label = this.ui.spanLabel;
                 this.control = this.ui.spanControl;
                 if (list.length === 0) {

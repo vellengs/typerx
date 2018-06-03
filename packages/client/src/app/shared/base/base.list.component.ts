@@ -21,7 +21,7 @@ export class BaseListComponent extends BaseComponent {
     }
 
     query(params: any) {
-        console.log('params', params);
+
     }
 
 }

@@ -12,20 +12,18 @@ export class UserLockComponent {
 
   constructor(public settings: SettingsService, fb: FormBuilder, private router: Router) {
     this.f = fb.group({
-        password: [null, Validators.required]
+      password: [null, Validators.required]
     });
   }
 
   submit() {
     // tslint:disable-next-line:forin
     for (const i in this.f.controls) {
-        this.f.controls[i].markAsDirty();
-        this.f.controls[i].updateValueAndValidity();
+      this.f.controls[i].markAsDirty();
+      this.f.controls[i].updateValueAndValidity();
     }
     if (this.f.valid) {
-        console.log('Valid!');
-        console.log(this.f.value);
-        this.router.navigate(['dashboard']);
+      this.router.navigate(['dashboard']);
     }
   }
 }

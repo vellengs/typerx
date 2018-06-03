@@ -103,7 +103,6 @@ export const appearance: Appearance = {
                 title: 'order',
                 index: ['order'],
                 click: () => {
-                    console.log('click ..');
                 }
             }
         ]

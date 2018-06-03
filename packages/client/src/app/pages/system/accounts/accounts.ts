@@ -46,15 +46,15 @@ export class AccountsPageComponent extends BaseStandComponent implements OnInit 
                     }
                 }
             },
-            {
-                text: '更多',
-                children: [
-                    {
-                        text: `过期`,
-                        type: 'none',
-                    },
-                ]
-            }
+            // {
+            //     text: '更多',
+            //     children: [
+            //         {
+            //             text: `过期`,
+            //             type: 'none',
+            //         },
+            //     ]
+            // }
         ]
     };
 
@@ -105,7 +105,8 @@ export class AccountsPageComponent extends BaseStandComponent implements OnInit 
             this.selectedItem = e.node;
             this.accountQueryParams.group = this.selectedItem.key;
             if (this.accounts) {
-                this.accounts.load();
+                this.accounts.queryParams = this.accountQueryParams;
+                this.accounts.reload();
             }
         }
     }

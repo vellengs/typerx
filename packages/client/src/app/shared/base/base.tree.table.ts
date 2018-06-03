@@ -27,14 +27,6 @@ export class BaseTreeTableComponent extends BaseStandComponent implements BaseTa
     expandDataCache = {};
     treeData = [];
 
-
-    // async ngOnInit() {
-    //     this.onConfigChanged.subscribe(() => {
-    //         console.log('formSets', this.formSets);
-    //     });
-    //     this.load();
-    // }
-
     async load() {
         this.treeData = await this.getMenuTreeData();
         this.treeData.forEach(item => {
