@@ -8,6 +8,8 @@ import { ListContext } from '../../../services/list.context';
 import { BaseStandComponent } from '@shared/base/base.stand.component';
 import { BaseSelectorComponent } from '@shared/base/base.selector';
 import { BaseTreeSelectorComponent } from '@shared/base/base.tree.selector';
+import { UserService } from '@services/user.service';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
     selector: 'app-roles-page',
@@ -24,7 +26,9 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
 
     @ViewChild('accountList') accounts: BaseStandComponent;
 
-    constructor(injector: Injector) {
+    constructor(
+        public userService: UserService,
+        injector: Injector) {
         super(injector);
     }
 
@@ -45,11 +49,16 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
 
     addAccountsToRole() {
 
+        const self = this;
         const columns = this.accounts.columnSets.default;
         this.modalHelper.static(BaseTreeSelectorComponent, {
             queryUrl: this.accounts.queryUrl,
             queryParams: {},
-            columns: columns
+            columns: columns,
+            asyncData: () => {
+                const ajax = self.userService.treeUsers(true);
+                return Observable.fromPromise(ajax);
+            }
         }, 'lg', {
                 nzTitle: '添加角色成员',
             }).subscribe(() => {

@@ -8,8 +8,9 @@
             <i class="anticon anticon-search"></i>
         </ng-template>
 
-        <nz-tree [nzCheckable]="true" [nzSearchValue]="searchValue" [(ngModel)]="nodes" [nzShowLine]="true" [nzDefaultExpandedKeys]="expandKeys"
-            (nzExpandChange)="nodeExpandChanged('expand',$event)" (nzContextMenu)="showContextMenu('contextmenu', $event)" (nzClick)="treeNodeClick('click',$event)">
+        <nz-tree #treeView [nzCheckable]="true" [nzSearchValue]="searchValue" (nzCheckBoxChange)="selectedChanged($event)" [(ngModel)]="nodes"
+            [nzShowLine]="true" [nzDefaultExpandedKeys]="expandKeys" (nzExpandChange)="nodeExpandChanged('expand',$event)" (nzContextMenu)="showContextMenu('contextmenu', $event)"
+            (nzClick)="treeNodeClick('click',$event)">
 
             <!-- <ng-template #nzTreeTemplate let-node>
                 <span class="ant-tree-node-content-wrapper" [class.ant-tree-node-content-wrapper-open]="node.isExpanded && node.getChildren().length>0"
@@ -46,7 +47,7 @@
             <div class="card-body no-padding multi-selected">
                 <ul class="list">
                     <li *ngFor="let item of selectedItems">
-                        <span>{{item.name}}</span>
+                        <span>{{item.title}}</span>
                         <a class="btn btn-icon-toggle" title="移除" (click)="removeOne(item)">
                             <i class="anticon anticon-delete"></i>
                         </a>

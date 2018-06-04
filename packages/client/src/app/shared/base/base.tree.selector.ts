@@ -1,10 +1,13 @@
-import { Component, Injector, Input, ViewChild } from '@angular/core';
+import { Component, Injector, Input, ViewChild, OnInit } from '@angular/core';
 import { BaseComponent } from '@shared/base/base.component';
-import { NzModalRef, NzTreeNode } from 'ng-zorro-antd';
+import { NzModalRef, NzTreeNode, NzTreeComponent } from 'ng-zorro-antd';
 import { SimpleTableComponent } from '@delon/abc';
 import * as treeify from 'array-to-tree';
 import { isThisSecond } from 'date-fns';
 import { UserService } from '@services/user.service';
+// tslint:disable-next-line:import-blacklist
+import { Observable } from 'rxjs';
+import { TreeData } from '../../../types/types';
 
 
 @Component({
@@ -19,14 +22,16 @@ import { UserService } from '@services/user.service';
         `
     ]
 })
-export class BaseTreeSelectorComponent extends BaseComponent {
+export class BaseTreeSelectorComponent extends BaseComponent implements OnInit {
+
     modalRef: NzModalRef;
 
     @Input() multiple = true;
     @Input() queryUrl = '';
-    @Input() domain = 'group';
     @Input() columns;
     @Input() queryParams: any = {};
+    @Input() asyncData: () => Observable<TreeData>;
+    @ViewChild('treeView') treeView: NzTreeComponent;
 
     searchValue = '';
     nodes = [];
@@ -43,13 +48,14 @@ export class BaseTreeSelectorComponent extends BaseComponent {
     ) {
         super(injector);
         this.modalRef = this.injector.get(NzModalRef);
-        this.loadTreeData();
+
     }
 
-    async loadTreeData() {
-        const treeData = await this.userService.treeUsers(true);
-        this.nodes = treeData.nodes;
-        this.expandKeys = treeData.expandKeys;
+    ngOnInit() {
+        this.asyncData().subscribe((res) => {
+            this.nodes = res.nodes;
+            this.expandKeys = res.expandKeys;
+        });
     }
 
     save(event?) {
@@ -81,6 +87,36 @@ export class BaseTreeSelectorComponent extends BaseComponent {
 
     nodeExpandChanged(name: string, e: any) {
 
+    }
+
+    selectedChanged(event: any) {
+        // setTimeout(() => {
+        this.getAllCheckedItems();
+        // }, 0);
+    }
+
+    getAllCheckedItems() {
+        const stack = [...this.nodes], array = [], hashMap = {};
+
+        while (stack.length !== 0) {
+            const node = stack.pop();
+
+            if (node.isLeaf && node.isChecked) {
+                if (!hashMap[node.origin.id]) {
+                    hashMap[node.origin.id] = true;
+                    array.push(node);
+                }
+            }
+            if (node.children && (node.isHalfChecked || node.isChecked)) {
+                for (let i = node.children.length - 1; i >= 0; i--) {
+                    stack.push(node.children[i]);
+                }
+            }
+        }
+
+        this.selectedItems = array.map((a) => {
+            return a.origin;
+        });
     }
 
     cancel(event?) {

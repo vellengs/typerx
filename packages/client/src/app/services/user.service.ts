@@ -65,20 +65,20 @@ export class UserService {
 
         // console.log('group:', group, accounts);
 
-        const groups = group.list.map((item) => {
+        const groups = group.list.map((item, index) => {
             return {
                 title: item.name,
-                key: item.id,
+                key: item.id + index,
                 parent: item.parent,
                 id: item.id,
                 // isLeaf: isLeaf
             };
         });
 
-        const users = accounts.list.map((item) => {
+        const users = accounts.list.map((item, index) => {
             return {
                 title: item.nick || item.username,
-                key: item.id,
+                key: item.id + index,
                 id: item.id,
                 groups: item.groups,
                 isLeaf: true
@@ -95,7 +95,7 @@ export class UserService {
                 d.children = d.children || [];
                 const items = users.filter((entry) => {
                     entry.groups = entry.groups || [];
-                    const exist = entry.groups.indexOf(d.id) > -1; 
+                    const exist = entry.groups.indexOf(d.id) > -1;
                     return exist;
                 });
 
@@ -110,7 +110,7 @@ export class UserService {
 
         console.log('tree:', tree);
         const nodes = tree.map(doc => {
-            expandKeys.push(doc.id);
+            expandKeys.push(doc.key);
             return new NzTreeNode(doc);
         });
 

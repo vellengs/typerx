@@ -42,3 +42,8 @@ export interface CurdPage extends BaseTable {
     removeChecked(): void;
     formSets: FormSets;
 }
+
+export interface TreeData {
+    nodes: Array<any>;
+    expandKeys: Array<string>;
+}

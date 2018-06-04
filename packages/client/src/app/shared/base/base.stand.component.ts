@@ -93,8 +93,10 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
                 context: this
             }, 'lg',
                 params
-            ).subscribe(() => {
-                this.reload();
+            ).subscribe((res) => {
+                if (res) {
+                    this.reload();
+                }
             });
     }
 
@@ -115,8 +117,11 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
                 context: this
             }, 'lg',
                 params
-            ).subscribe(() => {
-                this.reload();
+            ).subscribe((res) => {
+                // console.log('res:', res); 
+                if (res) {
+                    this.reload();
+                }
             });
     }
 
