@@ -90,6 +90,72 @@ export class CoreService {
 
     /**
      * 
+     * 添加用户到角色
+     * @param role 角色编号
+     * @param accountIds 用户编号序列
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public accountAddAccountsToRole(role: string, accountIds: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public accountAddAccountsToRole(role: string, accountIds: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public accountAddAccountsToRole(role: string, accountIds: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public accountAddAccountsToRole(role: string, accountIds: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (role === null || role === undefined) {
+            throw new Error('Required parameter role was null or undefined when calling accountAddAccountsToRole.');
+        }
+        if (accountIds === null || accountIds === undefined) {
+            throw new Error('Required parameter accountIds was null or undefined when calling accountAddAccountsToRole.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/html'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+            'application/x-www-form-urlencoded'
+        ];
+
+        const canConsumeForm = this.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): void; };
+        let useForm = false;
+        let convertFormParamsToString = false;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        }
+
+        if (role !== undefined) {
+            formParams = formParams.append('role', <any>role) || formParams;
+        }
+        if (accountIds) {
+            accountIds.forEach((element) => {
+                formParams = formParams.append('accountIds', <any>element) || formParams;
+            })
+        }
+
+        return this.httpClient.post<boolean>(`${this.basePath}/api/account/role`,
+            convertFormParamsToString ? formParams.toString() : formParams,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
      * 创建帐号
      * @param entry 帐号信息
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -884,26 +950,26 @@ export class CoreService {
 
     /**
      * 
-     * 查询用户组数据
-     * @param keyword 关键词
-     * @param isGroup 
-     * @param page 第几页
-     * @param size 页大小
-     * @param sort 排序
+     * 查询用户组
+     * @param keyword 
+     * @param isRegion 
+     * @param page 
+     * @param size 
+     * @param sort 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public groupQuery(keyword?: string, isGroup?: boolean, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginateGroup>;
-    public groupQuery(keyword?: string, isGroup?: boolean, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginateGroup>>;
-    public groupQuery(keyword?: string, isGroup?: boolean, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginateGroup>>;
-    public groupQuery(keyword?: string, isGroup?: boolean, page?: number, size?: number, sort?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public groupQuery(keyword?: string, isRegion?: boolean, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginateGroup>;
+    public groupQuery(keyword?: string, isRegion?: boolean, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginateGroup>>;
+    public groupQuery(keyword?: string, isRegion?: boolean, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginateGroup>>;
+    public groupQuery(keyword?: string, isRegion?: boolean, page?: number, size?: number, sort?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (keyword !== undefined) {
             queryParameters = queryParameters.set('keyword', <any>keyword);
         }
-        if (isGroup !== undefined) {
-            queryParameters = queryParameters.set('isGroup', <any>isGroup);
+        if (isRegion !== undefined) {
+            queryParameters = queryParameters.set('isRegion', <any>isRegion);
         }
         if (page !== undefined) {
             queryParameters = queryParameters.set('page', <any>page);

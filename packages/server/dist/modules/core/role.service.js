@@ -39,7 +39,6 @@ class RoleService {
     }
     query(keyword, page, size, sort) {
         return __awaiter(this, void 0, void 0, function* () {
-            page = page > 0 ? page : 0 || 1;
             const condition = keyword ? { name: new RegExp(keyword, 'i') } : {};
             const query = core_database_1.CoreDatabase.Role.find(condition).sort(sort);
             const collection = core_database_1.CoreDatabase.Role.find(condition);

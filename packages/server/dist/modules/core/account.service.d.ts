@@ -12,5 +12,6 @@ export declare class AccountService {
     profile(context: ServiceContext): Promise<ProfileResponse>;
     query(keyword?: string, group?: string, role?: string, page?: number, size?: number, sort?: string): Promise<PaginateAccount>;
     get(id: string): Promise<AccountResponse>;
+    addAccountsToRole(role: string, accountIds: string[]): Promise<boolean>;
     private pure(entry);
 }

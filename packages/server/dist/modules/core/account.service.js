@@ -83,6 +83,30 @@ class AccountService {
             return this.pure(result);
         });
     }
+    addAccountsToRole(role, accountIds) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (role && Array.isArray(accountIds)) {
+                const existIds = (yield core_database_1.CoreDatabase.Account.find({
+                    _id: {
+                        $in: accountIds
+                    },
+                    roles: {
+                        $in: [role]
+                    }
+                }, { _id: 1 }).exec());
+                const exists = (existIds || []).map(item => item.toObject()._id);
+                const ids = accountIds.filter((id) => {
+                    return exists.indexOf(id) === -1;
+                });
+                yield core_database_1.CoreDatabase.Account.update({
+                    _id: {
+                        $in: ids
+                    }
+                }, { $push: { roles: role } }, { multi: true }).exec();
+            }
+            return true;
+        });
+    }
     pure(entry) {
         return lodash_1.pick(entry, [
             'id',

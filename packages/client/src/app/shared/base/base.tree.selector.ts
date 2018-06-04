@@ -48,7 +48,6 @@ export class BaseTreeSelectorComponent extends BaseComponent implements OnInit {
     ) {
         super(injector);
         this.modalRef = this.injector.get(NzModalRef);
-
     }
 
     ngOnInit() {
@@ -63,6 +62,9 @@ export class BaseTreeSelectorComponent extends BaseComponent implements OnInit {
         // this.findChildNodes(this.nodes);
         // const selectedValue = this.multiple ? this.globalSelecteds : this.model;
         // this.subject.next({ value: selectedValue, dialog: this.subject });
+
+        this.modalRef.destroy(this.selectedItems);
+        // TODO 
     }
 
     cleanAll() {
@@ -90,9 +92,7 @@ export class BaseTreeSelectorComponent extends BaseComponent implements OnInit {
     }
 
     selectedChanged(event: any) {
-        // setTimeout(() => {
         this.getAllCheckedItems();
-        // }, 0);
     }
 
     getAllCheckedItems() {

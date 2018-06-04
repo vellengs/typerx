@@ -8,6 +8,7 @@ import {
   QueryParam,
   Context,
   ServiceContext,
+  FormParam,
   Preprocessor,
 } from 'typescript-rest';
 import { Tags, Security } from 'typescript-rest-swagger';
@@ -79,6 +80,17 @@ export class AccountController {
   }
 
   /**
+   * 添加用户到角色
+   * @param role 角色编号
+   * @param accountIds 用户编号序列
+   */
+  @Path('role')
+  @POST
+  async addAccountsToRole(@FormParam('role') role: string, @FormParam('accountIds') accountIds: string[]): Promise<boolean> {
+    return this.service.addAccountsToRole(role, accountIds);
+  }
+
+  /**
    * 分页查询帐号数据
    * @param keyword 关键词
    */
@@ -123,6 +135,5 @@ export class AccountController {
   async get(@PathParam('id') id: string): Promise<AccountResponse> {
     return this.service.get(id);
   }
-
 
 }

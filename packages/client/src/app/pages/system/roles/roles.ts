@@ -24,6 +24,8 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
     selectedItem: any = {};
     queryParams: any = {};
 
+
+
     @ViewChild('accountList') accounts: BaseStandComponent;
 
     constructor(
@@ -36,6 +38,24 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
         this.url = `api/${this.domain}/query`;
         this.onConfigChanged.subscribe(() => {
         });
+
+        this.operations = {
+            title: '操作',
+            width: '180px',
+            buttons: [
+                {
+                    text: '移出',
+                    type: 'del',
+                    click: (record: any) => {
+                        console.log('this:', this);
+                        // if (this.accounts) {
+                        //     this.accounts.remove(record, false);
+                        // }
+                    }
+                }
+            ]
+        };
+
         this.load();
     }
 
@@ -61,8 +81,14 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
             }
         }, 'lg', {
                 nzTitle: '添加角色成员',
-            }).subscribe(() => {
+            }).subscribe((res) => {
+                if (res) {
 
+                    const ids = res.map(a => a.id);
+                    this.coreService.accountAddAccountsToRole(this.selectedItem.id, ids).subscribe(() => {
+                        this.msg.success('完成');
+                    });
+                }
             });
     }
 

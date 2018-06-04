@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const appearance_1 = require("../../../types/appearance");
 const lodash_1 = require("lodash");
 const addForm = {
-    title: '新建文章',
+    title: '新建小部件',
     properties: {
         title: {
             title: '标题',
@@ -14,23 +14,16 @@ const addForm = {
                 }
             }
         },
-        keyword: {
-            title: '关键词',
+        name: {
+            title: '名称',
+            type: appearance_1.SchemaTypes.string,
+        },
+        type: {
+            title: '类型',
             type: appearance_1.SchemaTypes.string
         },
-        category: {
-            title: '分类',
-            type: appearance_1.SchemaTypes.string,
-            ui: {
-                widget: appearance_1.WidgetTypes.search,
-                domain: 'category',
-                grid: {
-                    span: 16
-                }
-            }
-        },
-        description: {
-            title: '摘要',
+        params: {
+            title: '配置参数',
             type: appearance_1.SchemaTypes.string,
             ui: {
                 widget: appearance_1.WidgetTypes.textarea,
@@ -39,18 +32,8 @@ const addForm = {
                 }
             }
         },
-        content: {
-            title: '内容',
-            type: appearance_1.SchemaTypes.string,
-            ui: {
-                widget: appearance_1.WidgetTypes.ueditor,
-                grid: {
-                    span: 24
-                }
-            }
-        },
     },
-    required: [],
+    required: ['name', 'title', 'type'],
     ui: {
         spanLabelFixed: 100,
         grid: {
@@ -69,13 +52,17 @@ exports.appearance = {
     columnSets: {
         default: [
             {
-                title: '文章名称',
+                title: '名称',
                 index: 'name',
                 type: 'link',
                 action: 'edit'
             },
             {
                 title: '标题',
+                index: 'title'
+            },
+            {
+                title: '类型',
                 index: 'title'
             }
         ]

@@ -9,4 +9,11 @@ exports.EditWidgetDto = EditWidgetDto;
 class WidgetResponse {
 }
 exports.WidgetResponse = WidgetResponse;
+exports.WidgetResponseFields = [
+    'id',
+    'name',
+    'title',
+    'params',
+    'type',
+];
 //# sourceMappingURL=widget.dto.js.map

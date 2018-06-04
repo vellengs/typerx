@@ -31,13 +31,14 @@ export declare class GroupController {
      */
     update(entry: EditGroupDto): Promise<GroupResponse>;
     /**
-     * 查询用户组数据
-     * @param keyword 关键词
-     * @param page 第几页
-     * @param size 页大小
-     * @param sort 排序
+     * 查询用户组
+     * @param keyword
+     * @param isRegion
+     * @param page
+     * @param size
+     * @param sort
      */
-    query(keyword?: string, isGroup?: boolean, page?: number, size?: number, sort?: string): Promise<PaginateGroup>;
+    query(keyword?: string, isRegion?: boolean, page?: number, size?: number, sort?: string): Promise<PaginateGroup>;
     /**
    * 删除用户组
    * @param id 用户组编号

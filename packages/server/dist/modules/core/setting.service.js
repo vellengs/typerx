@@ -82,17 +82,21 @@ class SettingService {
     }
     query(keyword, page, size, sort) {
         return __awaiter(this, void 0, void 0, function* () {
-            page = page > 0 ? page : 0 || 1;
-            const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
-            const docs = (yield core_database_1.CoreDatabase.Setting.find(query).sort(sort).skip(page * size).limit(size).exec()) || [];
-            const count = yield core_database_1.CoreDatabase.Setting.find(query).count();
-            const list = docs.map((item) => {
-                return this.pure(item);
-            });
-            return {
-                list: list,
-                total: count
-            };
+            const condition = keyword ? { name: new RegExp(keyword, 'i') } : {};
+            const query = core_database_1.CoreDatabase.Setting.find(condition).sort(sort);
+            const collection = core_database_1.CoreDatabase.Setting.find(condition);
+            const result = repository_1.Repository.query(query, collection, page, size, setting_dto_1.SettingResponseFields);
+            return result;
+            // const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
+            // const docs: any = await Db.Setting.find(query).sort(sort).skip(page * size).limit(size).exec() || [];
+            // const count = await Db.Setting.find(query).count();
+            // const list = docs.map((item: Setting & Document) => {
+            //   return this.pure(item);
+            // });
+            // return {
+            //   list: list,
+            //   total: count
+            // }
         });
     }
     get(id) {

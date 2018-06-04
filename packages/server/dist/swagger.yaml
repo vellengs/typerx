@@ -1137,21 +1137,126 @@ definitions:
             - total
     PageResponse:
         description: ""
-        properties: {}
+        properties:
+            id:
+                type: string
+                description: ""
+            name:
+                type: string
+                description: ""
+            title:
+                type: string
+                description: ""
+            description:
+                type: string
+                description: ""
+            sort:
+                type: number
+                format: double
+                description: ""
+            disable:
+                type: boolean
+                description: ""
+            meta:
+                type: string
+                description: ""
+            content:
+                type: string
+                description: ""
+            template:
+                type: string
+                description: ""
         type: object
+        required:
+            - id
+            - name
+            - title
+            - description
+            - sort
+            - disable
+            - meta
+            - content
+            - template
     CreatePageDto:
         description: ""
-        properties: {}
+        properties:
+            name:
+                type: string
+                description: ""
+            title:
+                type: string
+                description: ""
+            description:
+                type: string
+                description: ""
+            sort:
+                type: number
+                format: double
+                description: ""
+            disable:
+                type: boolean
+                description: ""
+            meta:
+                type: string
+                description: ""
+            content:
+                type: string
+                description: ""
+            template:
+                type: string
+                description: ""
         type: object
+        required:
+            - name
+            - title
+            - description
+            - sort
+            - disable
+            - meta
+            - content
+            - template
     EditPageDto:
         description: ""
         properties:
             id:
                 type: string
                 description: ""
+            name:
+                type: string
+                description: ""
+            title:
+                type: string
+                description: ""
+            description:
+                type: string
+                description: ""
+            sort:
+                type: number
+                format: double
+                description: ""
+            disable:
+                type: boolean
+                description: ""
+            meta:
+                type: string
+                description: ""
+            content:
+                type: string
+                description: ""
+            template:
+                type: string
+                description: ""
         type: object
         required:
             - id
+            - name
+            - title
+            - description
+            - sort
+            - disable
+            - meta
+            - content
+            - template
     PaginatePage:
         description: ""
         properties:
@@ -1207,21 +1312,75 @@ definitions:
             - total
     WidgetResponse:
         description: ""
-        properties: {}
+        properties:
+            id:
+                type: string
+                description: ""
+            name:
+                type: string
+                description: ""
+            title:
+                type: string
+                description: ""
+            params:
+                type: object
+                description: ""
+            type:
+                type: string
+                description: ""
         type: object
+        required:
+            - id
+            - name
+            - title
+            - params
+            - type
     CreateWidgetDto:
         description: ""
-        properties: {}
+        properties:
+            name:
+                type: string
+                description: ""
+            title:
+                type: string
+                description: ""
+            params:
+                type: object
+                description: ""
+            type:
+                type: string
+                description: ""
         type: object
+        required:
+            - name
+            - title
+            - params
+            - type
     EditWidgetDto:
         description: ""
         properties:
             id:
                 type: string
                 description: ""
+            name:
+                type: string
+                description: ""
+            title:
+                type: string
+                description: ""
+            params:
+                type: object
+                description: ""
+            type:
+                type: string
+                description: ""
         type: object
         required:
             - id
+            - name
+            - title
+            - params
+            - type
     PaginateWidget:
         description: ""
         properties:
@@ -1620,6 +1779,36 @@ paths:
                     name: value
                     required: false
                     type: string
+    /api/account/role:
+        post:
+            operationId: AccountAddAccountsToRole
+            produces:
+                - text/html
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        type: boolean
+            description: 添加用户到角色
+            tags:
+                - core
+            consumes:
+                - application/x-www-form-urlencoded
+            parameters:
+                -
+                    description: 角色编号
+                    in: formData
+                    name: role
+                    required: true
+                    type: string
+                -
+                    description: 用户编号序列
+                    in: formData
+                    name: accountIds
+                    required: true
+                    type: array
+                    items:
+                        type: string
     /api/account/query:
         get:
             operationId: AccountQuery
@@ -2779,12 +2968,12 @@ paths:
                     description: Ok
                     schema:
                         $ref: '#/definitions/PaginateGroup'
-            description: 查询用户组数据
+            description: 查询用户组
             tags:
                 - core
             parameters:
                 -
-                    description: 关键词
+                    description: ""
                     in: query
                     name: keyword
                     required: false
@@ -2792,25 +2981,25 @@ paths:
                 -
                     description: ""
                     in: query
-                    name: isGroup
+                    name: isRegion
                     required: false
                     type: boolean
                 -
-                    description: 第几页
+                    description: ""
                     in: query
                     name: page
                     required: false
                     type: number
                     format: double
                 -
-                    description: 页大小
+                    description: ""
                     in: query
                     name: size
                     required: false
                     type: number
                     format: double
                 -
-                    description: 排序
+                    description: ""
                     in: query
                     name: sort
                     required: false

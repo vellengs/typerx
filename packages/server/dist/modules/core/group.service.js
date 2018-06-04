@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_database_1 = require("./core.database");
+const group_dto_1 = require("./dto/group.dto");
 const group_appearance_1 = require("./appearance/group.appearance");
 const lodash_1 = require("lodash");
 const repository_1 = require("../../database/repository");
@@ -38,20 +39,14 @@ class GroupService {
             return doc;
         });
     }
-    query(keyword, isGroup, page, size, sort) {
+    query(keyword, isRegion, page, size, sort) {
         return __awaiter(this, void 0, void 0, function* () {
-            const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
-            if (isGroup)
-                query.isGroup = true;
-            const docs = (yield core_database_1.CoreDatabase.Group.find(query).sort(sort).skip(page * size).limit(size).exec()) || [];
-            const count = yield core_database_1.CoreDatabase.Group.find(query).count();
-            const list = docs.map((item) => {
-                return this.pure(item);
-            });
-            return {
-                list: list,
-                total: count
-            };
+            const condition = keyword ? { name: new RegExp(keyword, 'i') } : {};
+            if (isRegion)
+                condition.isRegion = true;
+            const query = core_database_1.CoreDatabase.Group.find(condition).sort(sort);
+            const collection = core_database_1.CoreDatabase.Group.find(condition);
+            return repository_1.Repository.query(query, collection, page, size, group_dto_1.GroupResponseFields);
         });
     }
     remove(id) {

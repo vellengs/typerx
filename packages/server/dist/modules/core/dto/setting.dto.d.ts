@@ -21,6 +21,7 @@ export declare class SettingResponse {
 export declare class SettingsGroup {
     [key: string]: string;
 }
+export declare const SettingResponseFields: string[];
 export interface PaginateSetting {
     error?: Error;
     list: Array<SettingResponse>;

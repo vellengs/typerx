@@ -22,4 +22,33 @@ exports.schema = new mongoose_1.Schema({
         ref: 'Content', type: mongoose_1.SchemaTypes.ObjectId
     }
 }, { timestamps: true });
+function preSave(next) {
+    const instance = this;
+    if (!instance.isModified('content')) {
+        return next();
+    }
+    // bcrypt.genSalt(10, (err: any, salt: any) => {
+    //     if (err) {
+    //         return next(err);
+    //     }
+    //     bcrypt.hash(user.password, salt, undefined, (err: Error, hash) => {
+    //         if (err) {
+    //             return next(err);
+    //         }
+    //         user.password = hash;
+    //         next();
+    //     });
+    // });
+}
+function preUpdate(next) {
+    const updateDoc = this.getUpdate();
+    // const rawPassword = (updateDoc.$set || updateDoc).password;
+    // if (rawPassword) {
+    //   const password = bcrypt.hashSync(rawPassword, bcrypt.genSaltSync(10));
+    //   this.findOneAndUpdate({}, { password: password });
+    // }
+    next();
+}
+exports.schema.pre('save', preSave);
+exports.schema.pre('findOneAndUpdate', preUpdate);
 //# sourceMappingURL=article.schema.js.map

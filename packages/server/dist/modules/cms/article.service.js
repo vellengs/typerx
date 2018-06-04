@@ -26,16 +26,29 @@ class ArticleService {
     }
     create(entry) {
         return __awaiter(this, void 0, void 0, function* () {
+            const content = entry.content;
+            entry.content = null;
             const doc = new cms_database_1.CmsDatabase.Article(entry);
             const result = yield doc.save();
+            yield cms_database_1.CmsDatabase.Content.findOneAndUpdate({ _id: result.id }, {
+                $set: {
+                    _id: result.id,
+                    text: content
+                }
+            }, { upsert: true, 'new': true }).exec();
             return result;
         });
     }
     update(entry) {
         return __awaiter(this, void 0, void 0, function* () {
+            const content = entry.content;
+            entry.content = entry.id;
             const doc = yield cms_database_1.CmsDatabase.Article.findOneAndUpdate({
                 _id: entry.id,
             }, entry).exec();
+            yield cms_database_1.CmsDatabase.Content.findOneAndUpdate({ _id: entry.id }, {
+                text: content
+            }, { upsert: true, 'new': true }).exec();
             return doc;
         });
     }
@@ -57,13 +70,23 @@ class ArticleService {
     }
     get(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield repository_1.Repository.get(cms_database_1.CmsDatabase.Article, id, [
+            let result = yield repository_1.Repository.get(cms_database_1.CmsDatabase.Article, id, [
                 {
-                    path: 'roles',
-                    select: 'name',
+                    path: 'content',
+                    select: 'text',
                 },
             ]);
-            return this.pure(result);
+            if (result) {
+                const instance = result.toObject();
+                instance.id = id;
+                if (instance.content) {
+                    instance.content = instance.content.text;
+                }
+                return this.pure(instance);
+            }
+            else {
+                return new article_dto_1.ArticleResponse();
+            }
         });
     }
     pure(entry) {

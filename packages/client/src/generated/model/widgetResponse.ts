@@ -15,4 +15,24 @@
  * 
  */
 export interface WidgetResponse {
+    /**
+     * 
+     */
+    id: string;
+    /**
+     * 
+     */
+    name: string;
+    /**
+     * 
+     */
+    title: string;
+    /**
+     * 
+     */
+    params: any;
+    /**
+     * 
+     */
+    type: string;
 }

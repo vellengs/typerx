@@ -135,9 +135,6 @@ export class AccountsPageComponent extends BaseStandComponent implements OnInit 
 
     treeNodeClick(name: string, e: any) {
 
-        // event.preventDefault();
-        // event.stopPropagation(); 
-
         if (e.node.key === this.selectedItem.key) {
 
         } else {

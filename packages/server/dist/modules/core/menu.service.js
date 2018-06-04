@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_database_1 = require("./core.database");
+const menu_dto_1 = require("./dto/menu.dto");
 const menu_appearance_1 = require("./appearance/menu.appearance");
 const lodash_1 = require("lodash");
 const repository_1 = require("../../database/repository");
@@ -40,18 +41,12 @@ class MenuService {
     }
     query(keyword, isMenu, page, size, sort) {
         return __awaiter(this, void 0, void 0, function* () {
-            const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
+            const condition = keyword ? { name: new RegExp(keyword, 'i') } : {};
             if (isMenu)
-                query.isMenu = true;
-            const docs = (yield core_database_1.CoreDatabase.Menu.find(query).sort(sort).skip(page * size).limit(size).exec()) || [];
-            const count = yield core_database_1.CoreDatabase.Menu.find(query).count();
-            const list = docs.map((item) => {
-                return this.pure(item);
-            });
-            return {
-                list: list,
-                total: count
-            };
+                condition.isMenu = true;
+            const query = core_database_1.CoreDatabase.Menu.find(condition).sort(sort);
+            const collection = core_database_1.CoreDatabase.Menu.find(condition);
+            return repository_1.Repository.query(query, collection, page, size, menu_dto_1.MenuResponseFields);
         });
     }
     remove(id) {

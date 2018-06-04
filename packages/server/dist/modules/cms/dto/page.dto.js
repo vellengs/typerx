@@ -9,4 +9,15 @@ exports.EditPageDto = EditPageDto;
 class PageResponse {
 }
 exports.PageResponse = PageResponse;
+exports.PageResponseFields = [
+    'id',
+    'name',
+    'title',
+    'description',
+    'sort',
+    'disable',
+    'meta',
+    'content',
+    'template',
+];
 //# sourceMappingURL=page.dto.js.map

@@ -95,6 +95,35 @@ export class AccountService {
   }
 
 
+  async addAccountsToRole(role: string, accountIds: string[]) {
+
+    if (role && Array.isArray(accountIds)) {
+      const existIds = (await Db.Account.find({
+        _id: {
+          $in: accountIds
+        },
+        roles: {
+          $in: [role]
+        }
+      }, { _id: 1 }).exec());
+
+      const exists = (existIds || []).map(item => item.toObject()._id);
+      const ids = accountIds.filter((id) => {
+        return exists.indexOf(id) === -1;
+      });
+
+      await Db.Account.update({
+        _id: {
+          $in: ids
+        }
+      }, { $push: { roles: role } }, { multi: true }).exec();
+    }
+
+    return true;
+  }
+
+
+
   private pure(entry: Account & Document): AccountResponse {
     return pick(entry, [
       'id',

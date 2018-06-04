@@ -74,19 +74,9 @@ class WidgetService {
         return lodash_1.pick(entry, [
             'id',
             'name',
-            'slug',
-            'group',
-            'link',
-            'externalLink',
-            'blank',
-            'icon',
-            'order',
-            'enable',
-            'expanded',
-            'acl',
-            'permissions',
-            'parent',
-            'isWidget'
+            'title',
+            'params',
+            'type',
         ]);
     }
 }

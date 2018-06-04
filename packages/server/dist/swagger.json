@@ -1517,13 +1517,106 @@
 		},
 		"PageResponse": {
 			"description": "",
-			"properties": {},
-			"type": "object"
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"title": {
+					"type": "string",
+					"description": ""
+				},
+				"description": {
+					"type": "string",
+					"description": ""
+				},
+				"sort": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"disable": {
+					"type": "boolean",
+					"description": ""
+				},
+				"meta": {
+					"type": "string",
+					"description": ""
+				},
+				"content": {
+					"type": "string",
+					"description": ""
+				},
+				"template": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"name",
+				"title",
+				"description",
+				"sort",
+				"disable",
+				"meta",
+				"content",
+				"template"
+			]
 		},
 		"CreatePageDto": {
 			"description": "",
-			"properties": {},
-			"type": "object"
+			"properties": {
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"title": {
+					"type": "string",
+					"description": ""
+				},
+				"description": {
+					"type": "string",
+					"description": ""
+				},
+				"sort": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"disable": {
+					"type": "boolean",
+					"description": ""
+				},
+				"meta": {
+					"type": "string",
+					"description": ""
+				},
+				"content": {
+					"type": "string",
+					"description": ""
+				},
+				"template": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"name",
+				"title",
+				"description",
+				"sort",
+				"disable",
+				"meta",
+				"content",
+				"template"
+			]
 		},
 		"EditPageDto": {
 			"description": "",
@@ -1531,11 +1624,52 @@
 				"id": {
 					"type": "string",
 					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"title": {
+					"type": "string",
+					"description": ""
+				},
+				"description": {
+					"type": "string",
+					"description": ""
+				},
+				"sort": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"disable": {
+					"type": "boolean",
+					"description": ""
+				},
+				"meta": {
+					"type": "string",
+					"description": ""
+				},
+				"content": {
+					"type": "string",
+					"description": ""
+				},
+				"template": {
+					"type": "string",
+					"description": ""
 				}
 			},
 			"type": "object",
 			"required": [
-				"id"
+				"id",
+				"name",
+				"title",
+				"description",
+				"sort",
+				"disable",
+				"meta",
+				"content",
+				"template"
 			]
 		},
 		"PaginatePage": {
@@ -1613,13 +1747,64 @@
 		},
 		"WidgetResponse": {
 			"description": "",
-			"properties": {},
-			"type": "object"
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"title": {
+					"type": "string",
+					"description": ""
+				},
+				"params": {
+					"type": "object",
+					"description": ""
+				},
+				"type": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"name",
+				"title",
+				"params",
+				"type"
+			]
 		},
 		"CreateWidgetDto": {
 			"description": "",
-			"properties": {},
-			"type": "object"
+			"properties": {
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"title": {
+					"type": "string",
+					"description": ""
+				},
+				"params": {
+					"type": "object",
+					"description": ""
+				},
+				"type": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"name",
+				"title",
+				"params",
+				"type"
+			]
 		},
 		"EditWidgetDto": {
 			"description": "",
@@ -1627,11 +1812,31 @@
 				"id": {
 					"type": "string",
 					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"title": {
+					"type": "string",
+					"description": ""
+				},
+				"params": {
+					"type": "object",
+					"description": ""
+				},
+				"type": {
+					"type": "string",
+					"description": ""
 				}
 			},
 			"type": "object",
 			"required": [
-				"id"
+				"id",
+				"name",
+				"title",
+				"params",
+				"type"
 			]
 		},
 		"PaginateWidget": {
@@ -2164,6 +2369,48 @@
 						"name": "value",
 						"required": false,
 						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/account/role": {
+			"post": {
+				"operationId": "AccountAddAccountsToRole",
+				"produces": [
+					"text/html"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				},
+				"description": "添加用户到角色",
+				"tags": [
+					"core"
+				],
+				"consumes": [
+					"application/x-www-form-urlencoded"
+				],
+				"parameters": [
+					{
+						"description": "角色编号",
+						"in": "formData",
+						"name": "role",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"description": "用户编号序列",
+						"in": "formData",
+						"name": "accountIds",
+						"required": true,
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
 					}
 				]
 			}
@@ -3798,13 +4045,13 @@
 						}
 					}
 				},
-				"description": "查询用户组数据",
+				"description": "查询用户组",
 				"tags": [
 					"core"
 				],
 				"parameters": [
 					{
-						"description": "关键词",
+						"description": "",
 						"in": "query",
 						"name": "keyword",
 						"required": false,
@@ -3813,12 +4060,12 @@
 					{
 						"description": "",
 						"in": "query",
-						"name": "isGroup",
+						"name": "isRegion",
 						"required": false,
 						"type": "boolean"
 					},
 					{
-						"description": "第几页",
+						"description": "",
 						"in": "query",
 						"name": "page",
 						"required": false,
@@ -3826,7 +4073,7 @@
 						"format": "double"
 					},
 					{
-						"description": "页大小",
+						"description": "",
 						"in": "query",
 						"name": "size",
 						"required": false,
@@ -3834,7 +4081,7 @@
 						"format": "double"
 					},
 					{
-						"description": "排序",
+						"description": "",
 						"in": "query",
 						"name": "sort",
 						"required": false,

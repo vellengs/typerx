@@ -101,7 +101,6 @@ exports.appearance = {
                 title: 'order',
                 index: ['order'],
                 click: () => {
-                    console.log('click ..');
                 }
             }
         ]

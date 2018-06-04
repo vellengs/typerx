@@ -18,7 +18,6 @@ function loadSwagger() {
     return __awaiter(this, void 0, void 0, function* () {
         const jsonPath = path.resolve(process.cwd(), 'dist', 'swagger.json');
         const json = require(jsonPath);
-        // console.log('json', json);
         const client = axios_1.default.create({
             httpsAgent: new https.Agent({
                 rejectUnauthorized: false
@@ -26,7 +25,6 @@ function loadSwagger() {
         });
         const result = yield client.post(gateway, { spec: json });
         if (result.data && result.data.link) {
-            // console.log('result.data.link', result.data.link);
             const response = yield client({
                 method: 'GET',
                 url: result.data.link,
@@ -38,6 +36,5 @@ function loadSwagger() {
     });
 }
 loadSwagger().catch((error) => {
-    console.log('error:', error);
 });
 //# sourceMappingURL=apigen.js.map

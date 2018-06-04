@@ -68,15 +68,16 @@ let GroupController = class GroupController {
         });
     }
     /**
-     * 查询用户组数据
-     * @param keyword 关键词
-     * @param page 第几页
-     * @param size 页大小
-     * @param sort 排序
+     * 查询用户组
+     * @param keyword
+     * @param isRegion
+     * @param page
+     * @param size
+     * @param sort
      */
-    query(keyword, isGroup, page, size, sort) {
+    query(keyword, isRegion, page, size, sort) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.service.query(keyword, isGroup, page, size, sort);
+            return this.service.query(keyword, isRegion, page, size, sort);
         });
     }
     /**
@@ -134,7 +135,7 @@ __decorate([
     typescript_rest_1.Path('query'),
     typescript_rest_1.GET,
     __param(0, typescript_rest_1.QueryParam('keyword')),
-    __param(1, typescript_rest_1.QueryParam('isGroup')),
+    __param(1, typescript_rest_1.QueryParam('isRegion')),
     __param(2, typescript_rest_1.QueryParam('page')),
     __param(3, typescript_rest_1.QueryParam('size')),
     __param(4, typescript_rest_1.QueryParam('sort')),

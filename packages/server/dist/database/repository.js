@@ -133,6 +133,9 @@ class Repository {
     static query(query, collection, page = 1, size = 20, fields) {
         return __awaiter(this, void 0, void 0, function* () {
             page = page - 1;
+            if (page < 0) {
+                page = 0;
+            }
             const count = yield collection.count().exec();
             const docs = (yield query.skip(page * size).limit(size).exec()) || [];
             const list = docs.map((doc) => lodash_1.pick(doc, fields));

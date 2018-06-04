@@ -15,4 +15,40 @@
  * 
  */
 export interface PageResponse {
+    /**
+     * 
+     */
+    id: string;
+    /**
+     * 
+     */
+    name: string;
+    /**
+     * 
+     */
+    title: string;
+    /**
+     * 
+     */
+    description: string;
+    /**
+     * 
+     */
+    sort: number;
+    /**
+     * 
+     */
+    disable: boolean;
+    /**
+     * 
+     */
+    meta: string;
+    /**
+     * 
+     */
+    content: string;
+    /**
+     * 
+     */
+    template: string;
 }

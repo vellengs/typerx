@@ -50,7 +50,7 @@ const addForm = {
             }
         },
     },
-    required: ['title'],
+    required: ['title', 'category'],
     ui: {
         spanLabelFixed: 100,
         grid: {
@@ -60,11 +60,6 @@ const addForm = {
 };
 const editForm = lodash_1.cloneDeep(addForm);
 editForm.title = '编辑文章';
-editForm.required = ['username'];
-editForm.properties.secret = {
-    title: '密保',
-    type: appearance_1.SchemaTypes.string
-};
 exports.appearance = {
     columnSets: {
         default: [
@@ -91,6 +86,17 @@ exports.appearance = {
                     maxLength: 30,
                     ui: {
                         placeholder: '请输入文章名称'
+                    }
+                },
+                category: {
+                    title: '分类',
+                    type: appearance_1.SchemaTypes.string,
+                    default: null,
+                    ui: {
+                        widget: appearance_1.WidgetTypes.search,
+                        domain: 'category',
+                        allowClear: true,
+                        placeholder: '请选择分类'
                     }
                 }
             }

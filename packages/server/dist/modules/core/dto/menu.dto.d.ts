@@ -49,6 +49,7 @@ export declare class MenuResponse {
     parent?: string | Menu;
     isMenu: boolean;
 }
+export declare const MenuResponseFields: string[];
 export interface PaginateMenu {
     error?: Error;
     list: Array<MenuResponse>;

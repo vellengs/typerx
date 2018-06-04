@@ -15,4 +15,20 @@
  * 
  */
 export interface CreateWidgetDto {
+    /**
+     * 
+     */
+    name: string;
+    /**
+     * 
+     */
+    title: string;
+    /**
+     * 
+     */
+    params: any;
+    /**
+     * 
+     */
+    type: string;
 }

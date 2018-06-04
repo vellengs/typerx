@@ -12,4 +12,11 @@ exports.SettingResponse = SettingResponse;
 class SettingsGroup {
 }
 exports.SettingsGroup = SettingsGroup;
+exports.SettingResponseFields = [
+    'id',
+    'name',
+    'key',
+    'value',
+    'description'
+];
 //# sourceMappingURL=setting.dto.js.map

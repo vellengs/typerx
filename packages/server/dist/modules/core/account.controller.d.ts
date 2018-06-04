@@ -34,6 +34,12 @@ export declare class AccountController {
      */
     getAccountsByKeyword(keyword?: string, value?: string): Promise<Array<KeyValue>>;
     /**
+     * 添加用户到角色
+     * @param role 角色编号
+     * @param accountIds 用户编号序列
+     */
+    addAccountsToRole(role: string, accountIds: string[]): Promise<boolean>;
+    /**
      * 分页查询帐号数据
      * @param keyword 关键词
      */
