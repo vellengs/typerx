@@ -34,6 +34,7 @@ export class BaseDetailComponent extends BaseComponent implements OnInit, AfterV
 
     constructor(public injector: Injector, private elRef: ElementRef) {
         super(injector);
+ 
         this.modalRef = this.injector.get(NzModalRef);
     }
 

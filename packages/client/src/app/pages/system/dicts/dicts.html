@@ -25,18 +25,17 @@
             </nz-table>
 
             <ng-template #roleTemplate>
-                <a (click)="add()">
+                <a (click)="addDictCategory()">
                     <i class="anticon anticon-plus"></i>
                     新建分类</a>
             </ng-template>
         </nz-card>
     </nz-col>
     <nz-col [nzSpan]="16">
-        <nz-card *ngIf="selectedItem.translate" [nzTitle]="selectedItem.translate + '的列表'" [nzExtra]="dictTpl">
-
-            <app-base-stand #dictList [operations]="operations" [queryUrl]="'api/dict/query'" [queryParams]="dictQueryParams" [domain]="'dict'"></app-base-stand>
-            <ng-template #dictTpl>
-                <a (click)="add()">
+        <nz-card *ngIf="selectedItem.translate" [nzTitle]="selectedItem.translate + '的列表'" [nzExtra]="slaveTpl">
+            <app-base-stand #slaves [operations]="operations" [queryUrl]="'api/account/query'" [queryParams]="queryParams" [domain]="'dict'"></app-base-stand>
+            <ng-template #slaveTpl>
+                <a (click)="addDict()">
                     <i class="anticon anticon-plus"></i>
                     新建字典</a>
             </ng-template>

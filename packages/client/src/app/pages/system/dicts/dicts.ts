@@ -15,7 +15,8 @@ import { SimpleTableComponent } from '@delon/abc';
 })
 export class DictsPageComponent extends BaseStandComponent implements OnInit {
 
-    @ViewChild('dictList') dictTable: BaseStandComponent;
+    @ViewChild('slaves') slaves: BaseStandComponent;
+
     @Input() domain = 'dict';
     selectedItem: any = {};
     categories: any = [];
@@ -40,18 +41,14 @@ export class DictsPageComponent extends BaseStandComponent implements OnInit {
                     text: '删除',
                     type: 'del',
                     click: (record: any) => {
-                        // if (this.accounts) {
-                        //     this.accounts.remove(record, false);
-                        // }
+                        this.slaves.remove(record, false);
                     }
                 },
                 {
                     text: '编辑',
                     type: 'none',
                     click: (record: any) => {
-                        // if (this.accounts) {
-                        //     this.accounts.edit(record);
-                        // }
+                        this.slaves.edit(record);
                     }
                 }
             ]
@@ -70,10 +67,25 @@ export class DictsPageComponent extends BaseStandComponent implements OnInit {
 
     select(item) {
         this.selectedItem = item;
-        this.dictQueryParams.category = this.selectedItem.name;
-        if (this.dictTable) {
-            this.dictTable.load();
+        this.queryParams = {
+            category: item.name
+        };
+        if (this.slaves) {
+            this.slaves.queryParams = this.queryParams;
+            this.slaves.reload();
         }
     }
-    
+
+    addDict() {
+        this.add({
+            category: this.selectedItem.name
+        });
+    }
+
+    addDictCategory() {
+        this.add({
+            category: 'category'
+        });
+    }
+
 }

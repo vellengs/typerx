@@ -26,7 +26,7 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
 
 
 
-    @ViewChild('accountList') accounts: BaseStandComponent;
+    @ViewChild('slaves') slaves: BaseStandComponent;
 
     constructor(
         public userService: UserService,
@@ -70,9 +70,9 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
     addAccountsToRole() {
 
         const self = this;
-        const columns = this.accounts.columnSets.default;
+        const columns = this.slaves.columnSets.default;
         this.modalHelper.static(BaseTreeSelectorComponent, {
-            queryUrl: this.accounts.queryUrl,
+            queryUrl: this.slaves.queryUrl,
             queryParams: {},
             columns: columns,
             asyncData: () => {
@@ -97,9 +97,9 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
         this.queryParams = {
             role: item.id
         };
-        if (this.accounts) {
-            this.accounts.queryParams = this.queryParams;
-            this.accounts.reload();
+        if (this.slaves) {
+            this.slaves.queryParams = this.queryParams;
+            this.slaves.reload();
         }
     }
 

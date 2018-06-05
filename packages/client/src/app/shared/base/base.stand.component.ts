@@ -80,7 +80,7 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
         }
     }
 
-    add(): void {
+    add(formData?: any): void {
         const params: ModalOptionsForService = {
             nzTitle: this.formSets.add.title,
             nzMaskClosable: false
@@ -90,6 +90,7 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
                 schema: this.formSets.add,
                 onFormChanged: this.onAddFormChanged,
                 onSave: this.save,
+                formData: formData,
                 context: this
             }, 'lg',
                 params
@@ -118,7 +119,6 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
             }, 'lg',
                 params
             ).subscribe((res) => {
-                // console.log('res:', res); 
                 if (res) {
                     this.reload();
                 }
