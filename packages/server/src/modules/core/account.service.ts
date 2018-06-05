@@ -80,7 +80,7 @@ export class AccountService {
   ): Promise<PaginateAccount> {
     page = page > 0 ? page : 0 || 1;
 
-    const condition: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
+    const condition: any = keyword ? { keyword: new RegExp(keyword, 'i') } : {};
     if (group) {
       const ids = await Repository.deeplyFind(Db.Group, group);
       condition.groups = {

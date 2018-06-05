@@ -72,7 +72,7 @@ export class ArticleService {
         size?: number,
         sort?: string
     ): Promise<PaginateArticle> {
-        const condition: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
+        const condition: any = keyword ? { keyword: new RegExp(keyword, 'i') } : {};
 
         if (category) {
             condition.category = category;

@@ -82,12 +82,12 @@ export const appearance: Appearance = {
     formSets: {
         query: {
             properties: {
-                name: {
-                    title: '名称',
+                keyword: {
+                    title: '文章标题',
                     type: t.string,
                     maxLength: 30,
                     ui: {
-                        placeholder: '请输入文章名称'
+                        placeholder: '请输入文章标题'
                     }
                 },
                 category: {

@@ -22,19 +22,3 @@ export const schema = new Schema({
     }
 },
     { timestamps: true });
-
-
-// function preSave(next: Function) {
-//     const instance = this;
-//     if (!instance.isModified('content')) {
-//         return next();
-//     }
-// }
-
-// function preUpdate(next: Function) {
-//     const updateDoc = this.getUpdate();
-//     next();
-// }
-
-// schema.pre('save', preSave);
-// schema.pre('findOneAndUpdate', preUpdate);
