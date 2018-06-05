@@ -1,7 +1,7 @@
 import { Appearance, SchemaTypes as t, WidgetTypes as w } from "../../../types/appearance";
 import { cloneDeep } from 'lodash';
 import { SFSchema } from "../../../types/schema.types";
- 
+
 export const appearance: Appearance = {
     columnSets: {
         default: [
@@ -44,6 +44,14 @@ export const appearance: Appearance = {
                         widget: 'autocomplete',
                         debounceTime: 100,
                         placeholder: '请输入日志关键词'
+                    }
+                },
+                dateRange: {
+                    type: 'string',
+                    title: '日期范围',
+                    ui: {
+                        widget: w.date,
+                        mode: 'range'
                     }
                 }
             }
