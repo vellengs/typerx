@@ -65,7 +65,6 @@ export class MenusPageComponent extends BaseStandComponent implements OnInit {
         this.loadMenuTree();
         this.onConfigChanged.subscribe(() => {
             this.detailSchema = this.formSets.edit;
-            console.log('detailSchema:', this.detailSchema);
         });
     }
 

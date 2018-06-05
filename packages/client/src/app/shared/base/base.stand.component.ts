@@ -128,9 +128,15 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
     async save(entry) {
         const url = `api/${this.domain}`;
         if (entry.id) {
-            return this.client.put(url, entry).toPromise();
+            return this.client.put(url, entry).subscribe((res) => {
+                this.msg.success('更新成功');
+                this.reload();
+            });
         } else {
-            return this.client.post(url, entry).toPromise();
+            return this.client.post(url, entry).subscribe((res) => {
+                this.msg.success('保存成功');
+                this.reload();
+            });
         }
     }
 
