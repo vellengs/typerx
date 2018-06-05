@@ -1,6 +1,7 @@
 export class CreateAccountDto {
   avatar?: string;
   email?: string;
+  keyword?:string;
   mobile?: string;
   groups?: string[];
   roles?: string[];
@@ -13,6 +14,7 @@ export class EditAccountDto {
   id: string;
   avatar?: string;
   email?: string;
+  keyword?:string;
   groups?: string[];
   roles?: string[];
   mobile?: string;

@@ -17,6 +17,7 @@ import { Document } from 'mongoose';
 import { Repository } from '../../database/repository';
 import { KeyValue } from '../../types/data.types';
 import { Group } from './interfaces/group.interface';
+import { Helper } from '../../util/helper';
 
 export class AccountService {
   async getAppearance(): Promise<Appearance> {
@@ -27,8 +28,16 @@ export class AccountService {
     return Repository.search(Db.Account, keyword, value, '', limit, 'nick');
   }
 
+  setKeyWord(entry: CreateAccountDto | EditAccountDto) {
+    let keyword: Array<string> = Helper.genPinyinKeywords(entry.nick);
+    keyword.push(entry.email);
+    keyword.push(entry.mobile);
+    entry.keyword = keyword.toString();
+  }
+
   async create(entry: CreateAccountDto): Promise<AccountResponse> {
     const doc = new Db.Account(entry);
+    this.setKeyWord(entry);
     const result = await doc.save();
     return this.pure(result);
   }
@@ -38,6 +47,7 @@ export class AccountService {
     admin?: SessionUser,
   ): Promise<AccountResponse> {
     if (admin && admin.isAdmin) {
+      this.setKeyWord(entry);
       const doc = await Db.Account.findOneAndUpdate(
         {
           _id: entry.id,

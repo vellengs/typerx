@@ -10,6 +10,7 @@ import {
 import { Article } from "./interfaces/article.interface";
 import { Document } from "mongoose";
 import { pick } from "lodash";
+import { Helper } from "../../util/helper";
 
 export class ArticleService {
     async getAppearance(): Promise<Appearance> {
@@ -20,13 +21,19 @@ export class ArticleService {
         return Repository.search(Db.Article, keyword, value, '', limit);
     }
 
-    async create(entry: CreateArticleDto): Promise<ArticleResponse> {
+    setKeyWord(entry: CreateArticleDto | EditArticleDto) {
+        let keyword: Array<string> = Helper.genPinyinKeywords(entry.title);
+        keyword.push(entry.name);
+        keyword.push(entry.title);
+        entry.title = keyword.toString();
+    }
 
+    async create(entry: CreateArticleDto): Promise<ArticleResponse> {
         const content = entry.content;
         entry.content = null;
+        this.setKeyWord(entry);
         const doc = new Db.Article(entry);
         const result = await doc.save();
-
         await Db.Content.findOneAndUpdate(
             { _id: result.id },
             {
@@ -45,6 +52,7 @@ export class ArticleService {
     ): Promise<ArticleResponse> {
         const content = entry.content;
         entry.content = entry.id;
+        this.setKeyWord(entry);
         const doc = await Db.Article.findOneAndUpdate(
             {
                 _id: entry.id,
@@ -69,7 +77,7 @@ export class ArticleService {
         if (category) {
             condition.category = category;
         }
-        
+
         const query = Db.Article.find(condition).populate([
             { path: 'category', select: 'name' }
         ]).sort(sort);
