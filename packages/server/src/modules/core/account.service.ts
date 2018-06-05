@@ -32,7 +32,8 @@ export class AccountService {
     let keyword: Array<string> = Helper.genPinyinKeywords(entry.nick);
     keyword.push(entry.email);
     keyword.push(entry.mobile);
-    entry.keyword = keyword.toString();
+    keyword.push(entry.nick);
+    entry.keyword = keyword.join('');
   }
 
   async create(entry: CreateAccountDto): Promise<AccountResponse> {

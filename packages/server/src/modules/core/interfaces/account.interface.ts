@@ -2,6 +2,7 @@ export interface Account {
   id: string;
   username: string; // 用户名
   nick: string; // 姓名
+  keyword: string;
   password: string; // 密码
   avatar: string; // 照片
   type: string; // 类型

@@ -25,7 +25,7 @@ export class ArticleService {
         let keyword: Array<string> = Helper.genPinyinKeywords(entry.title);
         keyword.push(entry.name);
         keyword.push(entry.title);
-        entry.title = keyword.toString();
+        entry.keyword = keyword.join('');
     }
 
     async create(entry: CreateArticleDto): Promise<ArticleResponse> {

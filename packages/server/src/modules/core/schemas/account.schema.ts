@@ -15,6 +15,7 @@ export const schema = new Schema(
       type: t.String, required: true,
     },
     avatar: t.String,
+    keyword: t.String,
     email: t.String,
     nick: t.String,
     type: t.String,
