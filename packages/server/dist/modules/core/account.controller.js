@@ -81,6 +81,16 @@ let AccountController = class AccountController {
         });
     }
     /**
+     * 从角色中删除用户
+     * @param role 角色编号
+     * @param accountId
+     */
+    removeAccountFromRole(role, accountId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.service.removeAccountFromRole(role, accountId);
+        });
+    }
+    /**
      * 分页查询帐号数据
      * @param keyword 关键词
      */
@@ -156,6 +166,14 @@ __decorate([
     __metadata("design:paramtypes", [String, Array]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "addAccountsToRole", null);
+__decorate([
+    typescript_rest_1.Path('role'),
+    typescript_rest_1.DELETE,
+    __param(0, typescript_rest_1.QueryParam('role')), __param(1, typescript_rest_1.QueryParam('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], AccountController.prototype, "removeAccountFromRole", null);
 __decorate([
     typescript_rest_1.Path('query'),
     typescript_rest_1.GET,

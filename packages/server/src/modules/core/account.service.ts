@@ -106,6 +106,21 @@ export class AccountService {
   }
 
 
+  async removeAccountFromRole(role: string, accountId: string) {
+
+    if (role && accountId) {
+      await Db.Account.update({
+        _id: {
+          $in: accountId
+        }
+      }, { $pullAll: { roles: [role] } }, { multi: true }).exec();
+    }
+
+    return true;
+  }
+
+
+
   async addAccountsToRole(role: string, accountIds: string[]) {
 
     if (role && Array.isArray(accountIds)) {

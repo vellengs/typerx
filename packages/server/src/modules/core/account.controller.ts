@@ -90,6 +90,18 @@ export class AccountController {
     return this.service.addAccountsToRole(role, accountIds);
   }
 
+
+  /**
+   * 从角色中删除用户
+   * @param role 角色编号
+   * @param accountId 
+   */
+  @Path('role')
+  @DELETE
+  async removeAccountFromRole(@QueryParam('role') role: string, @QueryParam('id') accountId: string): Promise<boolean> {
+    return this.service.removeAccountFromRole(role, accountId);
+  }
+
   /**
    * 分页查询帐号数据
    * @param keyword 关键词

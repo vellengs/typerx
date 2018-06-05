@@ -2,6 +2,7 @@ export interface Account {
     id: string;
     username: string;
     nick: string;
+    keyword: string;
     password: string;
     avatar: string;
     type: string;

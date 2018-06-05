@@ -8,6 +8,7 @@ exports.schema = new mongoose_1.Schema({
         type: mongoose_1.SchemaTypes.String, required: true,
     },
     avatar: mongoose_1.SchemaTypes.String,
+    keyword: mongoose_1.SchemaTypes.String,
     email: mongoose_1.SchemaTypes.String,
     nick: mongoose_1.SchemaTypes.String,
     type: mongoose_1.SchemaTypes.String,

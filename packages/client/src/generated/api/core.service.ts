@@ -464,6 +464,59 @@ export class CoreService {
 
     /**
      * 
+     * 从角色中删除用户
+     * @param role 角色编号
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public accountRemoveAccountFromRole(role: string, id: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public accountRemoveAccountFromRole(role: string, id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public accountRemoveAccountFromRole(role: string, id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public accountRemoveAccountFromRole(role: string, id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (role === null || role === undefined) {
+            throw new Error('Required parameter role was null or undefined when calling accountRemoveAccountFromRole.');
+        }
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling accountRemoveAccountFromRole.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (role !== undefined) {
+            queryParameters = queryParameters.set('role', <any>role);
+        }
+        if (id !== undefined) {
+            queryParameters = queryParameters.set('id', <any>id);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/html'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.delete<boolean>(`${this.basePath}/api/account/role`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
      * 更新帐号
      * @param entry 帐号信息
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.

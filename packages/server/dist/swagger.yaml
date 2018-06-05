@@ -75,6 +75,9 @@ definitions:
             email:
                 type: string
                 description: ""
+            keyword:
+                type: string
+                description: ""
             mobile:
                 type: string
                 description: ""
@@ -112,6 +115,9 @@ definitions:
                 type: string
                 description: ""
             email:
+                type: string
+                description: ""
+            keyword:
                 type: string
                 description: ""
             groups:
@@ -1458,6 +1464,9 @@ definitions:
             title:
                 type: string
                 description: ""
+            keyword:
+                type: string
+                description: ""
             category:
                 type: string
                 description: ""
@@ -1487,6 +1496,7 @@ definitions:
         required:
             - name
             - title
+            - keyword
             - category
             - description
             - author
@@ -1505,6 +1515,9 @@ definitions:
                 type: string
                 description: ""
             title:
+                type: string
+                description: ""
+            keyword:
                 type: string
                 description: ""
             category:
@@ -1537,6 +1550,7 @@ definitions:
             - id
             - name
             - title
+            - keyword
             - category
             - description
             - author
@@ -1809,6 +1823,31 @@ paths:
                     type: array
                     items:
                         type: string
+        delete:
+            operationId: AccountRemoveAccountFromRole
+            produces:
+                - text/html
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        type: boolean
+            description: 从角色中删除用户
+            tags:
+                - core
+            parameters:
+                -
+                    description: 角色编号
+                    in: query
+                    name: role
+                    required: true
+                    type: string
+                -
+                    description: ""
+                    in: query
+                    name: id
+                    required: true
+                    type: string
     /api/account/query:
         get:
             operationId: AccountQuery

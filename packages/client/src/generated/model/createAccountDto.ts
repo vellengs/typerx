@@ -26,6 +26,10 @@ export interface CreateAccountDto {
     /**
      * 
      */
+    keyword?: string;
+    /**
+     * 
+     */
     mobile?: string;
     /**
      * 

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const appearance_1 = require("../../../types/appearance");
 exports.appearance = {
     columnSets: {
         default: [
@@ -42,6 +43,14 @@ exports.appearance = {
                         widget: 'autocomplete',
                         debounceTime: 100,
                         placeholder: '请输入日志关键词'
+                    }
+                },
+                dateRange: {
+                    type: 'string',
+                    title: '日期范围',
+                    ui: {
+                        widget: appearance_1.WidgetTypes.date,
+                        mode: 'range'
                     }
                 }
             }

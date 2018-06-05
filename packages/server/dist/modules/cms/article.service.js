@@ -13,6 +13,7 @@ const repository_1 = require("../../database/repository");
 const cms_database_1 = require("./cms.database");
 const article_dto_1 = require("./dto/article.dto");
 const lodash_1 = require("lodash");
+const helper_1 = require("../../util/helper");
 class ArticleService {
     getAppearance() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -24,10 +25,17 @@ class ArticleService {
             return repository_1.Repository.search(cms_database_1.CmsDatabase.Article, keyword, value, '', limit);
         });
     }
+    setKeyWord(entry) {
+        let keyword = helper_1.Helper.genPinyinKeywords(entry.title);
+        keyword.push(entry.name);
+        keyword.push(entry.title);
+        entry.keyword = keyword.join('');
+    }
     create(entry) {
         return __awaiter(this, void 0, void 0, function* () {
             const content = entry.content;
             entry.content = null;
+            this.setKeyWord(entry);
             const doc = new cms_database_1.CmsDatabase.Article(entry);
             const result = yield doc.save();
             yield cms_database_1.CmsDatabase.Content.findOneAndUpdate({ _id: result.id }, {
@@ -43,6 +51,7 @@ class ArticleService {
         return __awaiter(this, void 0, void 0, function* () {
             const content = entry.content;
             entry.content = entry.id;
+            this.setKeyWord(entry);
             const doc = yield cms_database_1.CmsDatabase.Article.findOneAndUpdate({
                 _id: entry.id,
             }, entry).exec();
@@ -54,7 +63,10 @@ class ArticleService {
     }
     query(keyword, category, page, size, sort) {
         return __awaiter(this, void 0, void 0, function* () {
-            const condition = keyword ? { name: new RegExp(keyword, 'i') } : {};
+            const condition = keyword ? { keyword: new RegExp(keyword, 'i') } : {};
+            if (category) {
+                condition.category = category;
+            }
             const query = cms_database_1.CmsDatabase.Article.find(condition).populate([
                 { path: 'category', select: 'name' }
             ]).sort(sort);

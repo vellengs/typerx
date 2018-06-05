@@ -30,6 +30,10 @@ export interface EditAccountDto {
     /**
      * 
      */
+    keyword?: string;
+    /**
+     * 
+     */
     groups?: Array<string>;
     /**
      * 

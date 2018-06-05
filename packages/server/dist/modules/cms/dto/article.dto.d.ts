@@ -1,6 +1,7 @@
 export declare class CreateArticleDto {
     name: string;
     title: string;
+    keyword: string;
     category: string;
     description: string;
     author: string;
@@ -14,6 +15,7 @@ export declare class EditArticleDto {
     id: string;
     name: string;
     title: string;
+    keyword: string;
     category: string;
     description: string;
     author: string;

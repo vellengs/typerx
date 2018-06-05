@@ -39,6 +39,8 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
         this.onConfigChanged.subscribe(() => {
         });
 
+        const self = this;
+
         this.operations = {
             title: '操作',
             width: '180px',
@@ -47,10 +49,14 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
                     text: '移出',
                     type: 'del',
                     click: (record: any) => {
-                        console.log('this:', this);
-                        // if (this.accounts) {
-                        //     this.accounts.remove(record, false);
-                        // }
+                        self.coreService.accountRemoveAccountFromRole(this.selectedItem.id, record.id).subscribe(
+                            (res) => {
+                                if (res) {
+                                    self.msg.success('移除成功！');
+                                    self.slaves.reload();
+                                }
+                            }
+                        );
                     }
                 }
             ]
@@ -83,10 +89,10 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
                 nzTitle: '添加角色成员',
             }).subscribe((res) => {
                 if (res) {
-
                     const ids = res.map(a => a.id);
                     this.coreService.accountAddAccountsToRole(this.selectedItem.id, ids).subscribe(() => {
                         this.msg.success('完成');
+                        self.slaves.reload();
                     });
                 }
             });

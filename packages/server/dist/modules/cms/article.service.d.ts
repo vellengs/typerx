@@ -4,6 +4,7 @@ import { CreateArticleDto, ArticleResponse, EditArticleDto, PaginateArticle } fr
 export declare class ArticleService {
     getAppearance(): Promise<Appearance>;
     search(keyword?: string, value?: string, limit?: number): Promise<Array<KeyValue>>;
+    setKeyWord(entry: CreateArticleDto | EditArticleDto): void;
     create(entry: CreateArticleDto): Promise<ArticleResponse>;
     update(entry: EditArticleDto): Promise<ArticleResponse>;
     query(keyword?: string, category?: string, page?: number, size?: number, sort?: string): Promise<PaginateArticle>;

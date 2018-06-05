@@ -25,16 +25,29 @@ class PageService {
     }
     create(entry) {
         return __awaiter(this, void 0, void 0, function* () {
+            const content = entry.content;
+            entry.content = null;
             const doc = new cms_database_1.CmsDatabase.Page(entry);
             const result = yield doc.save();
+            yield cms_database_1.CmsDatabase.Content.findOneAndUpdate({ _id: result.id }, {
+                $set: {
+                    _id: result.id,
+                    text: content
+                }
+            }, { upsert: true, 'new': true }).exec();
             return result;
         });
     }
     update(entry) {
         return __awaiter(this, void 0, void 0, function* () {
+            const content = entry.content;
+            entry.content = entry.id;
             const doc = yield cms_database_1.CmsDatabase.Page.findOneAndUpdate({
                 _id: entry.id,
             }, entry).exec();
+            yield cms_database_1.CmsDatabase.Content.findOneAndUpdate({ _id: entry.id }, {
+                text: content
+            }, { upsert: true, 'new': true }).exec();
             return doc;
         });
     }

@@ -40,6 +40,12 @@ export declare class AccountController {
      */
     addAccountsToRole(role: string, accountIds: string[]): Promise<boolean>;
     /**
+     * 从角色中删除用户
+     * @param role 角色编号
+     * @param accountId
+     */
+    removeAccountFromRole(role: string, accountId: string): Promise<boolean>;
+    /**
      * 分页查询帐号数据
      * @param keyword 关键词
      */

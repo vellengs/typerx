@@ -30,6 +30,10 @@ export interface EditArticleDto {
     /**
      * 
      */
+    keyword: string;
+    /**
+     * 
+     */
     category: string;
     /**
      * 

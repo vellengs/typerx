@@ -26,6 +26,10 @@ export interface CreateArticleDto {
     /**
      * 
      */
+    keyword: string;
+    /**
+     * 
+     */
     category: string;
     /**
      * 
