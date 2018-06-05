@@ -118,12 +118,21 @@ export class AccountsPageComponent extends BaseStandComponent implements OnInit 
     }
 
     addAccount() {
-        this.accounts.add();
+        const model = {
+            groups: [this.selectedItem.key]
+        };
+        this.accounts.add(model);
     }
 
     editGroup(item) {
         this.edit({
             id: item.key
+        });
+    }
+
+    addGroup() {
+        this.add({
+            parent: this.selectedItem.key
         });
     }
 
