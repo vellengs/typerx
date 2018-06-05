@@ -66,6 +66,10 @@ export class ArticleService {
     ): Promise<PaginateArticle> {
         const condition: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
 
+        if (category) {
+            condition.category = category;
+        }
+        
         const query = Db.Article.find(condition).populate([
             { path: 'category', select: 'name' }
         ]).sort(sort);

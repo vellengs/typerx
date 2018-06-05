@@ -20,17 +20,13 @@ export class ArticlesPageComponent extends BaseStandComponent implements OnInit 
     @Input() domain = 'article';
     configReady;
     queryUrl;
-
-
-
-
+ 
     constructor(injector: Injector) {
         super(injector);
     }
 
     async ngOnInit() {
         this.queryUrl = `api/${this.domain}/query`;
-
         this.operations = {
             title: '操作',
             width: '180px',

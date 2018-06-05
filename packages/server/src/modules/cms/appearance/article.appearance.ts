@@ -93,13 +93,13 @@ export const appearance: Appearance = {
                 category: {
                     title: '分类',
                     type: t.string,
-                    default: null,
                     ui: {
                         widget: w.search,
                         domain: 'category',
                         allowClear: true,
                         placeholder: '请选择分类'
-                    }
+                    },
+                    default: null,
                 }
             }
         },

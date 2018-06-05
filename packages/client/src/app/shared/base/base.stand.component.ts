@@ -13,7 +13,7 @@ import { BaseTable, CurdPage, Appearance, FormSets } from 'types/types';
 import { BaseTableComponent } from '@shared/base/base.table.component';
 import { Subject } from 'rxjs/Subject';
 import { BaseDetailComponent } from '@shared/base/base.detail.component';
-declare var System;
+import { pickBy } from 'lodash';
 
 @Component({
     selector: 'app-base-stand',
@@ -205,7 +205,7 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
     }
 
     query(params: any) {
-        this.queryParams = Object.assign(this.queryParams, params);
+        this.queryParams = Object.assign({}, pickBy(params));
         this.reload();
     }
 

@@ -18,20 +18,42 @@ export class PageService {
     }
 
     async create(entry: CreatePageDto): Promise<PageResponse> {
+
+        const content = entry.content;
+        entry.content = null;
         const doc = new Db.Page(entry);
-        const result: any = await doc.save();
+        const result = await doc.save();
+
+        await Db.Content.findOneAndUpdate(
+            { _id: result.id },
+            {
+                $set: {
+                    _id: result.id,
+                    text: content
+                }
+            },
+            { upsert: true, 'new': true }).exec();
+
         return result;
+
     }
 
     async update(
         entry: EditPageDto,
     ): Promise<PageResponse> {
-        const doc: any = await Db.Page.findOneAndUpdate(
+
+        const content = entry.content;
+        entry.content = entry.id;
+        const doc = await Db.Page.findOneAndUpdate(
             {
                 _id: entry.id,
             },
             entry,
         ).exec();
+
+        await Db.Content.findOneAndUpdate({ _id: entry.id }, {
+            text: content
+        }, { upsert: true, 'new': true }).exec();
         return doc;
     }
 
