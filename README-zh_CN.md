@@ -1,10 +1,15 @@
-![tiperx](https://i.imgur.com/TA79x5U.png)
+![typerx](https://i.imgur.com/TA79x5U.png)
 
 # typerx
-A lightweight typescript annotation based MEAN(Mongodb Express Angular2+ Nodejs).
+
+一个轻量带使用注解方式API方式的全栈系统开发系统。
+
+[English README](README.md)
+
+# 项目缘由
 
 
-[中文 README](README-zh_CN.md)
+
 
 ### Quick start
 
