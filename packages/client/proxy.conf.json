@@ -1,14 +1,14 @@
 {
     "/api": {
-        "target": "http://39.108.210.156/",
+        "target": "http://localhost:5400/",
         "secure": false
     },
     "/user": {
-        "target": "http://39.108.210.156/",
+        "target": "http://localhost:5400/",
         "secure": false
     },
     "/uploads": {
-        "target": "http://39.108.210.156/",
+        "target": "http://localhost:5400/",
         "secure": false
     }
 }
