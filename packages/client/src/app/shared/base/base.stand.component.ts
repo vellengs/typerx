@@ -10,7 +10,6 @@ import * as XLSX from 'xlsx';
 import { BaseComponent } from './base.component';
 import { SFSchema, SFUISchema } from '@delon/form';
 import { BaseTable, CurdPage, Appearance, FormSets } from 'types/types';
-import { BaseTableComponent } from '@shared/base/base.table.component';
 import { Subject } from 'rxjs/Subject';
 import { BaseDetailComponent } from '@shared/base/base.detail.component';
 import { pickBy } from 'lodash';

@@ -17,7 +17,6 @@ import { UEditorModule } from 'ngx-ueditor';
 import { NgxTinymceModule } from 'ngx-tinymce';
 import { BaseListComponent } from './base/base.list.component';
 import { BaseComponent } from './base/base.component';
-import { BaseTableComponent } from './base/base.table.component';
 import { BaseStandComponent } from './base/base.stand.component';
 import { BaseTreeTableComponent } from './base/base.tree.table';
 import { BaseDetailComponent } from './base/base.detail.component';
@@ -36,7 +35,6 @@ const THIRDMODULES = [
 const COMPONENTS = [
     BaseComponent,
     BaseListComponent,
-    BaseTableComponent,
     BaseStandComponent,
     BaseTreeTableComponent,
     BaseDetailComponent,

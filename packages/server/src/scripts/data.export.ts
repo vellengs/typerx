@@ -11,12 +11,35 @@ function save2File(file: string, data: object) {
 }
 
 async function exportData() {
+
+    const accounts = await Db.Account.find().exec();
+    save2File('accounts', accounts.map((item) => {
+        return {
+            _id: item._id,
+            username: item.username,
+            nick: item.nick,
+            password: item.password,
+            avatar: item.avatar,
+            type: item.type,
+            email: item.email,
+            mobile: item.mobile,
+            roles: item.roles,
+            groups: item.groups,
+            isDisable: item.isDisable,
+            isAdmin: item.isAdmin,
+            isApproved: item.isApproved,
+            secret: item.secret,
+            expired: item.expired
+        }
+    }));
+
     const dicts = await Db.Dict.find().exec();
     save2File('dicts', dicts.map((item) => {
         return {
             _id: item._id,
             category: item.category,
             name: item.name,
+            translate: item.translate,
         }
     }));
 
