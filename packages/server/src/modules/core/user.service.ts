@@ -28,10 +28,11 @@ export class UserService {
       next,
     );
 
+    const ip: any = request.headers['x-real-ip'] || request.headers['x-forwarded-for'];
     await LogService.save({
       name: 'login',
       operator: loginDto.username,
-      operatorIp: request.connection.remoteAddress,
+      operatorIp: ip || request.connection.remoteAddress,
       operation: request.method.toLowerCase() + request.originalUrl,
       comment: '用户登录',
     });

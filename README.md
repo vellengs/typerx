@@ -6,6 +6,11 @@ A lightweight typescript annotation based MEAN(Mongodb Express Angular2+ Nodejs)
 
 [中文 README](README-zh_CN.md)
 
+# project demo 
+
+  [typerx demo address](http://typerx.top) 
+  use admin:888888  LOGIN
+
 ### Quick start
 
 ```bash

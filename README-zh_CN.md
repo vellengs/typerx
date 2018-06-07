@@ -20,7 +20,7 @@
   [typerx 演示地址](http://typerx.top) 
   使用 admin:888888  登录
 
-### Quick start
+### 快速开始
 
 ```bash
 # clone our repo
@@ -38,7 +38,7 @@ $ npm start
 
 ```
 
-### Other commands
+### 其他命令行
 
 ```bash
 
@@ -53,7 +53,7 @@ $ npm run start:prod
 
 ```
 
-### Test
+### 测试
 
 ```
 # unit tests
@@ -66,7 +66,7 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-### Front end stack
+### 使用的技术栈
 
 #### angular >= 5;
 
