@@ -8,7 +8,7 @@ A lightweight typescript annotation based MEAN(Mongodb Express Angular2+ Nodejs)
 
 # project demo 
 
-  [typerx demo address](http://typerx.top) 
+  [typerx demo](http://typerx.top) 
   use admin:888888  LOGIN
 
 ### Quick start
