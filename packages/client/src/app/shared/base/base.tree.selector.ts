@@ -27,6 +27,7 @@ export class BaseTreeSelectorComponent extends BaseComponent implements OnInit {
     modalRef: NzModalRef;
 
     @Input() multiple = true;
+    @Input() showResults = true;
     @Input() queryUrl = '';
     @Input() columns;
     @Input() queryParams: any = {};

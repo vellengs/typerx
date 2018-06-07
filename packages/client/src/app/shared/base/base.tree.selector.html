@@ -1,5 +1,5 @@
 <nz-row [nzGutter]="12" class="modal-selector">
-    <nz-col [nzSpan]="multiple?16:24">
+    <nz-col [nzSpan]="(multiple && showResults)?16:24">
 
         <nz-input-group [nzSuffix]="suffixIcon">
             <input type="text" nz-input placeholder="搜索用户组" [(ngModel)]="searchValue">
@@ -32,7 +32,7 @@
         </nz-tree>
     </nz-col>
 
-    <nz-col *ngIf="multiple" [nzSpan]="8">
+    <nz-col *ngIf="multiple && showResults" [nzSpan]="8">
         <div class="card select-result">
             <div class="card-head">
                 <div>已选择：

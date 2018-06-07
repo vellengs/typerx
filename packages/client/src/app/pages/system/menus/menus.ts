@@ -124,6 +124,15 @@ export class MenusPageComponent extends BaseStandComponent implements OnInit {
 
     }
 
+    addMenu() {
+
+        const defaultItem = {
+            parent: this.selectedItem.key
+        };
+
+        this.add(defaultItem);
+    }
+
     removeMenu(item) {
         super.remove({
             id: item.key

@@ -69,18 +69,47 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
 
     }
 
-    editPermission() {
+    editPermission(item, $event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        const self = this;
+        this.modalHelper.static(BaseTreeSelectorComponent, {
+            showResults: false,
+            asyncData: () => {
+                const ajax = self.userService.treeMenus();
+                return Observable.fromPromise(ajax);
+            }
+        }, 'lg', {
+                nzTitle: '编辑' + item.name + '的权限',
+            }).subscribe((res) => {
+                if (res) {
+                    const ids = res.map(a => a.id);
+                    // this.coreService.accountAddAccountsToRole(this.selectedItem.id, ids).subscribe(() => {
+                    //     this.msg.success('完成');
+                    //     self.slaves.reload();
+                    // });
+                }
+            });
 
     }
 
-    addAccountsToRole() {
+    removeRole(item, $event) {
+        this.remove(item);
+        $event.preventDefault();
+        $event.stopPropagation();
+    }
 
+    editRole(item, $event) {
+        this.edit(item);
+        $event.preventDefault();
+        $event.stopPropagation();
+    }
+
+
+    addAccountsToRole() {
         const self = this;
-        const columns = this.slaves.columnSets.default;
         this.modalHelper.static(BaseTreeSelectorComponent, {
-            queryUrl: this.slaves.queryUrl,
-            queryParams: {},
-            columns: columns,
             asyncData: () => {
                 const ajax = self.userService.treeUsers(true);
                 return Observable.fromPromise(ajax);

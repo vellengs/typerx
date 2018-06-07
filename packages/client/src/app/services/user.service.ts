@@ -53,6 +53,43 @@ export class UserService {
         return this.user.roles.includes(name);
     }
 
+
+    async treeMenus() {
+
+        const menus: any = await this.client.get('api/menu/query', {
+            size: 5000,
+            isMenu: true,
+        }).toPromise();
+
+        const items = menus.list.map((item, index) => {
+            return {
+                title: item.name,
+                key: item.id + index,
+                parent: item.parent,
+                id: item.id,
+                // isLeaf: isLeaf
+            };
+        });
+
+        const tree = treeify(items, {
+            parentProperty: 'parent',
+            customID: 'id'
+        });
+
+        const expandKeys = [];
+        const nodes = tree.map(doc => {
+            expandKeys.push(doc.key);
+            return new NzTreeNode(doc);
+        });
+
+        return {
+            nodes: nodes,
+            expandKeys: expandKeys
+        };
+
+    }
+
+
     async treeUsers(attachUsers?: boolean) {
 
         const group: any = await this.client.get('api/group/query', {
