@@ -65,6 +65,9 @@ export class MenusPageComponent extends BaseStandComponent implements OnInit {
         this.loadMenuTree();
         this.onConfigChanged.subscribe(() => {
             this.detailSchema = this.formSets.edit;
+            this.detailSchema.properties.permissions.ui.selectorAsyncData = () => {
+                return this.coreService.menuGetPermissionTags();
+            };
         });
     }
 
@@ -72,8 +75,6 @@ export class MenusPageComponent extends BaseStandComponent implements OnInit {
     async loadMenuTree() {
         const menuResponse = await this.coreService.menuQuery('', true, 0, 3000).toPromise();
         const items = menuResponse ? menuResponse.list : [];
-
-
         const raw = items.map((item) => {
             const isLeaf = items.findIndex(r => r.parent === item.id) === -1;
             return {

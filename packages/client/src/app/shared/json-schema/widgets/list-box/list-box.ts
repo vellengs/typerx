@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ModalHelper } from '@delon/theme';
 import { TransferSelectorComponent } from '@shared/base/transfer.selector';
+import { TransferItem } from '../../../../../types/types';
 
 @Component({
     selector: 'sf-list-box',
@@ -27,20 +28,18 @@ import { TransferSelectorComponent } from '@shared/base/transfer.selector';
     </sf-item-wrap>`
 })
 export class ListBoxWidgetComponent extends ControlWidget implements OnInit {
-    /* 用于注册小部件 KEY 值 */
     static readonly KEY = 'listBox';
 
-    // 组件所需要的参数，建议使用 `ngOnInit` 获取
     config: any;
     loadingTip: string;
     data: SFSchemaEnum[];
-
+    selectorAsyncData: (input?: any) => Observable<TransferItem[]>;
+    selectorTitle: string;
     constructor(
         @Inject(ChangeDetectorRef) public readonly cd: ChangeDetectorRef,
         @Inject(SFComponent) public readonly sfComp: SFComponent,
         public client: HttpClient,
         public modal: ModalHelper,
-
     ) {
         super(cd, sfComp);
     }
@@ -48,19 +47,43 @@ export class ListBoxWidgetComponent extends ControlWidget implements OnInit {
     openModal() {
         this.modal
             .static(TransferSelectorComponent, {
-
+                asyncData: this.selectorAsyncData
             }, 'lg',
                 {
-                    nzTitle: '测试'
+                    nzTitle: this.selectorTitle
                 })
             .subscribe(res => {
+                if (Array.isArray(res)) {
+                    const items = res.map(val => {
+                        return {
+                            id: val.key,
+                            label: val.title
+                        };
+                    });
+                    this.data.push(...items);
+                    this.data = this.uniqueArray(this.data);
+                    this.detectChanges();
 
+                }
             });
+    }
+
+    uniqueArray(array: any[]) {
+        const stack = [], ids = [];
+        for (let i = 0; i < array.length; i++) {
+            if (!ids.includes(array[i].id)) {
+                stack.push(array[i]);
+            }
+            ids.push(array[i].id);
+        }
+        return stack;
     }
 
     ngOnInit(): void {
         this.loadingTip = this.ui.loadingTip || '加载中……';
         this.config = this.ui.config || {};
+        this.selectorTitle = this.ui.selectorTitle;
+        this.selectorAsyncData = this.ui.selectorAsyncData;
     }
 
     getRemoteData(value: string, text?: string): Observable<SFSchemaEnumType[]> {
@@ -75,9 +98,6 @@ export class ListBoxWidgetComponent extends ControlWidget implements OnInit {
     }
 
     reset(value: any) {
-
-        console.log('value:', value);
-
         // this.ui.asyncData = () => this.getRemoteData(value);
         getData(this.schema, this.ui, this.formProperty.formData).subscribe(
             list => {

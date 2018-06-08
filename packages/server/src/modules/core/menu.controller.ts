@@ -13,7 +13,7 @@ import { Tags } from 'typescript-rest-swagger';
 import { MenuService } from './menu.service';
 import { Appearance } from '../../types/appearance';
 import { MenuResponse, CreateMenuDto, EditMenuDto, PaginateMenu } from './dto/menu.dto';
-import { KeyValue } from '../../types/data.types';
+import { KeyValue, SelectorItem } from '../../types/data.types';
 
 /**
  * 菜单接口.
@@ -35,7 +35,7 @@ export class MenuController {
 
   @Path('permissions')
   @GET
-  async getPermissionTags(): Promise<Array<MenuResponse>> {
+  async getPermissionTags(): Promise<Array<SelectorItem>> {
     return this.service.getAllPermissionTags();
   }
 

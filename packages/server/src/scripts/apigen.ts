@@ -30,7 +30,7 @@ async function loadSwagger() {
         const decompress = path.resolve(process.cwd(), 'decompress');
 
         response.data.pipe(fs.createWriteStream(local)).on('finish', (done: any) => {
-            fs.createReadStream(local).pipe(unzip.Extract({ path: 'decompress' })).on('finish',
+            fs.createReadStream(local).pipe(unzip.Extract({ path: 'decompress' })).on('close',
                 async (done: any) => {
                     // await sleep(2000);
                     console.log('extracted ...');
@@ -41,8 +41,6 @@ async function loadSwagger() {
                     // await sleep(1000);
                     fs.renameSync(templateFolder, generatedFolder);
                     console.log('copy generated ...');
-                    
-                    await sleep(1000);
                     await removeFolder(decompress);
                     console.log('done ...');
                 });

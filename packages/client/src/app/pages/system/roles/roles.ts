@@ -24,8 +24,6 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
     selectedItem: any = {};
     queryParams: any = {};
 
-
-
     @ViewChild('slaves') slaves: BaseStandComponent;
 
     constructor(

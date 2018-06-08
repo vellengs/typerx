@@ -47,3 +47,9 @@ export interface TreeData {
     nodes: Array<any>;
     expandKeys: Array<string>;
 }
+
+export interface TransferItem {
+    id: string;
+    name: string;
+    desc: string;
+}

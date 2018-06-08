@@ -7,7 +7,7 @@ import { isThisSecond } from 'date-fns';
 import { UserService } from '@services/user.service';
 // tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs';
-
+import { TransferItem } from '../../../types/types';
 
 @Component({
     selector: 'app-transfer-selector',
@@ -17,8 +17,10 @@ export class TransferSelectorComponent extends BaseComponent implements OnInit {
 
     modalRef: NzModalRef;
     model: any = {};
-    @ViewChild('transfer') transfer: NzTransferComponent;
 
+    @Input() asyncArgs?: any;
+    @Input() asyncData: (input?: any) => Observable<TransferItem[]>;
+    @ViewChild('transfer') transfer: NzTransferComponent;
     list = [];
 
     constructor(
@@ -26,24 +28,28 @@ export class TransferSelectorComponent extends BaseComponent implements OnInit {
     ) {
         super(injector);
         this.modalRef = this.injector.get(NzModalRef);
-
     }
 
     ngOnInit() {
-        const ret = [];
-        for (let i = 0; i < 20; i++) {
-            ret.push({
-                key: i.toString(),
-                title: `content${i + 1}`,
-                description: `description of content${i + 1}`,
-                direction: Math.random() * 2 > 1 ? 'right' : ''
+
+        if (this.asyncData) {
+            this.asyncData(this.asyncArgs).subscribe((res) => {
+                if (res && Array.isArray(res)) {
+                    this.list = res.map((item) => {
+                        return {
+                            key: item.id,
+                            title: item.name,
+                            description: item.desc
+                        };
+                    });
+                }
             });
         }
-        this.list = ret;
+
     }
 
     save(event?) {
-        // this.modalRef.destroy(this.selectedItems);
+        this.modalRef.destroy(this.transfer.rightDataSource);
     }
 
 

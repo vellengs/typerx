@@ -27,7 +27,9 @@ export class MenuService {
       slug: 1,
       link: 1
     }).exec() || [];
-    return result.map(r => pick(r, fields)) as any;
+    return result.map((r) => {
+      return { id: r._id, name: r.name, desc: r.link };
+    });
   }
 
   async search(keyword?: string, value?: string, limit: number = 10): Promise<Array<KeyValue>> {

@@ -63,15 +63,11 @@ const addForm: SFSchema = {
             default: 100,
         },
         permissions: {
-            title: '权限',
+            title: '权限标签',
             type: t.string,
-            enum: [
-                { value: 1, label: '电影' },
-                { value: 2, label: '书' },
-                { value: 3, label: '旅行' }
-            ],
             ui: {
                 widget: w.listBox,
+                selectorTitle: '添加权限标签',
                 visibleIf: {
                     group: [false]
                 },
