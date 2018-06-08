@@ -21,7 +21,8 @@ import { BaseStandComponent } from './base/base.stand.component';
 import { BaseTreeTableComponent } from './base/base.tree.table';
 import { BaseDetailComponent } from './base/base.detail.component';
 import { BaseSelectorComponent } from './base/base.selector';
-import { BaseTreeSelectorComponent } from '@shared/base/base.tree.selector';
+import { BaseTreeSelectorComponent } from './base/base.tree.selector';
+import { TransferSelectorComponent } from './base/transfer.selector';
 
 const THIRDMODULES = [
     NgZorroAntdModule,
@@ -40,6 +41,7 @@ const COMPONENTS = [
     BaseDetailComponent,
     BaseSelectorComponent,
     BaseTreeSelectorComponent,
+    TransferSelectorComponent
 ];
 const DIRECTIVES = [];
 // endregion

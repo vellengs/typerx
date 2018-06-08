@@ -22,12 +22,20 @@ const addForm: SFSchema = {
                 domain: 'menu'
             }
         },
+        group: {
+            title: '是否分组',
+            type: t.boolean,
+            default: false
+        },
         link: {
             title: '链接',
             type: 'string',
             maxLength: 512,
             ui: {
-                placeholder: '请输入链接'
+                placeholder: '请输入链接',
+                visibleIf: {
+                    group: [false]
+                }
             }
         },
         slug: {
@@ -37,11 +45,6 @@ const addForm: SFSchema = {
             ui: {
                 placeholder: '请输标识'
             }
-        },
-        group: {
-            title: '是否分组',
-            type: t.boolean,
-            maxLength: 30,
         },
         icon: {
             title: '图标',
@@ -58,6 +61,24 @@ const addForm: SFSchema = {
             title: '顺序',
             type: t.number,
             default: 100,
+        },
+        permissions: {
+            title: '权限',
+            type: t.string,
+            enum: [
+                { value: 1, label: '电影' },
+                { value: 2, label: '书' },
+                { value: 3, label: '旅行' }
+            ],
+            ui: {
+                widget: w.listBox,
+                visibleIf: {
+                    group: [false]
+                },
+                grid: {
+                    span: 24
+                }
+            }
         },
     },
     required: ['name', 'link'],

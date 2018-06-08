@@ -14,10 +14,20 @@ import { Document, Types } from 'mongoose';
 import { pick, merge } from 'lodash';
 import { Repository } from '../../database/repository';
 import { KeyValue } from '../../types/data.types';
+import { AccessService } from './access.service';
 
 export class MenuService {
   async getAppearance(): Promise<Appearance> {
     return appearance;
+  }
+
+  async getAllPermissionTags() {
+    const result = await Db.Menu.find({ isMenu: false }).select({
+      name: 1,
+      slug: 1,
+      link: 1
+    }).exec() || [];
+    return result.map(r => pick(r, fields)) as any;
   }
 
   async search(keyword?: string, value?: string, limit: number = 10): Promise<Array<KeyValue>> {

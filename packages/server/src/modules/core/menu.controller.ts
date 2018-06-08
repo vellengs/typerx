@@ -33,6 +33,11 @@ export class MenuController {
     return this.service.getAppearance();
   }
 
+  @Path('permissions')
+  @GET
+  async getPermissionTags(): Promise<Array<MenuResponse>> {
+    return this.service.getAllPermissionTags();
+  }
 
   /**
    * 查询菜单

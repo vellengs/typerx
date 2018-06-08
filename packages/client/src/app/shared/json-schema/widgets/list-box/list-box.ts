@@ -1,13 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { ControlWidget } from '@delon/form';
+import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
+import { ControlWidget, SFSchemaEnum, SFComponent, SFSchemaEnumType } from '@delon/form';
+import { getData } from '@shared/json-schema/util';
+import { HttpClient } from '@angular/common/http';
+// tslint:disable-next-line:import-blacklist
+import { Observable } from 'rxjs';
+import { ModalHelper } from '@delon/theme';
+import { TransferSelectorComponent } from '@shared/base/transfer.selector';
 
 @Component({
     selector: 'sf-list-box',
     template: `
     <sf-item-wrap [id]="id" [schema]="schema" [ui]="ui" [showError]="showError" [error]="error" [showTitle]="schema.title">
-        <!-- 开始自定义控件区域 -->
-            search ...
-        <!-- 结束自定义控件区域 -->
+     <nz-tag
+        *ngFor="let i of data"
+        nzMode="closeable"
+        [nzChecked]="i.checked"
+        (nzAfterClose)="_afterClose()"
+        (nzOnClose)="_close($event)"
+        (nzCheckedChange)="onChange(i)">
+        {{i.label}}
+      </nz-tag>
+        <br/>
+      <button type="button" nz-button [nzType]="'primary'" (click)="openModal()">
+        {{ui.buttonName || 'add'}}
+      </button>
     </sf-item-wrap>`
 })
 export class ListBoxWidgetComponent extends ControlWidget implements OnInit {
@@ -17,19 +33,80 @@ export class ListBoxWidgetComponent extends ControlWidget implements OnInit {
     // 组件所需要的参数，建议使用 `ngOnInit` 获取
     config: any;
     loadingTip: string;
+    data: SFSchemaEnum[];
+
+    constructor(
+        @Inject(ChangeDetectorRef) public readonly cd: ChangeDetectorRef,
+        @Inject(SFComponent) public readonly sfComp: SFComponent,
+        public client: HttpClient,
+        public modal: ModalHelper,
+
+    ) {
+        super(cd, sfComp);
+    }
+
+    openModal() {
+        this.modal
+            .static(TransferSelectorComponent, {
+
+            }, 'lg',
+                {
+                    nzTitle: '测试'
+                })
+            .subscribe(res => {
+
+            });
+    }
 
     ngOnInit(): void {
         this.loadingTip = this.ui.loadingTip || '加载中……';
         this.config = this.ui.config || {};
     }
 
-    // reset 可以更好的解决表单重置过程中所需要的新数据问题
-    reset(value: string) {
-
+    getRemoteData(value: string, text?: string): Observable<SFSchemaEnumType[]> {
+        const domain = this.ui.domain;
+        const url = `api/${domain}/search`;
+        return this.client.get(url, {
+            params: {
+                keyword: text || '',
+                value: value
+            }
+        }) as any;
     }
 
-    change(value: string) {
-        if (this.ui.change) this.ui.change(value);
-        this.setValue(value);
+    reset(value: any) {
+
+        console.log('value:', value);
+
+        // this.ui.asyncData = () => this.getRemoteData(value);
+        getData(this.schema, this.ui, this.formProperty.formData).subscribe(
+            list => {
+                this.data = list;
+                this.detectChanges();
+            },
+        );
     }
+
+    onChange(item: SFSchemaEnum) {
+        item.checked = !item.checked;
+        this.updateValue();
+        if (this.ui.checkedChange) this.ui.checkedChange(item.checked);
+    }
+
+    _afterClose() {
+        if (this.ui.afterClose) this.ui.afterClose();
+    }
+
+    _close(e: any) {
+        if (this.ui.onClose) this.ui.onClose(e);
+    }
+
+    private updateValue() {
+        this.formProperty.setValue(
+            this.data.filter(w => w.checked).map(i => i.value),
+            false,
+        );
+    }
+
+
 }
