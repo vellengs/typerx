@@ -2,7 +2,8 @@
 
 # typerx
 
-一个轻量带使用注解API的全栈系统开发系统。
+一个轻量基于 typescript 注解接口的可延伸扩展的系统。
+专注于平滑接口维护让前后端开发再无间隙。
 
 [English README](README.md)
 

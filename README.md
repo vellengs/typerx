@@ -1,8 +1,9 @@
-![tiperx](https://i.imgur.com/TA79x5U.png)
+![typerx](https://i.imgur.com/TA79x5U.png)
 
-# typerx
-A lightweight typescript annotation based MEAN(Mongodb Express Angular2+ Nodejs).
+# typerx (Typescript Rest extra)
+A lightweight typescript annotation rest based extra (express、 mongoose、 angular、zorro、ng-alain ...).
 
+Automatic maintenance rest api and flexible.
 
 [中文 README](README-zh_CN.md)
 
