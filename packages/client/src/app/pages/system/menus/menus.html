@@ -26,9 +26,8 @@
     </nz-col>
     <nz-col [nzSpan]="16">
         <nz-card *ngIf="selectedItem.title" [nzTitle]="selectedItem.title" [nzExtra]="accountTpl">
-
-            <sf #sf *ngIf="detailSchema" [formData]="formData" (formChange)="formChanged($event)" [mode]="'edit'" [layout]="'inline'"
-                (formError)="onFormError($event)" [schema]="detailSchema" (formSubmit)="save($event)">
+            <sf #sf *ngIf="detailSchema" [formData]="formData" (formChange)="value = $event" [mode]="'edit'" [layout]="'inline'" [schema]="detailSchema"
+                (formSubmit)="saveMenu($event)">
                 <div class="modal-footer">
                     <button nz-button type="button" (click)="sf.reset()">重置</button>
                     <button nz-button type="submit" [nzType]="'primary'" [disabled]="!sf.valid" [nzLoading]="client.loading">保存</button>

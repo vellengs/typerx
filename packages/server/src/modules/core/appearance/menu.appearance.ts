@@ -68,6 +68,7 @@ const addForm: SFSchema = {
             ui: {
                 widget: w.listBox,
                 selectorTitle: '添加权限标签',
+                buttonName: '添加',
                 visibleIf: {
                     group: [false]
                 },

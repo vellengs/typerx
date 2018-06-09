@@ -53,7 +53,6 @@ export class UserService {
         return this.user.roles.includes(name);
     }
 
-
     async treeMenus() {
 
         const menus: any = await this.client.get('api/menu/query', {
@@ -62,13 +61,29 @@ export class UserService {
         }).toPromise();
 
         const items = menus.list.map((item, index) => {
-            return {
+            const isLeaf = menus.list.findIndex(r => r.parent === item.id) === -1;
+
+            const node: any = {
                 title: item.name,
                 key: item.id + index,
                 parent: item.parent,
                 id: item.id,
-                // isLeaf: isLeaf
+                isLeaf: true
             };
+
+            if (item.permissions) {
+                node.children = item.permissions.map((p, i) => {
+                    return {
+                        title: p.name,
+                        key: p.id + i,
+                        id: p.id,
+                        isLeaf: true
+                    };
+                });
+                node.isLeaf = false;
+            }
+
+            return node;
         });
 
         const tree = treeify(items, {

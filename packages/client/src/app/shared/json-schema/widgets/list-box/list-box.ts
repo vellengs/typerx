@@ -16,15 +16,16 @@ import { TransferItem } from '../../../../../types/types';
         *ngFor="let i of data"
         nzMode="closeable"
         [nzChecked]="i.checked"
-        (nzAfterClose)="_afterClose()"
-        (nzOnClose)="_close($event)"
+        (nzAfterClose)="handleClose(i)"
+        (nzOnClose)="close($event)"
         (nzCheckedChange)="onChange(i)">
-        {{i.label}}
+        {{i.label || i.name || i.title}}
       </nz-tag>
-        <br/>
-      <button type="button" nz-button [nzType]="'primary'" (click)="openModal()">
+      <div>
+      <button type="button" nz-button [nzType]="'dashed'" (click)="openModal()">
         {{ui.buttonName || 'add'}}
       </button>
+      </div>
     </sf-item-wrap>`
 })
 export class ListBoxWidgetComponent extends ControlWidget implements OnInit {
@@ -63,7 +64,7 @@ export class ListBoxWidgetComponent extends ControlWidget implements OnInit {
                     this.data.push(...items);
                     this.data = this.uniqueArray(this.data);
                     this.detectChanges();
-
+                    this.updateValue();
                 }
             });
     }
@@ -99,12 +100,14 @@ export class ListBoxWidgetComponent extends ControlWidget implements OnInit {
 
     reset(value: any) {
         // this.ui.asyncData = () => this.getRemoteData(value);
-        getData(this.schema, this.ui, this.formProperty.formData).subscribe(
-            list => {
-                this.data = list;
-                this.detectChanges();
-            },
-        );
+        // console.log('value:', value);
+        this.data = value;  // TODO;
+        // getData(this.schema, this.ui, this.formProperty.formData).subscribe(
+        //     list => {
+        //         this.data = list;
+        //         this.detectChanges();
+        //     },
+        // );
     }
 
     onChange(item: SFSchemaEnum) {
@@ -113,17 +116,19 @@ export class ListBoxWidgetComponent extends ControlWidget implements OnInit {
         if (this.ui.checkedChange) this.ui.checkedChange(item.checked);
     }
 
-    _afterClose() {
+    handleClose(removed: any) {
         if (this.ui.afterClose) this.ui.afterClose();
+        this.data = this.data.filter(tag => tag !== removed) || [];
+        this.updateValue();
     }
 
-    _close(e: any) {
+    close(e: any) {
         if (this.ui.onClose) this.ui.onClose(e);
     }
 
     private updateValue() {
         this.formProperty.setValue(
-            this.data.filter(w => w.checked).map(i => i.value),
+            this.data,
             false,
         );
     }

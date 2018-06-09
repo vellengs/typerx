@@ -26,6 +26,7 @@ export class BaseTreeSelectorComponent extends BaseComponent implements OnInit {
 
     modalRef: NzModalRef;
 
+    @Input() includeAllChecked = false;
     @Input() multiple = true;
     @Input() showResults = true;
     @Input() queryUrl = '';
@@ -59,13 +60,7 @@ export class BaseTreeSelectorComponent extends BaseComponent implements OnInit {
     }
 
     save(event?) {
-        // this.selectedNodes = [];
-        // this.findChildNodes(this.nodes);
-        // const selectedValue = this.multiple ? this.globalSelecteds : this.model;
-        // this.subject.next({ value: selectedValue, dialog: this.subject });
-
         this.modalRef.destroy(this.selectedItems);
-        // TODO 
     }
 
     cleanAll() {
@@ -101,19 +96,29 @@ export class BaseTreeSelectorComponent extends BaseComponent implements OnInit {
 
         while (stack.length !== 0) {
             const node = stack.pop();
+            let satisfy = false;
 
-            if (node.isLeaf && node.isChecked) {
+            if (this.includeAllChecked) {
+                satisfy = node.isChecked || node.isHalfChecked;
+            } else {
+                satisfy = node.isChecked && node.isLeaf;
+            }
+
+            if (satisfy) {
                 if (!hashMap[node.origin.id]) {
                     hashMap[node.origin.id] = true;
                     array.push(node);
                 }
             }
+
             if (node.children && (node.isHalfChecked || node.isChecked)) {
                 for (let i = node.children.length - 1; i >= 0; i--) {
                     stack.push(node.children[i]);
                 }
             }
         }
+
+        console.log('array:', array);
 
         this.selectedItems = array.map((a) => {
             return a.origin;

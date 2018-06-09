@@ -32,4 +32,12 @@ export const schema = new Schema({
 		default: true
 	}
 },
-	{ timestamps: true }); 
+	{
+		timestamps: true,
+		toJSON: {
+			transform: (doc, ret, options) => {
+				ret.id = ret._id;
+				delete ret._id;
+			}
+		}
+	}); 

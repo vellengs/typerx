@@ -28,6 +28,7 @@ export class MenusPageComponent extends BaseStandComponent implements OnInit {
     detailSchema: any = {};
 
     formData;
+    value;
 
     operationColumn = {
         title: '操作区',
@@ -117,12 +118,14 @@ export class MenusPageComponent extends BaseStandComponent implements OnInit {
         }
     }
 
-    formChanged() {
-
-    }
-
-    onFormError(errors) {
-
+    async saveMenu(entry) {
+        const instance = Object.assign({}, entry);
+        if (entry.permissions) {
+            instance.permissions = entry.permissions.map((p) => {
+                return p.id;
+            });
+        }
+        super.save(instance);
     }
 
     addMenu() {

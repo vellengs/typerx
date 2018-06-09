@@ -67,7 +67,14 @@ export class MenuService {
       condition.isMenu = true;
 
     const query = Db.Menu.find(condition).sort(sort);
+
+    query.populate([{
+      path: 'permissions',
+      select: 'name',
+    }]);
+
     const collection = Db.Menu.find(condition);
+
     return Repository.query<Menu & Document, MenuResponse>(query, collection, page, size, fields);
   }
 
@@ -76,13 +83,13 @@ export class MenuService {
   }
 
   async get(id: string): Promise<MenuResponse> {
-    const result = await Repository.get(Db.Menu, id, [
+    const doc: Menu & Document = await Repository.get(Db.Menu, id, [
       {
-        path: 'roles',
+        path: 'permissions',
         select: 'name',
-      },
+      }
     ]);
-    return this.pure(result);
+    return this.pure(doc);
   }
 
   private pure(entry: Menu & Document): MenuResponse {

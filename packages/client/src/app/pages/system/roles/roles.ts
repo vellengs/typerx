@@ -74,6 +74,7 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
         const self = this;
         this.modalHelper.static(BaseTreeSelectorComponent, {
             showResults: false,
+            includeAllChecked: true,
             asyncData: () => {
                 const ajax = self.userService.treeMenus();
                 return Observable.fromPromise(ajax);
@@ -83,13 +84,15 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
             }).subscribe((res) => {
                 if (res) {
                     const ids = res.map(a => a.id);
-                    // this.coreService.accountAddAccountsToRole(this.selectedItem.id, ids).subscribe(() => {
-                    //     this.msg.success('完成');
-                    //     self.slaves.reload();
-                    // });
+                    item.permissions = ids;
+                    const role = Object.assign({}, item);
+                    this.coreService.roleUpdate(role).subscribe((r) => {
+                        if (r) {
+                            this.msg.success('权限修改成功');
+                        }
+                    });
                 }
             });
-
     }
 
     removeRole(item, $event) {
