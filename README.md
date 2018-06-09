@@ -1,11 +1,29 @@
 ![typerx](https://i.imgur.com/TA79x5U.png)
 
 # typerx (Typescript Rest extra)
-A lightweight typescript annotation rest based extra (express、 mongoose、 angular、zorro、ng-alain ...).
+A lightweight typescript annotation rest based extra (express、 mongoose、 angular、ng-zorro、ng-alain ...).
 
 Automatic maintenance rest api and flexible.
 
 [中文 README](README-zh_CN.md)
+
+
+# module features
+
+  ### system management
+- settings 
+- accounts  
+- menus 
+- roles
+- dictionary
+- logs
+
+  ### CMS management
+- pages
+- articles
+- categories
+- media
+- widgets 
 
 # project demo 
 
