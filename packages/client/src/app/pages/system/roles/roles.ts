@@ -107,7 +107,6 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
         $event.stopPropagation();
     }
 
-
     addAccountsToRole() {
         const self = this;
         this.modalHelper.static(BaseTreeSelectorComponent, {
