@@ -2,7 +2,7 @@ import { ServiceContext } from 'typescript-rest';
 import { MenuService } from './menu.service';
 import { Appearance } from '../../types/appearance';
 import { MenuResponse, CreateMenuDto, EditMenuDto, PaginateMenu } from './dto/menu.dto';
-import { KeyValue } from '../../types/data.types';
+import { KeyValue, SelectorItem } from '../../types/data.types';
 /**
  * 菜单接口.
  */
@@ -14,7 +14,7 @@ export declare class MenuController {
      * 获取帐号管理界面配置信息.
      */
     getConfig(): Promise<Appearance>;
-    getPermissionTags(): Promise<Array<MenuResponse>>;
+    getPermissionTags(): Promise<Array<SelectorItem>>;
     /**
      * 查询菜单
      * @param keyword 关键词

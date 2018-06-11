@@ -45,9 +45,13 @@ export declare class MenuResponse {
     enable: boolean;
     expanded: boolean;
     acl: string;
-    permissions?: string[];
+    permissions?: string[] | Array<IdName>;
     parent?: string | Menu;
     isMenu: boolean;
+}
+export interface IdName {
+    id: string;
+    name: string;
 }
 export declare const MenuResponseFields: string[];
 export interface PaginateMenu {

@@ -159,8 +159,6 @@ export class UserService {
             });
         }
         const expandKeys = [];
-
-        console.log('tree:', tree);
         const nodes = tree.map(doc => {
             expandKeys.push(doc.key);
             return new NzTreeNode(doc);

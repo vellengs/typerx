@@ -43,6 +43,32 @@ async function exportData() {
         }
     }));
 
+    const groups = await Db.Group.find().exec();
+    save2File('groups', groups.map((item) => {
+        return {
+            _id: item._id,
+            outid: item.outid,
+            name: item.name,
+            icon: item.icon,
+            isRegion: item.isRegion,
+            order: item.order,
+            parent: item.parent,
+            paths: item.paths,
+            director: item.director,
+            description: item.description,
+        }
+    }));
+
+    const roles = await Db.Role.find().exec();
+    save2File('roles', roles.map((item) => {
+        return {
+            _id: item._id,
+            name: item.name,
+            description: item.description,
+            permissions: item.permissions,
+        }
+    }));
+
     const menus = await Db.Menu.find().exec();
     save2File('menus', menus.map((item) => {
         return {

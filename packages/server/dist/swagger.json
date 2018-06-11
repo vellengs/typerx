@@ -626,6 +626,29 @@
 				"imageAllowFiles"
 			]
 		},
+		"SelectorItem": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"desc": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"name",
+				"desc"
+			]
+		},
 		"MenuResponse": {
 			"description": "",
 			"properties": {
@@ -679,10 +702,7 @@
 					"description": ""
 				},
 				"permissions": {
-					"type": "array",
-					"items": {
-						"type": "string"
-					},
+					"type": "object",
 					"description": ""
 				},
 				"parent": {
@@ -2795,7 +2815,7 @@
 						"schema": {
 							"type": "array",
 							"items": {
-								"$ref": "#/definitions/MenuResponse"
+								"$ref": "#/definitions/SelectorItem"
 							}
 						}
 					}

@@ -54,7 +54,7 @@ export class UserService {
   async fileUpload(file: Express.Multer.File,
     field?: string) {
     return {
-      url: 'uploads/' + file.filename
+      url: '/uploads/' + file.filename
     }
   }
 

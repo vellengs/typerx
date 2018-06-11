@@ -31,5 +31,13 @@ exports.schema = new mongoose_1.Schema({
         type: mongoose_1.SchemaTypes.Boolean,
         default: true
     }
-}, { timestamps: true });
+}, {
+    timestamps: true,
+    toJSON: {
+        transform: (doc, ret, options) => {
+            ret.id = ret._id;
+            delete ret._id;
+        }
+    }
+});
 //# sourceMappingURL=menu.schema.js.map

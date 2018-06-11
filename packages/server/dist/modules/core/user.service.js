@@ -45,7 +45,7 @@ class UserService {
     fileUpload(file, field) {
         return __awaiter(this, void 0, void 0, function* () {
             return {
-                url: 'uploads/' + file.filename
+                url: '/uploads/' + file.filename
             };
         });
     }

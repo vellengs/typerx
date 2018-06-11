@@ -26,7 +26,9 @@ class MenuService {
                 slug: 1,
                 link: 1
             }).exec()) || [];
-            return result.map(r => lodash_1.pick(r, menu_dto_1.MenuResponseFields));
+            return result.map((r) => {
+                return { id: r._id, name: r.name, desc: r.link };
+            });
         });
     }
     search(keyword, value, limit = 10) {
@@ -55,6 +57,10 @@ class MenuService {
             if (isMenu)
                 condition.isMenu = true;
             const query = core_database_1.CoreDatabase.Menu.find(condition).sort(sort);
+            query.populate([{
+                    path: 'permissions',
+                    select: 'name',
+                }]);
             const collection = core_database_1.CoreDatabase.Menu.find(condition);
             return repository_1.Repository.query(query, collection, page, size, menu_dto_1.MenuResponseFields);
         });
@@ -66,13 +72,13 @@ class MenuService {
     }
     get(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield repository_1.Repository.get(core_database_1.CoreDatabase.Menu, id, [
+            const doc = yield repository_1.Repository.get(core_database_1.CoreDatabase.Menu, id, [
                 {
-                    path: 'roles',
+                    path: 'permissions',
                     select: 'name',
-                },
+                }
             ]);
-            return this.pure(result);
+            return this.pure(doc);
         });
     }
     pure(entry) {

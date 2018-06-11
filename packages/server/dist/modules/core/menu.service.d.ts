@@ -3,7 +3,11 @@ import { MenuResponse, EditMenuDto, CreateMenuDto, PaginateMenu } from './dto/me
 import { KeyValue } from '../../types/data.types';
 export declare class MenuService {
     getAppearance(): Promise<Appearance>;
-    getAllPermissionTags(): Promise<any>;
+    getAllPermissionTags(): Promise<{
+        id: any;
+        name: string;
+        desc: string;
+    }[]>;
     search(keyword?: string, value?: string, limit?: number): Promise<Array<KeyValue>>;
     create(entry: CreateMenuDto): Promise<MenuResponse>;
     update(entry: EditMenuDto): Promise<MenuResponse>;

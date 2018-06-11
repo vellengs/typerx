@@ -12,7 +12,8 @@ const axios_1 = require("axios");
 const path = require("path");
 const https = require("https");
 const fs = require("fs");
-const unzip = require('unzip-stream');
+const unzip = require('unzip');
+const rimraf = require('rimraf');
 const gateway = 'https://generator.swagger.io/api/gen/clients/typescript-angular';
 function loadSwagger() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -31,10 +32,42 @@ function loadSwagger() {
                 responseType: 'stream'
             });
             const local = path.resolve(process.cwd(), 'swagger.zip');
-            response.data.pipe(fs.createWriteStream(local));
+            const generatedFolder = path.resolve(process.cwd(), './../client/src/generated');
+            const templateFolder = path.resolve(process.cwd(), 'decompress', 'typescript-angular-client');
+            const decompress = path.resolve(process.cwd(), 'decompress');
+            response.data.pipe(fs.createWriteStream(local)).on('finish', (done) => {
+                fs.createReadStream(local).pipe(unzip.Extract({ path: 'decompress' })).on('close', (done) => __awaiter(this, void 0, void 0, function* () {
+                    // await sleep(2000);
+                    console.log('extracted ...');
+                    fs.unlinkSync(local);
+                    console.log('deleted zip file ...');
+                    yield removeFolder(generatedFolder);
+                    console.log('removed generated ...');
+                    // await sleep(1000);
+                    fs.renameSync(templateFolder, generatedFolder);
+                    console.log('copy generated ...');
+                    yield removeFolder(decompress);
+                    console.log('done ...');
+                }));
+            });
         }
     });
 }
-loadSwagger().catch((error) => {
-});
+function sleep(ms) {
+    return __awaiter(this, void 0, void 0, function* () {
+        yield new Promise(resolve => setTimeout(() => resolve(true), ms));
+    });
+}
+function removeFolder(folder) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (fs.existsSync(folder)) {
+            yield new Promise((resolve) => {
+                rimraf(folder, () => {
+                    resolve(true);
+                });
+            });
+        }
+    });
+}
+loadSwagger();
 //# sourceMappingURL=apigen.js.map
