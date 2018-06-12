@@ -143,7 +143,7 @@ export class Repository {
         if (page < 0) {
             page = 0;
         }
-        const count = await collection.count().exec();
+        const countPromise = collection.count().exec();
 
         const pure = (doc: Document, fields: Array<string>) => {
             if (fields && Array.isArray(fields)) {
@@ -153,7 +153,11 @@ export class Repository {
             }
         }
 
-        const docs = await query.skip(page * size).limit(size).exec() || [];
+        const docsPromise = query.skip(page * size).limit(size).exec();
+        const result = await Promise.all([countPromise, docsPromise]);
+
+        let [count, docs] = result;
+        docs = docs || [];
         const list = docs.map((doc) => pure(doc, fields) as TResponse);
         return {
             list: list,

@@ -3,7 +3,7 @@ import { appearance } from "./appearance/page.appearance";
 import { Repository } from "../../database/repository";
 import { CmsDatabase as Db } from './cms.database';
 import { KeyValue } from "../../types/data.types";
-import { CreatePageDto, PageResponse, EditPageDto, PaginatePage } from "./dto/page.dto";
+import { CreatePageDto, PageResponse, EditPageDto, PaginatePage, PageResponseFields } from "./dto/page.dto";
 import { Page } from "./interfaces/page.interface";
 import { Document } from "mongoose";
 import { pick } from "lodash";
@@ -59,27 +59,19 @@ export class PageService {
 
     async query(
         keyword?: string,
-        isMenu?: boolean,
         page?: number,
         size?: number,
         sort?: string
     ): Promise<PaginatePage> {
-        const query: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
 
-        if (isMenu)
-            query.isMenu = true;
+        const condition: any = keyword ? { keyword: new RegExp(keyword, 'i') } : {};
+        const query = Db.Page.find(condition).sort(sort);
 
-        const docs: any = await Db.Page.find(query).sort(sort).skip(page * size).limit(size).exec() || [];
-        const count = await Db.Page.find(query).count();
+        const collection = Db.Page.find(condition);
+        const result = await Repository.query<Page & Document,
+            PageResponse>(query, collection, page, size, PageResponseFields);
 
-        const list = docs.map((item: Page & Document) => {
-            return this.pure(item);
-        });
-
-        return {
-            list: list,
-            total: count
-        }
+        return result;
     }
 
     async remove(id: string): Promise<boolean> {

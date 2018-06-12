@@ -68,12 +68,11 @@ export class PageController {
     @GET
     async query(
         @QueryParam('keyword') keyword?: string,
-        @QueryParam('isPage') isPage?: boolean,
         @QueryParam('page') page?: number,
         @QueryParam('size') size?: number,
         @QueryParam('sort') sort?: string
     ): Promise<PaginatePage> {
-        return this.service.query(keyword, isPage, page, size, sort);
+        return this.service.query(keyword, page, size, sort);
     }
 
 
