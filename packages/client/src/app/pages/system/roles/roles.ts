@@ -71,12 +71,14 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
         $event.preventDefault();
         $event.stopPropagation();
 
+        const selectedItems = item.permissions;
         const self = this;
         this.modalHelper.static(BaseTreeSelectorComponent, {
             showResults: false,
             includeAllChecked: true,
+            defaultCheckedKeys: selectedItems,
             asyncData: () => {
-                const ajax = self.userService.treeMenus();
+                const ajax = self.userService.treeMenus(selectedItems);
                 return Observable.fromPromise(ajax);
             }
         }, 'lg', {

@@ -53,30 +53,34 @@ export class UserService {
         return this.user.roles.includes(name);
     }
 
-    async treeMenus() {
+    async treeMenus(ids?: Array<string>) {
 
+        ids = ids || [];
         const menus: any = await this.client.get('api/menu/query', {
             size: 5000,
             isMenu: true,
         }).toPromise();
 
+        const defaultCheckItems = [];
         const items = menus.list.map((item, index) => {
             const isLeaf = menus.list.findIndex(r => r.parent === item.id) === -1;
-
+            const hasPermissionNodes = item.permissions && item.permissions.length;
             const node: any = {
                 title: item.name,
-                key: item.id + index,
+                key: item.id,
                 parent: item.parent,
                 id: item.id,
-                isLeaf: true
+                checked: ids.includes(item.id) && isLeaf && !hasPermissionNodes,
+                isLeaf: isLeaf
             };
 
-            if (item.permissions) {
+            if (hasPermissionNodes) {
                 node.children = item.permissions.map((p, i) => {
                     return {
                         title: p.name,
                         key: p.id + i,
                         id: p.id,
+                        checked: ids.includes(p.id) && ids.includes(item.id),
                         isLeaf: true
                     };
                 });
@@ -115,8 +119,6 @@ export class UserService {
             size: 10000  // TODO if user too big should be lazy load.
         }).toPromise();
 
-        // console.log('group:', group, accounts);
-
         const groups = group.list.map((item, index) => {
             return {
                 title: item.name,
@@ -150,8 +152,6 @@ export class UserService {
                     const exist = entry.groups.indexOf(d.id) > -1;
                     return exist;
                 });
-
-                // console.log('users:', items);
 
                 items.forEach(i => {
                     d.children.push(i);

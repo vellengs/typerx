@@ -32,6 +32,7 @@ export class BaseTreeSelectorComponent extends BaseComponent implements OnInit {
     @Input() queryUrl = '';
     @Input() columns;
     @Input() queryParams: any = {};
+    @Input() defaultCheckedKeys = [];
     @Input() asyncData: () => Observable<TreeData>;
     @ViewChild('treeView') treeView: NzTreeComponent;
 
@@ -93,6 +94,8 @@ export class BaseTreeSelectorComponent extends BaseComponent implements OnInit {
 
     getAllCheckedItems() {
         const stack = [...this.nodes], array = [], hashMap = {};
+
+        console.log('nodes:', this.nodes);
 
         while (stack.length !== 0) {
             const node = stack.pop();

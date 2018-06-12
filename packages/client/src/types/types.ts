@@ -46,6 +46,7 @@ export interface CurdPage extends BaseTable {
 export interface TreeData {
     nodes: Array<any>;
     expandKeys: Array<string>;
+    defaultCheckItems: Array<string>;
 }
 
 export interface TransferItem {
