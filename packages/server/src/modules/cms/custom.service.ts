@@ -1,40 +1,48 @@
 import { Appearance } from "../../types/appearance";
-import { appearance } from "./appearance/article.appearance";
 import { Repository } from "../../database/repository";
 import { CmsDatabase as Db } from './cms.database';
 import { KeyValue } from "../../types/data.types";
 import {
-    CreateArticleDto, ArticleResponse, EditArticleDto, PaginateArticle,
-    ArticleResponseFields as fields
-} from "./dto/article.dto";
-import { Article } from "./interfaces/article.interface";
+    CreateCustomDto, CustomResponse, EditCustomDto, PaginateCustom,
+    CustomResponseFields as fields
+} from './dto/custom.dto';
+import { Custom } from "./interfaces/custom.interface";
 import { Document } from "mongoose";
 import { pick } from "lodash";
 import { Helper } from "../../util/helper";
+import * as fs from 'fs';
+import * as path from 'path';
+import { appearances } from './../../plugins/domains';
 
-export class ArticleService {
-    async getAppearance(): Promise<Appearance> {
-        return appearance;
+export class CustomService {
+
+    async getAppearance(type: string): Promise<Appearance> {
+        const instance: any = appearances as any;
+        if (instance[type] && instance[type].appearance)
+            return instance[type].appearance;
+        else
+            return new Appearance();
     }
 
     async search(keyword?: string, value?: string, limit: number = 10): Promise<Array<KeyValue>> {
-        return Repository.search(Db.Article, keyword, value, '', limit);
+        return Repository.search(Db.Custom, keyword, value, '', limit);
     }
 
-    setKeyWord(entry: CreateArticleDto | EditArticleDto) {
+    setKeyWord(entry: CreateCustomDto | EditCustomDto) {
         let keyword: Array<string> = Helper.genPinyinKeywords(entry.title);
         keyword.push(entry.name);
         keyword.push(entry.title);
         entry.keyword = keyword.join('');
     }
 
-    async create(entry: CreateArticleDto): Promise<ArticleResponse> {
+    async create(entry: CreateCustomDto): Promise<CustomResponse> {
         const content = entry.content;
         entry.content = null;
         this.setKeyWord(entry);
-        const doc = new Db.Article(entry);
+        const doc = new Db.Custom(entry);
         const result = await doc.save();
-        await Db.Article.findOneAndUpdate(
+
+        await Db.Custom.findOneAndUpdate(
             {
                 _id: result._id,
             },
@@ -42,6 +50,7 @@ export class ArticleService {
                 content: result._id
             },
         ).exec();
+
         await Db.Content.findOneAndUpdate(
             { _id: result._id },
             {
@@ -56,12 +65,12 @@ export class ArticleService {
     }
 
     async update(
-        entry: EditArticleDto,
-    ): Promise<ArticleResponse> {
+        entry: EditCustomDto,
+    ): Promise<CustomResponse> {
         const content = entry.content;
         entry.content = entry.id;
         this.setKeyWord(entry);
-        const doc = await Db.Article.findOneAndUpdate(
+        const doc = await Db.Custom.findOneAndUpdate(
             {
                 _id: entry.id,
             },
@@ -70,39 +79,45 @@ export class ArticleService {
         await Db.Content.findOneAndUpdate({ _id: entry.id }, {
             text: content
         }, { upsert: true, 'new': true }).exec();
+
         return doc;
     }
 
     async query(
         keyword?: string,
         category?: string,
+        type?: string,
         page?: number,
         size?: number,
         sort?: string
-    ): Promise<PaginateArticle> {
+    ): Promise<PaginateCustom> {
         const condition: any = keyword ? { keyword: new RegExp(keyword, 'i') } : {};
 
         if (category) {
             condition.category = category;
         }
 
-        const query = Db.Article.find(condition).populate([
+        if (type) {
+            condition.type = type;
+        }
+
+        const query = Db.Custom.find(condition).populate([
             { path: 'category', select: 'name' }
         ]).sort(sort);
-        const collection = Db.Article.find(condition);
-        const result = await Repository.query<Article & Document,
-            ArticleResponse>(query, collection, page, size, fields);
+        const collection = Db.Custom.find(condition);
+        const result = await Repository.query<Custom & Document,
+            CustomResponse>(query, collection, page, size, null);
 
         return result;
 
     }
 
     async remove(id: string): Promise<boolean> {
-        return Repository.remove(Db.Article, id);
+        return Repository.remove(Db.Custom, id);
     }
 
-    async get(id: string): Promise<ArticleResponse> {
-        let result: Article & Document = await Repository.get(Db.Article, id, [
+    async get(id: string): Promise<CustomResponse> {
+        let result: Custom & Document = await Repository.get(Db.Custom, id, [
             {
                 path: 'content',
                 select: 'text',
@@ -115,25 +130,9 @@ export class ArticleService {
             if (instance.content) {
                 instance.content = instance.content.text;
             }
-            return this.pure(instance);
+            return instance;
         } else {
-            return new ArticleResponse();
+            return new CustomResponse();
         }
-    }
-
-    private pure(entry: Article & Document): ArticleResponse {
-        return pick(entry, [
-            'id',
-            'name',
-            'title',
-            'category',
-            'description',
-            'author',
-            'sort',
-            'disable',
-            'meta',
-            'content',
-            'template',
-        ])
     }
 }

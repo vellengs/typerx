@@ -5,7 +5,7 @@ dotenv.config();
 import { configure, getLogger } from 'log4js';
 import { join } from 'path';
 const cwd = process.cwd();
-const config = join(cwd, 'log4js.debug.json');
+const config = join(cwd, 'log4js.json');
 configure(config);
 const logger = getLogger();
 import { MONGODB_URI, SESSION_SECRET } from './util/secrets';

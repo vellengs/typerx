@@ -12,20 +12,13 @@ import { MONGODB_URI, SESSION_SECRET } from './util/secrets';
 import { getLogger } from 'log4js';
 import * as lusca from 'lusca';
 import { init, isAuthenticated } from './config/passport';
+import { indexRender, subPage } from './plugins/render';
+import session = require('express-session');
+import compression = require('compression');
 
-const session = require('express-session');
 const MongoStore = mongo(session);
-const compression = require('compression');
 const logger = getLogger();
 
-function isPublicRouters(routers: string[], current: string) {
-  for (const router of routers) {
-    if (current.startsWith(router)) {
-      return true;
-    }
-  }
-  return false;
-}
 export class ApiServer {
   private app: express.Application;
   private server: http.Server = null;
@@ -35,11 +28,13 @@ export class ApiServer {
     this.app = express();
     this.config();
     init();
-    this.app.use('/api', isAuthenticated);
 
+    this.app.use('/api', isAuthenticated);
+    this.app.get('/', indexRender);
     const uploads = path.resolve(process.cwd(), 'public', 'uploads');
     Server.setFileDest(uploads);
     Server.buildServices(this.app, ...controllers);
+    this.app.get('/:name', subPage);
 
     if (process.env.SWAGGER && existsSync(path.resolve(process.env.SWAGGER))) {
       Server.swagger(
@@ -58,7 +53,7 @@ export class ApiServer {
    * Configure the express app.
    */
   private config(): void {
-    
+
     this.app.use(compression());
     const staticSrc = path.resolve(process.cwd(), 'public');
     this.app.use(

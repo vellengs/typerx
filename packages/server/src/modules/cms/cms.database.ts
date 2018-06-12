@@ -5,6 +5,7 @@ import { schema as MediaSchema } from './schemas/media.schema';
 import { schema as PageSchema } from './schemas/page.schema';
 import { schema as WidgetSchema } from './schemas/widget.schema';
 import { schema as ContentSchema } from './schemas/content.schema';
+import { schema as CustomSchema } from './schemas/custom.schema';
 
 import { model, Model, Document } from 'mongoose';
 import { Category } from './interfaces/category.interface';
@@ -14,6 +15,7 @@ import { Page } from './interfaces/page.interface';
 import { Widget } from './interfaces/widget.interface';
 import { Content } from './interfaces/content.interface';
 import { Article } from './interfaces/article.interface';
+import { Custom } from './interfaces/custom.interface';
 
 export const CmsDatabase = {
     Article: model<Article>('Article', ArticleSchema),
@@ -23,4 +25,6 @@ export const CmsDatabase = {
     Page: model<Page>('Page', PageSchema),
     Widget: model<Widget>('Widget', WidgetSchema),
     Content: model<Content>('Content', ContentSchema),
+    Custom: model<Custom>('Custom', CustomSchema),
+
 }

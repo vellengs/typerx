@@ -144,8 +144,17 @@ export class Repository {
             page = 0;
         }
         const count = await collection.count().exec();
+
+        const pure = (doc: Document, fields: Array<string>) => {
+            if (fields && Array.isArray(fields)) {
+                return pick(doc, fields);
+            } else {
+                return doc.toJSON();
+            }
+        }
+
         const docs = await query.skip(page * size).limit(size).exec() || [];
-        const list = docs.map((doc) => pick(doc, fields) as TResponse);
+        const list = docs.map((doc) => pure(doc, fields) as TResponse);
         return {
             list: list,
             total: count
