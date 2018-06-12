@@ -26,7 +26,7 @@ import { getData } from '@shared/json-schema/util';
           <i class="anticon anticon-plus"></i>
           <div class="ant-upload-text">点击上传</div>
           </ng-container>  
-       <img *ngIf="value" [src]="value" class="avatar">
+       <img *ngIf="value" [src]="imageSrc" class="avatar">
     </nz-upload>
 
   </sf-item-wrap>
@@ -38,6 +38,16 @@ export class AvatarWidgetComponent extends ControlWidget implements OnInit {
     fileList: UploadFile[] = [];
     btnType = '';
     static readonly KEY = 'avatar';
+
+    get imageSrc() {
+
+        if (this.value && (this.value.startsWith('/') || this.value.startsWith('http'))) {
+            return this.value;
+        }
+        
+        const src = `${document.location.pathname}` + this.value;
+        return src;
+    }
 
     constructor(cd: ChangeDetectorRef, private modalSrv: NzModalService) {
         super(cd);

@@ -7,11 +7,13 @@ import { PagesPageComponent } from './pages/pages';
 import { ArticlesPageComponent } from './articles/articles';
 import { CategoriesPageComponent } from './categories/categories';
 import { WidgetsPageComponent } from './widgets/widgets';
+import { CustomPageComponent } from './custom/custom';
 const routes: Routes = [
     { path: 'pages', component: PagesPageComponent },
     { path: 'articles', component: ArticlesPageComponent },
     { path: 'categories', component: CategoriesPageComponent },
     { path: 'widgets', component: WidgetsPageComponent },
+    { path: 'custom/:id', component: CustomPageComponent },
 ];
 
 @NgModule({
@@ -25,6 +27,7 @@ const routes: Routes = [
         ArticlesPageComponent,
         CategoriesPageComponent,
         WidgetsPageComponent,
+        CustomPageComponent,
     ],
     entryComponents: [
     ],

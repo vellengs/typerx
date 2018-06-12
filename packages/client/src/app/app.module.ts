@@ -28,6 +28,7 @@ import { ALAIN_I18N_TOKEN } from '@delon/theme';
 import { I18NService } from '@core/i18n/i18n.service';
 // third
 import { UEditorModule } from 'ngx-ueditor';
+import { UMeditorModule } from 'ngx-umeditor';
 import { NgxTinymceModule } from 'ngx-tinymce';
 
 // @delon/form: JSON Schema form
@@ -66,6 +67,7 @@ export function StartupServiceFactory(
         }),
 
         // thirds
+        UMeditorModule.forRoot(),
         UEditorModule.forRoot({
             // **注：** 建议使用本地路径；以下为了减少 ng-alain 脚手架的包体大小引用了CDN，可能会有部分功能受影响
             js: [

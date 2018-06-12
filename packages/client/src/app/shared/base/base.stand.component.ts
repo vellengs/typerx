@@ -31,6 +31,7 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
 
     @Input() queryUrl: string;
     @Input() domain: string;
+    @Input() configParams: any;
     @Input() columnSets: { [key: string]: SimpleTableColumn[]; };
     @Input() queryParams: { [key: string]: any; };
     @Input() formSets: FormSets;
@@ -52,7 +53,7 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
         this.queryUrl = `api/${this.domain}/query`;
 
         const url = `api/${this.domain}/config`;
-        const config: any = await this.client.get(url).toPromise();
+        const config: any = await this.client.get(url, this.configParams).toPromise();
         if (config) {
             this.columnSets = config.columnSets;
             this.formSets = config.formSets;
@@ -124,15 +125,21 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
             });
     }
 
+    beforeSave(entry) {
+        return entry;
+    }
+
     async save(entry) {
         const url = `api/${this.domain}`;
-        if (entry.id) {
-            return this.client.put(url, entry).subscribe((res) => {
+        const instance = this.beforeSave(entry);
+
+        if (instance.id) {
+            return this.client.put(url, instance).subscribe((res) => {
                 this.msg.success('更新成功');
                 this.reload();
             });
         } else {
-            return this.client.post(url, entry).subscribe((res) => {
+            return this.client.post(url, instance).subscribe((res) => {
                 this.msg.success('保存成功');
                 this.reload();
             });

@@ -23,11 +23,13 @@ import { BaseDetailComponent } from './base/base.detail.component';
 import { BaseSelectorComponent } from './base/base.selector';
 import { BaseTreeSelectorComponent } from './base/base.tree.selector';
 import { TransferSelectorComponent } from './base/transfer.selector';
+import { UMeditorModule } from 'ngx-umeditor';
 
 const THIRDMODULES = [
     NgZorroAntdModule,
     CountdownModule,
     UEditorModule,
+    UMeditorModule,
     NgxTinymceModule
 ];
 // endregion

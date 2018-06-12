@@ -37,12 +37,12 @@ export enum WidgetTypes {
     upload = 'upload',
     tinymce = 'tinymce',
     ueditor = 'ueditor',
+    umeditor = 'umeditor',
     listBox = 'listBox',
     dict = 'dict',
     choices = 'choices',
     image = 'image',
     avatar = 'avatar',
-
 }
 
 export interface ColumnSets {

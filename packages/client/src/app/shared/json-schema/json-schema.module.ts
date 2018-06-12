@@ -11,10 +11,12 @@ import { TreeWidgetComponent } from './widgets/tree/search.widget';
 import { ChoicesWidgetComponent } from '@shared/json-schema/widgets/choices/choices.widget';
 import { ImageWidgetComponent } from '@shared/json-schema/widgets/image/image.widget';
 import { AvatarWidgetComponent } from '@shared/json-schema/widgets/avatar/avatar.widget';
+import { UmeditorWidget } from '@shared/json-schema/widgets/umeditor/umeditor.widget';
 
 export const SCHEMA_THIRDS_COMPONENTS = [
     TinymceWidget,
     UeditorWidget,
+    UmeditorWidget,
     SearchWidgetComponent,
     ListBoxWidgetComponent,
     DictWidgetComponent,
@@ -46,6 +48,6 @@ export class JsonSchemaModule {
         widgetRegistry.register(ChoicesWidgetComponent.KEY, ChoicesWidgetComponent);
         widgetRegistry.register(ImageWidgetComponent.KEY, ImageWidgetComponent);
         widgetRegistry.register(AvatarWidgetComponent.KEY, AvatarWidgetComponent);
-
+        widgetRegistry.register(UmeditorWidget.KEY, UmeditorWidget);
     }
 }
