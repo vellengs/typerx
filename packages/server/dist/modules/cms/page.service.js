@@ -11,6 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const page_appearance_1 = require("./appearance/page.appearance");
 const repository_1 = require("../../database/repository");
 const cms_database_1 = require("./cms.database");
+const page_dto_1 = require("./dto/page.dto");
 const lodash_1 = require("lodash");
 class PageService {
     getAppearance() {
@@ -51,20 +52,13 @@ class PageService {
             return doc;
         });
     }
-    query(keyword, isMenu, page, size, sort) {
+    query(keyword, page, size, sort) {
         return __awaiter(this, void 0, void 0, function* () {
-            const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
-            if (isMenu)
-                query.isMenu = true;
-            const docs = (yield cms_database_1.CmsDatabase.Page.find(query).sort(sort).skip(page * size).limit(size).exec()) || [];
-            const count = yield cms_database_1.CmsDatabase.Page.find(query).count();
-            const list = docs.map((item) => {
-                return this.pure(item);
-            });
-            return {
-                list: list,
-                total: count
-            };
+            const condition = keyword ? { keyword: new RegExp(keyword, 'i') } : {};
+            const query = cms_database_1.CmsDatabase.Page.find(condition).sort(sort);
+            const collection = cms_database_1.CmsDatabase.Page.find(condition);
+            const result = yield repository_1.Repository.query(query, collection, page, size, page_dto_1.PageResponseFields);
+            return result;
         });
     }
     remove(id) {

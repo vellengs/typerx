@@ -38,9 +38,14 @@ class ArticleService {
             this.setKeyWord(entry);
             const doc = new cms_database_1.CmsDatabase.Article(entry);
             const result = yield doc.save();
-            yield cms_database_1.CmsDatabase.Content.findOneAndUpdate({ _id: result.id }, {
+            yield cms_database_1.CmsDatabase.Article.findOneAndUpdate({
+                _id: result._id,
+            }, {
+                content: result._id
+            }).exec();
+            yield cms_database_1.CmsDatabase.Content.findOneAndUpdate({ _id: result._id }, {
                 $set: {
-                    _id: result.id,
+                    _id: result._id,
                     text: content
                 }
             }, { upsert: true, 'new': true }).exec();

@@ -94,6 +94,15 @@ export class MenuController {
 
 
   /**
+   * 返回用户鉴权后的菜单
+   */
+  @Path('auth')
+  @GET
+  async getUserMenus(): Promise<Array<MenuResponse>> {
+    const { request } = this.context;
+    return this.service.getAuthenticatedMenus(request.user);
+  }
+  /**
  * 删除菜单
  * @param id 菜单编号
  */

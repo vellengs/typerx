@@ -32,6 +32,7 @@ export declare enum WidgetTypes {
     upload = "upload",
     tinymce = "tinymce",
     ueditor = "ueditor",
+    umeditor = "umeditor",
     listBox = "listBox",
     dict = "dict",
     choices = "choices",

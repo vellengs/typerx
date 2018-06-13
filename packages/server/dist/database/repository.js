@@ -136,9 +136,20 @@ class Repository {
             if (page < 0) {
                 page = 0;
             }
-            const count = yield collection.count().exec();
-            const docs = (yield query.skip(page * size).limit(size).exec()) || [];
-            const list = docs.map((doc) => lodash_1.pick(doc, fields));
+            const countPromise = collection.count().exec();
+            const pure = (doc, fields) => {
+                if (fields && Array.isArray(fields)) {
+                    return lodash_1.pick(doc, fields);
+                }
+                else {
+                    return doc.toJSON();
+                }
+            };
+            const docsPromise = query.skip(page * size).limit(size).exec();
+            const result = yield Promise.all([countPromise, docsPromise]);
+            let [count, docs] = result;
+            docs = docs || [];
+            const list = docs.map((doc) => pure(doc, fields));
             return {
                 list: list,
                 total: count

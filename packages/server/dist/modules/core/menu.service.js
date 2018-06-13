@@ -81,6 +81,26 @@ class MenuService {
             return this.pure(doc);
         });
     }
+    getAuthenticatedMenus(user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const account = yield core_database_1.CoreDatabase.Account.findOne({ _id: user.id }, 'groups').exec();
+            const roles = account.toObject().roles || [];
+            const roleDocs = (yield core_database_1.CoreDatabase.Group.find({
+                _id: { $in: roles }
+            }, 'permissions').exec()) || [];
+            const permissions = [];
+            roleDocs.forEach((g) => {
+                permissions.push(...g.permissions);
+            });
+            const menus = yield core_database_1.CoreDatabase.Menu.find({
+                _id: {
+                    $in: permissions
+                },
+                isMenu: true
+            });
+            return menus;
+        });
+    }
     pure(entry) {
         return lodash_1.pick(entry, [
             'id',

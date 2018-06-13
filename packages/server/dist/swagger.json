@@ -2274,6 +2274,243 @@
 				"list",
 				"total"
 			]
+		},
+		"CustomResponse": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"title": {
+					"type": "string",
+					"description": ""
+				},
+				"category": {
+					"type": "string",
+					"description": ""
+				},
+				"description": {
+					"type": "string",
+					"description": ""
+				},
+				"author": {
+					"type": "string",
+					"description": ""
+				},
+				"sort": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"disable": {
+					"type": "boolean",
+					"description": ""
+				},
+				"meta": {
+					"type": "string",
+					"description": ""
+				},
+				"content": {
+					"type": "string",
+					"description": ""
+				},
+				"template": {
+					"type": "string",
+					"description": ""
+				},
+				"type": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"name",
+				"title",
+				"category",
+				"description",
+				"author",
+				"sort",
+				"disable",
+				"meta",
+				"content",
+				"template",
+				"type"
+			]
+		},
+		"CreateCustomDto": {
+			"description": "",
+			"properties": {
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"title": {
+					"type": "string",
+					"description": ""
+				},
+				"keyword": {
+					"type": "string",
+					"description": ""
+				},
+				"category": {
+					"type": "string",
+					"description": ""
+				},
+				"description": {
+					"type": "string",
+					"description": ""
+				},
+				"author": {
+					"type": "string",
+					"description": ""
+				},
+				"sort": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"disable": {
+					"type": "boolean",
+					"description": ""
+				},
+				"meta": {
+					"type": "string",
+					"description": ""
+				},
+				"content": {
+					"type": "string",
+					"description": ""
+				},
+				"template": {
+					"type": "string",
+					"description": ""
+				},
+				"type": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"name",
+				"title",
+				"keyword",
+				"category",
+				"description",
+				"author",
+				"sort",
+				"disable",
+				"meta",
+				"content",
+				"template",
+				"type"
+			]
+		},
+		"EditCustomDto": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"title": {
+					"type": "string",
+					"description": ""
+				},
+				"keyword": {
+					"type": "string",
+					"description": ""
+				},
+				"category": {
+					"type": "string",
+					"description": ""
+				},
+				"description": {
+					"type": "string",
+					"description": ""
+				},
+				"author": {
+					"type": "string",
+					"description": ""
+				},
+				"sort": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"disable": {
+					"type": "boolean",
+					"description": ""
+				},
+				"meta": {
+					"type": "string",
+					"description": ""
+				},
+				"content": {
+					"type": "string",
+					"description": ""
+				},
+				"template": {
+					"type": "string",
+					"description": ""
+				},
+				"type": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"name",
+				"title",
+				"keyword",
+				"category",
+				"description",
+				"author",
+				"sort",
+				"disable",
+				"meta",
+				"content",
+				"template",
+				"type"
+			]
+		},
+		"PaginateCustom": {
+			"description": "",
+			"properties": {
+				"error": {
+					"$ref": "#/definitions/Error"
+				},
+				"list": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/CustomResponse"
+					},
+					"description": ""
+				},
+				"total": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"list",
+				"total"
+			]
 		}
 	},
 	"info": {
@@ -2989,6 +3226,30 @@
 						"type": "string"
 					}
 				]
+			}
+		},
+		"/api/menu/auth": {
+			"get": {
+				"operationId": "MenuGetUserMenus",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/MenuResponse"
+							}
+						}
+					}
+				},
+				"description": "返回用户鉴权后的菜单",
+				"tags": [
+					"core"
+				],
+				"parameters": []
 			}
 		},
 		"/api/menu/{id}": {
@@ -4395,13 +4656,6 @@
 						"type": "string"
 					},
 					{
-						"description": "",
-						"in": "query",
-						"name": "isPage",
-						"required": false,
-						"type": "boolean"
-					},
-					{
 						"description": "第几页",
 						"in": "query",
 						"name": "page",
@@ -5432,6 +5686,262 @@
 				"parameters": [
 					{
 						"description": "分类编号",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/custom/config": {
+			"get": {
+				"operationId": "CustomGetConfig",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/Appearance"
+						}
+					}
+				},
+				"description": "获取自定义内容管理界面配置信息",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "自定义内容集名",
+						"in": "query",
+						"name": "type",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/custom/search": {
+			"get": {
+				"operationId": "CustomSearch",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/KeyValue"
+							}
+						}
+					}
+				},
+				"description": "查询自定义内容",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "已选中的自定义内容编号",
+						"in": "query",
+						"name": "value",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/custom": {
+			"post": {
+				"operationId": "CustomCreate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/CustomResponse"
+						}
+					}
+				},
+				"description": "创建自定义内容",
+				"tags": [
+					"cms"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "创建参数",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/CreateCustomDto"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "CustomUpdate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/CustomResponse"
+						}
+					}
+				},
+				"description": "更新自定义内容",
+				"tags": [
+					"cms"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "自定义内容参数",
+						"in": "body",
+						"name": "entry",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/EditCustomDto"
+						}
+					}
+				]
+			}
+		},
+		"/api/custom/query": {
+			"get": {
+				"operationId": "CustomQuery",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/PaginateCustom"
+						}
+					}
+				},
+				"description": "查询自定义内容数据",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "",
+						"in": "query",
+						"name": "category",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "",
+						"in": "query",
+						"name": "type",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "页大小",
+						"in": "query",
+						"name": "size",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "排序",
+						"in": "query",
+						"name": "sort",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/custom/{id}": {
+			"delete": {
+				"operationId": "CustomRemove",
+				"produces": [
+					"text/html"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				},
+				"description": "删除自定义内容",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "自定义内容编号",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			},
+			"get": {
+				"operationId": "CustomGet",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/CustomResponse"
+						}
+					}
+				},
+				"description": "查询自定义内容",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "自定义内容编号",
 						"in": "path",
 						"name": "id",
 						"required": true,

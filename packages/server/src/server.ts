@@ -34,7 +34,6 @@ export class ApiServer {
     const uploads = path.resolve(process.cwd(), 'public', 'uploads');
     Server.setFileDest(uploads);
     Server.buildServices(this.app, ...controllers);
-    this.app.get('/:name', subPage);
 
     if (process.env.SWAGGER && existsSync(path.resolve(process.env.SWAGGER))) {
       Server.swagger(
@@ -46,6 +45,7 @@ export class ApiServer {
       );
     }
 
+    this.app.get('/:name', subPage);
     this.handerErrors();
   }
 

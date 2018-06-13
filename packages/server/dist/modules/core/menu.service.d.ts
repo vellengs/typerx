@@ -1,3 +1,4 @@
+/// <reference types="passport" />
 import { Appearance } from '../../types/appearance';
 import { MenuResponse, EditMenuDto, CreateMenuDto, PaginateMenu } from './dto/menu.dto';
 import { KeyValue } from '../../types/data.types';
@@ -14,5 +15,6 @@ export declare class MenuService {
     query(keyword?: string, isMenu?: boolean, page?: number, size?: number, sort?: string): Promise<PaginateMenu>;
     remove(id: string): Promise<boolean>;
     get(id: string): Promise<MenuResponse>;
+    getAuthenticatedMenus(user: Express.User): Promise<Array<MenuResponse>>;
     private pure(entry);
 }

@@ -13,18 +13,11 @@ const secrets_1 = require("./util/secrets");
 const log4js_1 = require("log4js");
 const lusca = require("lusca");
 const passport_1 = require("./config/passport");
-const session = require('express-session');
+const render_1 = require("./plugins/render");
+const session = require("express-session");
+const compression = require("compression");
 const MongoStore = mongo(session);
-const compression = require('compression');
 const logger = log4js_1.getLogger();
-function isPublicRouters(routers, current) {
-    for (const router of routers) {
-        if (current.startsWith(router)) {
-            return true;
-        }
-    }
-    return false;
-}
 class ApiServer {
     constructor() {
         this.server = null;
@@ -33,12 +26,14 @@ class ApiServer {
         this.config();
         passport_1.init();
         this.app.use('/api', passport_1.isAuthenticated);
+        this.app.get('/', render_1.indexRender);
         const uploads = path.resolve(process.cwd(), 'public', 'uploads');
         typescript_rest_1.Server.setFileDest(uploads);
         typescript_rest_1.Server.buildServices(this.app, ...controllers_1.controllers);
         if (process.env.SWAGGER && fs_1.existsSync(path.resolve(process.env.SWAGGER))) {
             typescript_rest_1.Server.swagger(this.app, process.env.SWAGGER, '/docs', 'localhost:' + this.PORT, ['http', 'https']);
         }
+        this.app.get('/:name', render_1.subPage);
         this.handerErrors();
     }
     /**

@@ -84,6 +84,15 @@ let MenuController = class MenuController {
         });
     }
     /**
+     * 返回用户鉴权后的菜单
+     */
+    getUserMenus() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { request } = this.context;
+            return this.service.getAuthenticatedMenus(request.user);
+        });
+    }
+    /**
    * 删除菜单
    * @param id 菜单编号
    */
@@ -153,6 +162,13 @@ __decorate([
     __metadata("design:paramtypes", [String, Boolean, Number, Number, String]),
     __metadata("design:returntype", Promise)
 ], MenuController.prototype, "query", null);
+__decorate([
+    typescript_rest_1.Path('auth'),
+    typescript_rest_1.GET,
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], MenuController.prototype, "getUserMenus", null);
 __decorate([
     typescript_rest_1.Path(':id'),
     typescript_rest_1.DELETE,

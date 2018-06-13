@@ -40,6 +40,10 @@ export declare class MenuController {
      */
     query(keyword?: string, isMenu?: boolean, page?: number, size?: number, sort?: string): Promise<PaginateMenu>;
     /**
+     * 返回用户鉴权后的菜单
+     */
+    getUserMenus(): Promise<Array<MenuResponse>>;
+    /**
    * 删除菜单
    * @param id 菜单编号
    */

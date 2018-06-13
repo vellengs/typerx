@@ -7,7 +7,7 @@ dotenv.config();
 const log4js_1 = require("log4js");
 const path_1 = require("path");
 const cwd = process.cwd();
-const config = path_1.join(cwd, 'log4js.debug.json');
+const config = path_1.join(cwd, 'log4js.json');
 log4js_1.configure(config);
 const logger = log4js_1.getLogger();
 const secrets_1 = require("./util/secrets");

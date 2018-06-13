@@ -71,9 +71,9 @@ let PageController = class PageController {
      * @param size 页大小
      * @param sort 排序
      */
-    query(keyword, isPage, page, size, sort) {
+    query(keyword, page, size, sort) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.service.query(keyword, isPage, page, size, sort);
+            return this.service.query(keyword, page, size, sort);
         });
     }
     /**
@@ -131,12 +131,11 @@ __decorate([
     typescript_rest_1.Path('query'),
     typescript_rest_1.GET,
     __param(0, typescript_rest_1.QueryParam('keyword')),
-    __param(1, typescript_rest_1.QueryParam('isPage')),
-    __param(2, typescript_rest_1.QueryParam('page')),
-    __param(3, typescript_rest_1.QueryParam('size')),
-    __param(4, typescript_rest_1.QueryParam('sort')),
+    __param(1, typescript_rest_1.QueryParam('page')),
+    __param(2, typescript_rest_1.QueryParam('size')),
+    __param(3, typescript_rest_1.QueryParam('sort')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Boolean, Number, Number, String]),
+    __metadata("design:paramtypes", [String, Number, Number, String]),
     __metadata("design:returntype", Promise)
 ], PageController.prototype, "query", null);
 __decorate([

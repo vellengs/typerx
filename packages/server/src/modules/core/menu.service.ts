@@ -15,6 +15,8 @@ import { pick, merge } from 'lodash';
 import { Repository } from '../../database/repository';
 import { KeyValue } from '../../types/data.types';
 import { AccessService } from './access.service';
+import { SessionUser } from './dto/account.dto';
+import { Account } from './interfaces/account.interface';
 
 export class MenuService {
   async getAppearance(): Promise<Appearance> {
@@ -90,6 +92,29 @@ export class MenuService {
       }
     ]);
     return this.pure(doc);
+  }
+
+  async getAuthenticatedMenus(user: Express.User): Promise<Array<MenuResponse>> {
+
+    const account = await Db.Account.findOne({ _id: user.id }, 'groups').exec();
+    const roles = (account.toObject() as Account).roles || [];
+    const roleDocs = await Db.Group.find({
+      _id: { $in: roles }
+    }, 'permissions').exec() || [];
+
+    const permissions: string[] = [];
+    roleDocs.forEach((g: any) => {
+      permissions.push(...g.permissions);
+    });
+
+    const menus = await Db.Menu.find({
+      _id: {
+        $in: permissions
+      },
+      isMenu: true
+    });
+
+    return menus as any;
   }
 
   private pure(entry: Menu & Document): MenuResponse {

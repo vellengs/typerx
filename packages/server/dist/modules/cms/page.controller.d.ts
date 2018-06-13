@@ -34,7 +34,7 @@ export declare class PageController {
      * @param size 页大小
      * @param sort 排序
      */
-    query(keyword?: string, isPage?: boolean, page?: number, size?: number, sort?: string): Promise<PaginatePage>;
+    query(keyword?: string, page?: number, size?: number, sort?: string): Promise<PaginatePage>;
     /**
    * 删除页面
    * @param id 页面编号

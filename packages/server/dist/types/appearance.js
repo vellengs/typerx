@@ -35,6 +35,7 @@ var WidgetTypes;
     WidgetTypes["upload"] = "upload";
     WidgetTypes["tinymce"] = "tinymce";
     WidgetTypes["ueditor"] = "ueditor";
+    WidgetTypes["umeditor"] = "umeditor";
     WidgetTypes["listBox"] = "listBox";
     WidgetTypes["dict"] = "dict";
     WidgetTypes["choices"] = "choices";

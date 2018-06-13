@@ -4,7 +4,6 @@ import { pick, PartialDeep, groupBy } from 'lodash';
 import { KeyValue } from '../types/data.types';
 const treeify = require('array-to-tree');
 
-
 export class Repository {
 
     static async remove(model: Model<Document>, id: string): Promise<any> {
