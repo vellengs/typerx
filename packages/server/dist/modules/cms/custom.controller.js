@@ -24,6 +24,7 @@ const typescript_rest_1 = require("typescript-rest");
 const typescript_rest_swagger_1 = require("typescript-rest-swagger");
 const custom_service_1 = require("./custom.service");
 const custom_dto_1 = require("./dto/custom.dto");
+const interceptor_1 = require("../../interceptor/interceptor");
 let CustomController = class CustomController {
     constructor(service = new custom_service_1.CustomService()) {
         this.service = service;
@@ -162,6 +163,7 @@ __decorate([
 CustomController = __decorate([
     typescript_rest_swagger_1.Tags('cms'),
     typescript_rest_1.Path('/api/custom'),
+    typescript_rest_1.Preprocessor(interceptor_1.interceptor),
     __metadata("design:paramtypes", [Object])
 ], CustomController);
 exports.CustomController = CustomController;

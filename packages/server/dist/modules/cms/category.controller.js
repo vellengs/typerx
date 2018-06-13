@@ -24,6 +24,7 @@ const typescript_rest_1 = require("typescript-rest");
 const typescript_rest_swagger_1 = require("typescript-rest-swagger");
 const category_service_1 = require("./category.service");
 const category_dto_1 = require("./dto/category.dto");
+const interceptor_1 = require("../../interceptor/interceptor");
 /**
  * 分类接口.
  */
@@ -160,6 +161,7 @@ __decorate([
 CategoryController = __decorate([
     typescript_rest_swagger_1.Tags('cms'),
     typescript_rest_1.Path('api/category'),
+    typescript_rest_1.Preprocessor(interceptor_1.interceptor),
     __metadata("design:paramtypes", [Object])
 ], CategoryController);
 exports.CategoryController = CategoryController;

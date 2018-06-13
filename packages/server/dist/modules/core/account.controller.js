@@ -24,6 +24,7 @@ const typescript_rest_1 = require("typescript-rest");
 const typescript_rest_swagger_1 = require("typescript-rest-swagger");
 const account_service_1 = require("./account.service");
 const account_dto_1 = require("./dto/account.dto");
+const interceptor_1 = require("../../interceptor/interceptor");
 /**
  * 帐号管理.
  */
@@ -55,6 +56,7 @@ let AccountController = class AccountController {
      */
     getConfig() {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log('test ...');
             return this.service.getAppearance();
         });
     }
@@ -145,6 +147,7 @@ __decorate([
 __decorate([
     typescript_rest_1.Path('config'),
     typescript_rest_1.GET,
+    typescript_rest_1.Preprocessor(interceptor_1.interceptor),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)

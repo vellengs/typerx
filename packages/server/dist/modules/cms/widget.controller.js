@@ -24,6 +24,7 @@ const typescript_rest_1 = require("typescript-rest");
 const typescript_rest_swagger_1 = require("typescript-rest-swagger");
 const widget_service_1 = require("./widget.service");
 const widget_dto_1 = require("./dto/widget.dto");
+const interceptor_1 = require("../../interceptor/interceptor");
 /**
  * 小部件接口.
  */
@@ -161,6 +162,7 @@ __decorate([
 WidgetController = __decorate([
     typescript_rest_swagger_1.Tags('cms'),
     typescript_rest_1.Path('api/widget'),
+    typescript_rest_1.Preprocessor(interceptor_1.interceptor),
     __metadata("design:paramtypes", [Object])
 ], WidgetController);
 exports.WidgetController = WidgetController;

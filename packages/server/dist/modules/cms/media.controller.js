@@ -24,6 +24,7 @@ const typescript_rest_1 = require("typescript-rest");
 const typescript_rest_swagger_1 = require("typescript-rest-swagger");
 const media_service_1 = require("./media.service");
 const media_dto_1 = require("./dto/media.dto");
+const interceptor_1 = require("../../interceptor/interceptor");
 /**
  * 媒体接口.
  */
@@ -161,6 +162,7 @@ __decorate([
 MediaController = __decorate([
     typescript_rest_swagger_1.Tags('cms'),
     typescript_rest_1.Path('api/media'),
+    typescript_rest_1.Preprocessor(interceptor_1.interceptor),
     __metadata("design:paramtypes", [Object])
 ], MediaController);
 exports.MediaController = MediaController;

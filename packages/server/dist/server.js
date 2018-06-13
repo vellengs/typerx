@@ -16,6 +16,7 @@ const passport_1 = require("./config/passport");
 const render_1 = require("./plugins/render");
 const session = require("express-session");
 const compression = require("compression");
+const custom_server_1 = require("./interceptor/custom.server");
 const MongoStore = mongo(session);
 const logger = log4js_1.getLogger();
 class ApiServer {
@@ -29,7 +30,8 @@ class ApiServer {
         this.app.get('/', render_1.indexRender);
         const uploads = path.resolve(process.cwd(), 'public', 'uploads');
         typescript_rest_1.Server.setFileDest(uploads);
-        typescript_rest_1.Server.buildServices(this.app, ...controllers_1.controllers);
+        // Server.buildServices(this.app, ...controllers);
+        custom_server_1.CustomRestServer.buildServices(this.app, ...controllers_1.controllers);
         if (process.env.SWAGGER && fs_1.existsSync(path.resolve(process.env.SWAGGER))) {
             typescript_rest_1.Server.swagger(this.app, process.env.SWAGGER, '/docs', 'localhost:' + this.PORT, ['http', 'https']);
         }

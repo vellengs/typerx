@@ -24,6 +24,7 @@ const typescript_rest_1 = require("typescript-rest");
 const typescript_rest_swagger_1 = require("typescript-rest-swagger");
 const article_service_1 = require("./article.service");
 const article_dto_1 = require("./dto/article.dto");
+const interceptor_1 = require("../../interceptor/interceptor");
 let ArticleController = class ArticleController {
     constructor(service = new article_service_1.ArticleService()) {
         this.service = service;
@@ -158,6 +159,7 @@ __decorate([
 ArticleController = __decorate([
     typescript_rest_swagger_1.Tags('cms'),
     typescript_rest_1.Path('/api/article'),
+    typescript_rest_1.Preprocessor(interceptor_1.interceptor),
     __metadata("design:paramtypes", [Object])
 ], ArticleController);
 exports.ArticleController = ArticleController;

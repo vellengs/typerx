@@ -1,6 +1,6 @@
 
-import { Schema, SchemaTypes as t, SchemaOptions, model } from 'mongoose';
- 
+import { Schema, SchemaTypes as t } from 'mongoose';
+
 export const schema = new Schema({
 	name: {
 		type: t.String
@@ -22,4 +22,4 @@ export const schema = new Schema({
 		default: Date.now
 	}
 },
-    { timestamps: true }); 
+	{ timestamps: true }); 

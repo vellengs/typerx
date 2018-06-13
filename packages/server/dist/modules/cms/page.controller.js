@@ -24,6 +24,7 @@ const typescript_rest_1 = require("typescript-rest");
 const typescript_rest_swagger_1 = require("typescript-rest-swagger");
 const page_service_1 = require("./page.service");
 const page_dto_1 = require("./dto/page.dto");
+const interceptor_1 = require("../../interceptor/interceptor");
 let PageController = class PageController {
     constructor(service = new page_service_1.PageService()) {
         this.service = service;
@@ -157,6 +158,7 @@ __decorate([
 PageController = __decorate([
     typescript_rest_swagger_1.Tags('cms'),
     typescript_rest_1.Path('/api/page'),
+    typescript_rest_1.Preprocessor(interceptor_1.interceptor),
     __metadata("design:paramtypes", [Object])
 ], PageController);
 exports.PageController = PageController;

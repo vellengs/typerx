@@ -8,6 +8,7 @@ const role_schema_1 = require("./schemas/role.schema");
 const setting_schema_1 = require("./schemas/setting.schema");
 const group_schema_1 = require("./schemas/group.schema");
 const profile_schema_1 = require("./schemas/profile.schema");
+const api_schema_1 = require("./schemas/api.schema");
 const mongoose_1 = require("mongoose");
 exports.CoreDatabase = {
     Account: mongoose_1.model('Account', account_schema_1.schema),
@@ -18,5 +19,6 @@ exports.CoreDatabase = {
     Role: mongoose_1.model('Role', role_schema_1.schema),
     Setting: mongoose_1.model('Setting', setting_schema_1.schema),
     Group: mongoose_1.model('Group', group_schema_1.schema),
+    Api: mongoose_1.model('Api', api_schema_1.schema),
 };
 //# sourceMappingURL=core.database.js.map

@@ -8,6 +8,7 @@ import { Role } from './interfaces/role.interface';
 import { Setting } from './interfaces/setting.interface';
 import { Group } from './interfaces/group.interface';
 import { Profile } from './interfaces/profile.interface';
+import { Api } from './interfaces/api.interface';
 export declare const CoreDatabase: {
     Account: Model<Account & Document>;
     Profile: Model<Profile & Document>;
@@ -17,4 +18,5 @@ export declare const CoreDatabase: {
     Role: Model<Role & Document>;
     Setting: Model<Setting & Document>;
     Group: Model<Group & Document>;
+    Api: Model<Api & Document>;
 };

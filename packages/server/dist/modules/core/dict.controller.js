@@ -24,6 +24,7 @@ const typescript_rest_1 = require("typescript-rest");
 const typescript_rest_swagger_1 = require("typescript-rest-swagger");
 const dict_service_1 = require("./dict.service");
 const dict_dto_1 = require("./dto/dict.dto");
+const interceptor_1 = require("../../interceptor/interceptor");
 /**
  * 字典表.
  */
@@ -162,6 +163,7 @@ __decorate([
 DictController = __decorate([
     typescript_rest_swagger_1.Tags('core'),
     typescript_rest_1.Path('/api/dict'),
+    typescript_rest_1.Preprocessor(interceptor_1.interceptor),
     __metadata("design:paramtypes", [Object])
 ], DictController);
 exports.DictController = DictController;

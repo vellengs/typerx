@@ -24,6 +24,7 @@ const typescript_rest_1 = require("typescript-rest");
 const typescript_rest_swagger_1 = require("typescript-rest-swagger");
 const group_service_1 = require("./group.service");
 const group_dto_1 = require("./dto/group.dto");
+const interceptor_1 = require("../../interceptor/interceptor");
 /**
  * 用户组接口.
  */
@@ -162,6 +163,7 @@ __decorate([
 GroupController = __decorate([
     typescript_rest_swagger_1.Tags('core'),
     typescript_rest_1.Path('api/group'),
+    typescript_rest_1.Preprocessor(interceptor_1.interceptor),
     __metadata("design:paramtypes", [Object])
 ], GroupController);
 exports.GroupController = GroupController;

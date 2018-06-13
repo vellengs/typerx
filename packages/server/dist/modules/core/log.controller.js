@@ -23,6 +23,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typescript_rest_1 = require("typescript-rest");
 const typescript_rest_swagger_1 = require("typescript-rest-swagger");
 const log_service_1 = require("./log.service");
+const interceptor_1 = require("../../interceptor/interceptor");
 /**
  * 系统日志.
  */
@@ -112,6 +113,7 @@ __decorate([
 LogController = __decorate([
     typescript_rest_swagger_1.Tags('core'),
     typescript_rest_1.Path('/api/log'),
+    typescript_rest_1.Preprocessor(interceptor_1.interceptor),
     __metadata("design:paramtypes", [Object])
 ], LogController);
 exports.LogController = LogController;

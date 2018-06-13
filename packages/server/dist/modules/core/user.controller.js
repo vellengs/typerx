@@ -25,6 +25,7 @@ const typescript_rest_swagger_1 = require("typescript-rest-swagger");
 const login_dto_1 = require("./dto/login.dto");
 const user_service_1 = require("./user.service");
 const profile_dto_1 = require("./dto/profile.dto");
+const interceptor_1 = require("../../interceptor/interceptor");
 /**
  * 系统接口.
  */
@@ -120,6 +121,7 @@ __decorate([
 UserController = __decorate([
     typescript_rest_swagger_1.Tags('core'),
     typescript_rest_1.Path('/user'),
+    typescript_rest_1.Preprocessor(interceptor_1.interceptor),
     __metadata("design:paramtypes", [Object])
 ], UserController);
 exports.UserController = UserController;

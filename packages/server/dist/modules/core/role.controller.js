@@ -24,6 +24,7 @@ const typescript_rest_1 = require("typescript-rest");
 const typescript_rest_swagger_1 = require("typescript-rest-swagger");
 const role_dto_1 = require("./dto/role.dto");
 const role_service_1 = require("./role.service");
+const interceptor_1 = require("../../interceptor/interceptor");
 /**
  * 角色管理.
  */
@@ -160,6 +161,7 @@ __decorate([
 RoleController = __decorate([
     typescript_rest_swagger_1.Tags('core'),
     typescript_rest_1.Path('/api/role'),
+    typescript_rest_1.Preprocessor(interceptor_1.interceptor),
     __metadata("design:paramtypes", [Object])
 ], RoleController);
 exports.RoleController = RoleController;

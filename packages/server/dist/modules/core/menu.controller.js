@@ -23,6 +23,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typescript_rest_1 = require("typescript-rest");
 const typescript_rest_swagger_1 = require("typescript-rest-swagger");
 const menu_service_1 = require("./menu.service");
+const interceptor_1 = require("../../interceptor/interceptor");
 /**
  * 菜单接口.
  */
@@ -188,6 +189,7 @@ __decorate([
 MenuController = __decorate([
     typescript_rest_swagger_1.Tags('core'),
     typescript_rest_1.Path('api/menu'),
+    typescript_rest_1.Preprocessor(interceptor_1.interceptor),
     __metadata("design:paramtypes", [Object])
 ], MenuController);
 exports.MenuController = MenuController;
