@@ -8,6 +8,7 @@ import {
   QueryParam,
   Context,
   ServiceContext,
+  Preprocessor,
 } from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
 import * as passport from 'passport';
@@ -21,12 +22,14 @@ import { Appearance } from '../../types/appearance';
 import { KeyValue } from '../../types/data.types';
 import { CreateRoleDto, RoleResponse, EditRoleDto, PaginateRole } from './dto/role.dto';
 import { RoleService } from './role.service';
+import { interceptor } from '../../interceptor/interceptor';
 
 /**
  * 角色管理.
  */
 @Tags('core')
 @Path('/api/role')
+@Preprocessor(interceptor)
 export class RoleController {
   @Context context: ServiceContext;
   constructor(private readonly service = new RoleService()) { }

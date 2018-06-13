@@ -8,18 +8,21 @@ import {
     QueryParam,
     Context,
     ServiceContext,
+    Preprocessor,
 } from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
 import { MediaService } from './media.service';
 import { Appearance } from '../../types/appearance';
 import { MediaResponse, CreateMediaDto, EditMediaDto, PaginateMedia } from './dto/media.dto';
 import { KeyValue } from '../../types/data.types';
+import { interceptor } from '../../interceptor/interceptor';
 
 /**
  * 媒体接口.
  */
 @Tags('cms')
 @Path('api/media')
+@Preprocessor(interceptor)
 export class MediaController {
     @Context context: ServiceContext;
     constructor(private readonly service = new MediaService()) { }

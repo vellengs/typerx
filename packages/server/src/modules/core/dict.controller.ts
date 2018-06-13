@@ -8,6 +8,7 @@ import {
   QueryParam,
   Context,
   ServiceContext,
+  Preprocessor,
 } from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
 import * as passport from 'passport';
@@ -21,12 +22,14 @@ import { Appearance } from '../../types/appearance';
 import { DictService } from './dict.service';
 import { DictResponse, CreateDictDto, EditDictDto, PaginateDict } from './dto/dict.dto';
 import { KeyValue } from '../../types/data.types';
+import { interceptor } from '../../interceptor/interceptor';
 
 /**
  * 字典表.
  */
 @Tags('core')
 @Path('/api/dict')
+@Preprocessor(interceptor)
 export class DictController {
   @Context context: ServiceContext;
   constructor(private readonly service = new DictService()) { }

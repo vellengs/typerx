@@ -1,13 +1,15 @@
-import { GET, Path, PathParam, POST, PUT, DELETE, QueryParam, Context, ServiceContext } from 'typescript-rest';
+import { GET, Path, PathParam, POST, PUT, DELETE, QueryParam, Context, ServiceContext, Preprocessor } from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
 import { Appearance } from './../../types/appearance';
 import { ArticleService } from './article.service';
 import { KeyValue } from '../../types/data.types';
 import { CreateArticleDto, ArticleResponse, EditArticleDto, PaginateArticle } from './dto/article.dto';
+import { interceptor } from '../../interceptor/interceptor';
 
 
 @Tags('cms')
 @Path('/api/article')
+@Preprocessor(interceptor)
 export class ArticleController {
 
     @Context context: ServiceContext;

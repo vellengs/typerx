@@ -8,18 +8,21 @@ import {
   QueryParam,
   Context,
   ServiceContext,
+  Preprocessor,
 } from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
 import { GroupService } from './group.service';
 import { Appearance } from '../../types/appearance';
 import { GroupResponse, CreateGroupDto, EditGroupDto, PaginateGroup } from './dto/group.dto';
 import { KeyValue } from '../../types/data.types';
+import { interceptor } from '../../interceptor/interceptor';
 
 /**
  * 用户组接口.
  */
 @Tags('core')
 @Path('api/group')
+@Preprocessor(interceptor)
 export class GroupController {
   @Context context: ServiceContext;
   constructor(private readonly service = new GroupService()) { }

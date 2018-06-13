@@ -8,18 +8,21 @@ import {
     QueryParam,
     Context,
     ServiceContext,
+    Preprocessor,
 } from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
 import { WidgetService } from './widget.service';
 import { Appearance } from '../../types/appearance';
 import { WidgetResponse, CreateWidgetDto, EditWidgetDto, PaginateWidget } from './dto/widget.dto';
 import { KeyValue } from '../../types/data.types';
+import { interceptor } from '../../interceptor/interceptor';
 
 /**
  * 小部件接口.
  */
 @Tags('cms')
 @Path('api/widget')
+@Preprocessor(interceptor)
 export class WidgetController {
     @Context context: ServiceContext;
     constructor(private readonly service = new WidgetService()) { }

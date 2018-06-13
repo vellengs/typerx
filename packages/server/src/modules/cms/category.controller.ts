@@ -8,18 +8,21 @@ import {
     QueryParam,
     Context,
     ServiceContext,
+    Preprocessor,
 } from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
 import { CategoryService } from './category.service';
 import { Appearance } from '../../types/appearance';
 import { CategoryResponse, CreateCategoryDto, EditCategoryDto, PaginateCategory } from './dto/category.dto';
 import { KeyValue } from '../../types/data.types';
+import { interceptor } from '../../interceptor/interceptor';
 
 /**
  * 分类接口.
  */
 @Tags('cms')
 @Path('api/category')
+@Preprocessor(interceptor)
 export class CategoryController {
     @Context context: ServiceContext;
     constructor(private readonly service = new CategoryService()) { }

@@ -8,6 +8,7 @@ import {
   QueryParam,
   Context,
   ServiceContext,
+  Preprocessor,
 } from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
 import * as passport from 'passport';
@@ -21,12 +22,14 @@ import { Appearance } from '../../types/appearance';
 import { KeyValue } from '../../types/data.types';
 import { LogService } from './log.service';
 import { LogResponse, PaginateLog } from './dto/log.dto';
+import { interceptor } from '../../interceptor/interceptor';
 
 /**
  * 系统日志.
  */
 @Tags('core')
 @Path('/api/log')
+@Preprocessor(interceptor)
 export class LogController {
   @Context context: ServiceContext;
   constructor(private readonly service = new LogService()) { }

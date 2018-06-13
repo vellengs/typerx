@@ -24,6 +24,7 @@ import {
 } from './dto/account.dto';
 import { ProfileResponse } from './dto/login.dto';
 import { KeyValue } from '../../types/data.types';
+import { interceptor } from '../../interceptor/interceptor';
 
 /**
  * 帐号管理.
@@ -59,7 +60,10 @@ export class AccountController {
    */
   @Path('config')
   @GET
+  @Preprocessor(interceptor)
   async getConfig(): Promise<Appearance> {
+
+    console.log('test ...');
     return this.service.getAppearance();
   }
 

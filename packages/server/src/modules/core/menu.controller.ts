@@ -8,18 +8,21 @@ import {
   QueryParam,
   Context,
   ServiceContext,
+  Preprocessor,
 } from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
 import { MenuService } from './menu.service';
 import { Appearance } from '../../types/appearance';
 import { MenuResponse, CreateMenuDto, EditMenuDto, PaginateMenu } from './dto/menu.dto';
 import { KeyValue, SelectorItem } from '../../types/data.types';
+import { interceptor } from '../../interceptor/interceptor';
 
 /**
  * 菜单接口.
  */
 @Tags('core')
 @Path('api/menu')
+@Preprocessor(interceptor)
 export class MenuController {
   @Context context: ServiceContext;
   constructor(private readonly service = new MenuService()) { }

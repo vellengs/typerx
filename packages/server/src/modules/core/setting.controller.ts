@@ -8,6 +8,7 @@ import {
   QueryParam,
   Context,
   ServiceContext,
+  Preprocessor,
 } from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
 import * as passport from 'passport';
@@ -20,12 +21,14 @@ import {
 import { SettingService } from './setting.service';
 import { SettingResponse, CreateSettingDto, EditSettingDto, PaginateSetting, SettingsGroup } from './dto/setting.dto';
 import { Appearance } from '../../types/appearance';
+import { interceptor } from '../../interceptor/interceptor';
 
 /**
  * 设置管理接口.
  */
 @Tags('core')
 @Path('/api/setting')
+@Preprocessor(interceptor)
 export class SettingController {
   @Context context: ServiceContext;
   constructor(private readonly service = new SettingService()) { }

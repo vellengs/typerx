@@ -10,6 +10,7 @@ import {
   ServiceContext,
   FileParam,
   FormParam,
+  Preprocessor,
 } from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
 import * as passport from 'passport';
@@ -23,12 +24,14 @@ import {
 import { LogService } from './log.service';
 import { UserService } from './user.service';
 import { EditProfileDto } from './dto/profile.dto';
+import { interceptor } from '../../interceptor/interceptor';
 
 /**
  * 系统接口.
  */
 @Tags('core')
 @Path('/user')
+@Preprocessor(interceptor)
 export class UserController {
   @Context context: ServiceContext;
   constructor(private readonly service = new UserService()) { }
