@@ -1,8 +1,9 @@
 import { InternalServer } from 'typescript-rest/dist/server-container';
 import { ServiceClass, ServiceMethod } from 'typescript-rest/dist/metadata';
 import { Request, Response, NextFunction, RequestHandler } from 'express';
-import { HttpMethod } from 'typescript-rest/dist/server-types';
+import { HttpMethod, ServiceContext } from 'typescript-rest/dist/server-types';
 import { operationLog } from './interceptor';
+import { Errors } from 'typescript-rest';
 
 export class CustomInternalServer extends InternalServer {
 
@@ -59,4 +60,5 @@ export class CustomInternalServer extends InternalServer {
                 throw Error(`Invalid http method for service [${serviceMethod.resolvedPath}]`);
         }
     }
+ 
 }

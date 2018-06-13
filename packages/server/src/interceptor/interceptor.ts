@@ -19,7 +19,9 @@ export async function operationLog(req: Request) {
             operation: req.method.toLowerCase() + req.originalUrl,
             comment: desc
         })
+        return req;
     }
+    return req;
 }
 
 async function getApiDescription(path: string, method: string) {
