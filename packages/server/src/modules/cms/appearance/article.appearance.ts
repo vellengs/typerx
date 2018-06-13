@@ -43,7 +43,7 @@ const addForm: SFSchema = {
             title: '内容',
             type: t.string,
             ui: {
-                widget: w.ueditor,
+                widget: w.umeditor,
                 grid: {
                     span: 24
                 }

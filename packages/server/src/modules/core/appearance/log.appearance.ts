@@ -16,6 +16,11 @@ export const appearance: Appearance = {
                 index: ['operator']
             },
             {
+                title: 'operation',
+                i18n: '操作',
+                index: ['operation']
+            },
+            {
                 title: 'operatorIp',
                 i18n: '操作IP',
                 index: ['operatorIp']
