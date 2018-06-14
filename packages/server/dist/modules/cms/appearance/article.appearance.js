@@ -43,7 +43,7 @@ const addForm = {
             title: '内容',
             type: appearance_1.SchemaTypes.string,
             ui: {
-                widget: appearance_1.WidgetTypes.ueditor,
+                widget: appearance_1.WidgetTypes.umeditor,
                 grid: {
                     span: 24
                 }

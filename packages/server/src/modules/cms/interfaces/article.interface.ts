@@ -1,6 +1,4 @@
-import { Document } from 'mongoose';
-
-export interface Article extends Document {
+export interface Article {
   id: string;
   name: string;
   title: string;

@@ -8,6 +8,7 @@ export const schema = new Schema({
     description: t.String,
     sort: t.Number,
     disable: t.Boolean,
+    publish: { type: t.Date, default: Date.now },
     meta: {
         ref: 'Meta', type: t.ObjectId
     },

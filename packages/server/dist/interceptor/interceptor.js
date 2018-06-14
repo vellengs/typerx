@@ -29,7 +29,9 @@ function operationLog(req) {
                 operation: req.method.toLowerCase() + req.originalUrl,
                 comment: desc
             });
+            return req;
         }
+        return req;
     });
 }
 exports.operationLog = operationLog;

@@ -25,7 +25,7 @@
   "scripts": {
     "build": "npm run clean && tsc --p tsconfig.json && npm run swagger",
     "clean": "rimraf ./../../dist/server; rimraf dist",
-    "debug": "nodemon --inspect .",
+    "debug": "node dist/main.js",
     "lint": "tslint ./src/**/*.ts ./test/**/*.ts",
     "serve-debug": "nodemon --inspect ./../../dist/server",
     "server:lint": "tslint  --project ./tsconfig.json './src/**/*.ts' -c tslint.json --fix",

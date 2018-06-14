@@ -14,6 +14,16 @@ const addForm: SFSchema = {
                 }
             }
         },
+        name: {
+            title: '网址串',
+            type: t.string,
+            ui: {
+                widget: 'text',
+                grid: {
+                    span: 16
+                }
+            }
+        },
         keyword: {
             title: '关键词',
             type: t.string
@@ -60,14 +70,15 @@ export const appearance: Appearance = {
     columnSets: {
         default: [
             {
-                title: '页面名称',
-                index: 'name',
+                title: '页面标题',
+                index: 'title',
                 type: 'link',
                 action: 'edit'
             },
             {
-                title: '标题',
-                index: 'title'
+                title: '发布时间',
+                index: 'publish',
+                type: 'date',
             }
         ]
     },

@@ -1,6 +1,4 @@
-import { Document } from 'mongoose';
-
-export interface Widget extends Document {
+export interface Widget {
   id: string;
   name: string;
   title: string;

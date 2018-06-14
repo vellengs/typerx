@@ -84,19 +84,11 @@ export class MediaService {
         return pick(entry, [
             'id',
             'name',
-            'slug',
-            'group',
-            'link',
-            'externalLink',
-            'blank',
-            'icon',
-            'order',
-            'enable',
-            'expanded',
-            'acl',
-            'permissions',
-            'parent',
-            'isMedia'
+            'caption',
+            'description',
+            'ext',
+            'url',
+            'uri'
         ])
     }
 }

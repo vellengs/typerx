@@ -80,6 +80,7 @@ const sysSetting: SFSchema = {
         logo: {
             title: '系统标志',
             type: t.string,
+            description: '尺寸大小 120x30',
             ui: {
                 widget: w.avatar,
                 fileType: 'image/png,image/jpeg,image/gif,image/bmp',

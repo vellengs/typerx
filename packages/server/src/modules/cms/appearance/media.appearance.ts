@@ -14,23 +14,23 @@ const addForm: SFSchema = {
                 }
             }
         },
-        keyword: {
-            title: '关键词',
-            type: t.string
-        },
-        category: {
-            title: '分类',
+        file: {
+            title: '文件',
             type: t.string,
             ui: {
-                widget: w.search,
-                domain: 'category',
+                widget: w.avatar,
+                fileType: 'image/png,image/jpeg,image/gif,image/bmp',
+                listType: 'picture-card',
+                action: 'user/upload',
+                limit: 1,
+                name: 'file',
                 grid: {
-                    span: 16
+                    span: 24
                 }
-            }
+            },
         },
         description: {
-            title: '摘要',
+            title: '描述',
             type: t.string,
             ui: {
                 widget: w.textarea,
@@ -38,19 +38,9 @@ const addForm: SFSchema = {
                     span: 24
                 }
             }
-        },
-        content: {
-            title: '内容',
-            type: t.string,
-            ui: {
-                widget: w.ueditor,
-                grid: {
-                    span: 24
-                }
-            }
-        },
+        }
     },
-    required: [],
+    required: ['name'],
     ui: {
         spanLabelFixed: 100,
         grid: {
@@ -60,25 +50,25 @@ const addForm: SFSchema = {
 };
 
 const editForm = cloneDeep(addForm);
-editForm.title = '编辑文章';
-editForm.required = ['username'];
-editForm.properties.secret = {
-    title: '密保',
-    type: t.string
-};
+editForm.title = '编辑媒体';
+editForm.required = ['name'];
 
 export const appearance: Appearance = {
     columnSets: {
         default: [
             {
-                title: '文章名称',
+                title: '名称',
                 index: 'name',
                 type: 'link',
                 action: 'edit'
             },
             {
                 title: '标题',
-                index: 'title'
+                index: 'caption'
+            },
+            {
+                title: '地址',
+                index: 'url'
             }
         ]
     },

@@ -1,23 +1,14 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { NzMessageService, NzModalService, UploadFile } from 'ng-zorro-antd';
 import { Component, OnInit, Injector, Input } from '@angular/core';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
-import { _HttpClient } from '@delon/theme';
-import { ListContext } from '../../../services/list.context';
-import { SimpleTableColumn } from '@delon/abc';
-import { SFSchema, SFGridSchema, SFUISchema } from '@delon/form';
-import { BaseComponent } from '@shared/base/base.component';
 import { BaseStandComponent } from '@shared/base/base.stand.component';
 
 @Component({
-    selector: 'app-pages-page',
-    templateUrl: './pages.html',
+    selector: 'app-media-page',
+    templateUrl: './media.html',
     styles: []
 })
-export class PagesPageComponent extends BaseStandComponent implements OnInit {
+export class MediaPageComponent extends BaseStandComponent implements OnInit {
 
-    @Input() domain = 'page';
+    @Input() domain = 'media';
     configReady;
     queryUrl;
 
@@ -28,7 +19,7 @@ export class PagesPageComponent extends BaseStandComponent implements OnInit {
     async ngOnInit() {
         this.queryUrl = `api/${this.domain}/query`;
 
-        this.onConfigChanged.subscribe((config) => {
+        this.onConfigChanged.subscribe(() => {
             this.configReady = true;
         });
 
