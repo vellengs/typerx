@@ -9,7 +9,7 @@ export class Helper {
      * 生成用于模糊查询的关键词字段, 长标题勿用
      * @param val 原始字符串
      */
-    static genPinyinKeywords(val: string, cartesian: boolean) {
+    static genPinyinKeywords(val: string, cartesian = true) {
         if (!val) {
             return [];
         }
@@ -17,7 +17,7 @@ export class Helper {
         let arrResult = pinyinlite(val).filter((item: any) => {
             return item && item.length > 0;
         });
-        
+
         if (!cartesian) {
             return arrResult;
         }
