@@ -103,7 +103,7 @@ export class MenuController {
   @GET
   async getUserMenus(): Promise<Array<MenuResponse>> {
     const { request } = this.context;
-    return this.service.getAuthenticatedMenus(request.user);
+    return this.service.getAuthenticatedMenus(<any>request.user);
   }
   /**
  * 删除菜单

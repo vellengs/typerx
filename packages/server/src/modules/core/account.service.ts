@@ -29,7 +29,7 @@ export class AccountService {
   }
 
   setKeyWord(entry: CreateAccountDto | EditAccountDto) {
-    let keyword: Array<string> = Helper.genPinyinKeywords(entry.nick);
+    let keyword: Array<string> = Helper.genPinyinKeywords(entry.nick, true);
     keyword.push(entry.email);
     keyword.push(entry.mobile);
     keyword.push(entry.nick);

@@ -94,27 +94,31 @@ export class MenuService {
     return this.pure(doc);
   }
 
-  async getAuthenticatedMenus(user: Express.User): Promise<Array<MenuResponse>> {
+  async getAuthenticatedMenus(user: SessionUser): Promise<Array<MenuResponse>> {
+    if (!user.isAdmin) {
+      const account = await Db.Account.findOne({ _id: user.id }, 'groups').exec();
+      const roles = (account.toObject() as Account).roles || [];
+      const roleDocs = await Db.Group.find({
+        _id: { $in: roles }
+      }, 'permissions').exec() || [];
 
-    const account = await Db.Account.findOne({ _id: user.id }, 'groups').exec();
-    const roles = (account.toObject() as Account).roles || [];
-    const roleDocs = await Db.Group.find({
-      _id: { $in: roles }
-    }, 'permissions').exec() || [];
-
-    const permissions: string[] = [];
-    roleDocs.forEach((g: any) => {
-      permissions.push(...g.permissions);
-    });
-
-    const menus = await Db.Menu.find({
-      _id: {
-        $in: permissions
-      },
-      isMenu: true
-    });
-
-    return menus as any;
+      const permissions: string[] = [];
+      roleDocs.forEach((g: any) => {
+        permissions.push(...g.permissions);
+      });
+      const menus = await Db.Menu.find({
+        _id: {
+          $in: permissions
+        },
+        isMenu: true
+      });
+      return menus as any;
+    } else {
+      const menus = await Db.Menu.find({
+        isMenu: true
+      });
+      return menus as any;
+    }
   }
 
   private pure(entry: Menu & Document): MenuResponse {

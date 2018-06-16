@@ -6,10 +6,10 @@ export const pinyinlite = require('pinyinlite');
 export class Helper {
 
     /**
-     * 生成用于模糊查询的关键词字段
+     * 生成用于模糊查询的关键词字段, 长标题勿用
      * @param val 原始字符串
      */
-    static genPinyinKeywords(val: string) {
+    static genPinyinKeywords(val: string, cartesian: boolean) {
         if (!val) {
             return [];
         }
@@ -17,6 +17,10 @@ export class Helper {
         let arrResult = pinyinlite(val).filter((item: any) => {
             return item && item.length > 0;
         });
+        
+        if (!cartesian) {
+            return arrResult;
+        }
 
         const fullResult = Helper.cartesianProductOf(arrResult).map((item: any) => {
             return item.join('');
@@ -30,7 +34,13 @@ export class Helper {
             return item.join('');
         });
 
-        return uniq(fullResult.concat(simplifyResult));
+        const result = uniq(fullResult.concat(simplifyResult));
+
+        if (result.join('').length > 512) {
+            throw new Error('gen pinyin keywords too long.');
+        }
+
+        return result;
     }
 
     static cartesianProductOf(elements: Array<any>): Array<any> {

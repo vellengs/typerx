@@ -14,11 +14,7 @@
 /**
  * 
  */
-export interface MenuResponse {
-    /**
-     * 
-     */
-    id: string;
+export interface CreateCustomDto {
     /**
      * 
      */
@@ -26,53 +22,45 @@ export interface MenuResponse {
     /**
      * 
      */
-    slug: string;
+    title: string;
     /**
      * 
      */
-    group: boolean;
+    keyword: string;
     /**
      * 
      */
-    link: string;
+    category: string;
     /**
      * 
      */
-    externalLink: string;
+    description: string;
     /**
      * 
      */
-    blank: boolean;
+    author: string;
     /**
      * 
      */
-    icon: string;
+    sort: number;
     /**
      * 
      */
-    order: number;
+    disable: boolean;
     /**
      * 
      */
-    enable: boolean;
+    meta: string;
     /**
      * 
      */
-    expanded: boolean;
+    content: string;
     /**
      * 
      */
-    acl: string;
+    template: string;
     /**
      * 
      */
-    permissions?: any;
-    /**
-     * 
-     */
-    parent?: any;
-    /**
-     * 
-     */
-    isMenu: boolean;
+    type: string;
 }

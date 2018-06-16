@@ -14,7 +14,7 @@
 /**
  * 
  */
-export interface MenuResponse {
+export interface CustomResponse {
     /**
      * 
      */
@@ -26,53 +26,41 @@ export interface MenuResponse {
     /**
      * 
      */
-    slug: string;
+    title: string;
     /**
      * 
      */
-    group: boolean;
+    category: string;
     /**
      * 
      */
-    link: string;
+    description: string;
     /**
      * 
      */
-    externalLink: string;
+    author: string;
     /**
      * 
      */
-    blank: boolean;
+    sort: number;
     /**
      * 
      */
-    icon: string;
+    disable: boolean;
     /**
      * 
      */
-    order: number;
+    meta: string;
     /**
      * 
      */
-    enable: boolean;
+    content: string;
     /**
      * 
      */
-    expanded: boolean;
+    template: string;
     /**
      * 
      */
-    acl: string;
-    /**
-     * 
-     */
-    permissions?: any;
-    /**
-     * 
-     */
-    parent?: any;
-    /**
-     * 
-     */
-    isMenu: boolean;
+    type: string;
 }

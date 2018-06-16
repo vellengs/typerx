@@ -29,7 +29,7 @@ export class CustomService {
     }
 
     setKeyWord(entry: CreateCustomDto | EditCustomDto) {
-        let keyword: Array<string> = Helper.genPinyinKeywords(entry.title);
+        let keyword: Array<string> = Helper.genPinyinKeywords(entry.title, false);
         keyword.push(entry.name);
         keyword.push(entry.title);
         entry.keyword = keyword.join('');

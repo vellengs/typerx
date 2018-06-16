@@ -23,11 +23,14 @@ import { ArticleResponse } from '../model/articleResponse';
 import { CategoryResponse } from '../model/categoryResponse';
 import { CreateArticleDto } from '../model/createArticleDto';
 import { CreateCategoryDto } from '../model/createCategoryDto';
+import { CreateCustomDto } from '../model/createCustomDto';
 import { CreateMediaDto } from '../model/createMediaDto';
 import { CreatePageDto } from '../model/createPageDto';
 import { CreateWidgetDto } from '../model/createWidgetDto';
+import { CustomResponse } from '../model/customResponse';
 import { EditArticleDto } from '../model/editArticleDto';
 import { EditCategoryDto } from '../model/editCategoryDto';
+import { EditCustomDto } from '../model/editCustomDto';
 import { EditMediaDto } from '../model/editMediaDto';
 import { EditPageDto } from '../model/editPageDto';
 import { EditWidgetDto } from '../model/editWidgetDto';
@@ -36,6 +39,7 @@ import { MediaResponse } from '../model/mediaResponse';
 import { PageResponse } from '../model/pageResponse';
 import { PaginateArticle } from '../model/paginateArticle';
 import { PaginateCategory } from '../model/paginateCategory';
+import { PaginateCustom } from '../model/paginateCustom';
 import { PaginateMedia } from '../model/paginateMedia';
 import { PaginatePage } from '../model/paginatePage';
 import { PaginateWidget } from '../model/paginateWidget';
@@ -703,6 +707,334 @@ export class CmsService {
 
     /**
      * 
+     * 创建自定义内容
+     * @param entry 创建参数
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public customCreate(entry: CreateCustomDto, observe?: 'body', reportProgress?: boolean): Observable<CustomResponse>;
+    public customCreate(entry: CreateCustomDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CustomResponse>>;
+    public customCreate(entry: CreateCustomDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CustomResponse>>;
+    public customCreate(entry: CreateCustomDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (entry === null || entry === undefined) {
+            throw new Error('Required parameter entry was null or undefined when calling customCreate.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+            'application/json'
+        ];
+        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set("Content-Type", httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<CustomResponse>(`${this.basePath}/api/custom`,
+            entry,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 查询自定义内容
+     * @param id 自定义内容编号
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public customGet(id: string, observe?: 'body', reportProgress?: boolean): Observable<CustomResponse>;
+    public customGet(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CustomResponse>>;
+    public customGet(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CustomResponse>>;
+    public customGet(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling customGet.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<CustomResponse>(`${this.basePath}/api/custom/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 获取自定义内容管理界面配置信息
+     * @param type 自定义内容集名
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public customGetConfig(type: string, observe?: 'body', reportProgress?: boolean): Observable<Appearance>;
+    public customGetConfig(type: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Appearance>>;
+    public customGetConfig(type: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Appearance>>;
+    public customGetConfig(type: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (type === null || type === undefined) {
+            throw new Error('Required parameter type was null or undefined when calling customGetConfig.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (type !== undefined) {
+            queryParameters = queryParameters.set('type', <any>type);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Appearance>(`${this.basePath}/api/custom/config`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 查询自定义内容数据
+     * @param keyword 关键词
+     * @param category 
+     * @param type 
+     * @param page 
+     * @param size 页大小
+     * @param sort 排序
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public customQuery(keyword?: string, category?: string, type?: string, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginateCustom>;
+    public customQuery(keyword?: string, category?: string, type?: string, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginateCustom>>;
+    public customQuery(keyword?: string, category?: string, type?: string, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginateCustom>>;
+    public customQuery(keyword?: string, category?: string, type?: string, page?: number, size?: number, sort?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (keyword !== undefined) {
+            queryParameters = queryParameters.set('keyword', <any>keyword);
+        }
+        if (category !== undefined) {
+            queryParameters = queryParameters.set('category', <any>category);
+        }
+        if (type !== undefined) {
+            queryParameters = queryParameters.set('type', <any>type);
+        }
+        if (page !== undefined) {
+            queryParameters = queryParameters.set('page', <any>page);
+        }
+        if (size !== undefined) {
+            queryParameters = queryParameters.set('size', <any>size);
+        }
+        if (sort !== undefined) {
+            queryParameters = queryParameters.set('sort', <any>sort);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<PaginateCustom>(`${this.basePath}/api/custom/query`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 删除自定义内容
+     * @param id 自定义内容编号
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public customRemove(id: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public customRemove(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public customRemove(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public customRemove(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling customRemove.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/html'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.delete<boolean>(`${this.basePath}/api/custom/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 查询自定义内容
+     * @param keyword 关键词
+     * @param value 已选中的自定义内容编号
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public customSearch(keyword?: string, value?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<KeyValue>>;
+    public customSearch(keyword?: string, value?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<KeyValue>>>;
+    public customSearch(keyword?: string, value?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<KeyValue>>>;
+    public customSearch(keyword?: string, value?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (keyword !== undefined) {
+            queryParameters = queryParameters.set('keyword', <any>keyword);
+        }
+        if (value !== undefined) {
+            queryParameters = queryParameters.set('value', <any>value);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<KeyValue>>(`${this.basePath}/api/custom/search`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 更新自定义内容
+     * @param entry 自定义内容参数
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public customUpdate(entry: EditCustomDto, observe?: 'body', reportProgress?: boolean): Observable<CustomResponse>;
+    public customUpdate(entry: EditCustomDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CustomResponse>>;
+    public customUpdate(entry: EditCustomDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CustomResponse>>;
+    public customUpdate(entry: EditCustomDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (entry === null || entry === undefined) {
+            throw new Error('Required parameter entry was null or undefined when calling customUpdate.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+            'application/json'
+        ];
+        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set("Content-Type", httpContentTypeSelected);
+        }
+
+        return this.httpClient.put<CustomResponse>(`${this.basePath}/api/custom`,
+            entry,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
      * 创建媒体
      * @param entry 创建参数
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -1141,24 +1473,20 @@ export class CmsService {
      * 
      * 查询页面数据
      * @param keyword 关键词
-     * @param isPage 
      * @param page 第几页
      * @param size 页大小
      * @param sort 排序
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public pageQuery(keyword?: string, isPage?: boolean, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginatePage>;
-    public pageQuery(keyword?: string, isPage?: boolean, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginatePage>>;
-    public pageQuery(keyword?: string, isPage?: boolean, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginatePage>>;
-    public pageQuery(keyword?: string, isPage?: boolean, page?: number, size?: number, sort?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public pageQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginatePage>;
+    public pageQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginatePage>>;
+    public pageQuery(keyword?: string, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginatePage>>;
+    public pageQuery(keyword?: string, page?: number, size?: number, sort?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (keyword !== undefined) {
             queryParameters = queryParameters.set('keyword', <any>keyword);
-        }
-        if (isPage !== undefined) {
-            queryParameters = queryParameters.set('isPage', <any>isPage);
         }
         if (page !== undefined) {
             queryParameters = queryParameters.set('page', <any>page);

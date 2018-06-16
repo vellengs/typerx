@@ -48,6 +48,7 @@ import { PaginateRole } from '../model/paginateRole';
 import { PaginateSetting } from '../model/paginateSetting';
 import { ProfileResponse } from '../model/profileResponse';
 import { RoleResponse } from '../model/roleResponse';
+import { SelectorItem } from '../model/selectorItem';
 import { SettingResponse } from '../model/settingResponse';
 import { SettingsGroup } from '../model/settingsGroup';
 import { UploadConfig } from '../model/uploadConfig';
@@ -1499,9 +1500,9 @@ export class CoreService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public menuGetPermissionTags(observe?: 'body', reportProgress?: boolean): Observable<Array<MenuResponse>>;
-    public menuGetPermissionTags(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<MenuResponse>>>;
-    public menuGetPermissionTags(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<MenuResponse>>>;
+    public menuGetPermissionTags(observe?: 'body', reportProgress?: boolean): Observable<Array<SelectorItem>>;
+    public menuGetPermissionTags(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SelectorItem>>>;
+    public menuGetPermissionTags(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SelectorItem>>>;
     public menuGetPermissionTags(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
@@ -1519,7 +1520,43 @@ export class CoreService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<Array<MenuResponse>>(`${this.basePath}/api/menu/permissions`,
+        return this.httpClient.get<Array<SelectorItem>>(`${this.basePath}/api/menu/permissions`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 返回用户鉴权后的菜单
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public menuGetUserMenus(observe?: 'body', reportProgress?: boolean): Observable<Array<MenuResponse>>;
+    public menuGetUserMenus(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<MenuResponse>>>;
+    public menuGetUserMenus(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<MenuResponse>>>;
+    public menuGetUserMenus(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<MenuResponse>>(`${this.basePath}/api/menu/auth`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
