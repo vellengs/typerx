@@ -18,13 +18,12 @@ import { Article } from './interfaces/article.interface';
 import { Custom } from './interfaces/custom.interface';
 
 export const CmsDatabase = {
-    Article: model<Article>('Article', ArticleSchema),
-    Category: model<Category>('Category', CategorySchema),
-    Comment: model<Comment>('Comment', CommentSchema),
-    Media: model<Media>('Media', MediaSchema),
-    Page: model<Page>('Page', PageSchema),
-    Widget: model<Widget>('Widget', WidgetSchema),
-    Content: model<Content>('Content', ContentSchema),
-    Custom: model<Custom>('Custom', CustomSchema),
-
+    Article: model<Article & Document>('Article', ArticleSchema),
+    Category: model<Category & Document>('Category', CategorySchema),
+    Comment: model<Comment & Document>('Comment', CommentSchema),
+    Media: model<Media & Document>('Media', MediaSchema),
+    Page: model<Page & Document>('Page', PageSchema),
+    Widget: model<Widget & Document>('Widget', WidgetSchema),
+    Content: model<Content & Document>('Content', ContentSchema),
+    Custom: model<Custom & Document>('Custom', CustomSchema),
 }
