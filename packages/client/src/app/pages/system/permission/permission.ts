@@ -15,9 +15,24 @@ import { BaseStandComponent } from '@shared/base/base.stand.component';
 export class PermissionPageComponent extends BaseStandComponent implements OnInit {
 
     url;
-    @Input() domain = 'role';
-    title = '权限管理';
+    @Input() domain = 'menu';
+    title = '接口访问配置';
     selectedItem = {};
+
+    permissions = [];
+    _queryParams: { [key: string]: any; } = {};
+
+    set queryParams(val) {
+        this._queryParams = val;
+    }
+
+    get queryParams() {
+        const params = Object.assign({}, {
+            isMenu: false
+        }, this._queryParams);
+        return params;
+    }
+
     constructor(injector: Injector) {
         super(injector);
     }

@@ -6,6 +6,7 @@ import { DictController } from './dict.controller';
 import { RoleController } from './role.controller';
 import { LogController } from './log.controller';
 import { GroupController } from './group.controller';
+import { ApiController } from './api.controller';
 export default [
     AccountController,
     UserController,
@@ -15,4 +16,5 @@ export default [
     RoleController,
     LogController,
     GroupController,
+    ApiController,
 ];

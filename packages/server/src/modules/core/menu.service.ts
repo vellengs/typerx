@@ -65,8 +65,9 @@ export class MenuService {
   ): Promise<PaginateMenu> {
     const condition: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
 
-    if (isMenu)
-      condition.isMenu = true;
+    if (isMenu != null) {
+      condition.isMenu = isMenu;
+    }
 
     const query = Db.Menu.find(condition).sort(sort);
 

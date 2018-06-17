@@ -3,12 +3,12 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { zip } from 'rxjs/observable/zip';
 import { catchError } from 'rxjs/operators';
-import { MenuService, SettingsService, TitleService, ALAIN_I18N_TOKEN } from '@delon/theme';
+import { MenuService, SettingsService, TitleService, ALAIN_I18N_TOKEN, Menu } from '@delon/theme';
 import { ACLService } from '@delon/acl';
 import { TranslateService } from '@ngx-translate/core';
 import { I18NService } from '../i18n/i18n.service';
 import { CoreService } from 'generated';
-
+import * as treeify from 'array-to-tree';
 /**
  * 用于应用启动时
  * 一般用来获取应用所需要的基础数据等
@@ -32,30 +32,52 @@ export class StartupService {
         return new Promise((resolve, reject) => {
             zip(
                 this.httpClient.get(`assets/i18n/${this.i18n.defaultLang}.json`),
-                this.httpClient.get('assets/app-data.json')
-                //  this.coreService.menuGetUserMenus(),
+                this.coreService.settingGetSettingsByName('main'),
+                this.coreService.menuGetUserMenus(),
             ).pipe(
                 // 接收其他拦截器后产生的异常消息
-                catchError(([langData, appData]) => {
+                catchError(([langData, settingsData, menuData]) => {
                     resolve(null);
-                    return [langData, appData];
+                    return [langData, settingsData, menuData];
                 })
-            ).subscribe(([langData, appData]) => {
+            ).subscribe(([langData, settings, menuData]) => {
                 // setting language data
                 this.translate.setTranslation(this.i18n.defaultLang, langData);
                 this.translate.setDefaultLang(this.i18n.defaultLang);
 
-                // console.log('appData', appData);
-                // application data
-                const res: any = appData;
-                // 应用信息：包括站点名、描述、年份
-                this.settingService.setApp(res.app);
+                this.settingService.setApp(settings);
+
                 // ACL：设置权限为全量
                 this.aclService.setFull(true);
                 // 初始化菜单
-                this.menuService.add(res.menu);
+
                 // 设置页面标题的后缀
-                this.titleService.suffix = res.app.name;
+                this.titleService.suffix = settings.name;
+
+
+                if (menuData && Array.isArray(menuData)) {
+                    const menus = menuData.map((item) => {
+                        return {
+                            id: item.id,
+                            text: item.name,
+                            group: item.group,
+                            icon: item.icon,
+                            link: item.link,
+                            parent: item.parent
+                        };
+                    });
+
+                    const tree = treeify(menus, {
+                        parentProperty: 'parent',
+                        customID: 'id'
+                    });
+ 
+                    this.menuService.add([{
+                        text: '主导航',
+                        group: true,
+                        children: tree
+                    }]);
+                }
             },
                 () => { },
                 () => {

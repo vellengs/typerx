@@ -3,14 +3,54 @@ import * as path from 'path';
 import * as https from 'https';
 import * as zlib from 'zlib';
 import * as fs from 'fs';
+
+import { connect } from "./../database/connector";
+import { MONGODB_URI } from "./../util/secrets";
+connect(MONGODB_URI);
+
+import { CoreDatabase } from '../modules/core/core.database';
 const unzip = require('unzip');
 const rimraf = require('rimraf');
+import * as swaggerParser from 'swagger-parser';
 
 const gateway = 'https://generator.swagger.io/api/gen/clients/typescript-angular';
+
+async function upsertApi(jsonPath: string) {
+    const api = await swaggerParser.parse(jsonPath).then();
+    let result = 0;
+    const paths = Object.keys(api.paths);
+    for (let url of paths) {
+        if (url) {
+            const item = api.paths[url];
+            const methods = Object.keys(item);
+            for (let method of methods) {
+                const entry = item[method];
+                const doc = {
+                    name: (entry.description || ''),
+                    method: url,
+                    path: method + url,
+                    version: api.info.version
+                }
+
+                const count = await CoreDatabase.Api.findOneAndUpdate({ path: doc.path }, doc, { upsert: true, 'new': true }).exec();
+                if (count) {
+                    result++;
+                }
+            }
+        }
+    }
+    console.log('completed upsert api ...');
+}
+
 
 async function loadSwagger() {
     const jsonPath = path.resolve(process.cwd(), 'dist', 'swagger.json');
     const json = require(jsonPath);
+
+    await upsertApi(jsonPath);
+
+
+
     const client = axios.create({
         httpsAgent: new https.Agent({
             rejectUnauthorized: false
@@ -46,6 +86,8 @@ async function loadSwagger() {
                 });
         });
     }
+
+    console.log('load swagger ...');
 }
 
 async function sleep(ms: number) {
