@@ -17,6 +17,18 @@ export class ApiService {
     return Repository.search(Db.Menu, keyword, value, '', limit);
   }
 
+
+  async removeApiFromPermission(permission: string, apiId: string) {
+    if (permission && apiId) {
+      await Db.Api.update({
+        _id: {
+          $in: apiId
+        }
+      }, { $pullAll: { roles: [permission] } }, { multi: true }).exec();
+    }
+    return true;
+  }
+
   async addApiPermission(permission: string, apIds: string[] | string) {
 
     if (!Array.isArray(apIds) && ObjectId.isValid(apIds)) {

@@ -73,6 +73,16 @@ let ApiController = class ApiController {
             return this.service.addApiPermission(permission, ids);
         });
     }
+    /**
+   * 移除API接口从权限标签
+   * @param permission 权限编号
+   * @param id 接口编号
+   */
+    removeApisToPermission(permission, id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.service.removeApiFromPermission(permission, id);
+        });
+    }
 };
 __decorate([
     typescript_rest_1.Context,
@@ -112,9 +122,17 @@ __decorate([
     typescript_rest_1.POST,
     __param(0, typescript_rest_1.FormParam('permission')), __param(1, typescript_rest_1.FormParam('ids')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Array]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], ApiController.prototype, "addApisToPermission", null);
+__decorate([
+    typescript_rest_1.Path('permission'),
+    typescript_rest_1.DELETE,
+    __param(0, typescript_rest_1.FormParam('permission')), __param(1, typescript_rest_1.FormParam('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], ApiController.prototype, "removeApisToPermission", null);
 ApiController = __decorate([
     typescript_rest_swagger_1.Tags('core'),
     typescript_rest_1.Path('/api/api'),

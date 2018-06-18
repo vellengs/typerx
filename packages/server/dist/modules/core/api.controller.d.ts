@@ -35,5 +35,11 @@ export declare class ApiController {
      * @param permission 权限编号
      * @param ids 接口编号列表
      */
-    addApisToPermission(permission: string, ids: string[]): Promise<boolean>;
+    addApisToPermission(permission: string, ids: string[] | string): Promise<boolean>;
+    /**
+   * 移除API接口从权限标签
+   * @param permission 权限编号
+   * @param id 接口编号
+   */
+    removeApisToPermission(permission: string, id: string): Promise<boolean>;
 }

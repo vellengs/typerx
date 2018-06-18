@@ -7,6 +7,7 @@ import {
   Preprocessor,
   FormParam,
   POST,
+  DELETE,
 } from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
 import { Appearance } from './../../types/appearance';
@@ -84,6 +85,15 @@ export class ApiController {
     return this.service.addApiPermission(permission, ids);
   }
 
-
+  /**
+ * 移除API接口从权限标签
+ * @param permission 权限编号
+ * @param id 接口编号
+ */
+  @Path('permission')
+  @DELETE
+  async removeApisToPermission(@FormParam('permission') permission: string, @FormParam('id') id: string): Promise<boolean> {
+    return this.service.removeApiFromPermission(permission, id);
+  }
 
 }

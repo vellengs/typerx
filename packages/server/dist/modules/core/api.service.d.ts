@@ -4,6 +4,7 @@ import { PaginateApi } from './dto/api.dto';
 export declare class ApiService {
     getAppearance(): Promise<Appearance>;
     search(keyword?: string, value?: string, limit?: number): Promise<Array<KeyValue>>;
-    addApiPermission(permission: string, apIds: string[]): Promise<boolean>;
+    removeApiFromPermission(permission: string, apiId: string): Promise<boolean>;
+    addApiPermission(permission: string, apIds: string[] | string): Promise<boolean>;
     query(keyword?: string, permission?: string, page?: number, size?: number, sort?: string): Promise<PaginateApi>;
 }

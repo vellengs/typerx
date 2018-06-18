@@ -15,6 +15,7 @@ const account_appearance_1 = require("./appearance/account.appearance");
 const lodash_1 = require("lodash");
 const repository_1 = require("../../database/repository");
 const helper_1 = require("../../util/helper");
+const bson_1 = require("bson");
 class AccountService {
     getAppearance() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -107,6 +108,9 @@ class AccountService {
     }
     addAccountsToRole(role, accountIds) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (!Array.isArray(accountIds) && bson_1.ObjectId.isValid(accountIds)) {
+                accountIds = [accountIds];
+            }
             if (role && Array.isArray(accountIds)) {
                 const existIds = (yield core_database_1.CoreDatabase.Account.find({
                     _id: {
@@ -120,7 +124,7 @@ class AccountService {
                 const ids = accountIds.filter((id) => {
                     return exists.indexOf(id) === -1;
                 });
-                yield core_database_1.CoreDatabase.Account.update({
+                const effects = yield core_database_1.CoreDatabase.Account.update({
                     _id: {
                         $in: ids
                     }

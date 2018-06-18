@@ -12,6 +12,7 @@ const core_database_1 = require("./core.database");
 const api_appearance_1 = require("./appearance/api.appearance");
 const repository_1 = require("../../database/repository");
 const api_dto_1 = require("./dto/api.dto");
+const bson_1 = require("bson");
 class ApiService {
     getAppearance() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -23,8 +24,23 @@ class ApiService {
             return repository_1.Repository.search(core_database_1.CoreDatabase.Menu, keyword, value, '', limit);
         });
     }
+    removeApiFromPermission(permission, apiId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (permission && apiId) {
+                yield core_database_1.CoreDatabase.Api.update({
+                    _id: {
+                        $in: apiId
+                    }
+                }, { $pullAll: { roles: [permission] } }, { multi: true }).exec();
+            }
+            return true;
+        });
+    }
     addApiPermission(permission, apIds) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (!Array.isArray(apIds) && bson_1.ObjectId.isValid(apIds)) {
+                apIds = [apIds];
+            }
             if (permission && Array.isArray(apIds)) {
                 const existIds = (yield core_database_1.CoreDatabase.Api.find({
                     _id: {

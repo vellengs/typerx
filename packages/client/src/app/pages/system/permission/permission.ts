@@ -46,6 +46,27 @@ export class PermissionPageComponent extends BaseStandComponent implements OnIni
                 this.slaveColumns = res.columnSets['default'];
             }
         });
+        const self = this;
+        this.operations = {
+            title: '操作',
+            width: '180px',
+            buttons: [
+                {
+                    text: '移出',
+                    type: 'del',
+                    click: (record: any) => {
+                        // self.coreService.accountRemoveAccountFromRole(this.selectedItem.id, record.id).subscribe(
+                        //     (res) => {
+                        //         if (res) {
+                        //             self.msg.success('移除成功！');
+                        //             self.slaves.reload();
+                        //         }
+                        //     }
+                        // );
+                    }
+                }
+            ]
+        };
     }
 
     addApiPermission() {

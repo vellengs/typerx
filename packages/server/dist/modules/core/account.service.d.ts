@@ -14,6 +14,6 @@ export declare class AccountService {
     query(keyword?: string, group?: string, role?: string, page?: number, size?: number, sort?: string): Promise<PaginateAccount>;
     get(id: string): Promise<AccountResponse>;
     removeAccountFromRole(role: string, accountId: string): Promise<boolean>;
-    addAccountsToRole(role: string, accountIds: string[]): Promise<boolean>;
+    addAccountsToRole(role: string, accountIds: string[] | string): Promise<boolean>;
     private pure(entry);
 }
