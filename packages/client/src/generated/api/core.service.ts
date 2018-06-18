@@ -98,10 +98,10 @@ export class CoreService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public accountAddAccountsToRole(role: string, accountIds: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
-    public accountAddAccountsToRole(role: string, accountIds: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
-    public accountAddAccountsToRole(role: string, accountIds: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
-    public accountAddAccountsToRole(role: string, accountIds: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public accountAddAccountsToRole(role: string, accountIds: { [key: string]: string; }, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public accountAddAccountsToRole(role: string, accountIds: { [key: string]: string; }, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public accountAddAccountsToRole(role: string, accountIds: { [key: string]: string; }, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public accountAddAccountsToRole(role: string, accountIds: { [key: string]: string; }, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (role === null || role === undefined) {
             throw new Error('Required parameter role was null or undefined when calling accountAddAccountsToRole.');
         }
@@ -139,10 +139,8 @@ export class CoreService {
         if (role !== undefined) {
             formParams = formParams.append('role', <any>role) || formParams;
         }
-        if (accountIds) {
-            accountIds.forEach((element) => {
-                formParams = formParams.append('accountIds', <any>element) || formParams;
-            })
+        if (accountIds !== undefined) {
+            formParams = formParams.append('accountIds', <any>accountIds) || formParams;
         }
 
         return this.httpClient.post<boolean>(`${this.basePath}/api/account/role`,
@@ -571,10 +569,10 @@ export class CoreService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiAddApisToPermission(permission: string, ids: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
-    public apiAddApisToPermission(permission: string, ids: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
-    public apiAddApisToPermission(permission: string, ids: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
-    public apiAddApisToPermission(permission: string, ids: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public apiAddApisToPermission(permission: string, ids: { [key: string]: string; }, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public apiAddApisToPermission(permission: string, ids: { [key: string]: string; }, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public apiAddApisToPermission(permission: string, ids: { [key: string]: string; }, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public apiAddApisToPermission(permission: string, ids: { [key: string]: string; }, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (permission === null || permission === undefined) {
             throw new Error('Required parameter permission was null or undefined when calling apiAddApisToPermission.');
         }
@@ -612,10 +610,8 @@ export class CoreService {
         if (permission !== undefined) {
             formParams = formParams.append('permission', <any>permission) || formParams;
         }
-        if (ids) {
-            ids.forEach((element) => {
-                formParams = formParams.append('ids', <any>element) || formParams;
-            })
+        if (ids !== undefined) {
+            formParams = formParams.append('ids', <any>ids) || formParams;
         }
 
         return this.httpClient.post<boolean>(`${this.basePath}/api/api/permission`,
@@ -761,6 +757,59 @@ export class CoreService {
         ];
 
         return this.httpClient.get<PaginateApi>(`${this.basePath}/api/api/query`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 移除API接口从权限标签
+     * @param permission 权限编号
+     * @param id 接口编号
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiRemoveApisToPermission(permission: string, id: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public apiRemoveApisToPermission(permission: string, id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public apiRemoveApisToPermission(permission: string, id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public apiRemoveApisToPermission(permission: string, id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (permission === null || permission === undefined) {
+            throw new Error('Required parameter permission was null or undefined when calling apiRemoveApisToPermission.');
+        }
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling apiRemoveApisToPermission.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (permission !== undefined) {
+            queryParameters = queryParameters.set('permission', <any>permission);
+        }
+        if (id !== undefined) {
+            queryParameters = queryParameters.set('id', <any>id);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/html'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.delete<boolean>(`${this.basePath}/api/api/permission`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

@@ -92,7 +92,7 @@ export class ApiController {
  */
   @Path('permission')
   @DELETE
-  async removeApisToPermission(@FormParam('permission') permission: string, @FormParam('id') id: string): Promise<boolean> {
+  async removeApisToPermission(@QueryParam('permission') permission: string, @QueryParam('id') id: string): Promise<boolean> {
     return this.service.removeApiFromPermission(permission, id);
   }
 

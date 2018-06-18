@@ -55,14 +55,14 @@ export class PermissionPageComponent extends BaseStandComponent implements OnIni
                     text: '移出',
                     type: 'del',
                     click: (record: any) => {
-                        // self.coreService.accountRemoveAccountFromRole(this.selectedItem.id, record.id).subscribe(
-                        //     (res) => {
-                        //         if (res) {
-                        //             self.msg.success('移除成功！');
-                        //             self.slaves.reload();
-                        //         }
-                        //     }
-                        // );
+                        self.coreService.apiRemoveApisToPermission(this.selectedItem.id, record.id).subscribe(
+                            (res) => {
+                                if (res) {
+                                    self.msg.success('移除成功！');
+                                    self.slaves.reload();
+                                }
+                            }
+                        );
                     }
                 }
             ]

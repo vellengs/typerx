@@ -17,14 +17,16 @@ export class ApiService {
     return Repository.search(Db.Menu, keyword, value, '', limit);
   }
 
-
   async removeApiFromPermission(permission: string, apiId: string) {
+
     if (permission && apiId) {
-      await Db.Api.update({
+      const affect = await Db.Api.update({
         _id: {
           $in: apiId
         }
-      }, { $pullAll: { roles: [permission] } }, { multi: true }).exec();
+      }, { $pullAll: { permissions: [permission] } }, { multi: true }).exec();
+
+      console.log('affect:', affect);
     }
     return true;
   }

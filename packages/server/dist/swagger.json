@@ -4861,20 +4861,17 @@
 				"tags": [
 					"core"
 				],
-				"consumes": [
-					"application/x-www-form-urlencoded"
-				],
 				"parameters": [
 					{
 						"description": "权限编号",
-						"in": "formData",
+						"in": "query",
 						"name": "permission",
 						"required": true,
 						"type": "string"
 					},
 					{
 						"description": "接口编号",
-						"in": "formData",
+						"in": "query",
 						"name": "id",
 						"required": true,
 						"type": "string"

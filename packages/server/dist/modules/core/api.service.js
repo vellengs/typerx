@@ -26,12 +26,14 @@ class ApiService {
     }
     removeApiFromPermission(permission, apiId) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log('permission && apiId', permission);
             if (permission && apiId) {
-                yield core_database_1.CoreDatabase.Api.update({
+                const affect = yield core_database_1.CoreDatabase.Api.update({
                     _id: {
                         $in: apiId
                     }
-                }, { $pullAll: { roles: [permission] } }, { multi: true }).exec();
+                }, { $pullAll: { permissions: [permission] } }, { multi: true }).exec();
+                console.log('affect:', affect);
             }
             return true;
         });

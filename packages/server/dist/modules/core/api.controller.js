@@ -128,7 +128,7 @@ __decorate([
 __decorate([
     typescript_rest_1.Path('permission'),
     typescript_rest_1.DELETE,
-    __param(0, typescript_rest_1.FormParam('permission')), __param(1, typescript_rest_1.FormParam('id')),
+    __param(0, typescript_rest_1.QueryParam('permission')), __param(1, typescript_rest_1.QueryParam('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
