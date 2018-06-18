@@ -40,6 +40,7 @@ import { LogResponse } from '../model/logResponse';
 import { LoginDto } from '../model/loginDto';
 import { MenuResponse } from '../model/menuResponse';
 import { PaginateAccount } from '../model/paginateAccount';
+import { PaginateApi } from '../model/paginateApi';
 import { PaginateDict } from '../model/paginateDict';
 import { PaginateGroup } from '../model/paginateGroup';
 import { PaginateLog } from '../model/paginateLog';
@@ -554,6 +555,214 @@ export class CoreService {
         return this.httpClient.put<AccountResponse>(`${this.basePath}/api/account`,
             entry,
             {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 添加API接口到权限标签
+     * @param permission 权限编号
+     * @param ids 接口编号列表
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiAddApisToPermission(permission: string, ids: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public apiAddApisToPermission(permission: string, ids: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public apiAddApisToPermission(permission: string, ids: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public apiAddApisToPermission(permission: string, ids: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (permission === null || permission === undefined) {
+            throw new Error('Required parameter permission was null or undefined when calling apiAddApisToPermission.');
+        }
+        if (ids === null || ids === undefined) {
+            throw new Error('Required parameter ids was null or undefined when calling apiAddApisToPermission.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/html'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+            'application/x-www-form-urlencoded'
+        ];
+
+        const canConsumeForm = this.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): void; };
+        let useForm = false;
+        let convertFormParamsToString = false;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        }
+
+        if (permission !== undefined) {
+            formParams = formParams.append('permission', <any>permission) || formParams;
+        }
+        if (ids) {
+            ids.forEach((element) => {
+                formParams = formParams.append('ids', <any>element) || formParams;
+            })
+        }
+
+        return this.httpClient.post<boolean>(`${this.basePath}/api/api/permission`,
+            convertFormParamsToString ? formParams.toString() : formParams,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 按关键词查询接口
+     * @param keyword 关键词
+     * @param value 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiGetAccountsByKeyword(keyword?: string, value?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<KeyValue>>;
+    public apiGetAccountsByKeyword(keyword?: string, value?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<KeyValue>>>;
+    public apiGetAccountsByKeyword(keyword?: string, value?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<KeyValue>>>;
+    public apiGetAccountsByKeyword(keyword?: string, value?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (keyword !== undefined) {
+            queryParameters = queryParameters.set('keyword', <any>keyword);
+        }
+        if (value !== undefined) {
+            queryParameters = queryParameters.set('value', <any>value);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<KeyValue>>(`${this.basePath}/api/api/search`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 获取接口管理界面配置信息.
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiGetConfig(observe?: 'body', reportProgress?: boolean): Observable<Appearance>;
+    public apiGetConfig(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Appearance>>;
+    public apiGetConfig(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Appearance>>;
+    public apiGetConfig(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Appearance>(`${this.basePath}/api/api/config`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 接口查询
+     * @param keyword 接口关键词
+     * @param permission 
+     * @param page 第几页
+     * @param size 页大小
+     * @param sort 排序
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiQuery(keyword?: string, permission?: string, page?: number, size?: number, sort?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginateApi>;
+    public apiQuery(keyword?: string, permission?: string, page?: number, size?: number, sort?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginateApi>>;
+    public apiQuery(keyword?: string, permission?: string, page?: number, size?: number, sort?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginateApi>>;
+    public apiQuery(keyword?: string, permission?: string, page?: number, size?: number, sort?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (keyword !== undefined) {
+            queryParameters = queryParameters.set('keyword', <any>keyword);
+        }
+        if (permission !== undefined) {
+            queryParameters = queryParameters.set('permission', <any>permission);
+        }
+        if (page !== undefined) {
+            queryParameters = queryParameters.set('page', <any>page);
+        }
+        if (size !== undefined) {
+            queryParameters = queryParameters.set('size', <any>size);
+        }
+        if (sort !== undefined) {
+            queryParameters = queryParameters.set('sort', <any>sort);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<PaginateApi>(`${this.basePath}/api/api/query`,
+            {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -1496,7 +1705,7 @@ export class CoreService {
 
     /**
      * 
-     * 
+     * 获取菜单权限标签列表
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -2702,7 +2911,7 @@ export class CoreService {
 
     /**
      * 
-     * 
+     * 文件上传配置
      * @param action 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.

@@ -32,5 +32,8 @@ export declare class UserController {
     fileUpload(file: Express.Multer.File, field?: string): Promise<{
         url: string;
     }>;
+    /**
+     * 文件上传配置
+     */
     uploadConfig(action?: string): Promise<UploadConfig>;
 }

@@ -82,6 +82,7 @@ class PageService {
             'id',
             'name',
             'title',
+            'publish',
             'description',
             'sort',
             'disable',

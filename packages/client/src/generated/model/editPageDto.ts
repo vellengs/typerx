@@ -42,6 +42,10 @@ export interface EditPageDto {
     /**
      * 
      */
+    publish: string;
+    /**
+     * 
+     */
     meta: string;
     /**
      * 

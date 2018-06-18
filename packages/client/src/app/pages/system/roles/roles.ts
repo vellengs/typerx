@@ -1,12 +1,5 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { NzMessageService, NzModalService, UploadFile } from 'ng-zorro-antd';
 import { Component, OnInit, Injector, Input, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
-import { _HttpClient } from '@delon/theme';
-import { ListContext } from '../../../services/list.context';
 import { BaseStandComponent } from '@shared/base/base.stand.component';
-import { BaseSelectorComponent } from '@shared/base/base.selector';
 import { BaseTreeSelectorComponent } from '@shared/base/base.tree.selector';
 import { UserService } from '@services/user.service';
 import { Observable } from 'rxjs/Rx';
@@ -22,7 +15,7 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
     @Input() domain = 'role';
     title = '权限管理';
     selectedItem: any = {};
-    queryParams: any = {};
+    slaveQueryParams: any = {};
 
     @ViewChild('slaves') slaves: BaseStandComponent;
 
@@ -121,7 +114,7 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
             }).subscribe((res) => {
                 if (res) {
                     const ids = res.map(a => a.id);
-                    this.coreService.accountAddAccountsToRole(this.selectedItem.id, ids).subscribe(() => {
+                    self.coreService.accountAddAccountsToRole(self.selectedItem.id, ids).subscribe(() => {
                         this.msg.success('完成');
                         self.slaves.reload();
                     });
@@ -131,11 +124,11 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
 
     select(item) {
         this.selectedItem = item;
-        this.queryParams = {
+        this.slaveQueryParams = {
             role: item.id
         };
         if (this.slaves) {
-            this.slaves.queryParams = this.queryParams;
+            this.slaves.queryParams = this.slaveQueryParams;
             this.slaves.reload();
         }
     }

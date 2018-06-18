@@ -1,6 +1,4 @@
-/// <reference types="mongoose" />
-import { Document } from 'mongoose';
-export interface Category extends Document {
+export interface Category {
     id: string;
     name: string;
     slug: string;

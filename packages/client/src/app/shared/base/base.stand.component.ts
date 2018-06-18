@@ -1,16 +1,8 @@
-import { async } from '@angular/core/testing';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { NzMessageService, NzModalService, ModalOptionsForService } from 'ng-zorro-antd';
-import { Component, OnInit, OnDestroy, Input, EventEmitter, Output, Injector, NgModuleFactoryLoader, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { DatePipe, CurrencyPipe } from '@angular/common';
-import { ModalHelper } from '@delon/theme';
-import { XlsxService, SimpleTableColumn, STExportOptions, SimpleTableComponent } from '@delon/abc';
-import * as XLSX from 'xlsx';
+import { ModalOptionsForService } from 'ng-zorro-antd';
+import { Component, Input, EventEmitter, Injector, ViewChild } from '@angular/core';
+import { SimpleTableColumn, SimpleTableComponent } from '@delon/abc';
 import { BaseComponent } from './base.component';
-import { SFSchema, SFUISchema } from '@delon/form';
-import { BaseTable, CurdPage, Appearance, FormSets } from 'types/types';
-import { Subject } from 'rxjs/Subject';
+import { CurdPage, FormSets } from 'types/types';
 import { BaseDetailComponent } from '@shared/base/base.detail.component';
 import { pickBy } from 'lodash';
 
@@ -22,9 +14,6 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
 
 
     total: number;
-    private loaded = false;
-    private list: any = {};
-    private emitter: Subject<boolean> = new Subject<boolean>();
     entries = [];
 
     @ViewChild('simpleTable') simpleTable: SimpleTableComponent;
@@ -134,19 +123,19 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
         const instance = this.beforeSave(entry);
 
         if (instance.id) {
-            return this.client.put(url, instance).subscribe((res) => {
+            return this.client.put(url, instance).subscribe(() => {
                 this.msg.success('更新成功');
                 this.reload();
             });
         } else {
-            return this.client.post(url, instance).subscribe((res) => {
+            return this.client.post(url, instance).subscribe(() => {
                 this.msg.success('保存成功');
                 this.reload();
             });
         }
     }
 
-    async changeStatus(entry) {
+    async changeStatus() {
 
     }
 
@@ -187,7 +176,7 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
         return this.simpleTable;
     }
 
-    load(pageIndex?: number): void {
+    load(): void {
         if (this.simpleTable) {
             // this.simpleTable.load(pageIndex, this.queryParams);
         } else {

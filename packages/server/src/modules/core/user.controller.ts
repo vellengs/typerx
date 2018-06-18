@@ -81,6 +81,9 @@ export class UserController {
   }
 
 
+  /**
+   * 文件上传配置
+   */
   @GET
   @Path("upload")
   async uploadConfig(@QueryParam("action") action?: string): Promise<UploadConfig> {

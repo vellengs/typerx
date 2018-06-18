@@ -65,11 +65,18 @@ export class BaseTreeSelectorComponent extends BaseComponent implements OnInit {
     }
 
     cleanAll() {
-
+        this.selectedItems.forEach((item) => {
+            item.isChecked = false;
+        });
+        this.selectedItems = [];
     }
 
     removeOne(item) {
-
+        const index = this.selectedItems.indexOf(item);
+        if (index > -1) {
+            item.isChecked = false;
+            this.selectedItems.splice(index, 1);
+        }
     }
 
     treeNodeClick(name: string, e: any) {
@@ -94,9 +101,6 @@ export class BaseTreeSelectorComponent extends BaseComponent implements OnInit {
 
     getAllCheckedItems() {
         const stack = [...this.nodes], array = [], hashMap = {};
-
-        console.log('nodes:', this.nodes);
-
         while (stack.length !== 0) {
             const node = stack.pop();
             let satisfy = false;
@@ -120,9 +124,6 @@ export class BaseTreeSelectorComponent extends BaseComponent implements OnInit {
                 }
             }
         }
-
-        console.log('array:', array);
-
         this.selectedItems = array.map((a) => {
             return a.origin;
         });

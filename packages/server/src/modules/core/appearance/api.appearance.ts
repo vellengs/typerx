@@ -94,18 +94,18 @@ export const appearance: Appearance = {
     columnSets: {
         default: [
             {
+                title: '编号',
+                index: 'id',
+                type: 'checkbox',
+            },
+            {
                 title: 'name',
                 i18n: '接口名称',
                 index: ['name']
             },
             {
-                title: 'method',
-                i18n: '方法',
-                index: ['method']
-            },
-            {
                 title: 'path',
-                i18n: '路径',
+                i18n: '接口标识',
                 index: ['path']
             },
             {

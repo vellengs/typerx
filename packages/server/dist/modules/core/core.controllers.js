@@ -8,6 +8,7 @@ const dict_controller_1 = require("./dict.controller");
 const role_controller_1 = require("./role.controller");
 const log_controller_1 = require("./log.controller");
 const group_controller_1 = require("./group.controller");
+const api_controller_1 = require("./api.controller");
 exports.default = [
     account_controller_1.AccountController,
     user_controller_1.UserController,
@@ -17,5 +18,6 @@ exports.default = [
     role_controller_1.RoleController,
     log_controller_1.LogController,
     group_controller_1.GroupController,
+    api_controller_1.ApiController,
 ];
 //# sourceMappingURL=core.controllers.js.map

@@ -1,6 +1,7 @@
 <nz-row [nzGutter]="12" class="modal-selector">
     <nz-col [nzSpan]="multiple?16:24">
-        <simple-table *ngIf="columns" #simpleTable [data]="queryUrl" [columns]="columns" [extraParams]="queryParams"></simple-table>
+        <simple-table [size]="'middle'" (checkboxChange)="checkboxChange($event)" *ngIf="columns" #simpleTable [data]="queryUrl"
+            [columns]="columns" [extraParams]="queryParams"></simple-table>
     </nz-col>
 
     <nz-col *ngIf="multiple" [nzSpan]="8">
@@ -12,7 +13,7 @@
                 </div>
                 <div class="pull-right">
                     <a class="btn btn-icon-toggle" title="清空" (click)="cleanAll()">
-                        <i class="fa fa-trash-o"></i>
+                        <i class="anticon anticon-delete"></i>
                     </a>
                 </div>
             </div>
@@ -21,7 +22,7 @@
                     <li *ngFor="let item of selectedItems">
                         <span>{{item.name}}</span>
                         <a class="btn btn-icon-toggle" title="移除" (click)="removeOne(item)">
-                            <i class="fa fa-trash-o"></i>
+                            <i class="anticon anticon-delete"></i>
                         </a>
                     </li>
                 </ul>

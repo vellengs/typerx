@@ -1,5 +1,3 @@
-/// <reference types="mongoose" />
-import { Document } from 'mongoose';
-export interface Content extends Document {
+export interface Content {
     text: string;
 }

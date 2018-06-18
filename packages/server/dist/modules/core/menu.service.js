@@ -54,8 +54,9 @@ class MenuService {
     query(keyword, isMenu, page, size, sort) {
         return __awaiter(this, void 0, void 0, function* () {
             const condition = keyword ? { name: new RegExp(keyword, 'i') } : {};
-            if (isMenu)
-                condition.isMenu = true;
+            if (isMenu != null) {
+                condition.isMenu = isMenu;
+            }
             const query = core_database_1.CoreDatabase.Menu.find(condition).sort(sort);
             query.populate([{
                     path: 'permissions',
@@ -83,22 +84,30 @@ class MenuService {
     }
     getAuthenticatedMenus(user) {
         return __awaiter(this, void 0, void 0, function* () {
-            const account = yield core_database_1.CoreDatabase.Account.findOne({ _id: user.id }, 'groups').exec();
-            const roles = account.toObject().roles || [];
-            const roleDocs = (yield core_database_1.CoreDatabase.Group.find({
-                _id: { $in: roles }
-            }, 'permissions').exec()) || [];
-            const permissions = [];
-            roleDocs.forEach((g) => {
-                permissions.push(...g.permissions);
-            });
-            const menus = yield core_database_1.CoreDatabase.Menu.find({
-                _id: {
-                    $in: permissions
-                },
-                isMenu: true
-            });
-            return menus;
+            if (!user.isAdmin) {
+                const account = yield core_database_1.CoreDatabase.Account.findOne({ _id: user.id }, 'groups').exec();
+                const roles = account.toObject().roles || [];
+                const roleDocs = (yield core_database_1.CoreDatabase.Group.find({
+                    _id: { $in: roles }
+                }, 'permissions').exec()) || [];
+                const permissions = [];
+                roleDocs.forEach((g) => {
+                    permissions.push(...g.permissions);
+                });
+                const menus = yield core_database_1.CoreDatabase.Menu.find({
+                    _id: {
+                        $in: permissions
+                    },
+                    isMenu: true
+                });
+                return menus;
+            }
+            else {
+                const menus = yield core_database_1.CoreDatabase.Menu.find({
+                    isMenu: true
+                });
+                return menus;
+            }
         });
     }
     pure(entry) {

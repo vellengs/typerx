@@ -42,6 +42,10 @@ export interface CreatePageDto {
     /**
      * 
      */
+    publish: string;
+    /**
+     * 
+     */
     content: string;
     /**
      * 

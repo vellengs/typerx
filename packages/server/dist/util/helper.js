@@ -4,16 +4,19 @@ const lodash_1 = require("lodash");
 exports.pinyinlite = require('pinyinlite');
 class Helper {
     /**
-     * 生成用于模糊查询的关键词字段
+     * 生成用于模糊查询的关键词字段, 长标题勿用
      * @param val 原始字符串
      */
-    static genPinyinKeywords(val) {
+    static genPinyinKeywords(val, cartesian = true) {
         if (!val) {
             return [];
         }
         let arrResult = exports.pinyinlite(val).filter((item) => {
             return item && item.length > 0;
         });
+        if (!cartesian) {
+            return arrResult;
+        }
         const fullResult = Helper.cartesianProductOf(arrResult).map((item) => {
             return item.join('');
         });
@@ -24,7 +27,11 @@ class Helper {
         })).map((item) => {
             return item.join('');
         });
-        return lodash_1.uniq(fullResult.concat(simplifyResult));
+        const result = lodash_1.uniq(fullResult.concat(simplifyResult));
+        if (result.join('').length > 512) {
+            throw new Error('gen pinyin keywords too long.');
+        }
+        return result;
     }
     static cartesianProductOf(elements) {
         if (!Array.isArray(elements)) {

@@ -1,6 +1,4 @@
-/// <reference types="mongoose" />
-import { Document } from 'mongoose';
-export interface Custom extends Document {
+export interface Custom {
     id: string;
     name: string;
     title: string;

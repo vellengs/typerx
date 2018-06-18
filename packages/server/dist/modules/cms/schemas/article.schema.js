@@ -21,5 +21,12 @@ exports.schema = new mongoose_1.Schema({
     template: {
         ref: 'Content', type: mongoose_1.SchemaTypes.ObjectId
     }
-}, { timestamps: true });
+}, {
+    timestamps: true, toJSON: {
+        transform: (doc, ret, options) => {
+            ret.id = ret._id;
+            delete ret._id;
+        }
+    }
+});
 //# sourceMappingURL=article.schema.js.map

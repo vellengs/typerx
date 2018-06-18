@@ -14,23 +14,23 @@ const addForm = {
                 }
             }
         },
-        keyword: {
-            title: '关键词',
-            type: appearance_1.SchemaTypes.string
-        },
-        category: {
-            title: '分类',
+        file: {
+            title: '文件',
             type: appearance_1.SchemaTypes.string,
             ui: {
-                widget: appearance_1.WidgetTypes.search,
-                domain: 'category',
+                widget: appearance_1.WidgetTypes.avatar,
+                fileType: 'image/png,image/jpeg,image/gif,image/bmp',
+                listType: 'picture-card',
+                action: 'user/upload',
+                limit: 1,
+                name: 'file',
                 grid: {
-                    span: 16
+                    span: 24
                 }
-            }
+            },
         },
         description: {
-            title: '摘要',
+            title: '描述',
             type: appearance_1.SchemaTypes.string,
             ui: {
                 widget: appearance_1.WidgetTypes.textarea,
@@ -38,19 +38,9 @@ const addForm = {
                     span: 24
                 }
             }
-        },
-        content: {
-            title: '内容',
-            type: appearance_1.SchemaTypes.string,
-            ui: {
-                widget: appearance_1.WidgetTypes.ueditor,
-                grid: {
-                    span: 24
-                }
-            }
-        },
+        }
     },
-    required: [],
+    required: ['name'],
     ui: {
         spanLabelFixed: 100,
         grid: {
@@ -59,24 +49,24 @@ const addForm = {
     }
 };
 const editForm = lodash_1.cloneDeep(addForm);
-editForm.title = '编辑文章';
-editForm.required = ['username'];
-editForm.properties.secret = {
-    title: '密保',
-    type: appearance_1.SchemaTypes.string
-};
+editForm.title = '编辑媒体';
+editForm.required = ['name'];
 exports.appearance = {
     columnSets: {
         default: [
             {
-                title: '文章名称',
+                title: '名称',
                 index: 'name',
                 type: 'link',
                 action: 'edit'
             },
             {
                 title: '标题',
-                index: 'title'
+                index: 'caption'
+            },
+            {
+                title: '地址',
+                index: 'url'
             }
         ]
     },

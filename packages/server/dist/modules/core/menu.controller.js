@@ -39,6 +39,9 @@ let MenuController = class MenuController {
             return this.service.getAppearance();
         });
     }
+    /**
+     * 获取菜单权限标签列表
+     */
     getPermissionTags() {
         return __awaiter(this, void 0, void 0, function* () {
             return this.service.getAllPermissionTags();

@@ -90,7 +90,7 @@ export class AccountController {
    */
   @Path('role')
   @POST
-  async addAccountsToRole(@FormParam('role') role: string, @FormParam('accountIds') accountIds: string[]): Promise<boolean> {
+  async addAccountsToRole(@FormParam('role') role: string, @FormParam('accountIds') accountIds: string[] | string): Promise<boolean> {
     return this.service.addAccountsToRole(role, accountIds);
   }
 

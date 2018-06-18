@@ -16,6 +16,12 @@ exports.schema = new mongoose_1.Schema({
     },
     description: {
         type: mongoose_1.SchemaTypes.String
-    }
+    },
+    permissions: [
+        {
+            type: mongoose_1.SchemaTypes.ObjectId,
+            ref: 'Menu'
+        }
+    ]
 }, { timestamps: true });
 //# sourceMappingURL=api.schema.js.map

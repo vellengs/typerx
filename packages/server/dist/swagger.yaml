@@ -1156,6 +1156,59 @@ definitions:
         required:
             - list
             - total
+    ApiResponse:
+        description: ""
+        properties:
+            id:
+                type: string
+                description: ""
+            name:
+                type: string
+                description: ""
+            method:
+                type: string
+                description: ""
+            path:
+                type: string
+                description: ""
+            version:
+                type: string
+                description: ""
+            description:
+                type: string
+                description: ""
+            permissions:
+                type: array
+                items:
+                    type: string
+                description: ""
+        type: object
+        required:
+            - id
+            - name
+            - method
+            - path
+            - version
+            - description
+            - permissions
+    PaginateApi:
+        description: ""
+        properties:
+            error:
+                $ref: '#/definitions/Error'
+            list:
+                type: array
+                items:
+                    $ref: '#/definitions/ApiResponse'
+                description: ""
+            total:
+                type: number
+                format: double
+                description: ""
+        type: object
+        required:
+            - list
+            - total
     PageResponse:
         description: ""
         properties:
@@ -1174,6 +1227,9 @@ definitions:
             sort:
                 type: number
                 format: double
+                description: ""
+            publish:
+                type: string
                 description: ""
             disable:
                 type: boolean
@@ -1194,6 +1250,7 @@ definitions:
             - title
             - description
             - sort
+            - publish
             - disable
             - meta
             - content
@@ -1220,6 +1277,9 @@ definitions:
             meta:
                 type: string
                 description: ""
+            publish:
+                type: string
+                description: ""
             content:
                 type: string
                 description: ""
@@ -1234,6 +1294,7 @@ definitions:
             - sort
             - disable
             - meta
+            - publish
             - content
             - template
     EditPageDto:
@@ -1258,6 +1319,9 @@ definitions:
             disable:
                 type: boolean
                 description: ""
+            publish:
+                type: string
+                description: ""
             meta:
                 type: string
                 description: ""
@@ -1275,6 +1339,7 @@ definitions:
             - description
             - sort
             - disable
+            - publish
             - meta
             - content
             - template
@@ -1298,21 +1363,99 @@ definitions:
             - total
     MediaResponse:
         description: ""
-        properties: {}
+        properties:
+            id:
+                type: string
+                description: ""
+            name:
+                type: string
+                description: ""
+            caption:
+                type: string
+                description: ""
+            description:
+                type: string
+                description: ""
+            ext:
+                type: object
+                description: ""
+            url:
+                type: string
+                description: ""
+            uri:
+                type: string
+                description: ""
         type: object
+        required:
+            - id
+            - name
+            - caption
+            - description
+            - ext
+            - url
+            - uri
     CreateMediaDto:
         description: ""
-        properties: {}
+        properties:
+            name:
+                type: string
+                description: ""
+            caption:
+                type: string
+                description: ""
+            description:
+                type: string
+                description: ""
+            ext:
+                type: object
+                description: ""
+            url:
+                type: string
+                description: ""
+            uri:
+                type: string
+                description: ""
         type: object
+        required:
+            - name
+            - caption
+            - description
+            - ext
+            - url
+            - uri
     EditMediaDto:
         description: ""
         properties:
             id:
                 type: string
                 description: ""
+            name:
+                type: string
+                description: ""
+            caption:
+                type: string
+                description: ""
+            description:
+                type: string
+                description: ""
+            ext:
+                type: object
+                description: ""
+            url:
+                type: string
+                description: ""
+            uri:
+                type: string
+                description: ""
         type: object
         required:
             - id
+            - name
+            - caption
+            - description
+            - ext
+            - url
+            - uri
     PaginateMedia:
         description: ""
         properties:
@@ -2247,7 +2390,7 @@ paths:
                     description: Ok
                     schema:
                         $ref: '#/definitions/UploadConfig'
-            description: ""
+            description: 文件上传配置
             tags:
                 - core
             parameters:
@@ -2283,7 +2426,7 @@ paths:
                         type: array
                         items:
                             $ref: '#/definitions/SelectorItem'
-            description: ""
+            description: 获取菜单权限标签列表
             tags:
                 - core
             parameters: []
@@ -3313,6 +3456,124 @@ paths:
                     name: id
                     required: true
                     type: string
+    /api/api/config:
+        get:
+            operationId: ApiGetConfig
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/Appearance'
+            description: 获取接口管理界面配置信息.
+            tags:
+                - core
+            parameters: []
+    /api/api/search:
+        get:
+            operationId: ApiGetAccountsByKeyword
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        type: array
+                        items:
+                            $ref: '#/definitions/KeyValue'
+            description: 按关键词查询接口
+            tags:
+                - core
+            parameters:
+                -
+                    description: 关键词
+                    in: query
+                    name: keyword
+                    required: false
+                    type: string
+                -
+                    description: ""
+                    in: query
+                    name: value
+                    required: false
+                    type: string
+    /api/api/query:
+        get:
+            operationId: ApiQuery
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/PaginateApi'
+            description: 接口查询
+            tags:
+                - core
+            parameters:
+                -
+                    description: 接口关键词
+                    in: query
+                    name: keyword
+                    required: false
+                    type: string
+                -
+                    description: ""
+                    in: query
+                    name: permission
+                    required: false
+                    type: string
+                -
+                    description: 第几页
+                    in: query
+                    name: page
+                    required: false
+                    type: number
+                    format: double
+                -
+                    description: 页大小
+                    in: query
+                    name: size
+                    required: false
+                    type: number
+                    format: double
+                -
+                    description: 排序
+                    in: query
+                    name: sort
+                    required: false
+                    type: string
+    /api/api/permission:
+        post:
+            operationId: ApiAddApisToPermission
+            produces:
+                - text/html
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        type: boolean
+            description: 添加API接口到权限标签
+            tags:
+                - core
+            consumes:
+                - application/x-www-form-urlencoded
+            parameters:
+                -
+                    description: 权限编号
+                    in: formData
+                    name: permission
+                    required: true
+                    type: string
+                -
+                    description: 接口编号列表
+                    in: formData
+                    name: ids
+                    required: true
+                    type: array
+                    items:
+                        type: string
     /api/page/config:
         get:
             operationId: PageGetConfig

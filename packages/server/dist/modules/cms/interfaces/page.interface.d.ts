@@ -1,6 +1,4 @@
-/// <reference types="mongoose" />
-import { Document } from 'mongoose';
-export interface Page extends Document {
+export interface Page {
     id: string;
     name: string;
     title: string;
@@ -9,6 +7,7 @@ export interface Page extends Document {
     sort: number;
     disable: boolean;
     meta: string;
+    publish: string;
     content: string;
     template: string;
 }

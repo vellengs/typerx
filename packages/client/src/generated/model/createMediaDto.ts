@@ -15,4 +15,28 @@
  * 
  */
 export interface CreateMediaDto {
+    /**
+     * 
+     */
+    name: string;
+    /**
+     * 
+     */
+    caption: string;
+    /**
+     * 
+     */
+    description: string;
+    /**
+     * 
+     */
+    ext: any;
+    /**
+     * 
+     */
+    url: string;
+    /**
+     * 
+     */
+    uri: string;
 }

@@ -71,6 +71,9 @@ let UserController = class UserController {
             return result;
         });
     }
+    /**
+     * 文件上传配置
+     */
     uploadConfig(action) {
         return __awaiter(this, void 0, void 0, function* () {
             return this.service.getUploadConfig(action);

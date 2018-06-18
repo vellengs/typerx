@@ -16,6 +16,7 @@ exports.PageResponseFields = [
     'description',
     'sort',
     'disable',
+    'publish',
     'meta',
     'content',
     'template',

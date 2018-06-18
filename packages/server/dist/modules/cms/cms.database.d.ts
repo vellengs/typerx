@@ -1,5 +1,5 @@
 /// <reference types="mongoose" />
-import { Model } from 'mongoose';
+import { Model, Document } from 'mongoose';
 import { Category } from './interfaces/category.interface';
 import { Comment } from './interfaces/comment.interface';
 import { Media } from './interfaces/media.interface';
@@ -9,12 +9,12 @@ import { Content } from './interfaces/content.interface';
 import { Article } from './interfaces/article.interface';
 import { Custom } from './interfaces/custom.interface';
 export declare const CmsDatabase: {
-    Article: Model<Article>;
-    Category: Model<Category>;
-    Comment: Model<Comment>;
-    Media: Model<Media>;
-    Page: Model<Page>;
-    Widget: Model<Widget>;
-    Content: Model<Content>;
-    Custom: Model<Custom>;
+    Article: Model<Article & Document>;
+    Category: Model<Category & Document>;
+    Comment: Model<Comment & Document>;
+    Media: Model<Media & Document>;
+    Page: Model<Page & Document>;
+    Widget: Model<Widget & Document>;
+    Content: Model<Content & Document>;
+    Custom: Model<Custom & Document>;
 };

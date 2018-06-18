@@ -36,6 +36,9 @@ export class MenuController {
     return this.service.getAppearance();
   }
 
+  /**
+   * 获取菜单权限标签列表
+   */
   @Path('permissions')
   @GET
   async getPermissionTags(): Promise<Array<SelectorItem>> {

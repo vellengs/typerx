@@ -8,6 +8,7 @@ exports.schema = new mongoose_1.Schema({
     description: mongoose_1.SchemaTypes.String,
     sort: mongoose_1.SchemaTypes.Number,
     disable: mongoose_1.SchemaTypes.Boolean,
+    publish: { type: mongoose_1.SchemaTypes.Date, default: Date.now },
     meta: {
         ref: 'Meta', type: mongoose_1.SchemaTypes.ObjectId
     },

@@ -29,9 +29,9 @@
     <nz-col [nzSpan]="16">
         <nz-card *ngIf="selectedItem.name" [nzTitle]="selectedItem.name + '的列表'" [nzExtra]="mainTpl">
 
-            <app-base-stand #slaves [operations]="operations" [queryUrl]="'api/api/query'" [queryParams]="queryParams" [domain]="'api'"></app-base-stand>
+            <app-base-stand #slaves [operations]="operations" [queryUrl]="'api/api/query'" [queryParams]="slaveQueryParams" [domain]="'api'"></app-base-stand>
             <ng-template #mainTpl>
-                <a>
+                <a (click)="addApiPermission()">
                     <i class="anticon anticon-plus"></i>
                     添加接口成员</a>
             </ng-template>

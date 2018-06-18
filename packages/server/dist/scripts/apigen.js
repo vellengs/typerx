@@ -12,13 +12,46 @@ const axios_1 = require("axios");
 const path = require("path");
 const https = require("https");
 const fs = require("fs");
+const connector_1 = require("./../database/connector");
+const secrets_1 = require("./../util/secrets");
+connector_1.connect(secrets_1.MONGODB_URI);
+const core_database_1 = require("../modules/core/core.database");
 const unzip = require('unzip');
 const rimraf = require('rimraf');
+const swaggerParser = require("swagger-parser");
 const gateway = 'https://generator.swagger.io/api/gen/clients/typescript-angular';
+function upsertApi(jsonPath) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const api = yield swaggerParser.parse(jsonPath).then();
+        let result = 0;
+        const paths = Object.keys(api.paths);
+        for (let url of paths) {
+            if (url) {
+                const item = api.paths[url];
+                const methods = Object.keys(item);
+                for (let method of methods) {
+                    const entry = item[method];
+                    const doc = {
+                        name: (entry.description || ''),
+                        method: url,
+                        path: method + url,
+                        version: api.info.version
+                    };
+                    const count = yield core_database_1.CoreDatabase.Api.findOneAndUpdate({ path: doc.path }, doc, { upsert: true, 'new': true }).exec();
+                    if (count) {
+                        result++;
+                    }
+                }
+            }
+        }
+        console.log('completed upsert api ...');
+    });
+}
 function loadSwagger() {
     return __awaiter(this, void 0, void 0, function* () {
         const jsonPath = path.resolve(process.cwd(), 'dist', 'swagger.json');
         const json = require(jsonPath);
+        yield upsertApi(jsonPath);
         const client = axios_1.default.create({
             httpsAgent: new https.Agent({
                 rejectUnauthorized: false
@@ -51,6 +84,7 @@ function loadSwagger() {
                 }));
             });
         }
+        console.log('load swagger ...');
     });
 }
 function sleep(ms) {

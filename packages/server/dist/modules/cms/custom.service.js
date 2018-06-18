@@ -30,7 +30,7 @@ class CustomService {
         });
     }
     setKeyWord(entry) {
-        let keyword = helper_1.Helper.genPinyinKeywords(entry.title);
+        let keyword = helper_1.Helper.genPinyinKeywords(entry.title, false);
         keyword.push(entry.name);
         keyword.push(entry.title);
         entry.keyword = keyword.join('');

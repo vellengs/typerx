@@ -6,6 +6,7 @@ export class ApiResponse {
   path: string;
   version: string;
   description: string;
+  permissions: Array<string>;
 }
 
 export const ApiResponseFields = [
@@ -14,7 +15,8 @@ export const ApiResponseFields = [
   'method',
   'path',
   'version',
-  'description'
+  'description',
+  'permissions'
 ];
 
 export declare interface PaginateApi {

@@ -38,6 +38,10 @@ export interface PageResponse {
     /**
      * 
      */
+    publish: string;
+    /**
+     * 
+     */
     disable: boolean;
     /**
      * 

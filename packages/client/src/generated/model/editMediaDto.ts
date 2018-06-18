@@ -19,4 +19,28 @@ export interface EditMediaDto {
      * 
      */
     id: string;
+    /**
+     * 
+     */
+    name: string;
+    /**
+     * 
+     */
+    caption: string;
+    /**
+     * 
+     */
+    description: string;
+    /**
+     * 
+     */
+    ext: any;
+    /**
+     * 
+     */
+    url: string;
+    /**
+     * 
+     */
+    uri: string;
 }

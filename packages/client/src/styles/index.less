@@ -71,19 +71,17 @@ table {
         padding: 0 !important;
     }
     .card-body {
-        overflow-y: auto;
-        overflow-x: hidden;
-        position: absolute;
         top: 0;
         bottom: 0;
         left: 0;
         right: 0;
-        margin-top: 52px;
+        padding-top: 10px;
         overflow-y: auto;
         overflow-x: hidden;
+        max-height: 460px;
     }
     .select-result .list {
-        padding-left: 10px;
+        padding: 10px;
     }
     .select-result .list span {
         display: inline-block;
@@ -96,10 +94,11 @@ table {
         text-overflow: ellipsis;
     }
     .btn-icon-toggle {
-        padding: 0;
+        padding: 5px;
         width: 28px;
         height: 28px;
         float: right;
+        text-align: center;
     }
     .btn-flat,
     .btn-icon-toggle {
@@ -108,7 +107,7 @@ table {
         border-color: transparent;
     }
     .btn-icon-toggle {
-        border-radius: 999px;
+        border-radius: 50%;
     }
     .btn-icon-toggle:hover,
     .btn-flat:hover,

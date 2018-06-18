@@ -78,6 +78,7 @@ const sysSetting = {
         logo: {
             title: '系统标志',
             type: appearance_1.SchemaTypes.string,
+            description: '尺寸大小 120x30',
             ui: {
                 widget: appearance_1.WidgetTypes.avatar,
                 fileType: 'image/png,image/jpeg,image/gif,image/bmp',

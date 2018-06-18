@@ -3,7 +3,6 @@ import { BaseComponent } from '@shared/base/base.component';
 import { NzModalRef } from 'ng-zorro-antd';
 import { SimpleTableComponent } from '@delon/abc';
 
-
 @Component({
     selector: 'app-base-selector',
     templateUrl: './base.selector.html'
@@ -27,18 +26,37 @@ export class BaseSelectorComponent extends BaseComponent {
     model: any = {};
 
     save(event?) {
-        // this.selectedNodes = [];
-        // this.findChildNodes(this.nodes);
-        // const selectedValue = this.multiple ? this.globalSelecteds : this.model;
-        // this.subject.next({ value: selectedValue, dialog: this.subject });
+        this.modalRef.destroy(this.selectedItems);
     }
 
     cleanAll() {
-
+        this.selectedItems.forEach((item) => {
+            item.checked = false;
+        });
+        this.selectedItems = [];
     }
 
     removeOne(item) {
+        const index = this.selectedItems.indexOf(item);
+        if (index > -1) {
+            item.checked = false;
+            this.selectedItems.splice(index, 1);
+        }
+    }
 
+    checkboxChange(list: any[]) {
+        list.forEach((item) => {
+            if (!this.hasBeenSelected(item)) {
+                this.selectedItems.push(item);
+            }
+        });
+    }
+
+    hasBeenSelected(item) {
+        const index = this.selectedItems.findIndex((entry) => {
+            return entry.id === item.id;
+        });
+        return index > -1;
     }
 
     cancel(event?) {

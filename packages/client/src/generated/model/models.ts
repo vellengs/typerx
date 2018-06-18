@@ -1,4 +1,5 @@
 export * from './accountResponse';
+export * from './apiResponse';
 export * from './appearance';
 export * from './articleResponse';
 export * from './categoryResponse';
@@ -44,6 +45,7 @@ export * from './modelFunction';
 export * from './modelObject';
 export * from './pageResponse';
 export * from './paginateAccount';
+export * from './paginateApi';
 export * from './paginateArticle';
 export * from './paginateCategory';
 export * from './paginateCustom';

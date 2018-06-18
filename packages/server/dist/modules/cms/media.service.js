@@ -74,19 +74,11 @@ class MediaService {
         return lodash_1.pick(entry, [
             'id',
             'name',
-            'slug',
-            'group',
-            'link',
-            'externalLink',
-            'blank',
-            'icon',
-            'order',
-            'enable',
-            'expanded',
-            'acl',
-            'permissions',
-            'parent',
-            'isMedia'
+            'caption',
+            'description',
+            'ext',
+            'url',
+            'uri'
         ]);
     }
 }

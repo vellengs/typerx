@@ -27,7 +27,7 @@ class AccountService {
         });
     }
     setKeyWord(entry) {
-        let keyword = helper_1.Helper.genPinyinKeywords(entry.nick);
+        let keyword = helper_1.Helper.genPinyinKeywords(entry.nick, true);
         keyword.push(entry.email);
         keyword.push(entry.mobile);
         keyword.push(entry.nick);

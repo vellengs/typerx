@@ -1,11 +1,6 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { NzMessageService, NzModalService, UploadFile } from 'ng-zorro-antd';
-import { Component, OnInit, Injector, Input } from '@angular/core';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
-import { _HttpClient } from '@delon/theme';
-import { ListContext } from '../../../services/list.context';
+import { Component, OnInit, Injector, Input, ViewChild } from '@angular/core';
 import { BaseStandComponent } from '@shared/base/base.stand.component';
+import { BaseSelectorComponent } from '@shared/base/base.selector';
 
 @Component({
     selector: 'app-permission-page',
@@ -17,10 +12,14 @@ export class PermissionPageComponent extends BaseStandComponent implements OnIni
     url;
     @Input() domain = 'menu';
     title = '接口访问配置';
-    selectedItem = {};
+    selectedItem: any = {};
 
     permissions = [];
     _queryParams: { [key: string]: any; } = {};
+    slaveQueryParams: { [key: string]: any; } = {};
+    slaveColumns;
+
+    @ViewChild('slaves') slaves: BaseStandComponent;
 
     set queryParams(val) {
         this._queryParams = val;
@@ -42,18 +41,43 @@ export class PermissionPageComponent extends BaseStandComponent implements OnIni
         this.onConfigChanged.subscribe(() => {
         });
         this.load();
+        this.coreService.apiGetConfig().subscribe((res) => {
+            if (res) {
+                this.slaveColumns = res.columnSets['default'];
+            }
+        });
     }
 
-    addAccount() {
-
-    }
-
-    editPermission() {
-
+    addApiPermission() {
+        const self = this;
+        this.modalHelper.static(BaseSelectorComponent, {
+            queryUrl: 'api/api/query',
+            columns: this.slaveColumns
+        }, 1170, {
+                nzTitle: '添加接口权限',
+            }).subscribe((res) => {
+                if (res) {
+                    const ids = res.map(a => a.id);
+                    self.coreService.apiAddApisToPermission(self.selectedItem.id, ids)
+                        .subscribe(() => {
+                            self.msg.success('完成');
+                            self.slaves.reload();
+                        });
+                }
+            });
     }
 
     select(item) {
         this.selectedItem = item;
+        this.slaveQueryParams = {
+            permission: item.id
+        };
+
+        if (this.slaves) {
+            this.slaves.queryParams = this.slaveQueryParams;
+            this.slaves.reload();
+            console.log('show slave ...');
+        }
     }
 
 }

@@ -18,6 +18,7 @@ import { Repository } from '../../database/repository';
 import { KeyValue } from '../../types/data.types';
 import { Group } from './interfaces/group.interface';
 import { Helper } from '../../util/helper';
+import { ObjectId } from 'bson';
 
 export class AccountService {
   async getAppearance(): Promise<Appearance> {
@@ -119,9 +120,11 @@ export class AccountService {
     return true;
   }
 
+  async addAccountsToRole(role: string, accountIds: string[] | string) {
 
-
-  async addAccountsToRole(role: string, accountIds: string[]) {
+    if (!Array.isArray(accountIds) && ObjectId.isValid(accountIds)) {
+      accountIds = [accountIds];
+    }
 
     if (role && Array.isArray(accountIds)) {
       const existIds = (await Db.Account.find({
@@ -138,7 +141,7 @@ export class AccountService {
         return exists.indexOf(id) === -1;
       });
 
-      await Db.Account.update({
+      const effects = await Db.Account.update({
         _id: {
           $in: ids
         }

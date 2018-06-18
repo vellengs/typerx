@@ -12,7 +12,6 @@ import { CoreDatabase } from '../modules/core/core.database';
 const unzip = require('unzip');
 const rimraf = require('rimraf');
 import * as swaggerParser from 'swagger-parser';
-
 const gateway = 'https://generator.swagger.io/api/gen/clients/typescript-angular';
 
 async function upsertApi(jsonPath: string) {
@@ -48,9 +47,6 @@ async function loadSwagger() {
     const json = require(jsonPath);
 
     await upsertApi(jsonPath);
-
-
-
     const client = axios.create({
         httpsAgent: new https.Agent({
             rejectUnauthorized: false

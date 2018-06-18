@@ -5,6 +5,8 @@ import {
   Context,
   ServiceContext,
   Preprocessor,
+  FormParam,
+  POST,
 } from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
 import { Appearance } from './../../types/appearance';
@@ -63,11 +65,25 @@ export class ApiController {
   @GET
   async query(
     @QueryParam('keyword') keyword?: string,
+    @QueryParam('permission') permission?: string,
     @QueryParam('page') page?: number,
     @QueryParam('size') size?: number,
     @QueryParam('sort') sort?: string
   ): Promise<PaginateApi> {
-    return this.service.query(keyword, page, size, sort);
+    return this.service.query(keyword, permission, page, size, sort);
   }
+
+  /**
+   * 添加API接口到权限标签
+   * @param permission 权限编号
+   * @param ids 接口编号列表
+   */
+  @Path('permission')
+  @POST
+  async addApisToPermission(@FormParam('permission') permission: string, @FormParam('ids') ids: string[] | string): Promise<boolean> {
+    return this.service.addApiPermission(permission, ids);
+  }
+
+
 
 }

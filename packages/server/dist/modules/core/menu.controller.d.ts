@@ -14,6 +14,9 @@ export declare class MenuController {
      * 获取帐号管理界面配置信息.
      */
     getConfig(): Promise<Appearance>;
+    /**
+     * 获取菜单权限标签列表
+     */
     getPermissionTags(): Promise<Array<SelectorItem>>;
     /**
      * 查询菜单

@@ -16,6 +16,12 @@ export const schema = new Schema({
     },
     description: {
         type: t.String
-    }
+    },
+    permissions: [
+        {
+            type: t.ObjectId,
+            ref: 'Menu'
+        }
+    ]
 },
     { timestamps: true }); 
