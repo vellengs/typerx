@@ -166,7 +166,7 @@ __decorate([
     typescript_rest_1.POST,
     __param(0, typescript_rest_1.FormParam('role')), __param(1, typescript_rest_1.FormParam('accountIds')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [String, Array]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "addAccountsToRole", null);
 __decorate([

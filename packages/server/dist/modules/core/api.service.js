@@ -26,7 +26,6 @@ class ApiService {
     }
     removeApiFromPermission(permission, apiId) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('permission && apiId', permission);
             if (permission && apiId) {
                 const affect = yield core_database_1.CoreDatabase.Api.update({
                     _id: {
@@ -52,7 +51,7 @@ class ApiService {
                         $in: [permission]
                     }
                 }, { _id: 1 }).exec());
-                const exists = (existIds || []).map(item => item.toObject()._id);
+                const exists = (existIds || []).map((item) => item._id.toString());
                 const ids = apIds.filter((id) => {
                     return exists.indexOf(id) === -1;
                 });

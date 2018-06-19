@@ -120,7 +120,7 @@ class AccountService {
                         $in: [role]
                     }
                 }, { _id: 1 }).exec());
-                const exists = (existIds || []).map(item => item.toObject()._id);
+                const exists = (existIds || []).map((item) => item._id.toString());
                 const ids = accountIds.filter((id) => {
                     return exists.indexOf(id) === -1;
                 });

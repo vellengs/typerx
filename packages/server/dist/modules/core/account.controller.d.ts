@@ -38,7 +38,7 @@ export declare class AccountController {
      * @param role 角色编号
      * @param accountIds 用户编号序列
      */
-    addAccountsToRole(role: string, accountIds: string[] | string): Promise<boolean>;
+    addAccountsToRole(role: string, accountIds: string[]): Promise<boolean>;
     /**
      * 从角色中删除用户
      * @param role 角色编号

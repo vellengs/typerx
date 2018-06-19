@@ -2869,7 +2869,10 @@
 						"in": "formData",
 						"name": "accountIds",
 						"required": true,
-						"type": "object"
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
 					}
 				]
 			},
@@ -4840,7 +4843,10 @@
 						"in": "formData",
 						"name": "ids",
 						"required": true,
-						"type": "object"
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
 					}
 				]
 			},

@@ -122,7 +122,7 @@ __decorate([
     typescript_rest_1.POST,
     __param(0, typescript_rest_1.FormParam('permission')), __param(1, typescript_rest_1.FormParam('ids')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [String, Array]),
     __metadata("design:returntype", Promise)
 ], ApiController.prototype, "addApisToPermission", null);
 __decorate([

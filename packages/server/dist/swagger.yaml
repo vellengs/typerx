@@ -2162,7 +2162,9 @@ paths:
                     in: formData
                     name: accountIds
                     required: true
-                    type: object
+                    type: array
+                    items:
+                        type: string
         delete:
             operationId: AccountRemoveAccountFromRole
             produces:
@@ -3569,7 +3571,9 @@ paths:
                     in: formData
                     name: ids
                     required: true
-                    type: object
+                    type: array
+                    items:
+                        type: string
         delete:
             operationId: ApiRemoveApisToPermission
             produces:

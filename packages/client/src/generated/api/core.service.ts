@@ -569,10 +569,10 @@ export class CoreService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiAddApisToPermission(permission: string, ids: { [key: string]: string; }, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
-    public apiAddApisToPermission(permission: string, ids: { [key: string]: string; }, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
-    public apiAddApisToPermission(permission: string, ids: { [key: string]: string; }, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
-    public apiAddApisToPermission(permission: string, ids: { [key: string]: string; }, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public apiAddApisToPermission(permission: string, ids: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public apiAddApisToPermission(permission: string, ids: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public apiAddApisToPermission(permission: string, ids: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public apiAddApisToPermission(permission: string, ids: Array<string>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (permission === null || permission === undefined) {
             throw new Error('Required parameter permission was null or undefined when calling apiAddApisToPermission.');
         }
@@ -610,8 +610,10 @@ export class CoreService {
         if (permission !== undefined) {
             formParams = formParams.append('permission', <any>permission) || formParams;
         }
-        if (ids !== undefined) {
-            formParams = formParams.append('ids', <any>ids) || formParams;
+        if (ids) {
+            ids.forEach((element) => {
+                formParams = formParams.append('ids', <any>element) || formParams;
+            })
         }
 
         return this.httpClient.post<boolean>(`${this.basePath}/api/api/permission`,

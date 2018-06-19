@@ -81,7 +81,7 @@ export class ApiController {
    */
   @Path('permission')
   @POST
-  async addApisToPermission(@FormParam('permission') permission: string, @FormParam('ids') ids: string[] | string): Promise<boolean> {
+  async addApisToPermission(@FormParam('permission') permission: string, @FormParam('ids') ids: string[]): Promise<boolean> {
     return this.service.addApiPermission(permission, ids);
   }
 
