@@ -1,5 +1,9 @@
 <nz-row [nzGutter]="12" class="modal-selector">
     <nz-col [nzSpan]="multiple?16:24">
+        <div class="mb-md">
+            <sf *ngIf="formSets" [mode]="'search'" [layout]="'inline'" [schema]="formSets.query" (formSubmit)="query($event)"></sf>
+        </div>
+
         <simple-table [size]="'middle'" (checkboxChange)="checkboxChange($event)" *ngIf="columns" #simpleTable [data]="queryUrl"
             [columns]="columns" [extraParams]="queryParams"></simple-table>
     </nz-col>

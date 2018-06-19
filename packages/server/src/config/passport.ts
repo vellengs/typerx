@@ -8,7 +8,7 @@ import { Repository } from "../database/repository";
 
 const LocalStrategy = passportLocal.Strategy;
 
-export function init() {
+export function initPassport() {
 
     passport.serializeUser<any, any>((user, done) => {
         if (user) {
@@ -54,21 +54,7 @@ export function init() {
     }));
 }
 
-/**
- * Login Required middleware.
- */
-export let isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
-    if (req.isAuthenticated()) {
-        return next();
-    } else {
-        res.status(401);
-        res.send({
-            error: {
-                message: 'user is not authenticated'
-            }
-        });
-    }
-};
+
 
 /**
  * Authorization Required middleware.

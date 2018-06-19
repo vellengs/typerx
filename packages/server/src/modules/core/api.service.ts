@@ -69,7 +69,8 @@ export class ApiService {
     size?: number,
     sort?: string
   ): Promise<PaginateApi> {
-    const condition: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
+    const condition: any = keyword ?
+      { $or: [{ name: new RegExp(keyword, 'i') }, { path: new RegExp(keyword, 'i') }] } : {};
 
     if (permission) {
       condition.permissions = {

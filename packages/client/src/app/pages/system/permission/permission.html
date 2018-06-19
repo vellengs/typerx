@@ -15,7 +15,7 @@
                 <tbody>
                     <tr [ngClass]="{'selected':item.id === selectedItem.id}" *ngFor="let item of table.data" (click)="select(item)">
                         <td>
-                            <a (click)="editRole(item,$event)">{{item.name}}</a>
+                            <a>{{item.name}}</a>
                         </td>
                         <td>{{item.description}}</td>
                     </tr>

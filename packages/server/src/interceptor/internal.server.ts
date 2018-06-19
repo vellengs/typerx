@@ -2,7 +2,7 @@ import { InternalServer } from 'typescript-rest/dist/server-container';
 import { ServiceClass, ServiceMethod } from 'typescript-rest/dist/metadata';
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { HttpMethod, ServiceContext } from 'typescript-rest/dist/server-types';
-import { operationLog } from './interceptor';
+import { operationLog, permissionCheck } from './interceptor';
 import { Errors } from 'typescript-rest';
 
 export class CustomInternalServer extends InternalServer {
@@ -14,7 +14,7 @@ export class CustomInternalServer extends InternalServer {
             serviceClass.processors = serviceClass.processors || [];
             serviceMethod.processors = serviceMethod.processors || [];
 
-            const processors: Array<any> = [operationLog];
+            const processors: Array<any> = [operationLog, permissionCheck];
             processors.concat(serviceClass.processors)
                 .concat(serviceMethod.processors);
 
@@ -60,5 +60,5 @@ export class CustomInternalServer extends InternalServer {
                 throw Error(`Invalid http method for service [${serviceMethod.resolvedPath}]`);
         }
     }
- 
+
 }

@@ -18,6 +18,7 @@ export class PermissionPageComponent extends BaseStandComponent implements OnIni
     _queryParams: { [key: string]: any; } = {};
     slaveQueryParams: { [key: string]: any; } = {};
     slaveColumns;
+    slaveFormSets;
 
     @ViewChild('slaves') slaves: BaseStandComponent;
 
@@ -44,6 +45,7 @@ export class PermissionPageComponent extends BaseStandComponent implements OnIni
         this.coreService.apiGetConfig().subscribe((res) => {
             if (res) {
                 this.slaveColumns = res.columnSets['default'];
+                this.slaveFormSets = res.formSets;
             }
         });
         const self = this;
@@ -73,7 +75,8 @@ export class PermissionPageComponent extends BaseStandComponent implements OnIni
         const self = this;
         this.modalHelper.static(BaseSelectorComponent, {
             queryUrl: 'api/api/query',
-            columns: this.slaveColumns
+            columns: this.slaveColumns,
+            formSets: this.slaveFormSets,
         }, 1170, {
                 nzTitle: '添加接口权限',
             }).subscribe((res) => {
@@ -97,7 +100,6 @@ export class PermissionPageComponent extends BaseStandComponent implements OnIni
         if (this.slaves) {
             this.slaves.queryParams = this.slaveQueryParams;
             this.slaves.reload();
-            console.log('show slave ...');
         }
     }
 

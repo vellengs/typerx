@@ -11,11 +11,12 @@ import * as passport from 'passport';
 import { MONGODB_URI, SESSION_SECRET } from './util/secrets';
 import { getLogger } from 'log4js';
 import * as lusca from 'lusca';
-import { init, isAuthenticated } from './config/passport';
+import { initPassport } from './config/passport';
 import { indexRender, subPage } from './plugins/render';
 import session = require('express-session');
 import compression = require('compression');
 import { CustomRestServer } from './interceptor/custom.server';
+import { isAuthenticated, apiPrefix } from './interceptor/interceptor';
 
 const MongoStore = mongo(session);
 const logger = getLogger();
@@ -28,9 +29,9 @@ export class ApiServer {
   constructor() {
     this.app = express();
     this.config();
-    init();
+    initPassport();
 
-    this.app.use('/api', isAuthenticated);
+    this.app.use(apiPrefix, isAuthenticated);
     this.app.get('/', indexRender);
     const uploads = path.resolve(process.cwd(), 'public', 'uploads');
     Server.setFileDest(uploads);
