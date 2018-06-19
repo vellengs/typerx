@@ -49,7 +49,7 @@ export class AccountService {
     admin?: SessionUser,
   ): Promise<AccountResponse> {
     if (admin && admin.isAdmin) {
-      this.setKeyWord(entry);
+      // this.setKeyWord(entry);
       const doc = await Db.Account.findOneAndUpdate(
         {
           _id: entry.id,

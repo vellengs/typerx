@@ -96,6 +96,11 @@ export class MenuService {
   }
 
   async getAuthenticatedMenus(user: SessionUser): Promise<Array<MenuResponse>> {
+
+    if (!user) {
+      throw new Errors.UnauthorizedError("user is not authenticated");
+    }
+
     if (!user.isAdmin) {
       const account = await Db.Account.findOne({ _id: user.id }, 'groups').exec();
       const roles = (account.toObject() as Account).roles || [];

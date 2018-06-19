@@ -9,7 +9,7 @@ class CustomInternalServer extends server_container_1.InternalServer {
         const handler = (req, res, next) => {
             serviceClass.processors = serviceClass.processors || [];
             serviceMethod.processors = serviceMethod.processors || [];
-            const processors = [interceptor_1.operationLog];
+            const processors = [interceptor_1.operationLog, interceptor_1.permissionCheck];
             processors.concat(serviceClass.processors)
                 .concat(serviceMethod.processors);
             self.runPreprocessors(processors, req)

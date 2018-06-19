@@ -17,6 +17,7 @@ const render_1 = require("./plugins/render");
 const session = require("express-session");
 const compression = require("compression");
 const custom_server_1 = require("./interceptor/custom.server");
+const interceptor_1 = require("./interceptor/interceptor");
 const MongoStore = mongo(session);
 const logger = log4js_1.getLogger();
 class ApiServer {
@@ -25,8 +26,8 @@ class ApiServer {
         this.PORT = parseInt(process.env.PORT, 0) || 3600;
         this.app = express();
         this.config();
-        passport_1.init();
-        this.app.use('/api', passport_1.isAuthenticated);
+        passport_1.initPassport();
+        this.app.use(interceptor_1.apiPrefix, interceptor_1.isAuthenticated);
         this.app.get('/', render_1.indexRender);
         const uploads = path.resolve(process.cwd(), 'public', 'uploads');
         typescript_rest_1.Server.setFileDest(uploads);

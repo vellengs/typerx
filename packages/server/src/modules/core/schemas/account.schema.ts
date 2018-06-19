@@ -52,7 +52,7 @@ export const schema = new Schema(
       type: t.Date,
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 function preSave(next: Function) {
@@ -76,7 +76,7 @@ function preSave(next: Function) {
 
 function preUpdate(next: Function) {
   const updateDoc = this.getUpdate();
-  const rawPassword = (updateDoc.$set || updateDoc).password;
+  const rawPassword = ((updateDoc.$set || updateDoc).password || updateDoc.password);
   if (rawPassword) {
     const password = bcrypt.hashSync(rawPassword, bcrypt.genSaltSync(10));
     this.findOneAndUpdate({}, { password: password });

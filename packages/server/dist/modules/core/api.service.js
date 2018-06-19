@@ -66,7 +66,8 @@ class ApiService {
     }
     query(keyword, permission, page, size, sort) {
         return __awaiter(this, void 0, void 0, function* () {
-            const condition = keyword ? { name: new RegExp(keyword, 'i') } : {};
+            const condition = keyword ?
+                { $or: [{ name: new RegExp(keyword, 'i') }, { path: new RegExp(keyword, 'i') }] } : {};
             if (permission) {
                 condition.permissions = {
                     $in: permission

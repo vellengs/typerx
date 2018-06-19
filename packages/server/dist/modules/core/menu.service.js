@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const typescript_rest_1 = require("typescript-rest");
 const core_database_1 = require("./core.database");
 const menu_dto_1 = require("./dto/menu.dto");
 const menu_appearance_1 = require("./appearance/menu.appearance");
@@ -84,6 +85,9 @@ class MenuService {
     }
     getAuthenticatedMenus(user) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (!user) {
+                throw new typescript_rest_1.Errors.UnauthorizedError("user is not authenticated");
+            }
             if (!user.isAdmin) {
                 const account = yield core_database_1.CoreDatabase.Account.findOne({ _id: user.id }, 'groups').exec();
                 const roles = account.toObject().roles || [];

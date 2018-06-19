@@ -6,7 +6,7 @@ const _ = require("lodash");
 const core_database_1 = require("./../modules/core/core.database");
 const repository_1 = require("../database/repository");
 const LocalStrategy = passportLocal.Strategy;
-function init() {
+function initPassport() {
     passport.serializeUser((user, done) => {
         if (user) {
             done(undefined, user.id);
@@ -48,23 +48,7 @@ function init() {
         });
     }));
 }
-exports.init = init;
-/**
- * Login Required middleware.
- */
-exports.isAuthenticated = (req, res, next) => {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    else {
-        res.status(401);
-        res.send({
-            error: {
-                message: 'user is not authenticated'
-            }
-        });
-    }
-};
+exports.initPassport = initPassport;
 /**
  * Authorization Required middleware.
  */
