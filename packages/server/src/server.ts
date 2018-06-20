@@ -126,10 +126,12 @@ export class ApiServer {
         if (err) {
           return reject(err);
         }
+        let address = this.server.address();
+        if (typeof address === 'object') {
+          address = address.address;
+        }
         logger.info(
-          `Server start from http://${this.server.address().address}:${
-          this.server.address().port
-          }`,
+          `Server start from http://${address}:${this.PORT}`,
         );
         return resolve(this.app);
       });
@@ -152,7 +154,3 @@ export class ApiServer {
     });
   }
 }
-
-process.on('unhandledRejection', (reason: any) => {
-  // console.log("unhandledRejection", reason); //TODO;
-});

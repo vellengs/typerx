@@ -98,7 +98,11 @@ class ApiServer {
                 if (err) {
                     return reject(err);
                 }
-                logger.info(`Server start from http://${this.server.address().address}:${this.server.address().port}`);
+                let address = this.server.address();
+                if (typeof address === 'object') {
+                    address = address.address;
+                }
+                logger.info(`Server start from http://${address}:${this.PORT}`);
                 return resolve(this.app);
             });
         });
@@ -121,7 +125,4 @@ class ApiServer {
     }
 }
 exports.ApiServer = ApiServer;
-process.on('unhandledRejection', (reason) => {
-    // console.log("unhandledRejection", reason); //TODO;
-});
 //# sourceMappingURL=server.js.map

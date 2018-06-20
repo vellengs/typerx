@@ -1,3 +1,3 @@
-export declare const ENVIRONMENT: any;
-export declare const SESSION_SECRET: any;
-export declare const MONGODB_URI: any;
+export declare const ENVIRONMENT: string;
+export declare const SESSION_SECRET: string;
+export declare const MONGODB_URI: string;

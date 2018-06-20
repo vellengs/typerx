@@ -9,7 +9,6 @@ const path_1 = require("path");
 const cwd = process.cwd();
 const config = path_1.join(cwd, 'log4js.json');
 log4js_1.configure(config);
-const logger = log4js_1.getLogger();
 const secrets_1 = require("./util/secrets");
 connector_1.connect(secrets_1.MONGODB_URI);
 exports.start = () => {
