@@ -43,6 +43,7 @@ export enum WidgetTypes {
     choices = 'choices',
     image = 'image',
     avatar = 'avatar',
+    tabs = 'tabs',
 }
 
 export interface ColumnSets {

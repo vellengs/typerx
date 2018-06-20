@@ -20,6 +20,10 @@ const profile: SFSchema = {
                 }
             },
         },
+        avatar2: {
+            title: '头像',
+            type: t.string
+        },
         nick: {
             title: '昵称',
             type: t.string,
@@ -63,10 +67,27 @@ const profile: SFSchema = {
     },
     required: ['nick', 'email', 'mobile'],
     ui: {
+        widget: w.tabs,
         spanLabelFixed: 100,
         grid: {
             span: 8
-        }
+        },
+        tabs: [{
+            title: '基本信息',
+            fields: [
+                'avatar',
+                'nick',
+            ]
+        }, {
+            title: '联系信息',
+            fields: [
+                'email',
+                'mobile',
+                'siteUrl',
+                'company',
+                'address',
+            ]
+        }]
     }
 };
 

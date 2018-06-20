@@ -5,6 +5,7 @@ import { SettingsService } from '@delon/theme';
 import { NzMessageService } from 'ng-zorro-antd';
 import { SocialService, DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 import { UserService } from '../../services/user.service';
+import { StartupService } from '@core/startup/startup.service';
 
 @Component({
     selector: 'app-pages-login',
@@ -26,7 +27,7 @@ export class CustomLoginComponent implements OnDestroy {
         private router: Router,
         public msg: NzMessageService,
         public userService: UserService,
-        private settingsService: SettingsService
+        private start: StartupService
     ) {
         this.form = fb.group({
             userName: [null, [Validators.required, Validators.minLength(5)]],
@@ -46,6 +47,8 @@ export class CustomLoginComponent implements OnDestroy {
                 username: this.userName.value,
                 password: this.password.value
             });
+
+            this.start.load();
 
             if (res) {
                 this.router.navigate(['/']);

@@ -8,6 +8,7 @@ import { ACLService } from '@delon/acl';
 import { TranslateService } from '@ngx-translate/core';
 import { I18NService } from '../i18n/i18n.service';
 import { CoreService } from 'generated';
+import * as treeify from 'array-to-tree';
 /**
  * 用于应用启动时
  * 一般用来获取应用所需要的基础数据等
@@ -32,14 +33,14 @@ export class StartupService {
             zip(
                 this.httpClient.get(`assets/i18n/${this.i18n.defaultLang}.json`),
                 this.coreService.settingGetSettingsByName('main'),
-                // this.coreService.menuGetUserMenus(),
+                this.coreService.menuGetUserMenus(),
             ).pipe(
                 // 接收其他拦截器后产生的异常消息
-                catchError(([langData, settingsData]) => {
+                catchError(([langData, settingsData, menuData]) => {
                     resolve(null);
-                    return [langData, settingsData];
+                    return [langData, settingsData, menuData];
                 })
-            ).subscribe(([langData, settings]) => {
+            ).subscribe(([langData, settings, menuData]) => {
                 // setting language data
                 this.translate.setTranslation(this.i18n.defaultLang, langData);
                 this.translate.setDefaultLang(this.i18n.defaultLang);
@@ -53,29 +54,29 @@ export class StartupService {
                 // 设置页面标题的后缀
                 this.titleService.suffix = settings.name;
 
-                // if (menuData && Array.isArray(menuData)) {
-                //     const menus = menuData.map((item) => {
-                //         return {
-                //             id: item.id,
-                //             text: item.name,
-                //             group: item.group,
-                //             icon: item.icon,
-                //             link: item.link,
-                //             parent: item.parent
-                //         };
-                //     });
+                if (menuData && Array.isArray(menuData)) {
+                    const menus = menuData.map((item) => {
+                        return {
+                            id: item.id,
+                            text: item.name,
+                            group: item.group,
+                            icon: item.icon,
+                            link: item.link,
+                            parent: item.parent
+                        };
+                    });
 
-                //     const tree = treeify(menus, {
-                //         parentProperty: 'parent',
-                //         customID: 'id'
-                //     });
+                    const tree = treeify(menus, {
+                        parentProperty: 'parent',
+                        customID: 'id'
+                    });
 
-                //     this.menuService.add([{
-                //         text: '主导航',
-                //         group: true,
-                //         children: tree
-                //     }]);
-                // }
+                    this.menuService.add([{
+                        text: '主导航',
+                        group: true,
+                        children: tree
+                    }]);
+                }
             },
                 () => { },
                 () => {
