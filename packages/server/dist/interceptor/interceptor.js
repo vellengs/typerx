@@ -48,13 +48,21 @@ function permissionCheck(req) {
 exports.permissionCheck = permissionCheck;
 function hasPermission(accountId, route) {
     return __awaiter(this, void 0, void 0, function* () {
-        const path = this.normalizePath(route);
+        const path = normalizePath(route);
         const apis = (yield getAccessibleApis(accountId)) || [];
         const exists = apis.findIndex((p) => {
             return p.path === path;
         });
         return exists > -1;
     });
+}
+function normalizePath(path) {
+    if (!path) {
+        return path;
+    }
+    var parts = path.split('/');
+    parts = parts.map(function (part) { return part.startsWith(':') ? "{" + part.slice(1) + "}" : part; });
+    return parts.join('/');
 }
 /**
  * 获取帐号能访问的所有api

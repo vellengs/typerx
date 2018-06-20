@@ -1,5 +1,5 @@
 {
-  "name": "typerx",
+  "name": "typerx-server",
   "version": "0.2.0",
   "description": "A lightweight annotation-based full stack node project",
   "keywords": [
@@ -17,7 +17,7 @@
   },
   "license": "MIT",
   "author": "vellengs",
-  "main": "index.js",
+  "main": "dist/main.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vellengs/typerx.git"

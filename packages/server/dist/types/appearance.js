@@ -41,6 +41,7 @@ var WidgetTypes;
     WidgetTypes["choices"] = "choices";
     WidgetTypes["image"] = "image";
     WidgetTypes["avatar"] = "avatar";
+    WidgetTypes["tabs"] = "tabs";
 })(WidgetTypes = exports.WidgetTypes || (exports.WidgetTypes = {}));
 // export declare interface PaginateResponse<T> {
 //     error?: Error;

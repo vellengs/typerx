@@ -19,6 +19,10 @@ const profile = {
                 }
             },
         },
+        avatar2: {
+            title: '头像',
+            type: appearance_1.SchemaTypes.string
+        },
         nick: {
             title: '昵称',
             type: appearance_1.SchemaTypes.string,
@@ -62,10 +66,27 @@ const profile = {
     },
     required: ['nick', 'email', 'mobile'],
     ui: {
+        widget: appearance_1.WidgetTypes.tabs,
         spanLabelFixed: 100,
         grid: {
             span: 8
-        }
+        },
+        tabs: [{
+                title: '基本信息',
+                fields: [
+                    'avatar',
+                    'nick',
+                ]
+            }, {
+                title: '联系信息',
+                fields: [
+                    'email',
+                    'mobile',
+                    'siteUrl',
+                    'company',
+                    'address',
+                ]
+            }]
     }
 };
 const sysSetting = {

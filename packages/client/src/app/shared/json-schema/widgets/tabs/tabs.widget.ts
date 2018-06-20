@@ -74,7 +74,6 @@ export class TabsWidgetComponent extends ObjectLayoutWidget implements OnInit {
                 });
             }
         });
-
     }
 
     getFormProperty(key) {
@@ -96,6 +95,6 @@ export class TabsWidgetComponent extends ObjectLayoutWidget implements OnInit {
 
 
     queryChange(list: any) {
-        this.currentIndex = list[0].index; 
+        this.currentIndex = list[0].index;
     }
 }

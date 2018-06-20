@@ -65,7 +65,7 @@ function preSave(next) {
 }
 function preUpdate(next) {
     const updateDoc = this.getUpdate();
-    const rawPassword = (updateDoc.$set || updateDoc).password;
+    const rawPassword = ((updateDoc.$set || updateDoc).password || updateDoc.password);
     if (rawPassword) {
         const password = bcrypt.hashSync(rawPassword, bcrypt.genSaltSync(10));
         this.findOneAndUpdate({}, { password: password });
