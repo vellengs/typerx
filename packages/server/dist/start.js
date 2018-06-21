@@ -1,28 +1,31 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const connector_1 = require("./database/connector");
-const server_1 = require("./server");
-const dotenv = require("dotenv");
-dotenv.config();
-const log4js_1 = require("log4js");
-const path_1 = require("path");
-const cwd = process.cwd();
-const config = path_1.join(cwd, 'log4js.json');
-log4js_1.configure(config);
-const secrets_1 = require("./util/secrets");
-connector_1.connect(secrets_1.MONGODB_URI);
-exports.start = () => {
-    return new Promise((resolve, reject) => {
-        const apiServer = new server_1.ApiServer();
-        apiServer
-            .start()
-            .then(resolve)
-            .catch(reject);
-        const graceful = () => {
-            apiServer.stop().then(() => process.exit(0));
-        };
-        process.on('SIGTERM', graceful);
-        process.on('SIGINT', graceful);
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+const server_1 = require("./server");
+class Start {
+    exec() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise((resolve, reject) => {
+                const apiServer = new server_1.ApiServer();
+                apiServer
+                    .start()
+                    .then(resolve)
+                    .catch(reject);
+                const graceful = () => {
+                    apiServer.stop().then(() => process.exit(0));
+                };
+                process.on('SIGTERM', graceful);
+                process.on('SIGINT', graceful);
+            });
+        });
+    }
+}
+exports.Start = Start;
 //# sourceMappingURL=start.js.map

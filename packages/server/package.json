@@ -18,6 +18,7 @@
   "license": "MIT",
   "author": "vellengs",
   "main": "dist/index.js",
+  "typings": "dist/index",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vellengs/typerx.git"

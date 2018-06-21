@@ -1,11 +1,12 @@
 import { logger } from './logger';
-import { config } from 'dotenv';
 import { existsSync } from 'fs';
+import { config } from 'dotenv';
 
 if (existsSync('.env')) {
   logger.debug('Using .env file to supply config environment variables');
   config({ path: '.env' });
 } else {
+  console.log('Using .env.example file to supply config environment variables');
   logger.debug(
     'Using .env.example file to supply config environment variables',
   );

@@ -1,14 +1,15 @@
-import { start } from './start';
-const app = start().catch(err => {
-  console.error(`Error starting server: ${err.message}`);
-  process.exit(-1);
+import { Start } from './start';
+const app = new Start();
+
+app.exec().catch((error) => {
+  console.error('error', error);
 });
 
 process.on('unhandledRejection', (reason: any) => {
-  console.log("unhandledRejection", reason);
+  console.error("unhandledRejection", reason);
 });
 
 process.on('uncaughtException', (reason: any) => {
-  console.log("uncaughtException", reason);
+  console.error("uncaughtException", reason);
 });
 export default app;

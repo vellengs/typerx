@@ -1,13 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const logger_1 = require("./logger");
-const dotenv_1 = require("dotenv");
 const fs_1 = require("fs");
+const dotenv_1 = require("dotenv");
 if (fs_1.existsSync('.env')) {
     logger_1.logger.debug('Using .env file to supply config environment variables');
     dotenv_1.config({ path: '.env' });
 }
 else {
+    console.log('Using .env.example file to supply config environment variables');
     logger_1.logger.debug('Using .env.example file to supply config environment variables');
     dotenv_1.config({ path: '.env.example' }); // you can delete this after you create your own .env file!
 }

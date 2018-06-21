@@ -1,1 +1,3 @@
-export declare const start: () => Promise<void>;
+export declare class Start {
+    exec(): Promise<{}>;
+}

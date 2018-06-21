@@ -1,23 +1,23 @@
 import * as express from 'express';
-import { Server } from 'typescript-rest';
 import * as http from 'http';
 import * as path from 'path';
 import * as cors from 'cors';
-import { existsSync } from 'fs';
-import { controllers } from './controllers';
 import * as mongo from 'connect-mongo';
 import * as expressValidator from 'express-validator';
 import * as passport from 'passport';
-import { MONGODB_URI, SESSION_SECRET } from './util/secrets';
-import { getLogger } from 'log4js';
 import * as lusca from 'lusca';
-import { initPassport } from './config/passport';
-import { indexRender, subPage } from './plugins/render';
 import session = require('express-session');
 import compression = require('compression');
+import { Server } from 'typescript-rest';
+import { getLogger } from 'log4js';
+import { initPassport } from './config/passport';
+import { indexRender, subPage } from './plugins/render';
+import { existsSync } from 'fs';
+import { controllers } from './controllers';
 import { CustomRestServer } from './interceptor/custom.server';
 import { isAuthenticated, apiPrefix } from './interceptor/interceptor';
-
+import { MONGODB_URI, SESSION_SECRET } from './util/secrets';
+import { connect } from './database/connector';
 const MongoStore = mongo(session);
 const logger = getLogger();
 
@@ -28,9 +28,9 @@ export class ApiServer {
 
   constructor() {
     this.app = express();
+    connect(MONGODB_URI);
     this.config();
     initPassport();
-
     this.app.use(apiPrefix, isAuthenticated);
     this.app.get('/', indexRender);
     const uploads = path.resolve(process.cwd(), 'public', 'uploads');
@@ -130,6 +130,7 @@ export class ApiServer {
         if (typeof address === 'object') {
           address = address.address;
         }
+        console.log('server start at', `${address}:${this.PORT}`);
         logger.info(
           `Server start from http://${address}:${this.PORT}`,
         );

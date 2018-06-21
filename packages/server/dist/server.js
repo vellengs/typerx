@@ -1,23 +1,24 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
-const typescript_rest_1 = require("typescript-rest");
 const path = require("path");
 const cors = require("cors");
-const fs_1 = require("fs");
-const controllers_1 = require("./controllers");
 const mongo = require("connect-mongo");
 const expressValidator = require("express-validator");
 const passport = require("passport");
-const secrets_1 = require("./util/secrets");
-const log4js_1 = require("log4js");
 const lusca = require("lusca");
-const passport_1 = require("./config/passport");
-const render_1 = require("./plugins/render");
 const session = require("express-session");
 const compression = require("compression");
+const typescript_rest_1 = require("typescript-rest");
+const log4js_1 = require("log4js");
+const passport_1 = require("./config/passport");
+const render_1 = require("./plugins/render");
+const fs_1 = require("fs");
+const controllers_1 = require("./controllers");
 const custom_server_1 = require("./interceptor/custom.server");
 const interceptor_1 = require("./interceptor/interceptor");
+const secrets_1 = require("./util/secrets");
+const connector_1 = require("./database/connector");
 const MongoStore = mongo(session);
 const logger = log4js_1.getLogger();
 class ApiServer {
@@ -25,6 +26,7 @@ class ApiServer {
         this.server = null;
         this.PORT = parseInt(process.env.PORT, 0) || 3600;
         this.app = express();
+        connector_1.connect(secrets_1.MONGODB_URI);
         this.config();
         passport_1.initPassport();
         this.app.use(interceptor_1.apiPrefix, interceptor_1.isAuthenticated);
@@ -102,6 +104,7 @@ class ApiServer {
                 if (typeof address === 'object') {
                     address = address.address;
                 }
+                console.log('server start at', `${address}:${this.PORT}`);
                 logger.info(`Server start from http://${address}:${this.PORT}`);
                 return resolve(this.app);
             });
