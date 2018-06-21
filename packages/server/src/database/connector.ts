@@ -10,4 +10,5 @@ export function connect(uri: string) {
     db.on('error', (err: any) => {
         throw new Error('unable to connect to database at ' + uri + err);
     });
-}
+    return db;
+} 

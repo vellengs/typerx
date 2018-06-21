@@ -2,12 +2,11 @@ import { Request, Response, NextFunction } from 'express';
 import { Errors } from 'typescript-rest';
 import { LogService } from '../modules/core/log.service';
 import { CoreDatabase as Db } from './../modules/core/core.database';
-import { AccessService } from '../modules/core/access.service';
 
 export const apiPrefix = '/api';
-
 const PublicRouters = [
-    'setting'
+    '/setting',
+    '/install'
 ];
 
 function isPublicApi(req: Request) {  // need test 
@@ -17,7 +16,6 @@ function isPublicApi(req: Request) {  // need test
                 return true;
             }
         }
-        return true;
     }
     return false;
 }

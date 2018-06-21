@@ -61,7 +61,6 @@ export class UserService {
             isMenu: true,
         }).toPromise();
 
-        const defaultCheckItems = [];
         const items = menus.list.map((item, index) => {
             const isLeaf = menus.list.findIndex(r => r.parent === item.id) === -1;
             const hasPermissionNodes = item.permissions && item.permissions.length;
@@ -187,10 +186,8 @@ export class UserService {
     }
 
     async logout() {
-
-        const result = await this.coreService.userLogout().toPromise();
+        await this.coreService.userLogout().toPromise();
         this.settings.setUser(null);
         this.user = {};
-
     }
 }

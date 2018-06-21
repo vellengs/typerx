@@ -56,7 +56,6 @@ let AccountController = class AccountController {
      */
     getConfig() {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('test ...');
             return this.service.getAppearance();
         });
     }

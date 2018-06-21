@@ -62,8 +62,6 @@ export class AccountController {
   @GET
   @Preprocessor(interceptor)
   async getConfig(): Promise<Appearance> {
-
-    console.log('test ...');
     return this.service.getAppearance();
   }
 
