@@ -117,9 +117,3 @@ export declare class Error {
     message?: string;
     [key: string]: any;
 }
-
-// export declare interface PaginateResponse<T> {
-//     error?: Error;
-//     list: any;
-//     total: number;
-// }

@@ -1,9 +1,7 @@
 import { Appearance } from '../../types/appearance';
-import { ServiceContext, Errors } from 'typescript-rest';
-import { Account } from './interfaces/account.interface';
+import { Errors } from 'typescript-rest';
 import { CoreDatabase as Db } from './core.database';
 
-import { Request, Response, NextFunction } from 'express';
 import { pick } from 'lodash';
 import { Setting } from './interfaces/setting.interface';
 import {
@@ -11,16 +9,17 @@ import {
   SettingsGroup,
   SettingResponseFields as fields
 } from './dto/setting.dto';
-import { Helper } from '../../util/helper';
 import { Document } from 'mongoose';
 import { KeyValue } from '../../types/data.types';
 import { Repository } from '../../database/repository';
 import { appearance } from './appearance/setting.appearance';
+import { Application } from '../../application';
 
 export class SettingService {
 
   async getAppearance(): Promise<Appearance> {
-    return appearance;
+    const config = Application.getAppearance('settings') || appearance;
+    return config;
   }
 
   async getSettingsByName(name?: string): Promise<SettingsGroup> {
@@ -91,25 +90,11 @@ export class SettingService {
     size?: number,
     sort?: string
   ): Promise<PaginateSetting> {
-
-
     const condition = keyword ? { name: new RegExp(keyword, 'i') } : {};
     const query = Db.Setting.find(condition).sort(sort);
     const collection = Db.Setting.find(condition);
     const result = Repository.query<Setting & Document, SettingResponse>(query, collection, page, size, fields);
     return result;
-
-    // const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
-    // const docs: any = await Db.Setting.find(query).sort(sort).skip(page * size).limit(size).exec() || [];
-    // const count = await Db.Setting.find(query).count();
-    // const list = docs.map((item: Setting & Document) => {
-    //   return this.pure(item);
-    // });
-
-    // return {
-    //   list: list,
-    //   total: count
-    // }
   }
 
   async get(id: string): Promise<SettingResponse> {
