@@ -18,44 +18,74 @@ import { CustomRestServer } from './interceptor/custom.server';
 import { isAuthenticated, apiPrefix } from './interceptor/interceptor';
 import { MONGODB_URI, SESSION_SECRET } from './util/secrets';
 import { connect } from './database/connector';
+import { Appearance } from './types/appearance';
 const MongoStore = mongo(session);
 const logger = getLogger();
 
-export class ApiServer {
-  private app: express.Application;
+export interface Plugin {
+
+}
+
+export class Application {
   private server: http.Server = null;
+  private plugin: Plugin;
+  private app: express.Application;
   public PORT: number = parseInt(process.env.PORT, 0) || 3600;
+  private static appearances: {
+    [k: string]: Appearance
+  } = {};
 
   constructor() {
     this.app = express();
     connect(MONGODB_URI);
     this.config();
     initPassport();
+  }
+
+  public init() {
     this.app.use(apiPrefix, isAuthenticated);
-    this.app.get('/', indexRender);
+    this.setUploadsFolder();
+    CustomRestServer.buildServices(this.app, ...controllers);
+    this.hostSwaggerDocs();
+    this.handerErrors();
+  }
+
+  public registerAppearances(name: string, appearance: Appearance) {
+    Application.appearances[name] = appearance;
+  }
+
+
+
+  public registerController(controller: any) {
+    controllers.push(controller);
+  }
+
+  public getExpressApp() {
+    return this.app;
+  }
+
+  public static getAppearance(name: string): Appearance {
+    return Application.appearances[name] || new Appearance();
+  }
+
+  private setUploadsFolder() {
     const uploads = path.resolve(process.cwd(), 'public', 'uploads');
     Server.setFileDest(uploads);
+  }
 
-    // Server.buildServices(this.app, ...controllers);
-    CustomRestServer.buildServices(this.app, ...controllers);
-
-    if (process.env.SWAGGER && existsSync(path.resolve(process.env.SWAGGER))) {
+  private hostSwaggerDocs() {
+    const swaggerPath = process.env.SWAGGER;
+    if (existsSync(path.resolve(process.env.SWAGGER))) {
       Server.swagger(
         this.app,
-        process.env.SWAGGER,
+        swaggerPath,
         '/docs',
         'localhost:' + this.PORT,
         ['http', 'https'],
       );
     }
-
-    this.app.get('/:name', subPage);
-    this.handerErrors();
   }
 
-  /**
-   * Configure the express app.
-   */
   private config(): void {
 
     this.app.use(compression());
@@ -121,6 +151,10 @@ export class ApiServer {
    * @returns {Promise<any>}
    */
   public start(): Promise<any> {
+    if (!this.app) {
+      this.init();
+    }
+
     return new Promise<any>((resolve, reject) => {
       this.server = this.app.listen(this.PORT, (err: any) => {
         if (err) {

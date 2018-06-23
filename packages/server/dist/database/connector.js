@@ -11,6 +11,7 @@ function connect(uri) {
     db.on('error', (err) => {
         throw new Error('unable to connect to database at ' + uri + err);
     });
+    return db;
 }
 exports.connect = connect;
 //# sourceMappingURL=connector.js.map

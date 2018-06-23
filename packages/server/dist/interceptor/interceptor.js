@@ -13,7 +13,8 @@ const log_service_1 = require("../modules/core/log.service");
 const core_database_1 = require("./../modules/core/core.database");
 exports.apiPrefix = '/api';
 const PublicRouters = [
-    '/setting'
+    '/setting',
+    '/install'
 ];
 function isPublicApi(req) {
     if (req.method === 'GET') {

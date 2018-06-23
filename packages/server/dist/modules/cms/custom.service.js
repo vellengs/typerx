@@ -8,20 +8,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const appearance_1 = require("../../types/appearance");
 const repository_1 = require("../../database/repository");
 const cms_database_1 = require("./cms.database");
 const custom_dto_1 = require("./dto/custom.dto");
 const helper_1 = require("../../util/helper");
-const domains_1 = require("./../../plugins/domains");
+const application_1 = require("../../application");
 class CustomService {
     getAppearance(type) {
         return __awaiter(this, void 0, void 0, function* () {
-            const instance = domains_1.appearances;
-            if (instance[type] && instance[type].appearance)
-                return instance[type].appearance;
-            else
-                return new appearance_1.Appearance();
+            return application_1.Application.getAppearance(type);
         });
     }
     search(keyword, value, limit = 10) {

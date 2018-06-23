@@ -12,16 +12,16 @@ const compression = require("compression");
 const typescript_rest_1 = require("typescript-rest");
 const log4js_1 = require("log4js");
 const passport_1 = require("./config/passport");
-const render_1 = require("./plugins/render");
 const fs_1 = require("fs");
 const controllers_1 = require("./controllers");
 const custom_server_1 = require("./interceptor/custom.server");
 const interceptor_1 = require("./interceptor/interceptor");
 const secrets_1 = require("./util/secrets");
 const connector_1 = require("./database/connector");
+const appearance_1 = require("./types/appearance");
 const MongoStore = mongo(session);
 const logger = log4js_1.getLogger();
-class ApiServer {
+class Application {
     constructor() {
         this.server = null;
         this.PORT = parseInt(process.env.PORT, 0) || 3600;
@@ -29,21 +29,36 @@ class ApiServer {
         connector_1.connect(secrets_1.MONGODB_URI);
         this.config();
         passport_1.initPassport();
+    }
+    init() {
         this.app.use(interceptor_1.apiPrefix, interceptor_1.isAuthenticated);
-        this.app.get('/', render_1.indexRender);
-        const uploads = path.resolve(process.cwd(), 'public', 'uploads');
-        typescript_rest_1.Server.setFileDest(uploads);
-        // Server.buildServices(this.app, ...controllers);
+        this.setUploadsFolder();
         custom_server_1.CustomRestServer.buildServices(this.app, ...controllers_1.controllers);
-        if (process.env.SWAGGER && fs_1.existsSync(path.resolve(process.env.SWAGGER))) {
-            typescript_rest_1.Server.swagger(this.app, process.env.SWAGGER, '/docs', 'localhost:' + this.PORT, ['http', 'https']);
-        }
-        this.app.get('/:name', render_1.subPage);
+        this.hostSwaggerDocs();
         this.handerErrors();
     }
-    /**
-     * Configure the express app.
-     */
+    registerAppearances(name, appearance) {
+        Application.appearances[name] = appearance;
+    }
+    registerController(controller) {
+        controllers_1.controllers.push(controller);
+    }
+    getExpressApp() {
+        return this.app;
+    }
+    static getAppearance(name) {
+        return Application.appearances[name] || new appearance_1.Appearance();
+    }
+    setUploadsFolder() {
+        const uploads = path.resolve(process.cwd(), 'public', 'uploads');
+        typescript_rest_1.Server.setFileDest(uploads);
+    }
+    hostSwaggerDocs() {
+        const swaggerPath = process.env.SWAGGER;
+        if (fs_1.existsSync(path.resolve(process.env.SWAGGER))) {
+            typescript_rest_1.Server.swagger(this.app, swaggerPath, '/docs', 'localhost:' + this.PORT, ['http', 'https']);
+        }
+    }
     config() {
         this.app.use(compression());
         const staticSrc = path.resolve(process.cwd(), 'public');
@@ -95,6 +110,9 @@ class ApiServer {
      * @returns {Promise<any>}
      */
     start() {
+        if (!this.app) {
+            this.init();
+        }
         return new Promise((resolve, reject) => {
             this.server = this.app.listen(this.PORT, (err) => {
                 if (err) {
@@ -127,5 +145,6 @@ class ApiServer {
         });
     }
 }
-exports.ApiServer = ApiServer;
-//# sourceMappingURL=server.js.map
+Application.appearances = {};
+exports.Application = Application;
+//# sourceMappingURL=application.js.map

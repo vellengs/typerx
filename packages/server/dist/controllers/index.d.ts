@@ -1,1 +1,1 @@
-export declare const controllers: any;
+export declare const controllers: Array<any>;

@@ -1,10 +1,10 @@
-import { ApiServer } from './server';
+import { Application } from './application';
 
 export class Start {
 
   async exec() {
     return new Promise((resolve, reject) => {
-      const apiServer = new ApiServer();
+      const apiServer = new Application();
       apiServer
         .start()
         .then(resolve)

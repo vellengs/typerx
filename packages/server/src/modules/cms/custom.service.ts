@@ -3,25 +3,17 @@ import { Repository } from "../../database/repository";
 import { CmsDatabase as Db } from './cms.database';
 import { KeyValue } from "../../types/data.types";
 import {
-    CreateCustomDto, CustomResponse, EditCustomDto, PaginateCustom,
-    CustomResponseFields as fields
+    CreateCustomDto, CustomResponse, EditCustomDto, PaginateCustom
 } from './dto/custom.dto';
 import { Custom } from "./interfaces/custom.interface";
 import { Document } from "mongoose";
-import { pick } from "lodash";
 import { Helper } from "../../util/helper";
-import * as fs from 'fs';
-import * as path from 'path';
-import { appearances } from './../../plugins/domains';
+import { Application } from "../../application";
 
 export class CustomService {
 
     async getAppearance(type: string): Promise<Appearance> {
-        const instance: any = appearances as any;
-        if (instance[type] && instance[type].appearance)
-            return instance[type].appearance;
-        else
-            return new Appearance();
+        return Application.getAppearance(type);
     }
 
     async search(keyword?: string, value?: string, limit: number = 10): Promise<Array<KeyValue>> {

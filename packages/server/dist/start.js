@@ -8,12 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const server_1 = require("./server");
+const application_1 = require("./application");
 class Start {
     exec() {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => {
-                const apiServer = new server_1.ApiServer();
+                const apiServer = new application_1.Application();
                 apiServer
                     .start()
                     .then(resolve)

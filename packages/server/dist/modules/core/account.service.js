@@ -45,7 +45,7 @@ class AccountService {
     update(entry, admin) {
         return __awaiter(this, void 0, void 0, function* () {
             if (admin && admin.isAdmin) {
-                // this.setKeyWord(entry);
+                this.setKeyWord(entry);
                 const doc = yield core_database_1.CoreDatabase.Account.findOneAndUpdate({
                     _id: entry.id,
                 }, entry).exec();
