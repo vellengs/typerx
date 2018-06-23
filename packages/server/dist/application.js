@@ -18,7 +18,6 @@ const custom_server_1 = require("./interceptor/custom.server");
 const interceptor_1 = require("./interceptor/interceptor");
 const secrets_1 = require("./util/secrets");
 const connector_1 = require("./database/connector");
-const appearance_1 = require("./types/appearance");
 const MongoStore = mongo(session);
 const logger = log4js_1.getLogger();
 class Application {
@@ -48,7 +47,7 @@ class Application {
         return this.app;
     }
     static getAppearance(name) {
-        return Application.appearances[name] || new appearance_1.Appearance();
+        return Application.appearances[name];
     }
     setUploadsFolder() {
         const uploads = path.resolve(process.cwd(), 'public', 'uploads');

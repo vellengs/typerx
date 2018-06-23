@@ -11,7 +11,6 @@ import compression = require('compression');
 import { Server } from 'typescript-rest';
 import { getLogger } from 'log4js';
 import { initPassport } from './config/passport';
-import { indexRender, subPage } from './plugins/render';
 import { existsSync } from 'fs';
 import { controllers } from './controllers';
 import { CustomRestServer } from './interceptor/custom.server';
@@ -64,7 +63,7 @@ export class Application {
   }
 
   public static getAppearance(name: string): Appearance {
-    return Application.appearances[name] || new Appearance();
+    return Application.appearances[name];
   }
 
   private setUploadsFolder() {
