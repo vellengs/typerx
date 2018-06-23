@@ -5,6 +5,7 @@ export interface Plugin {
 }
 export declare class Application {
     private server;
+    private loaded;
     private plugin;
     private app;
     PORT: number;

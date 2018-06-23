@@ -28,6 +28,7 @@ export interface Plugin {
 
 export class Application {
   private server: http.Server = null;
+  private loaded = false;
   private plugin: Plugin;
   private app: express.Application;
   public PORT: number = parseInt(process.env.PORT, 0) || 3600;
@@ -53,8 +54,6 @@ export class Application {
   public registerAppearances(name: string, appearance: Appearance) {
     Application.appearances[name] = appearance;
   }
-
-
 
   public registerController(controller: any) {
     controllers.push(controller);
@@ -151,7 +150,8 @@ export class Application {
    * @returns {Promise<any>}
    */
   public start(): Promise<any> {
-    if (!this.app) {
+    if (!this.loaded) {
+      this.loaded = true;
       this.init();
     }
 

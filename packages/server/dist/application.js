@@ -24,6 +24,7 @@ const logger = log4js_1.getLogger();
 class Application {
     constructor() {
         this.server = null;
+        this.loaded = false;
         this.PORT = parseInt(process.env.PORT, 0) || 3600;
         this.app = express();
         connector_1.connect(secrets_1.MONGODB_URI);
@@ -110,7 +111,8 @@ class Application {
      * @returns {Promise<any>}
      */
     start() {
-        if (!this.app) {
+        if (!this.loaded) {
+            this.loaded = true;
             this.init();
         }
         return new Promise((resolve, reject) => {
