@@ -14,10 +14,12 @@ const lodash_1 = require("lodash");
 const setting_dto_1 = require("./dto/setting.dto");
 const repository_1 = require("../../database/repository");
 const setting_appearance_1 = require("./appearance/setting.appearance");
+const application_1 = require("../../application");
 class SettingService {
     getAppearance() {
         return __awaiter(this, void 0, void 0, function* () {
-            return setting_appearance_1.appearance;
+            const config = application_1.Application.getAppearance('settings') || setting_appearance_1.appearance;
+            return config;
         });
     }
     getSettingsByName(name) {
@@ -87,16 +89,6 @@ class SettingService {
             const collection = core_database_1.CoreDatabase.Setting.find(condition);
             const result = repository_1.Repository.query(query, collection, page, size, setting_dto_1.SettingResponseFields);
             return result;
-            // const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
-            // const docs: any = await Db.Setting.find(query).sort(sort).skip(page * size).limit(size).exec() || [];
-            // const count = await Db.Setting.find(query).count();
-            // const list = docs.map((item: Setting & Document) => {
-            //   return this.pure(item);
-            // });
-            // return {
-            //   list: list,
-            //   total: count
-            // }
         });
     }
     get(id) {

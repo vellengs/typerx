@@ -43,9 +43,4 @@ var WidgetTypes;
     WidgetTypes["avatar"] = "avatar";
     WidgetTypes["tabs"] = "tabs";
 })(WidgetTypes = exports.WidgetTypes || (exports.WidgetTypes = {}));
-// export declare interface PaginateResponse<T> {
-//     error?: Error;
-//     list: any;
-//     total: number;
-// } 
 //# sourceMappingURL=appearance.js.map
