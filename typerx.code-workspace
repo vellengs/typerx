@@ -5,9 +5,6 @@
 		},
 		{
 			"path": "packages/client"
-		},
-		{
-			"path": "dist"
 		}
 	],
 	"settings": {
