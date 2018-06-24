@@ -43,18 +43,27 @@ export class CustomLoginComponent implements OnDestroy {
 
     async submit() {
         try {
+
+            this.error = '';
+            this.userName.markAsDirty();
+            this.userName.updateValueAndValidity();
+            this.password.markAsDirty();
+            this.password.updateValueAndValidity();
+            if (this.userName.invalid || this.password.invalid) return;
+
+            this.loading = true;
             const res = await this.userService.login({
                 username: this.userName.value,
                 password: this.password.value
             });
-
             this.start.load();
-
+            this.loading = false;
             if (res) {
                 this.router.navigate(['/']);
             } else {
-                this.msg.error('账户名或密码无效, 登录失败');
+                this.msg.error('用户名或密码无效, 登录失败');
             }
+            
         } catch (ex) {
             console.log('error', ex);
         }

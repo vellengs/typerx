@@ -34,7 +34,7 @@ export class UserService {
       operator: loginDto.username,
       operatorIp: ip || request.connection.remoteAddress,
       operation: request.method.toLowerCase() + request.originalUrl,
-      comment: '用户登录',
+      comment: '用户登录' + result ? '成功' : '失败',
     });
 
     return result;

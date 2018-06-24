@@ -9,8 +9,9 @@
     "license": "MIT",
     "author": "vellengs",
     "scripts": {
+        "clean": "rimraf ./../server/client",
         "analyze": "ng build --prod --build-optimizer --stats-json",
-        "build": "ng build --prod --build-optimizer && npm run build-copy",
+        "build": "npm run clean && ng build --prod --build-optimizer && npm run build-copy",
         "precommit": "npm run lint-staged",
         "e2e": "ng e2e",
         "lint": "run-s lint:ts lint:style",
