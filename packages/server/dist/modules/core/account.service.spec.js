@@ -10,35 +10,38 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const account_service_1 = require("./account.service");
 const connector_1 = require("./../../database/connector");
+const core_database_1 = require("./core.database");
 const mongoUri = 'mongodb://localhost/typerx-test';
 describe('Account service test', () => {
     let usersService;
     let db;
-    beforeEach(() => __awaiter(this, void 0, void 0, function* () {
+    beforeAll(() => __awaiter(this, void 0, void 0, function* () {
         db = connector_1.connect(mongoUri);
     }));
-    afterEach(() => __awaiter(this, void 0, void 0, function* () {
+    afterAll(() => __awaiter(this, void 0, void 0, function* () {
         yield db.dropDatabase();
         yield db.close();
     }));
     beforeEach(() => __awaiter(this, void 0, void 0, function* () {
         usersService = new account_service_1.AccountService();
     }));
-    describe('create an account', () => {
+    describe('get appearance config ', () => {
         it('should return an appearance config', () => __awaiter(this, void 0, void 0, function* () {
             const config = yield usersService.getAppearance();
             expect(config.formSets).toBeTruthy;
         }));
-        it('should success created an account', () => __awaiter(this, void 0, void 0, function* () {
+    });
+    describe('create an account', () => {
+        test('should success created an account', () => __awaiter(this, void 0, void 0, function* () {
             const dto = {
-                username: 'viking',
+                username: 'viking1',
                 password: '1234567',
                 mobile: '1301234567',
                 nick: '张三疯'
             };
             const user = yield usersService.create(dto);
             expect(user.nick).toBe(dto.nick);
-            const existUser = yield db.model('Account').findById(user.id);
+            const existUser = yield core_database_1.CoreDatabase.Account.findById(user.id);
             expect(existUser.password).not.toBe(dto.password);
             yield usersService.create(dto).catch((error) => {
                 expect(error).toBeTruthy;
@@ -46,7 +49,7 @@ describe('Account service test', () => {
         }));
         it('keyword should be generated', () => __awaiter(this, void 0, void 0, function* () {
             const dto = {
-                username: 'viking',
+                username: 'viking2',
                 password: '1234567',
                 mobile: '1301234567',
                 nick: '张三疯'
@@ -76,7 +79,7 @@ describe('Account service test', () => {
     describe('update an account', () => {
         it('should success updated an account', () => __awaiter(this, void 0, void 0, function* () {
             const dto = {
-                username: 'viking',
+                username: 'viking3',
                 password: '1234567',
                 mobile: '1301234567',
                 nick: '张三疯'
@@ -107,11 +110,26 @@ describe('Account service test', () => {
         }));
     });
     describe('query an account', () => {
+        test('should be return results length great then 0', () => __awaiter(this, void 0, void 0, function* () {
+            const dto = {
+                username: 'viking5',
+                password: '1234567',
+                mobile: '1301234567',
+                nick: '张三疯'
+            };
+            yield usersService.create(dto);
+            const results1 = yield usersService.query();
+            console.log(results1.total);
+            expect(results1.total).toBeGreaterThan(0);
+            const results2 = yield usersService.query('zsf');
+            console.log(results2.total);
+            expect(results2.total).toBeGreaterThan(0);
+        }));
     });
     describe('get an account', () => {
         it('should success return an account', () => __awaiter(this, void 0, void 0, function* () {
             const dto = {
-                username: 'viking',
+                username: 'viking6',
                 password: '1234567',
                 mobile: '1301234567',
                 nick: '张三疯'
@@ -124,7 +142,7 @@ describe('Account service test', () => {
     describe('remove account from role', () => {
         it('should not been found after deleted', () => __awaiter(this, void 0, void 0, function* () {
             const dto = {
-                username: 'viking',
+                username: 'viking7',
                 password: '1234567',
                 mobile: '1301234567',
                 nick: '张三疯'
@@ -135,6 +153,19 @@ describe('Account service test', () => {
             expect(deleted).toBeTruthy;
             const exist = yield usersService.get(user.id);
             expect(exist.id).toBeUndefined;
+        }));
+    });
+    describe('search key and value from accounts', () => {
+        it('should return results', () => __awaiter(this, void 0, void 0, function* () {
+            const dto = {
+                username: 'viking8',
+                password: '1234567',
+                mobile: '1301234567',
+                nick: '张三疯'
+            };
+            yield usersService.create(dto);
+            const exists = yield usersService.search('viking8');
+            expect(exists.length).toBeGreaterThan(0);
         }));
     });
     describe('add account from role', () => {

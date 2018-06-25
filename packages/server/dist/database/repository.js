@@ -68,9 +68,11 @@ class Repository {
             });
         });
     }
-    static search(model, keyword, id, category = '', limit = 10, labelField = 'name', valueField = '_id') {
+    static search(model, keyword, id, category = '', limit = 10, labelField = 'name', valueField = '_id', searchField = 'name') {
         return __awaiter(this, void 0, void 0, function* () {
-            const query = keyword ? { name: new RegExp(keyword, 'i') } : {};
+            const critical = {};
+            critical[searchField] = new RegExp(keyword, 'i');
+            const query = keyword ? critical : {};
             if (category) {
                 query.category = category;
             }

@@ -4,6 +4,7 @@ import { Connection } from 'mongoose';
 import { CoreDatabase } from './core.database';
 
 import { EditAccountDto, SessionUser } from './dto/account.dto';
+import { ServiceContext } from 'typescript-rest';
 const mongoUri = 'mongodb://localhost/typerx-test';
 
 describe('Account service test', () => {
@@ -24,7 +25,7 @@ describe('Account service test', () => {
   })
 
   describe('get appearance config ', () => {
-    it('should return an appearance config', async () => {
+    test('should return an appearance config', async () => {
       const config = await usersService.getAppearance();
       expect(config.formSets).toBeTruthy;
     })
@@ -53,7 +54,7 @@ describe('Account service test', () => {
 
     });
 
-    it('keyword should be generated', async () => {
+    test('keyword should be generated', async () => {
       const dto: any = {
         username: 'viking2',
         password: '1234567',
@@ -67,7 +68,7 @@ describe('Account service test', () => {
     });
 
 
-    it('username should not be empty', async () => {
+    test('username should not be empty', async () => {
       let dto = {
         username: ' ',
         password: '1234567',
@@ -95,7 +96,7 @@ describe('Account service test', () => {
 
   describe('update an account', () => {
 
-    it('should success updated an account', async () => {
+    test('should success updated an account', async () => {
       const dto = {
         username: 'viking3',
         password: '1234567',
@@ -148,14 +149,14 @@ describe('Account service test', () => {
       const results2 = await usersService.query('zsf');
       console.log(results2.total);
       expect(results2.total).toBeGreaterThan(0);
-      
+
     })
 
   });
 
   describe('get an account', () => {
 
-    it('should success return an account', async () => {
+    test('should success return an account', async () => {
       const dto = {
         username: 'viking6',
         password: '1234567',
@@ -172,7 +173,7 @@ describe('Account service test', () => {
 
   describe('remove account from role', () => {
 
-    it('should not been found after deleted', async () => {
+    test('should not been found after deleted', async () => {
       const dto = {
         username: 'viking7',
         password: '1234567',
@@ -192,7 +193,40 @@ describe('Account service test', () => {
 
   });
 
+  describe('search key and value from accounts', () => {
+    test('should return results', async () => {
+      const dto = {
+        username: 'viking8',
+        password: '1234567',
+        mobile: '1301234567',
+        nick: '张三疯'
+      };
+
+      await usersService.create(dto);
+      const exists = await usersService.search();
+      expect(exists.length).toBeGreaterThan(0);
+      const matches = await usersService.search('1301234567');
+      expect(matches.length).toBeGreaterThan(0);
+
+    });
+  });
+
   describe('add account from role', () => {
+
+  });
+
+  describe('get profile', () => {
+    test('should return results', async () => {
+      const fakeContext: any = {
+        request: {
+          user: {
+            username: 'mock'
+          }
+        }
+      };
+      const profile = await usersService.profile(fakeContext);
+      expect(profile.username).toBe('mock');
+    })
 
   });
 

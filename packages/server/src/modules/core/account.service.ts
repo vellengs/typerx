@@ -26,7 +26,7 @@ export class AccountService {
   }
 
   async search(keyword?: string, value?: string, limit: number = 10): Promise<Array<KeyValue>> {
-    return Repository.search(Db.Account, keyword, value, '', limit, 'nick');
+    return Repository.search(Db.Account, keyword, value, '', limit, 'nick', '_id', 'keyword');
   }
 
   setKeyWord(entry: CreateAccountDto | EditAccountDto) {
@@ -38,8 +38,8 @@ export class AccountService {
   }
 
   async create(entry: CreateAccountDto): Promise<AccountResponse> {
-    const doc = new Db.Account(entry);
     this.setKeyWord(entry);
+    const doc = new Db.Account(entry);
     const result = await doc.save();
     return this.pure(result);
   }

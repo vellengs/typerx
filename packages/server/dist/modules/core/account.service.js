@@ -24,7 +24,7 @@ class AccountService {
     }
     search(keyword, value, limit = 10) {
         return __awaiter(this, void 0, void 0, function* () {
-            return repository_1.Repository.search(core_database_1.CoreDatabase.Account, keyword, value, '', limit, 'nick');
+            return repository_1.Repository.search(core_database_1.CoreDatabase.Account, keyword, value, '', limit, 'nick', 'keyword');
         });
     }
     setKeyWord(entry) {

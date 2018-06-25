@@ -59,8 +59,11 @@ export class Repository {
 
     static async search(model: Model<Document>,
         keyword?: string, id?: string,
-        category = '', limit: number = 10, labelField = 'name', valueField = '_id'): Promise<Array<KeyValue>> {
-        const query: any = keyword ? { name: new RegExp(keyword, 'i') } : {};
+        category = '', limit: number = 10, labelField = 'name', valueField = '_id', searchField = 'name'): Promise<Array<KeyValue>> {
+
+        const critical: any = {};
+        critical[searchField] = new RegExp(keyword, 'i');
+        const query: any = keyword ? critical : {};
 
         if (category) {
             query.category = category;
