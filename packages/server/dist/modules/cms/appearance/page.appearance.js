@@ -15,7 +15,7 @@ const addForm = {
             }
         },
         name: {
-            title: '网址串',
+            title: '网址',
             type: appearance_1.SchemaTypes.string,
             ui: {
                 widget: 'text',
@@ -60,10 +60,6 @@ const addForm = {
 const editForm = lodash_1.cloneDeep(addForm);
 editForm.title = '编辑页面';
 editForm.required = ['username'];
-editForm.properties.secret = {
-    title: '密保',
-    type: appearance_1.SchemaTypes.string
-};
 exports.appearance = {
     columnSets: {
         default: [

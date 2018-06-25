@@ -48,7 +48,9 @@ class AccountService {
                 this.setKeyWord(entry);
                 const doc = yield core_database_1.CoreDatabase.Account.findOneAndUpdate({
                     _id: entry.id,
-                }, entry).exec();
+                }, entry, {
+                    new: true
+                }).exec();
                 return doc;
             }
             else {
@@ -69,7 +71,6 @@ class AccountService {
     }
     query(keyword, group, role, page, size, sort) {
         return __awaiter(this, void 0, void 0, function* () {
-            page = page > 0 ? page : 0 || 1;
             const condition = keyword ? { keyword: new RegExp(keyword, 'i') } : {};
             if (group) {
                 const ids = yield repository_1.Repository.deeplyFind(core_database_1.CoreDatabase.Group, group);

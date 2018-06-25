@@ -55,6 +55,9 @@ export class AccountService {
           _id: entry.id,
         },
         entry,
+        {
+          new: true
+        }
       ).exec();
       return doc;
     } else {
@@ -79,7 +82,6 @@ export class AccountService {
     size?: number,
     sort?: string
   ): Promise<PaginateAccount> {
-    page = page > 0 ? page : 0 || 1;
 
     const condition: any = keyword ? { keyword: new RegExp(keyword, 'i') } : {};
     if (group) {

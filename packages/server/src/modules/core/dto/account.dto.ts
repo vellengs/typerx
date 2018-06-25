@@ -40,20 +40,20 @@ export class AccountResponse {
 }
 
 export class SessionUser {
-  id: string;
+  id?: string;
   username: string;
-  nick: string;
-  avatar: string;
-  type: string;
-  email: string;
-  groups: string[];
-  roles: string[];
-  mobile: string;
-  profile: any;
+  nick?: string;
+  avatar?: string;
+  type?: string;
+  email?: string;
+  groups?: string[];
+  roles?: string[];
+  mobile?: string;
+  profile?: any;
   isDisable: boolean;
   isAdmin: boolean;
   isApproved: boolean;
-  expired: Date;
+  expired?: Date;
 }
 
 export const AccountResponseFields = [
