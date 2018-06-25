@@ -15,7 +15,7 @@ const addForm: SFSchema = {
             }
         },
         name: {
-            title: '网址串',
+            title: '网址',
             type: t.string,
             ui: {
                 widget: 'text',
@@ -61,10 +61,6 @@ const addForm: SFSchema = {
 const editForm = cloneDeep(addForm);
 editForm.title = '编辑页面';
 editForm.required = ['username'];
-editForm.properties.secret = {
-    title: '密保',
-    type: t.string
-};
 
 export const appearance: Appearance = {
     columnSets: {

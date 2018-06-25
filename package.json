@@ -25,7 +25,7 @@
     "scripts": {
         "client": "cd packages/client && npm start",
         "server": "cd packages/server && npm start",
-        "start": "concurrently --kill-others \"npm run server\" \"npm run client\"",
+        "start": "nodemon",
         "test": "jest",
         "test:cov": "jest --coverage",
         "test:e2e": "jest --config ./test/jest-e2e.json",

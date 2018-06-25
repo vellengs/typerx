@@ -110,7 +110,6 @@ export class Application {
     this.app.use(passport.session());
     this.app.use(lusca.xframe('SAMEORIGIN'));
     this.app.use(lusca.xssProtection(true));
-
     this.app.use((req, res, next) => {
       res.on('finish', () => {
         logger.debug(
