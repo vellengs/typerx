@@ -108,7 +108,6 @@ export class AccountService {
     return this.pure(result);
   }
 
-
   async removeAccountFromRole(role: string, accountId: string) {
 
     if (role && accountId) {
@@ -118,7 +117,6 @@ export class AccountService {
         }
       }, { $pullAll: { roles: [role] } }, { multi: true }).exec();
     }
-
     return true;
   }
 

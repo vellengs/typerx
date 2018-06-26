@@ -24,7 +24,7 @@ class AccountService {
     }
     search(keyword, value, limit = 10) {
         return __awaiter(this, void 0, void 0, function* () {
-            return repository_1.Repository.search(core_database_1.CoreDatabase.Account, keyword, value, '', limit, 'nick', 'keyword');
+            return repository_1.Repository.search(core_database_1.CoreDatabase.Account, keyword, value, '', limit, 'nick', '_id', 'keyword');
         });
     }
     setKeyWord(entry) {
@@ -36,8 +36,8 @@ class AccountService {
     }
     create(entry) {
         return __awaiter(this, void 0, void 0, function* () {
-            const doc = new core_database_1.CoreDatabase.Account(entry);
             this.setKeyWord(entry);
+            const doc = new core_database_1.CoreDatabase.Account(entry);
             const result = yield doc.save();
             return this.pure(result);
         });
