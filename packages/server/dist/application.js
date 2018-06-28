@@ -18,6 +18,7 @@ const custom_server_1 = require("./interceptor/custom.server");
 const interceptor_1 = require("./interceptor/interceptor");
 const secrets_1 = require("./util/secrets");
 const connector_1 = require("./database/connector");
+const container_1 = require("./container");
 const MongoStore = mongo(session);
 const logger = log4js_1.getLogger();
 class Application {
@@ -41,6 +42,9 @@ class Application {
     }
     registerController(controller) {
         controllers_1.controllers.push(controller);
+    }
+    registerAppearance(name, appearance) {
+        container_1.ContainerService.registerAppearance(name, appearance);
     }
     getExpressApp() {
         return this.app;

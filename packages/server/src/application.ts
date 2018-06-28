@@ -17,6 +17,8 @@ import { CustomRestServer } from './interceptor/custom.server';
 import { isAuthenticated, apiPrefix } from './interceptor/interceptor';
 import { MONGODB_URI, SESSION_SECRET } from './util/secrets';
 import { connect } from './database/connector';
+import { ContainerService } from './container';
+import { Appearance } from './types/appearance';
 const MongoStore = mongo(session);
 const logger = getLogger();
 
@@ -50,6 +52,10 @@ export class Application {
 
   public registerController(controller: any) {
     controllers.push(controller);
+  }
+
+  public registerAppearance(name: string, appearance: Appearance) {
+    ContainerService.registerAppearance(name, appearance);
   }
 
   public getExpressApp() {

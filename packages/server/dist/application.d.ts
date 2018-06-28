@@ -1,5 +1,6 @@
 /// <reference types="express" />
 import * as express from 'express';
+import { Appearance } from './types/appearance';
 export interface Plugin {
 }
 export declare class Application {
@@ -11,6 +12,7 @@ export declare class Application {
     constructor(connected?: boolean);
     init(): void;
     registerController(controller: any): void;
+    registerAppearance(name: string, appearance: Appearance): void;
     getExpressApp(): express.Application;
     private setUploadsFolder();
     private hostSwaggerDocs();

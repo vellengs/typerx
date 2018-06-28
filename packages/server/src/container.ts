@@ -9,7 +9,7 @@ export class ContainerService {
         return ContainerService.appearances[name];
     }
 
-    public registerAppearance(name: string, appearance: Appearance) {
+    public static registerAppearance(name: string, appearance: Appearance) {
         ContainerService.appearances[name] = appearance;
     }
 

@@ -8,33 +8,32 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const request = require("supertest");
-const data_install_1 = require("../../scripts/data.install");
+const typescript_rest_1 = require("typescript-rest");
+const log_service_1 = require("./log.service");
+const httpMock = require("node-mocks-http");
+// import app from '../../app';
+const user_service_1 = require("./user.service");
+jest.mock('./log.service');
+const login_dto_1 = require("./dto/login.dto");
 const mongoUri = 'mongodb://localhost/typerx-test-user-service';
 describe('User Service Test', () => {
-    let installer;
-    let app;
+    let service;
     beforeAll(() => __awaiter(this, void 0, void 0, function* () {
-        installer = new data_install_1.Installer(mongoUri);
-        yield installer.initData();
-        app = require('./../../app');
+        service = new user_service_1.UserService();
     }));
     afterAll(() => __awaiter(this, void 0, void 0, function* () {
-        installer.drop();
     }));
-    test('user login', () => __awaiter(this, void 0, void 0, function* () {
-        // expect(1).toBe(1);
-        yield request(app).get('/api/account/config').expect(200);
+    test.only('user login', () => __awaiter(this, void 0, void 0, function* () {
+        const result = new login_dto_1.LoginResponse();
+        const context = new typescript_rest_1.ServiceContext();
+        context.request = httpMock.createRequest();
+        const loginDto = {
+            username: 'admin',
+            password: '888888'
+        };
+        log_service_1.LogService.save.mockResolvedValue(result);
+        jest.spyOn(service, 'validate').mockImplementation((context) => result);
+        expect(yield service.login(context, loginDto)).toBe(result);
     }));
-    test("should return true", (done) => {
-        request(app).post('/user/login')
-            .send({ username: 'admin', password: '888888' })
-            .set('Accept', 'application/json')
-            .end(function (err, res) {
-            console.log('err', err);
-            done();
-        })
-            .expect(200);
-    });
 });
 //# sourceMappingURL=user.service.spec.js.map

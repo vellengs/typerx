@@ -31,7 +31,7 @@ describe('User Service Test', () => {
 
     (<any>LogService.save).mockResolvedValue(result);
     jest.spyOn(service, 'validate').mockImplementation((context: any) => result);
-    expect(await service.login(context, loginDto)).toBe(false);
+    expect(await service.login(context, loginDto)).toBe(result);
 
   });
 

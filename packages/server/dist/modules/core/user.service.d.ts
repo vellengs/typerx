@@ -15,6 +15,7 @@ export declare class UserService {
         url: string;
     }>;
     update(context: ServiceContext, entry: EditProfileDto): Promise<ProfileResponse>;
-    private validate(request, response, next);
+    validate(context: ServiceContext): Promise<LoginResponse>;
+    findAll(): string[];
     private pure(entry);
 }

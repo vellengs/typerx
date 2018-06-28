@@ -18,12 +18,13 @@ class UserService {
     login(context, loginDto) {
         return __awaiter(this, void 0, void 0, function* () {
             const { request, response, next } = context;
-            const result = yield this.validate(request, response, next);
+            const result = yield this.validate(context);
             const ip = request.headers['x-real-ip'] || request.headers['x-forwarded-for'];
+            const operatorIp = ip || (request.connection || { remoteAddress: '' }).remoteAddress;
             yield log_service_1.LogService.save({
                 name: 'login',
                 operator: loginDto.username,
-                operatorIp: ip || request.connection.remoteAddress,
+                operatorIp: operatorIp,
                 operation: request.method.toLowerCase() + request.originalUrl,
                 comment: '用户登录' + result ? '成功' : '失败',
             });
@@ -68,10 +69,11 @@ class UserService {
             }
         });
     }
-    validate(request, response, next) {
+    validate(context) {
         return __awaiter(this, void 0, void 0, function* () {
+            const { request, response, next } = context;
             const result = yield new Promise((resolve, reject) => {
-                passport.authenticate('local', (err, user, info) => {
+                const callback = (err, user, info) => {
                     if (err) {
                         reject(false);
                     }
@@ -87,10 +89,15 @@ class UserService {
                     else {
                         resolve(false);
                     }
-                })(request, response, next);
+                };
+                passport.authenticate('local', callback)(request, response, next);
             });
             return result;
         });
+    }
+    findAll() {
+        console.log('find all...');
+        return [];
     }
     pure(entry) {
         return lodash_1.pick(entry, [

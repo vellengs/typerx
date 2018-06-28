@@ -4,7 +4,7 @@ class ContainerService {
     static getAppearance(name) {
         return ContainerService.appearances[name];
     }
-    registerAppearance(name, appearance) {
+    static registerAppearance(name, appearance) {
         ContainerService.appearances[name] = appearance;
     }
 }

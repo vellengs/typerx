@@ -11,7 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const access_service_1 = require("./access.service");
 const data_install_1 = require("../../scripts/data.install");
 const core_database_1 = require("./core.database");
-const mongoUri = 'mongodb://localhost/typerx-test-access-server';
+const mongoUri = 'mongodb://localhost/typerx-test-access-service';
 describe('Access Service Test', () => {
     let installer;
     beforeAll(() => __awaiter(this, void 0, void 0, function* () {
