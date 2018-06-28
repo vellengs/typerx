@@ -8,12 +8,12 @@ import {
 import { Custom } from "./interfaces/custom.interface";
 import { Document } from "mongoose";
 import { Helper } from "../../util/helper";
-import { Application } from "../../application";
+import { ContainerService } from "../../container";
 
 export class CustomService {
 
     async getAppearance(type: string): Promise<Appearance> {
-        return Application.getAppearance(type);
+        return ContainerService.getAppearance(type);
     }
 
     async search(keyword?: string, value?: string, limit: number = 10): Promise<Array<KeyValue>> {

@@ -13,12 +13,12 @@ import { Document } from 'mongoose';
 import { KeyValue } from '../../types/data.types';
 import { Repository } from '../../database/repository';
 import { appearance } from './appearance/setting.appearance';
-import { Application } from '../../application';
+import { ContainerService } from '../../container';
 
 export class SettingService {
 
   async getAppearance(): Promise<Appearance> {
-    const config = Application.getAppearance('settings') || appearance;
+    const config = ContainerService.getAppearance('settings') || appearance;
     return config;
   }
 

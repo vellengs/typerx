@@ -14,11 +14,11 @@ const lodash_1 = require("lodash");
 const setting_dto_1 = require("./dto/setting.dto");
 const repository_1 = require("../../database/repository");
 const setting_appearance_1 = require("./appearance/setting.appearance");
-const application_1 = require("../../application");
+const container_1 = require("../../container");
 class SettingService {
     getAppearance() {
         return __awaiter(this, void 0, void 0, function* () {
-            const config = application_1.Application.getAppearance('settings') || setting_appearance_1.appearance;
+            const config = container_1.ContainerService.getAppearance('settings') || setting_appearance_1.appearance;
             return config;
         });
     }

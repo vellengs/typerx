@@ -21,12 +21,14 @@ const connector_1 = require("./database/connector");
 const MongoStore = mongo(session);
 const logger = log4js_1.getLogger();
 class Application {
-    constructor() {
+    constructor(connected) {
         this.server = null;
         this.loaded = false;
         this.PORT = parseInt(process.env.PORT, 0) || 3600;
         this.app = express();
-        connector_1.connect(secrets_1.MONGODB_URI);
+        if (!connected) {
+            connector_1.connect(secrets_1.MONGODB_URI);
+        }
         this.config();
         passport_1.initPassport();
     }
@@ -37,17 +39,11 @@ class Application {
         this.hostSwaggerDocs();
         this.handerErrors();
     }
-    registerAppearances(name, appearance) {
-        Application.appearances[name] = appearance;
-    }
     registerController(controller) {
         controllers_1.controllers.push(controller);
     }
     getExpressApp() {
         return this.app;
-    }
-    static getAppearance(name) {
-        return Application.appearances[name];
     }
     setUploadsFolder() {
         const uploads = path.resolve(process.cwd(), 'public', 'uploads');
@@ -119,6 +115,7 @@ class Application {
                 if (err) {
                     return reject(err);
                 }
+                console.log('this.server:', this.server);
                 let address = this.server.address();
                 if (typeof address === 'object') {
                     address = address.address;
@@ -146,6 +143,5 @@ class Application {
         });
     }
 }
-Application.appearances = {};
 exports.Application = Application;
 //# sourceMappingURL=application.js.map

@@ -17,7 +17,6 @@ import { CustomRestServer } from './interceptor/custom.server';
 import { isAuthenticated, apiPrefix } from './interceptor/interceptor';
 import { MONGODB_URI, SESSION_SECRET } from './util/secrets';
 import { connect } from './database/connector';
-import { Appearance } from './types/appearance';
 const MongoStore = mongo(session);
 const logger = getLogger();
 
@@ -31,13 +30,12 @@ export class Application {
   private plugin: Plugin;
   private app: express.Application;
   public PORT: number = parseInt(process.env.PORT, 0) || 3600;
-  private static appearances: {
-    [k: string]: Appearance
-  } = {};
 
-  constructor() {
+  constructor(connected?: boolean) {
     this.app = express();
-    connect(MONGODB_URI);
+    if (!connected) {
+      connect(MONGODB_URI);
+    }
     this.config();
     initPassport();
   }
@@ -50,20 +48,12 @@ export class Application {
     this.handerErrors();
   }
 
-  public registerAppearances(name: string, appearance: Appearance) {
-    Application.appearances[name] = appearance;
-  }
-
   public registerController(controller: any) {
     controllers.push(controller);
   }
 
   public getExpressApp() {
     return this.app;
-  }
-
-  public static getAppearance(name: string): Appearance {
-    return Application.appearances[name];
   }
 
   private setUploadsFolder() {
@@ -158,6 +148,7 @@ export class Application {
         if (err) {
           return reject(err);
         }
+        console.log('this.server:', this.server);
         let address = this.server.address();
         if (typeof address === 'object') {
           address = address.address;

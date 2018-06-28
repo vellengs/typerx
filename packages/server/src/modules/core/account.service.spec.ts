@@ -221,7 +221,11 @@ describe('Account service test', () => {
 
       const account = await service.create(dto);
       const result = await service.addAccountsToRole(role.id, account.id);
+
       expect(result).toBeTruthy;
+      await service.addAccountsToRole(role.id, account.id);
+      const removed = await service.removeAccountFromRole(role.id, account.id);
+      expect(removed).toBeTruthy;
 
     });
 
@@ -241,5 +245,9 @@ describe('Account service test', () => {
     })
 
   });
+
+
+
+
 
 });

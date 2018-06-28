@@ -6,5 +6,5 @@ export class CustomRestServer {
     static buildServices(router: Router, ...types: any[]) {
         const internalServer: InternalServer = new CustomInternalServer(router);
         internalServer.buildServices(types);
-    } 
+    }
 }

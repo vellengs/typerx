@@ -12,11 +12,11 @@ const repository_1 = require("../../database/repository");
 const cms_database_1 = require("./cms.database");
 const custom_dto_1 = require("./dto/custom.dto");
 const helper_1 = require("../../util/helper");
-const application_1 = require("../../application");
+const container_1 = require("../../container");
 class CustomService {
     getAppearance(type) {
         return __awaiter(this, void 0, void 0, function* () {
-            return application_1.Application.getAppearance(type);
+            return container_1.ContainerService.getAppearance(type);
         });
     }
     search(keyword, value, limit = 10) {

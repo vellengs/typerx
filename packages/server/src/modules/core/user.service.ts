@@ -15,6 +15,7 @@ import { pick } from 'lodash';
 import { Document } from 'mongoose';
 import { EditProfileDto } from './dto/profile.dto';
 import { Repository } from '../../database/repository';
+import { AccountResponse } from './dto/account.dto';
 
 export class UserService {
   async login(
@@ -22,17 +23,13 @@ export class UserService {
     loginDto: LoginDto,
   ): Promise<LoginResponse> {
     const { request, response, next } = context;
-    const result: LoginResponse = await this.validate(
-      request,
-      response,
-      next,
-    );
-
+    const result: LoginResponse = await this.validate(context);
     const ip: any = request.headers['x-real-ip'] || request.headers['x-forwarded-for'];
+    const operatorIp = ip || (request.connection || { remoteAddress: '' }).remoteAddress;
     await LogService.save({
       name: 'login',
       operator: loginDto.username,
-      operatorIp: ip || request.connection.remoteAddress,
+      operatorIp: operatorIp,
       operation: request.method.toLowerCase() + request.originalUrl,
       comment: '用户登录' + result ? '成功' : '失败',
     });
@@ -85,36 +82,38 @@ export class UserService {
     } else {
       throw new Errors.BadRequestError('user not found');
     }
-
   }
 
-  private async validate(
-    request: Request,
-    response: Response,
-    next: NextFunction,
+  async validate(
+    context: ServiceContext
   ): Promise<LoginResponse> {
+    const { request, response, next } = context;
     const result = await new Promise((resolve, reject) => {
-      passport.authenticate(
-        'local',
-        (err: Error, user: Account & Document, info: LocalStrategyInfo) => {
-          if (err) {
-            reject(false);
-          }
-          if (user) {
-            request.logIn(user, err => {
-              if (err) {
-                reject(false);
-              }
-              const picked: LoginResponse = this.pure(user);
-              resolve(picked);
-            });
-          } else {
-            resolve(false);
-          }
-        },
-      )(request, response, next);
+      const callback = (err: Error, user: Account & Document, info: LocalStrategyInfo) => {
+        if (err) {
+          reject(false);
+        }
+        if (user) {
+          request.logIn(user, err => {
+            if (err) {
+              reject(false);
+            }
+            const picked: LoginResponse = this.pure(user);
+            resolve(picked);
+          });
+        } else {
+          resolve(false);
+        }
+      };
+
+      passport.authenticate('local', callback)(request, response, next);
     });
     return result as LoginResponse;
+  }
+
+  findAll(): string[] {
+    console.log('find all...');
+    return [];
   }
 
   private pure(entry: Account & Document): LoginResponse {
