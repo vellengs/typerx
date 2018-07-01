@@ -154,7 +154,6 @@ export class Application {
         if (err) {
           return reject(err);
         }
-        console.log('this.server:', this.server);
         let address = this.server.address();
         if (typeof address === 'object') {
           address = address.address;

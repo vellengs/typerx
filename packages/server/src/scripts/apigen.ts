@@ -41,8 +41,9 @@ async function upsertApi(jsonPath: string) {
     console.log('completed upsert api ...');
 }
 
-
 async function loadSwagger() {
+
+    /** 读取 swagger.json 接口文档文件 */
     const jsonPath = path.resolve(process.cwd(), 'dist', 'swagger.json');
     const json = require(jsonPath);
 
@@ -53,6 +54,9 @@ async function loadSwagger() {
         })
     });
 
+    /**
+     * 提交 post 到服务器并获得下载链接
+     */
     const result = await client.post(gateway, { spec: json });
     if (result.data && result.data.link) {
         const response = await client({
@@ -65,6 +69,7 @@ async function loadSwagger() {
         const templateFolder = path.resolve(process.cwd(), 'decompress', 'typescript-angular-client');
         const decompress = path.resolve(process.cwd(), 'decompress');
 
+        // 处理下载压缩包文件，解压并删除临时文件
         response.data.pipe(fs.createWriteStream(local)).on('finish', (done: any) => {
             fs.createReadStream(local).pipe(unzip.Extract({ path: 'decompress' })).on('close',
                 async (done: any) => {
@@ -86,11 +91,10 @@ async function loadSwagger() {
     console.log('load swagger ...');
 }
 
-async function sleep(ms: number) {
-    await new Promise(resolve => setTimeout(
-        () => resolve(true), ms));
-}
-
+/**
+ * 若已经生成，则删除文件夹
+ * @param folder 文件夹
+ */
 async function removeFolder(folder: string) {
     if (fs.existsSync(folder)) {
         await new Promise((resolve) => {

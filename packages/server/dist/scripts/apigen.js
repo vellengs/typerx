@@ -49,6 +49,7 @@ function upsertApi(jsonPath) {
 }
 function loadSwagger() {
     return __awaiter(this, void 0, void 0, function* () {
+        /** 读取 swagger.json 接口文档文件 */
         const jsonPath = path.resolve(process.cwd(), 'dist', 'swagger.json');
         const json = require(jsonPath);
         yield upsertApi(jsonPath);
@@ -57,6 +58,9 @@ function loadSwagger() {
                 rejectUnauthorized: false
             })
         });
+        /**
+         * 提交 post 到服务器并获得下载链接
+         */
         const result = yield client.post(gateway, { spec: json });
         if (result.data && result.data.link) {
             const response = yield client({
@@ -68,6 +72,7 @@ function loadSwagger() {
             const generatedFolder = path.resolve(process.cwd(), './../client/src/generated');
             const templateFolder = path.resolve(process.cwd(), 'decompress', 'typescript-angular-client');
             const decompress = path.resolve(process.cwd(), 'decompress');
+            // 处理下载压缩包文件，解压并删除临时文件
             response.data.pipe(fs.createWriteStream(local)).on('finish', (done) => {
                 fs.createReadStream(local).pipe(unzip.Extract({ path: 'decompress' })).on('close', (done) => __awaiter(this, void 0, void 0, function* () {
                     // await sleep(2000);
@@ -87,11 +92,10 @@ function loadSwagger() {
         console.log('load swagger ...');
     });
 }
-function sleep(ms) {
-    return __awaiter(this, void 0, void 0, function* () {
-        yield new Promise(resolve => setTimeout(() => resolve(true), ms));
-    });
-}
+/**
+ * 若已经生成，则删除文件夹
+ * @param folder 文件夹
+ */
 function removeFolder(folder) {
     return __awaiter(this, void 0, void 0, function* () {
         if (fs.existsSync(folder)) {

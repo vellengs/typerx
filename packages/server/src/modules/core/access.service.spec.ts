@@ -29,7 +29,4 @@ describe('Access Service Test', () => {
         const none = await AccessService.canEditAccount(role.id);
         expect(none).toBeFalsy;
     });
-
-
-
 });

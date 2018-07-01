@@ -1,3 +1,3 @@
 import * as shell from 'shelljs';
 
-shell.cp('-R', 'client', './../server');
+shell.cp('-R', 'dist', './../server/client');
