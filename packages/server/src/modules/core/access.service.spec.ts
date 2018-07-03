@@ -1,4 +1,4 @@
-import { Connection } from "mongoose";
+import { Connection } from 'mongoose';
 import { AccessService } from "./access.service";
 import { Installer } from '../../scripts/data.install';
 import { CoreDatabase } from "./core.database";

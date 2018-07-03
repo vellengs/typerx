@@ -12,6 +12,7 @@ export class Installer {
     constructor(mongooseUri: string) {
         this.mongooseUri = mongooseUri;
         this.db = connect(mongooseUri);
+        
     }
 
     private static loadJson(dataFolder: string, file: string) {

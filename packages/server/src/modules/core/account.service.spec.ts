@@ -1,6 +1,5 @@
 import { AccountService } from './account.service';
 import { CoreDatabase } from './core.database';
-
 import { EditAccountDto, SessionUser } from './dto/account.dto';
 import { Installer } from '../../scripts/data.install';
 const mongoUri = 'mongodb://localhost/typerx-test-account-service';

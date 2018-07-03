@@ -79,6 +79,7 @@ class UserService {
                     }
                     if (user) {
                         request.logIn(user, err => {
+                            console.log('error:', err);
                             if (err) {
                                 reject(false);
                             }
@@ -90,6 +91,7 @@ class UserService {
                         resolve(false);
                     }
                 };
+                console.log('local:', callback);
                 passport.authenticate('local', callback)(request, response, next);
             });
             return result;

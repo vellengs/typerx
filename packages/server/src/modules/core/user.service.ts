@@ -95,6 +95,7 @@ export class UserService {
         }
         if (user) {
           request.logIn(user, err => {
+            console.log('error:', err);
             if (err) {
               reject(false);
             }
@@ -105,7 +106,7 @@ export class UserService {
           resolve(false);
         }
       };
-
+      console.log('local:', callback);
       passport.authenticate('local', callback)(request, response, next);
     });
     return result as LoginResponse;

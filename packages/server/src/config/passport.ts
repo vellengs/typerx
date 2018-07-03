@@ -26,6 +26,7 @@ export function initPassport() {
     });
 
     passport.use(new LocalStrategy({ usernameField: "username" }, (username, password, done) => {
+
         Db.Account.findOne({
             username: username.toLowerCase(),
             isApproved: true,
@@ -53,8 +54,6 @@ export function initPassport() {
         });
     }));
 }
-
-
 
 /**
  * Authorization Required middleware.
