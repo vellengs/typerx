@@ -34,12 +34,13 @@
         "watch": "nodemon",
         "watch-test": "npm run test -- --watchAll",
         "build": "npm run clean && tsc --p tsconfig.json && npm run build-copy",
-        "build-copy": "ts-node build.copy.ts"
+        "build-copy": "ts-node build.copy.ts",
+        "import": "node node_modules/typerx-server/dist/scripts/data.import.js"
     },
     "dependencies": {
         "hbs": "^4.0.1",
         "mongoose": "^5.1.6",
-        "typerx-server": "^0.3.3"
+        "typerx-server": "^0.3.10"
     },
     "devDependencies": {
         "@types/bcrypt-nodejs": "0.0.30",
