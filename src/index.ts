@@ -16,8 +16,10 @@ app.use('/assets',
     express.static(staticSrc, { maxAge: 31557600000 }),
 );
 
-const adminFrontFolder = resolve(process.cwd(), 'packages/client/dist');
-app.use('/admin', express.static(adminFrontFolder, { maxAge: 31557600000 }));
+const adminSrc = resolve(process.cwd(), 'client');
+app.use('/admin',
+    express.static(adminSrc, { maxAge: 31557600000 }),
+);
 
 app.set('view engine', 'hbs');
 const views = resolve(process.cwd(), 'views');

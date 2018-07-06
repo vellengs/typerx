@@ -23,6 +23,7 @@
         "url": "git+https://github.com/vellengs/typerx.git"
     },
     "scripts": {
+        "clean": "rimraf dist",
         "client": "cd packages/client && npm start",
         "server": "cd packages/server && npm start",
         "start": "nodemon",
@@ -31,7 +32,9 @@
         "test:e2e": "jest --config ./test/jest-e2e.json",
         "prettify": "pretty-quick",
         "watch": "nodemon",
-        "watch-test": "npm run test -- --watchAll"
+        "watch-test": "npm run test -- --watchAll",
+        "build": "npm run clean && tsc --p tsconfig.json && npm run build-copy",
+        "build-copy": "ts-node build.copy.ts"
     },
     "dependencies": {
         "hbs": "^4.0.1",
