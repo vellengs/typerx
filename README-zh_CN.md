@@ -47,6 +47,9 @@ $ git clone --depth 1 https://github.com/vellengs/typerx.git
 # change directory to our repo
 $ cd typerx
 
+# import system default data
+$ npm run import
+
 # install the repo with npm
 $ npm install
 

@@ -43,6 +43,9 @@ $ cd typerx
 # install the repo with npm
 $ npm install
 
+# import system default data
+$ npm run import  
+
 # start the server
 $ npm start
 
