@@ -39,8 +39,11 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
     }
 
     private async loadConfig() {
-        this.queryUrl = `api/${this.domain}/query`;
+        if (!this.domain) {
+            return;
+        }
 
+        this.queryUrl = `api/${this.domain}/query`;
         const url = `api/${this.domain}/config`;
         const config: any = await this.client.get(url, this.configParams).toPromise();
         if (config) {

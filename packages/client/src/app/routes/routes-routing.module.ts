@@ -19,6 +19,7 @@ import { DashboardAnalysisComponent } from './dashboard/analysis/analysis.compon
 import { DashboardComponent } from './dashboard/default/dashboard.component';
 import { CanAuthProvide } from '../services/can.auth.provide';
 import { CustomLoginComponent } from '../pages/login/login.component';
+import { HomeComponent } from '../pages/home/home.component';
 
 const routes: Routes = [
     {
@@ -26,7 +27,7 @@ const routes: Routes = [
         component: LayoutDefaultComponent,
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-            { path: 'dashboard', canActivate: [CanAuthProvide], component: DashboardComponent, data: { title: '仪表盘' } },
+            { path: 'dashboard', canActivate: [CanAuthProvide], component: HomeComponent, data: { title: '仪表盘' } },
             { path: 'system', canActivate: [CanAuthProvide], loadChildren: './../pages/system/system.module#SystemModule' },
             { path: 'cms', canActivate: [CanAuthProvide], loadChildren: './../pages/cms/cms.module#CmsModule' },
             { path: 'appearances', canActivate: [CanAuthProvide], loadChildren: './../../appearances/appearance.module#AppearanceModule' },

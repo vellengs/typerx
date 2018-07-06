@@ -14,6 +14,7 @@ import { AvatarWidgetComponent } from '@shared/json-schema/widgets/avatar/avatar
 import { UmeditorWidget } from '@shared/json-schema/widgets/umeditor/umeditor.widget';
 import { TabsWidgetComponent } from '@shared/json-schema/widgets/tabs/tabs.widget';
 import { TextareaWidgetComponent } from '@shared/json-schema/widgets/textarea/textarea.widget';
+import { TreeSelectWidgetComponent } from '@shared/json-schema/widgets/tree-select/tree-select.widget';
 
 export const SCHEMA_THIRDS_COMPONENTS = [
     TinymceWidget,
@@ -28,6 +29,7 @@ export const SCHEMA_THIRDS_COMPONENTS = [
     AvatarWidgetComponent,
     TabsWidgetComponent,
     TextareaWidgetComponent,
+    TreeSelectWidgetComponent,
 ];
 
 @NgModule({
@@ -55,5 +57,6 @@ export class JsonSchemaModule {
         widgetRegistry.register(UmeditorWidget.KEY, UmeditorWidget);
         widgetRegistry.register(TabsWidgetComponent.KEY, TabsWidgetComponent);
         widgetRegistry.register(TextareaWidgetComponent.KEY, TextareaWidgetComponent);
+        widgetRegistry.register(TreeSelectWidgetComponent.KEY, TreeSelectWidgetComponent);
     }
 }

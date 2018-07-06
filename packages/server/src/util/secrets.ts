@@ -3,14 +3,14 @@ import { existsSync } from 'fs';
 import { config } from 'dotenv';
 
 if (existsSync('.env')) {
-  logger.debug('Using .env file to supply config environment variables');
   config({ path: '.env' });
-} else {
-  console.log('Using .env.example file to supply config environment variables');
-  logger.debug(
-    'Using .env.example file to supply config environment variables',
-  );
+} else if (existsSync('.env.example')) {
   config({ path: '.env.example' }); // you can delete this after you create your own .env file!
+} else {
+  console.log('Using .env file to supply config environment variables');
+  logger.debug(
+    'Using .env file to supply config environment variables',
+  );
 }
 
 export const ENVIRONMENT = process.env.NODE_ENV;

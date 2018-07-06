@@ -16,11 +16,13 @@ import { DashboardAnalysisComponent } from './dashboard/analysis/analysis.compon
 import { DashboardComponent } from './dashboard/default/dashboard.component';
 import { CustomLoginComponent } from '../pages/login/login.component';
 import { UserLockComponent } from './passport/lock/lock.component';
+import { HomeComponent } from '../pages/home/home.component';
 
 @NgModule({
     imports: [SharedModule, RouteRoutingModule],
     declarations: [
         DashboardAnalysisComponent,
+        HomeComponent,
         DashboardComponent,
         UserLockComponent,
         // passport pages
