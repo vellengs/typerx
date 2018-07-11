@@ -1,17 +1,16 @@
 import { Component, OnInit, ChangeDetectorRef, Inject } from '@angular/core';
-import { ControlWidget, SFSchemaEnum, SFSchema, SFUISchemaItem, SFComponent, SFSchemaEnumType } from '@delon/form';
-import { getData } from './../../util';
+import { ControlWidget, SFComponent, SFSchemaEnumType } from '@delon/form';
+import { getData } from '@shared/json-schema/util';
 import { HttpClient } from '@angular/common/http';
 import { NzFormatEmitEvent, NzTreeNode } from 'ng-zorro-antd';
 // tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs';
-import * as treeify from 'array-to-tree';
+import { TreeService } from '@services/tree.service';
 
 @Component({
     selector: 'sf-tree-selects',
     template:
         `<sf-item-wrap [id]="id" [schema]="schema" [ui]="ui" [showError]="showError" [error]="error" [showTitle]="schema.title">
-    
 <nz-tree-select 
     [ngModel]="value"
     (ngModelChange)="setValue($event)"
@@ -34,7 +33,7 @@ import * as treeify from 'array-to-tree';
   </sf-item-wrap>`,
     preserveWhitespaces: false,
     styles: [
-        `:host nz-select { min-width:110px; }
+        `:host nz-tree-select { min-width:160px; }
        `
     ]
 })
@@ -49,6 +48,7 @@ export class TreeSelectWidgetComponent extends ControlWidget implements OnInit {
     constructor(
         @Inject(ChangeDetectorRef) public readonly cd: ChangeDetectorRef,
         @Inject(SFComponent) public readonly sfComp: SFComponent,
+        public treeService: TreeService,
         public client: HttpClient,
     ) {
         super(cd, sfComp);
@@ -76,7 +76,7 @@ export class TreeSelectWidgetComponent extends ControlWidget implements OnInit {
 
     getRemoteData(value: string, text?: string): Observable<SFSchemaEnumType[]> {
         const domain = this.ui.domain;
-        const url = `api/${domain}/search`;
+        const url = `api/${domain}/tree`;
         return this.client.get(url, {
             params: {
                 keyword: text || '',
@@ -91,31 +91,14 @@ export class TreeSelectWidgetComponent extends ControlWidget implements OnInit {
         self.ui.onSearch = (text: string) => self.getRemoteData(value, text);
         getData(self.schema, self.ui, self.formProperty.formData).subscribe(
             list => {
-                self.nodes = self.convertToTree(list);
+                self.nodes = self.treeService.arrToTreeNode(list, {
+                    pidMapName: 'parent'
+                });
                 self.detectChanges();
             },
         );
     }
 
-    convertToTree(array: Array<any>): Array<NzTreeNode> {
-        const items = array.map((item) => {
-            return {
-                title: item.name,
-                key: item.id,
-                parent: item.parent,
-                id: item.id,
-            };
-        });
-
-        const tree = treeify(items, {
-            parentProperty: 'parent',
-            customID: 'id'
-        }) || [];
-
-        return tree.map((item) => {
-            return new NzTreeNode(item);
-        });
-    }
 
     openChange(value: any) {
         if (this.ui.openChange) this.ui.openChange(value);

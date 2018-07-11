@@ -1,7 +1,7 @@
 
 import { Model, Document, Types, DocumentQuery, Query, Connection } from 'mongoose';
 import { pick, PartialDeep, groupBy } from 'lodash';
-import { KeyValue } from '../types/data.types';
+import { KeyValue, TreeNode } from '../types/data.types';
 const treeify = require('array-to-tree');
 
 export class Repository {
@@ -54,6 +54,50 @@ export class Repository {
                     resolve(res);
                 }
             });
+        });
+    }
+
+
+    static async searchTree(model: Model<Document>,
+        keyword?: string, id?: string,
+        category = '', limit: number = 10, labelField = 'name', valueField = '_id', searchField = 'name'): Promise<Array<TreeNode>> {
+
+        const critical: any = {};
+        critical[searchField] = new RegExp(keyword, 'i');
+        const query: any = keyword ? critical : {};
+
+        if (category) {
+            query.category = category;
+        }
+
+        const fields: any = {};
+        fields[labelField] = 1;
+        fields[valueField] = 1;
+        fields['parent'] = 1;
+
+        const docs = await model.find(query).select(fields)
+            .limit(limit)
+            .exec() || [];
+
+        if (id && (Types.ObjectId.isValid(id) || valueField !== '_id')) {
+            const conditions: any = {};
+            conditions[valueField] = id;
+            const selected = await model.findOne(conditions).select(fields);
+            if (selected) {
+                const found = docs.findIndex((doc: any) => doc[valueField] == id);
+                if (found === -1) {
+                    docs.push(selected);
+                }
+            }
+        }
+
+        return docs.map((item: any) => {
+            const result = {
+                title: item[labelField],
+                id: item[valueField],
+                parent: item['parent']
+            };
+            return result;
         });
     }
 

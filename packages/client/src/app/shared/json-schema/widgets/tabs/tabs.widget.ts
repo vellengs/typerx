@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, Inject } from '@angular/core';
 import { ControlWidget, SFSchemaEnum, SFSchema, SFUISchemaItem, SFComponent, SFSchemaEnumType, SFGridSchema, ObjectLayoutWidget, FormProperty } from '@delon/form';
-import { getData } from './../../util';
+import { getData } from '@shared/json-schema/util';
 // tslint:disable-next-line:import-blacklist
 import { of, Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';

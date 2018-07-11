@@ -1,14 +1,8 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { NzMessageService, NzModalService, UploadFile } from 'ng-zorro-antd';
 import { Component, OnInit, Injector, Input, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
-import { _HttpClient } from '@delon/theme';
 import { BaseComponent } from '@shared/base/base.component';
-import { FormSets } from '../../../../types/types';
+import { FormSets } from 'types/types';
 import { SFComponent } from '@delon/form';
 import { EditProfileDto } from 'generated';
-
 @Component({
     selector: 'app-settings-page',
     templateUrl: './settings.html',
@@ -55,18 +49,20 @@ export class SettingsPageComponent extends BaseComponent implements OnInit {
 
     formChanged($event) {
         this.profileValue = $event;
+
+
     }
 
 
-    sysSettingFormChanged(event) {
+    sysSettingFormChanged() {
 
     }
 
-    profileFormChanged(event) {
+    profileFormChanged() {
 
     }
 
-    handleChange(event) {
+    handleChange() {
 
     }
 

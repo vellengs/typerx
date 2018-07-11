@@ -15,14 +15,14 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { CountdownModule } from 'ngx-countdown';
 import { UEditorModule } from 'ngx-ueditor';
 import { NgxTinymceModule } from 'ngx-tinymce';
-import { BaseListComponent } from './base/base.list.component';
-import { BaseComponent } from './base/base.component';
-import { BaseStandComponent } from './base/base.stand.component';
-import { BaseTreeTableComponent } from './base/base.tree.table';
-import { BaseDetailComponent } from './base/base.detail.component';
-import { BaseSelectorComponent } from './base/base.selector';
-import { BaseTreeSelectorComponent } from './base/base.tree.selector';
-import { TransferSelectorComponent } from './base/transfer.selector';
+import { BaseListComponent } from '@shared/base/base.list.component';
+import { BaseComponent } from '@shared/base/base.component';
+import { BaseStandComponent } from '@shared/base/base.stand.component';
+import { BaseTreeTableComponent } from '@shared/base/base.tree.table';
+import { BaseDetailComponent } from '@shared/base/base.detail.component';
+import { BaseSelectorComponent } from '@shared/base/base.selector';
+import { BaseTreeSelectorComponent } from '@shared/base/base.tree.selector';
+import { TransferSelectorComponent } from '@shared/base/transfer.selector';
 import { UMeditorModule } from 'ngx-umeditor';
 
 const THIRDMODULES = [

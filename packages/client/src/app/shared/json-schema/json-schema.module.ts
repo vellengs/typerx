@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared/shared.module';
 import { DelonFormModule, WidgetRegistry, TextareaWidget } from '@delon/form';
 
-import { TinymceWidget } from './widgets/tinymce/tinymce.widget';
-import { UeditorWidget } from './widgets/ueditor/ueditor.widget';
-import { SearchWidgetComponent } from './widgets/search/search.widget';
-import { ListBoxWidgetComponent } from './widgets/list-box/list-box';
-import { DictWidgetComponent } from './widgets/dict/dict.widget';
-import { TreeWidgetComponent } from './widgets/tree/search.widget';
+import { TinymceWidget } from '@shared/json-schema/widgets/tinymce/tinymce.widget';
+import { UeditorWidget } from '@shared/json-schema/widgets/ueditor/ueditor.widget';
+import { SearchWidgetComponent } from '@shared/json-schema/widgets/search/search.widget';
+import { ListBoxWidgetComponent } from '@shared/json-schema/widgets/list-box/list-box';
+import { DictWidgetComponent } from '@shared/json-schema/widgets/dict/dict.widget';
+import { TreeWidgetComponent } from '@shared/json-schema/widgets/tree/search.widget';
 import { ChoicesWidgetComponent } from '@shared/json-schema/widgets/choices/choices.widget';
 import { ImageWidgetComponent } from '@shared/json-schema/widgets/image/image.widget';
 import { AvatarWidgetComponent } from '@shared/json-schema/widgets/avatar/avatar.widget';

@@ -17,7 +17,7 @@ import { Exception404Component } from './exception/404.component';
 import { Exception500Component } from './exception/500.component';
 import { DashboardAnalysisComponent } from './dashboard/analysis/analysis.component';
 import { DashboardComponent } from './dashboard/default/dashboard.component';
-import { CanAuthProvide } from '../services/can.auth.provide';
+import { CanAuthProvide } from '@services/can.auth.provide';
 import { CustomLoginComponent } from '../pages/login/login.component';
 import { HomeComponent } from '../pages/home/home.component';
 

@@ -6,7 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { MenuService, SettingsService, TitleService, ALAIN_I18N_TOKEN, Menu } from '@delon/theme';
 import { ACLService } from '@delon/acl';
 import { TranslateService } from '@ngx-translate/core';
-import { I18NService } from '../i18n/i18n.service';
+import { I18NService } from '@core/i18n/i18n.service';
 import { CoreService } from 'generated';
 import * as treeify from 'array-to-tree';
 /**

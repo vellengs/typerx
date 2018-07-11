@@ -30,12 +30,13 @@ export function pageHeaderConfig(): AdPageHeaderConfig {
 
 import { DelonAuthConfig } from '@delon/auth';
 import { ApiModule, Configuration } from 'generated';
-import { UserService } from './services/user.service';
-import { ListContext } from './services/list.context';
-import { CanAdminProvide } from './services/can.admin.provide';
-import { CanAuthProvide } from './services/can.auth.provide';
+import { UserService } from '@services/user.service';
+import { ListContext } from '@services/list.context';
+import { CanAdminProvide } from '@services/can.admin.provide';
+import { CanAuthProvide } from '@services/can.auth.provide';
 import { DelonFormConfig, SchemaValidatorFactory } from '@delon/form';
 import { CustomSchemaValidatorFactory } from './custom.form.factory';
+import { TreeService } from '@services/tree.service';
 
 export function delonAuthConfig(): DelonAuthConfig {
     return Object.assign(new DelonAuthConfig(), <DelonAuthConfig>{
@@ -77,6 +78,7 @@ export function simpleTableConfig() {
         ApiModule.forRoot(apiConfig),
     ],
     providers: [
+        TreeService,
         UserService,
         ListContext,
         CanAdminProvide,

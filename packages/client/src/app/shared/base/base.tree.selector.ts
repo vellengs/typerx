@@ -7,7 +7,7 @@ import { isThisSecond } from 'date-fns';
 import { UserService } from '@services/user.service';
 // tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs';
-import { TreeData } from '../../../types/types';
+import { TreeData } from 'types/types';
 
 
 @Component({

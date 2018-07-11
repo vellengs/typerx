@@ -44,6 +44,7 @@ export enum WidgetTypes {
     image = 'image',
     avatar = 'avatar',
     tabs = 'tabs',
+    treeSelect = 'tree-select',
 }
 
 export interface ColumnSets {

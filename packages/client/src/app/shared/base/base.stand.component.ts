@@ -1,7 +1,7 @@
 import { ModalOptionsForService } from 'ng-zorro-antd';
 import { Component, Input, EventEmitter, Injector, ViewChild } from '@angular/core';
 import { SimpleTableColumn, SimpleTableComponent } from '@delon/abc';
-import { BaseComponent } from './base.component';
+import { BaseComponent } from '@shared/base/base.component';
 import { CurdPage, FormSets } from 'types/types';
 import { BaseDetailComponent } from '@shared/base/base.detail.component';
 import { pickBy } from 'lodash';

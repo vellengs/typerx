@@ -94,7 +94,7 @@ export const appearance: Appearance = {
                     title: '分类',
                     type: t.string,
                     ui: {
-                        widget: w.search,
+                        widget: w.treeSelect,
                         domain: 'category',
                         allowClear: true,
                         placeholder: '请选择分类'

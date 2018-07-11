@@ -1,6 +1,6 @@
 import { TestBed, TestModuleMetadata } from '@angular/core/testing';
 import { APP_BASE_HREF } from '@angular/common';
-import { setUpTestBed } from './../testing/common.spec';
+import { setUpTestBed } from '@testing/common.spec';
 
 import { AppComponent } from './app.component';
 

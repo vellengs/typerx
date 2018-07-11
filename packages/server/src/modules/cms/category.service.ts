@@ -13,11 +13,15 @@ import { appearance } from './appearance/category.appearance';
 import { Document, Types } from 'mongoose';
 import { pick, merge } from 'lodash';
 import { Repository } from '../../database/repository';
-import { KeyValue } from '../../types/data.types';
+import { KeyValue, TreeNode } from '../../types/data.types';
 
 export class CategoryService {
     async getAppearance(): Promise<Appearance> {
         return appearance;
+    }
+
+    async searchTree(keyword?: string, value?: string, limit: number = 10): Promise<Array<TreeNode>> {
+        return Repository.searchTree(Db.Category, keyword, value, '', limit);
     }
 
     async search(keyword?: string, value?: string, limit: number = 10): Promise<Array<KeyValue>> {

@@ -7,7 +7,7 @@ import { isThisSecond } from 'date-fns';
 import { UserService } from '@services/user.service';
 // tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs';
-import { TransferItem } from '../../../types/types';
+import { TransferItem } from 'types/types';
 
 @Component({
     selector: 'app-transfer-selector',

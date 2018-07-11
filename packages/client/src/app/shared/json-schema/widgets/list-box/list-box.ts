@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ModalHelper } from '@delon/theme';
 import { TransferSelectorComponent } from '@shared/base/transfer.selector';
-import { TransferItem } from '../../../../../types/types';
+import { TransferItem } from 'types/types';
 
 @Component({
     selector: 'sf-list-box',

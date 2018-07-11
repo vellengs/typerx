@@ -29,5 +29,8 @@
             "@env": ["environments/"],
             "@env/*": ["environments/*"]
         }
-    }
+    },
+    "exclude": [
+        "node_modules"
+    ]
 }

@@ -7,12 +7,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { ALAIN_I18N_TOKEN, SettingsService, MenuService, ScrollService, _HttpClient } from '@delon/theme';
-import { DelonModule } from '../app/delon.module';
+import { DelonModule } from 'app/delon.module';
 import { DelonAuthModule } from '@delon/auth';
 import { I18NService } from '@core/i18n/i18n.service';
 import { CoreModule } from '@core/core.module';
 import { SharedModule } from '@shared/shared.module';
-import { HttpLoaderFactory } from '../app/app.module';
+import { HttpLoaderFactory } from 'app/app.module';
 
 const resetTestingModule = TestBed.resetTestingModule,
       preventAngularFromResetting = () => TestBed.resetTestingModule = () => TestBed;

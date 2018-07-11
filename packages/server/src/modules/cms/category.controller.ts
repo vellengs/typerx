@@ -50,6 +50,21 @@ export class CategoryController {
         return this.service.search(keyword, value);
     }
 
+    /**
+     * 查询分类
+     * @param keyword 关键词
+     * @param value 已选中的分类编号
+     */
+    @Path('tree')
+    @GET
+    async searchTree(
+        @QueryParam('keyword') keyword?: string,
+        @QueryParam('value') value?: string
+    ): Promise<Array<KeyValue>> {
+        return this.service.searchTree(keyword, value);
+    }
+
+
 
     /**
      * 创建分类
