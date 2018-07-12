@@ -47,6 +47,12 @@ export class MenuService {
   async update(
     entry: EditMenuDto,
   ): Promise<MenuResponse> {
+
+
+    if (entry.id === entry.parent) {
+      throw new Errors.BadRequestError('can not be set parent by self.');
+    }
+
     const doc: any = await Db.Menu.findOneAndUpdate(
       {
         _id: entry.id,

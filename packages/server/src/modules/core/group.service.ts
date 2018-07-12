@@ -40,6 +40,11 @@ export class GroupService {
   async update(
     entry: EditGroupDto,
   ): Promise<GroupResponse> {
+
+    if (entry.id === entry.parent) {
+      throw new Errors.BadRequestError('can not be set parent by self.');
+    }
+
     const doc: any = await Db.Group.findOneAndUpdate(
       {
         _id: entry.id,
