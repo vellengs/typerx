@@ -12,8 +12,8 @@ const server = new typerx_server_1.Application();
 const app = server.getExpressApp();
 const staticSrc = path_1.resolve(process.cwd(), 'views/assets');
 app.use('/assets', express.static(staticSrc, { maxAge: 31557600000 }));
-const adminFrontFolder = path_1.resolve(process.cwd(), 'packages/client/dist');
-app.use('/admin', express.static(adminFrontFolder, { maxAge: 31557600000 }));
+const adminSrc = path_1.resolve(process.cwd(), 'client');
+app.use('/admin', express.static(adminSrc, { maxAge: 31557600000 }));
 app.set('view engine', 'hbs');
 const views = path_1.resolve(process.cwd(), 'views');
 app.set('views', views);
@@ -28,7 +28,7 @@ Object.keys(sub_pages_1.pages).forEach((page) => {
 });
 Object.keys(appearances_1.appearances).forEach((key) => {
     const config = appearances_1.appearances[key];
-    server.registerAppearances(key, config.appearance);
+    server.registerAppearance(key, config.appearance);
 });
 controllers_1.default.forEach((controller) => {
     server.registerController(controller);

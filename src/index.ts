@@ -38,7 +38,7 @@ Object.keys(pages).forEach((page: string) => {
 
 Object.keys(appearances).forEach((key) => {
     const config: any = appearances[key];
-    server.registerAppearances(key, config.appearance);
+    server.registerAppearance(key, config.appearance);
 });
 
 controllers.forEach((controller) => {
