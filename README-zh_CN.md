@@ -15,6 +15,15 @@
 - typerx 希望帮助后端延展到前端，对于非高交互类（无需定制复杂组件，或者基础组件）使用现成的组件、页面复用进行系统生产。
 - typerx 希望帮助设计人员，更好的迭代系统设计，保持模型、接口、代码以及文档的同步更新，更好的进行团队交流。
 
+# 项目特色
+- 项目采用 swagger 作为前后端的沟通桥梁, 由代码自动生成 swagger 标准接口文档, 然后生成前端接口模块，从而降低前后端调试难度。
+[巧用 Swagger 在线编辑器生成前端接口代码](https://juejin.im/post/5b3849c2f265da597901e9da)
+- 项目大量使用 json-schema-form 动态表单简化 CURD 页面复杂度, 这样通用的页面可以快速完成。 
+[动态表单 json-schema-form 的使用](https://ng-alain.com/form/getting-started)
+- 项目前端采用 ng-zorro 组件库、ng-alain 脚手架完成前端界面。
+[https://ng-alain.com/](https://ng-alain.com/)
+- 服务端采用 express、typescript 注解方式完成, 代码工整清晰。
+[Nodejs 下用mongodb 怎么写出 c# 的感觉](https://juejin.im/post/5b18eec7e51d4506825f13b5)
 
 # 功能模块
 
