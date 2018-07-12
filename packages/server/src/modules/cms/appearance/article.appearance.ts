@@ -22,12 +22,12 @@ const addForm: SFSchema = {
             title: '分类',
             type: t.string,
             ui: {
-                widget: w.search,
+                widget: w.treeSelect,
                 domain: 'category',
-                grid: {
-                    span: 16
-                }
-            }
+                allowClear: true,
+                placeholder: '请选择分类'
+            },
+            default: null,
         },
         description: {
             title: '摘要',

@@ -59,8 +59,9 @@ const addForm: SFSchema = {
             title: '用户组',
             type: t.string,
             ui: {
-                widget: w.choices,
+                widget: w.treeSelect,
                 domain: 'group',
+                multiple: true,
                 grid: {
                     span: 24
                 }

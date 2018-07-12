@@ -49,7 +49,7 @@ export const appearance: Appearance = {
         default: [
             {
                 title: 'category',
-                i18n: '字典分类',
+                i18n: '字典分类值',
                 index: ['category']
             },
             {

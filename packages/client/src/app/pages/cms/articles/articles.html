@@ -1,7 +1,6 @@
 <page-header [title]="title"></page-header>
 
 <nz-card>
-
     <div class="mb-md">
         <sf *ngIf="formSets" [mode]="'search'" [layout]="'inline'" [schema]="formSets.query" (formSubmit)="query($event)"></sf>
     </div>

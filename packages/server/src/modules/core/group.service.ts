@@ -15,12 +15,17 @@ import { appearance } from './appearance/group.appearance';
 import { Document, Types } from 'mongoose';
 import { pick, merge } from 'lodash';
 import { Repository } from '../../database/repository';
-import { KeyValue } from '../../types/data.types';
+import { KeyValue, TreeNode } from '../../types/data.types';
 
 export class GroupService {
   async getAppearance(): Promise<Appearance> {
     return appearance;
   }
+
+  async searchTree(keyword?: string, value?: string, limit: number = 10): Promise<Array<TreeNode>> {
+    return Repository.searchTree(Db.Group, keyword, value, '', limit);
+  }
+
 
   async search(keyword?: string, value?: string, limit: number = 10): Promise<Array<KeyValue>> {
     return Repository.search(Db.Group, keyword, value, '', limit);

@@ -14,7 +14,7 @@ import { Tags } from 'typescript-rest-swagger';
 import { GroupService } from './group.service';
 import { Appearance } from '../../types/appearance';
 import { GroupResponse, CreateGroupDto, EditGroupDto, PaginateGroup } from './dto/group.dto';
-import { KeyValue } from '../../types/data.types';
+import { KeyValue, TreeNode } from '../../types/data.types';
 import { interceptor } from '../../interceptor/interceptor';
 
 /**
@@ -49,6 +49,15 @@ export class GroupController {
     @QueryParam('value') value?: string
   ): Promise<Array<KeyValue>> {
     return this.service.search(keyword, value);
+  }
+
+  @Path('tree')
+  @GET
+  async searchTree(
+    @QueryParam('keyword') keyword?: string,
+    @QueryParam('value') value?: string
+  ): Promise<Array<TreeNode>> {
+    return this.service.searchTree(keyword, value);
   }
 
 

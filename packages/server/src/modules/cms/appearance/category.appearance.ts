@@ -17,8 +17,9 @@ const addForm: SFSchema = {
             title: '父级分类',
             type: 'string',
             ui: {
-                widget: w.search,
-                allowClear: true,
+                widget: w.treeSelect,
+                allowClear: true, 
+                placeholder: '请选择分类',
                 domain: 'category'
             }
         },

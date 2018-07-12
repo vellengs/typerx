@@ -11,14 +11,13 @@ import { TreeService } from '@services/tree.service';
     selector: 'sf-tree-selects',
     template:
         `<sf-item-wrap [id]="id" [schema]="schema" [ui]="ui" [showError]="showError" [error]="error" [showTitle]="schema.title">
-<nz-tree-select 
+     <nz-tree-select 
     [ngModel]="value"
-    (ngModelChange)="setValue($event)"
+    (ngModelChange)="onValueChange($event)"
     [nzAllowClear]="i.allowClear"
     [nzPlaceHolder]="ui.placeholder"
     [nzDisabled]="disabled"
     [nzShowSearch]="i.showSearch"
-    [nzDropdownMatchSelectWidth]="i.dropdownMatchSelectWidth"
     [nzMultiple]="i.multiple"	
     [nzSize]="ui.size"
     [nzCheckable]="i.checkable"
@@ -29,11 +28,10 @@ import { TreeService } from '@services/tree.service';
     [nzDefaultExpandedKeys]="i.defaultExpandKeys"
     (nzExpandChange)="treeExpandChanged($event)">
 </nz-tree-select>
-
   </sf-item-wrap>`,
     preserveWhitespaces: false,
     styles: [
-        `:host nz-tree-select { min-width:160px; }
+        `:host nz-tree-select { min-width:120px; }
        `
     ]
 })
@@ -59,10 +57,9 @@ export class TreeSelectWidgetComponent extends ControlWidget implements OnInit {
             allowClear: this.ui.allowClear,
             autoFocus: this.ui.autoFocus || false,
             dropdownClassName: this.ui.dropdownClassName || null,
-            dropdownMatchSelectWidth: this.ui.dropdownMatchSelectWidth || true,
             serverSearch: this.ui.serverSearch || false,
             maxMultipleCount: this.ui.maxMultipleCount || Infinity,
-            multiple: this.schema.type === 'array',
+            multiple: this.schema.type === 'array' || this.ui.multiple,
             showExpand: this.ui.showExpand || true,
             checkable: this.ui.checkable,
             showLine: this.ui.showLine || false,
@@ -88,7 +85,6 @@ export class TreeSelectWidgetComponent extends ControlWidget implements OnInit {
     reset(value: any) {
         const self = this;
         self.ui.asyncData = () => self.getRemoteData(value);
-        self.ui.onSearch = (text: string) => self.getRemoteData(value, text);
         getData(self.schema, self.ui, self.formProperty.formData).subscribe(
             list => {
                 self.nodes = self.treeService.arrToTreeNode(list, {
@@ -99,9 +95,8 @@ export class TreeSelectWidgetComponent extends ControlWidget implements OnInit {
         );
     }
 
-
-    openChange(value: any) {
-        if (this.ui.openChange) this.ui.openChange(value);
+    onValueChange(value: string): void {
+        this.setValue(value);
     }
 
     treeExpandChanged(e: NzFormatEmitEvent) {
@@ -110,17 +105,6 @@ export class TreeSelectWidgetComponent extends ControlWidget implements OnInit {
             //     e.node.addChildren(data);
             // });
         }
-    }
-
-    searchChange(text: string) {
-        if (this.ui.onSearch) {
-            this.ui.onSearch(text).subscribe((res: any[]) => {
-                this.nodes = res;
-                this.detectChanges();
-            });
-            return;
-        }
-        this.detectChanges();
     }
 
 }

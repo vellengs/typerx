@@ -26,7 +26,7 @@ const addForm: SFSchema = {
             type: 'string',
             maxLength: 30,
             ui: {
-                widget: w.search,
+                widget: w.treeSelect,
                 placeholder: '请选择父级',
                 domain: 'group'
             }
