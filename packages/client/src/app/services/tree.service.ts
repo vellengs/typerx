@@ -80,6 +80,14 @@ export class TreeService {
         );
         const tree: any[] = [];
         const childrenOf = {};
+
+        arr.forEach((item) => {
+            const exist = arr.findIndex(a => item[options.pidMapName] === a[options.idMapName]) > -1;
+            if (!exist) {
+                delete item[options.pidMapName];
+            }
+        });
+
         for (const item of arr) {
             const id = item[options.idMapName],
                 pid = item[options.pidMapName];

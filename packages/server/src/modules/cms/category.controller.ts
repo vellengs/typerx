@@ -14,7 +14,7 @@ import { Tags } from 'typescript-rest-swagger';
 import { CategoryService } from './category.service';
 import { Appearance } from '../../types/appearance';
 import { CategoryResponse, CreateCategoryDto, EditCategoryDto, PaginateCategory } from './dto/category.dto';
-import { KeyValue } from '../../types/data.types';
+import { KeyValue, TreeNode } from '../../types/data.types';
 import { interceptor } from '../../interceptor/interceptor';
 
 /**
@@ -60,7 +60,7 @@ export class CategoryController {
     async searchTree(
         @QueryParam('keyword') keyword?: string,
         @QueryParam('value') value?: string
-    ): Promise<Array<KeyValue>> {
+    ): Promise<Array<TreeNode>> {
         return this.service.searchTree(keyword, value);
     }
 

@@ -37,8 +37,7 @@ export class CategoryService {
     async update(
         entry: EditCategoryDto,
     ): Promise<CategoryResponse> {
-
-
+        
         if (entry.id === entry.parent) {
             throw new Errors.BadRequestError('can not be set parent by self.');
         }

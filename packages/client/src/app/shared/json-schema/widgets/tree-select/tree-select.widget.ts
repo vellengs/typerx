@@ -61,7 +61,7 @@ export class TreeSelectWidgetComponent extends ControlWidget implements OnInit {
             maxMultipleCount: this.ui.maxMultipleCount || Infinity,
             multiple: this.schema.type === 'array' || this.ui.multiple,
             showExpand: this.ui.showExpand || true,
-            checkable: this.ui.checkable,
+            checkable: false,
             showLine: this.ui.showLine || false,
             defaultExpandAll: this.ui.defaultExpandAll || false,
             mode: this.ui.mode || 'default',
