@@ -24,6 +24,7 @@ import { TreeService } from '@services/tree.service';
     [nzShowExpand] = "i.showExpand"
     [nzShowLine] = "i.showLine"
     [nzNodes]="nodes"
+    (nzOpenChange)="openChange($event)"
     [nzDefaultExpandAll]="i.defaultExpandAll"  
     [nzDefaultExpandedKeys]="i.defaultExpandKeys"
     (nzExpandChange)="treeExpandChanged($event)">
@@ -97,6 +98,10 @@ export class TreeSelectWidgetComponent extends ControlWidget implements OnInit {
 
     onValueChange(value: string): void {
         this.setValue(value);
+    }
+
+    openChange(event: any): void {
+
     }
 
     treeExpandChanged(e: NzFormatEmitEvent) {

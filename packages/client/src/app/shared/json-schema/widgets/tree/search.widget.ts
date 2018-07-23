@@ -5,49 +5,24 @@ import { getData } from '@shared/json-schema/util';
 import { of, Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { NzTreeNode } from 'ng-zorro-antd';
 
 @Component({
     selector: 'sf-tree',
     template:
         `<sf-item-wrap [id]="id" [schema]="schema" [ui]="ui" [showError]="showError" [error]="error" [showTitle]="schema.title">
-    <nz-select
-      [nzDisabled]="disabled"
-      [nzSize]="ui.size"
-      [ngModel]="value"
-      (ngModelChange)="setValue($event)"
-      [nzPlaceHolder]="ui.placeholder"
-      [nzAllowClear]="i.allowClear"
-      [nzAutoFocus]="i.autoFocus"
-      [nzDropdownClassName]="i.dropdownClassName"
-      [nzDropdownMatchSelectWidth]="i.dropdownMatchSelectWidth"
-      [nzServerSearch]="i.serverSearch"
-      [nzMaxMultipleCount]="i.maxMultipleCount"
-      [nzMode]="i.mode"
-      [nzNotFoundContent]="i.notFoundContent"
-      [nzShowSearch]="i.showSearch"
-      (nzOpenChange)="openChange($event)"
-      (nzOnSearch)="searchChange($event)"
-      (nzScrollToBottom)="scrollToBottom($event)">
-      <ng-container *ngIf="!hasGroup">
-        <nz-option
-          *ngFor="let o of data"
-          [nzLabel]="o.label"
-          [nzValue]="o.value"
-          [nzDisabled]="o.disabled">
-        </nz-option>
-      </ng-container>
-      <ng-container *ngIf="hasGroup">
-        <nz-option-group *ngFor="let i of data" [nzLabel]="i.label">
-          <nz-option
-            *ngFor="let o of i.children"
-            [nzLabel]="o.label"
-            [nzValue]="o.value"
-            [nzDisabled]="o.disabled">
-          </nz-option>
-        </nz-option-group>
-      </ng-container>
-    </nz-select>
-  </sf-item-wrap>`,
+
+        <nz-tree-select
+       style="width: 250px"
+       [nzDefaultExpandedKeys]="expandKeys"
+       [nzNodes]="nodes"
+       nzPlaceHolder="Please select"
+       [ngModel]="value"
+       (nzOpenChange)="openChange()"
+       (ngModelChange)="onChange($event)">
+     </nz-tree-select>
+     
+ </sf-item-wrap>`,
     preserveWhitespaces: false,
 
 })
@@ -56,8 +31,67 @@ export class TreeWidgetComponent extends ControlWidget implements OnInit {
     static readonly KEY = 'tree';
 
     i: any;
-    data: SFSchemaEnum[];
-    hasGroup = false;
+    expandKeys = ['1001', '10001'];
+
+    nodes = [
+        new NzTreeNode({
+            title: 'root1',
+            key: '1001',
+            children: [
+                {
+                    title: 'child1',
+                    key: '10001',
+                    children: [
+                        {
+                            title: 'child1.1',
+                            key: '100011',
+                            children: []
+                        },
+                        {
+                            title: 'child1.2',
+                            key: '100012',
+                            children: [
+                                {
+                                    title: 'grandchild1.2.1',
+                                    key: '1000121',
+                                    isLeaf: true,
+                                    disabled: true
+                                },
+                                {
+                                    title: 'grandchild1.2.2',
+                                    key: '1000122',
+                                    isLeaf: true
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }),
+        new NzTreeNode({
+            title: 'root2',
+            key: '1002',
+            children: [
+                {
+                    title: 'child2.1',
+                    key: '10021',
+                    children: [],
+                    disableCheckbox: true
+                },
+                {
+                    title: 'child2.2',
+                    key: '10022',
+                    children: [
+                        {
+                            title: 'grandchild2.2.1',
+                            key: '100221',
+                            isLeaf: true
+                        }
+                    ]
+                }
+            ]
+        })
+    ];
 
     constructor(
         @Inject(ChangeDetectorRef) public readonly cd: ChangeDetectorRef,
@@ -67,7 +101,16 @@ export class TreeWidgetComponent extends ControlWidget implements OnInit {
         super(cd, sfComp);
     }
 
+    openChange() {
+        this.cd.markForCheck();
+    }
+
+    onChange($event: NzTreeNode): void {
+        console.log($event);
+    }
+
     ngOnInit(): void {
+
         this.i = {
             allowClear: this.ui.allowClear,
             autoFocus: this.ui.autoFocus || false,
@@ -75,52 +118,15 @@ export class TreeWidgetComponent extends ControlWidget implements OnInit {
             dropdownMatchSelectWidth: this.ui.dropdownMatchSelectWidth || true,
             serverSearch: this.ui.serverSearch || false,
             maxMultipleCount: this.ui.maxMultipleCount || Infinity,
+            multiple: this.schema.type === 'array',
+            showExpand: this.ui.showExpand || true,
+            checkable: this.ui.checkable,
+            showLine: this.ui.showLine || false,
+            defaultExpandAll: this.ui.defaultExpandAll || false,
             mode: this.ui.mode || 'default',
             notFoundContent: this.ui.notFoundContent || '无法找到',
             showSearch: this.ui.showSearch || true,
+            defaultExpandKeys: this.ui.defaultExpandKeys || [],
         };
-    }
-
-    getSelectData(value: string, text?: string): Observable<SFSchemaEnumType[]> {
-        const category = this.ui.category;
-        const url = `api/dict/search`;
-        return this.client.get(url, {
-            params: {
-                keyword: text || '',
-                value: value,
-                category: category,
-            }
-        }) as any;
-    }
-
-    reset(value: any) {
-        this.ui.asyncData = () => this.getSelectData(value);
-        this.ui.onSearch = (text: string) => this.getSelectData(value, text);
-        getData(this.schema, this.ui, this.formProperty.formData).subscribe(
-            list => {
-                this.data = list;
-                this.hasGroup = list.filter(w => w.group === true).length > 0;
-                this.detectChanges();
-            },
-        );
-    }
-
-    openChange(value: any) {
-        if (this.ui.openChange) this.ui.openChange(value);
-    }
-
-    searchChange(text: string) {
-        if (this.ui.onSearch) {
-            this.ui.onSearch(text).subscribe((res: any[]) => {
-                this.data = res;
-                this.detectChanges();
-            });
-            return;
-        }
-        this.detectChanges();
-    }
-
-    scrollToBottom(value: any) {
-        if (this.ui.scrollToBottom) this.ui.scrollToBottom(value);
     }
 }
