@@ -40,7 +40,7 @@
     "dependencies": {
         "hbs": "^4.0.1",
         "mongoose": "^5.1.6",
-        "typerx-server": "^0.3.10"
+        "typerx-server": "^0.3.11"
     },
     "devDependencies": {
         "@types/bcrypt-nodejs": "0.0.30",

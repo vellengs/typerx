@@ -2,7 +2,7 @@ import { ServiceContext } from 'typescript-rest';
 import { CategoryService } from './category.service';
 import { Appearance } from '../../types/appearance';
 import { CategoryResponse, CreateCategoryDto, EditCategoryDto, PaginateCategory } from './dto/category.dto';
-import { KeyValue } from '../../types/data.types';
+import { KeyValue, TreeNode } from '../../types/data.types';
 /**
  * 分类接口.
  */
@@ -20,6 +20,12 @@ export declare class CategoryController {
      * @param value 已选中的分类编号
      */
     search(keyword?: string, value?: string): Promise<Array<KeyValue>>;
+    /**
+     * 查询分类
+     * @param keyword 关键词
+     * @param value 已选中的分类编号
+     */
+    searchTree(keyword?: string, value?: string): Promise<Array<TreeNode>>;
     /**
      * 创建分类
      * @param entry 创建参数

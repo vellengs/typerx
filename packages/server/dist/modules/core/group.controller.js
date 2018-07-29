@@ -50,6 +50,11 @@ let GroupController = class GroupController {
             return this.service.search(keyword, value);
         });
     }
+    searchTree(keyword, value) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.service.searchTree(keyword, value);
+        });
+    }
     /**
      * 创建用户组
      * @param entry 创建参数
@@ -120,6 +125,15 @@ __decorate([
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], GroupController.prototype, "search", null);
+__decorate([
+    typescript_rest_1.Path('tree'),
+    typescript_rest_1.GET,
+    __param(0, typescript_rest_1.QueryParam('keyword')),
+    __param(1, typescript_rest_1.QueryParam('value')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], GroupController.prototype, "searchTree", null);
 __decorate([
     typescript_rest_1.POST,
     __metadata("design:type", Function),

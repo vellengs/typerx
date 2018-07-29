@@ -59,8 +59,9 @@ const addForm = {
             title: '用户组',
             type: appearance_1.SchemaTypes.string,
             ui: {
-                widget: appearance_1.WidgetTypes.choices,
+                widget: appearance_1.WidgetTypes.treeSelect,
                 domain: 'group',
+                multiple: true,
                 grid: {
                     span: 24
                 }

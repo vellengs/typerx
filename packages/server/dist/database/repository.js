@@ -68,6 +68,42 @@ class Repository {
             });
         });
     }
+    static searchTree(model, keyword, id, category = '', limit = 10, labelField = 'name', valueField = '_id', searchField = 'name') {
+        return __awaiter(this, void 0, void 0, function* () {
+            const critical = {};
+            critical[searchField] = new RegExp(keyword, 'i');
+            const query = keyword ? critical : {};
+            if (category) {
+                query.category = category;
+            }
+            const fields = {};
+            fields[labelField] = 1;
+            fields[valueField] = 1;
+            fields['parent'] = 1;
+            const docs = (yield model.find(query).select(fields)
+                .limit(limit)
+                .exec()) || [];
+            if (id && (mongoose_1.Types.ObjectId.isValid(id) || valueField !== '_id')) {
+                const conditions = {};
+                conditions[valueField] = id;
+                const selected = yield model.findOne(conditions).select(fields);
+                if (selected) {
+                    const found = docs.findIndex((doc) => doc[valueField] == id);
+                    if (found === -1) {
+                        docs.push(selected);
+                    }
+                }
+            }
+            return docs.map((item) => {
+                const result = {
+                    title: item[labelField],
+                    id: item[valueField],
+                    parent: item['parent']
+                };
+                return result;
+            });
+        });
+    }
     static search(model, keyword, id, category = '', limit = 10, labelField = 'name', valueField = '_id', searchField = 'name') {
         return __awaiter(this, void 0, void 0, function* () {
             const critical = {};

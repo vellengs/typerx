@@ -17,8 +17,9 @@ const addForm = {
             title: '父级分类',
             type: 'string',
             ui: {
-                widget: appearance_1.WidgetTypes.search,
+                widget: appearance_1.WidgetTypes.treeSelect,
                 allowClear: true,
+                placeholder: '请选择分类',
                 domain: 'category'
             }
         },

@@ -33,6 +33,12 @@ export declare class UserController {
         url: string;
     }>;
     /**
+     * 编辑器附件上传
+     * @param file
+     * @param field
+     */
+    umeditorUpload(file: Express.Multer.File, field?: string): string;
+    /**
      * 文件上传配置
      */
     uploadConfig(action?: string): Promise<UploadConfig>;

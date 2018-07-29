@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const typescript_rest_1 = require("typescript-rest");
 const core_database_1 = require("./core.database");
 const group_dto_1 = require("./dto/group.dto");
 const group_appearance_1 = require("./appearance/group.appearance");
@@ -17,6 +18,11 @@ class GroupService {
     getAppearance() {
         return __awaiter(this, void 0, void 0, function* () {
             return group_appearance_1.appearance;
+        });
+    }
+    searchTree(keyword, value, limit = 10) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return repository_1.Repository.searchTree(core_database_1.CoreDatabase.Group, keyword, value, '', limit);
         });
     }
     search(keyword, value, limit = 10) {
@@ -33,6 +39,9 @@ class GroupService {
     }
     update(entry) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (entry.id === entry.parent) {
+                throw new typescript_rest_1.Errors.BadRequestError('can not be set parent by self.');
+            }
             const doc = yield core_database_1.CoreDatabase.Group.findOneAndUpdate({
                 _id: entry.id,
             }, entry).exec();

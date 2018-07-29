@@ -91,7 +91,6 @@ class UserService {
                         resolve(false);
                     }
                 };
-                console.log('local:', callback);
                 passport.authenticate('local', callback)(request, response, next);
             });
             return result;

@@ -42,5 +42,6 @@ var WidgetTypes;
     WidgetTypes["image"] = "image";
     WidgetTypes["avatar"] = "avatar";
     WidgetTypes["tabs"] = "tabs";
+    WidgetTypes["treeSelect"] = "tree-select";
 })(WidgetTypes = exports.WidgetTypes || (exports.WidgetTypes = {}));
 //# sourceMappingURL=appearance.js.map

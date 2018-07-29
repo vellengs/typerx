@@ -39,6 +39,7 @@ export declare enum WidgetTypes {
     image = "image",
     avatar = "avatar",
     tabs = "tabs",
+    treeSelect = "tree-select",
 }
 export interface ColumnSets {
     [key: string]: ColumnDefine[];

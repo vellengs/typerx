@@ -26,7 +26,7 @@ const addForm = {
             type: 'string',
             maxLength: 30,
             ui: {
-                widget: appearance_1.WidgetTypes.search,
+                widget: appearance_1.WidgetTypes.treeSelect,
                 placeholder: '请选择父级',
                 domain: 'group'
             }

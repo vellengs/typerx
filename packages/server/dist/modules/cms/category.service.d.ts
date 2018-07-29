@@ -1,8 +1,9 @@
 import { Appearance } from '../../types/appearance';
 import { CategoryResponse, EditCategoryDto, CreateCategoryDto, PaginateCategory } from './dto/category.dto';
-import { KeyValue } from '../../types/data.types';
+import { KeyValue, TreeNode } from '../../types/data.types';
 export declare class CategoryService {
     getAppearance(): Promise<Appearance>;
+    searchTree(keyword?: string, value?: string, limit?: number): Promise<Array<TreeNode>>;
     search(keyword?: string, value?: string, limit?: number): Promise<Array<KeyValue>>;
     create(entry: CreateCategoryDto): Promise<CategoryResponse>;
     update(entry: EditCategoryDto): Promise<CategoryResponse>;

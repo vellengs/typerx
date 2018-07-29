@@ -4,13 +4,14 @@ const logger_1 = require("./logger");
 const fs_1 = require("fs");
 const dotenv_1 = require("dotenv");
 if (fs_1.existsSync('.env')) {
-    logger_1.logger.debug('Using .env file to supply config environment variables');
     dotenv_1.config({ path: '.env' });
 }
-else {
-    console.log('Using .env.example file to supply config environment variables');
-    logger_1.logger.debug('Using .env.example file to supply config environment variables');
+else if (fs_1.existsSync('.env.example')) {
     dotenv_1.config({ path: '.env.example' }); // you can delete this after you create your own .env file!
+}
+else {
+    console.log('Using .env file to supply config environment variables');
+    logger_1.logger.debug('Using .env file to supply config environment variables');
 }
 exports.ENVIRONMENT = process.env.NODE_ENV;
 const prod = exports.ENVIRONMENT === 'production'; // Anything else is treated as 'dev'

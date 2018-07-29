@@ -76,8 +76,29 @@ export class UserController {
   @Path("upload")
   async fileUpload(@FileParam("file") file: Express.Multer.File,
     @FormParam("field") field?: string) {
+    console.log('file:', field);
     const result = await this.service.fileUpload(file, field);
     return result;
+  }
+
+  /**
+   * 编辑器附件上传
+   * @param file 
+   * @param field 
+   */
+  @POST
+  @Path("umeditor/upload")
+  umeditorUpload(@FileParam("upfile") file: Express.Multer.File,
+    @FormParam("field") field?: string) {
+
+    return `{
+          "state": "SUCCESS",
+          "url": "uploads/${file.filename}" ,
+          "name": "${file.originalname}",
+          "originalName": "${file.originalname}",
+          "size": ${file.size},
+          "type": "${file.mimetype}",
+      }`;
   }
 
 

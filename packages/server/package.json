@@ -1,6 +1,6 @@
 {
   "name": "typerx-server",
-  "version": "0.3.10",
+  "version": "0.3.12",
   "description": "A lightweight annotation-based full stack node project",
   "keywords": [
     "api",

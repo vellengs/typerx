@@ -1355,6 +1355,29 @@
 				"total"
 			]
 		},
+		"TreeNode": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
+				"title": {
+					"type": "string",
+					"description": ""
+				},
+				"parent": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"title",
+				"parent"
+			]
+		},
 		"GroupResponse": {
 			"description": "",
 			"properties": {
@@ -3206,6 +3229,42 @@
 				]
 			}
 		},
+		"/user/umeditor/upload": {
+			"post": {
+				"operationId": "UserUmeditorUpload",
+				"produces": [
+					"text/html"
+				],
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"description": "编辑器附件上传",
+				"tags": [
+					"core"
+				],
+				"consumes": [
+					"multipart/form-data"
+				],
+				"parameters": [
+					{
+						"description": "",
+						"in": "formData",
+						"name": "file",
+						"required": true,
+						"type": "file"
+					},
+					{
+						"description": "",
+						"in": "formData",
+						"name": "field",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
 		"/api/menu/config": {
 			"get": {
 				"operationId": "MenuGetConfig",
@@ -4501,6 +4560,45 @@
 					},
 					{
 						"description": "已选中的用户组编号",
+						"in": "query",
+						"name": "value",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/group/tree": {
+			"get": {
+				"operationId": "GroupSearchTree",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/TreeNode"
+							}
+						}
+					}
+				},
+				"description": "",
+				"tags": [
+					"core"
+				],
+				"parameters": [
+					{
+						"description": "",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "",
 						"in": "query",
 						"name": "value",
 						"required": false,
@@ -5876,6 +5974,45 @@
 							"type": "array",
 							"items": {
 								"$ref": "#/definitions/KeyValue"
+							}
+						}
+					}
+				},
+				"description": "查询分类",
+				"tags": [
+					"cms"
+				],
+				"parameters": [
+					{
+						"description": "关键词",
+						"in": "query",
+						"name": "keyword",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"description": "已选中的分类编号",
+						"in": "query",
+						"name": "value",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/api/category/tree": {
+			"get": {
+				"operationId": "CategorySearchTree",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/TreeNode"
 							}
 						}
 					}

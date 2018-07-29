@@ -2,7 +2,7 @@ import { ServiceContext } from 'typescript-rest';
 import { GroupService } from './group.service';
 import { Appearance } from '../../types/appearance';
 import { GroupResponse, CreateGroupDto, EditGroupDto, PaginateGroup } from './dto/group.dto';
-import { KeyValue } from '../../types/data.types';
+import { KeyValue, TreeNode } from '../../types/data.types';
 /**
  * 用户组接口.
  */
@@ -20,6 +20,7 @@ export declare class GroupController {
      * @param value 已选中的用户组编号
      */
     search(keyword?: string, value?: string): Promise<Array<KeyValue>>;
+    searchTree(keyword?: string, value?: string): Promise<Array<TreeNode>>;
     /**
      * 创建用户组
      * @param entry 创建参数

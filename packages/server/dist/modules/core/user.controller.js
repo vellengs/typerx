@@ -67,9 +67,25 @@ let UserController = class UserController {
      */
     fileUpload(file, field) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log('file:', field);
             const result = yield this.service.fileUpload(file, field);
             return result;
         });
+    }
+    /**
+     * 编辑器附件上传
+     * @param file
+     * @param field
+     */
+    umeditorUpload(file, field) {
+        return `{
+          "state": "SUCCESS",
+          "url": "uploads/${file.filename}" ,
+          "name": "${file.originalname}",
+          "originalName": "${file.originalname}",
+          "size": ${file.size},
+          "type": "${file.mimetype}",
+      }`;
     }
     /**
      * 文件上传配置
@@ -113,6 +129,15 @@ __decorate([
     __metadata("design:paramtypes", [Object, String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "fileUpload", null);
+__decorate([
+    typescript_rest_1.POST,
+    typescript_rest_1.Path("umeditor/upload"),
+    __param(0, typescript_rest_1.FileParam("file")),
+    __param(1, typescript_rest_1.FormParam("field")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "umeditorUpload", null);
 __decorate([
     typescript_rest_1.GET,
     typescript_rest_1.Path("upload"),

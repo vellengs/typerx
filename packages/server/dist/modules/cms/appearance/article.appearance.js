@@ -22,12 +22,12 @@ const addForm = {
             title: '分类',
             type: appearance_1.SchemaTypes.string,
             ui: {
-                widget: appearance_1.WidgetTypes.search,
+                widget: appearance_1.WidgetTypes.treeSelect,
                 domain: 'category',
-                grid: {
-                    span: 16
-                }
-            }
+                allowClear: true,
+                placeholder: '请选择分类'
+            },
+            default: null,
         },
         description: {
             title: '摘要',
@@ -92,7 +92,7 @@ exports.appearance = {
                     title: '分类',
                     type: appearance_1.SchemaTypes.string,
                     ui: {
-                        widget: appearance_1.WidgetTypes.search,
+                        widget: appearance_1.WidgetTypes.treeSelect,
                         domain: 'category',
                         allowClear: true,
                         placeholder: '请选择分类'

@@ -46,6 +46,9 @@ class MenuService {
     }
     update(entry) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (entry.id === entry.parent) {
+                throw new typescript_rest_1.Errors.BadRequestError('can not be set parent by self.');
+            }
             const doc = yield core_database_1.CoreDatabase.Menu.findOneAndUpdate({
                 _id: entry.id,
             }, entry).exec();
