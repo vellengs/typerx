@@ -2434,7 +2434,7 @@ paths:
                 -
                     description: ""
                     in: formData
-                    name: file
+                    name: upfile
                     required: true
                     type: file
                 -

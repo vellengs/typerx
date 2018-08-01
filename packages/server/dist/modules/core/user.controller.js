@@ -132,7 +132,7 @@ __decorate([
 __decorate([
     typescript_rest_1.POST,
     typescript_rest_1.Path("umeditor/upload"),
-    __param(0, typescript_rest_1.FileParam("file")),
+    __param(0, typescript_rest_1.FileParam("upfile")),
     __param(1, typescript_rest_1.FormParam("field")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, String]),
