@@ -18,6 +18,21 @@ const addForm: SFSchema = {
             title: '关键词',
             type: t.string
         },
+        picture: {
+            title: '图片',
+            type: t.string,
+            ui: {
+                widget: w.avatar,
+                fileType: 'image/png,image/jpeg,image/gif,image/bmp',
+                listType: 'picture-card',
+                action: 'user/upload',
+                limit: 1,
+                name: 'file',
+                grid: {
+                    span: 24
+                }
+            },
+        },
         category: {
             title: '分类',
             type: t.string,

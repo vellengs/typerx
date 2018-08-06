@@ -18,6 +18,21 @@ const addForm = {
             title: '关键词',
             type: appearance_1.SchemaTypes.string
         },
+        picture: {
+            title: '图片',
+            type: appearance_1.SchemaTypes.string,
+            ui: {
+                widget: appearance_1.WidgetTypes.avatar,
+                fileType: 'image/png,image/jpeg,image/gif,image/bmp',
+                listType: 'picture-card',
+                action: 'user/upload',
+                limit: 1,
+                name: 'file',
+                grid: {
+                    span: 24
+                }
+            },
+        },
         category: {
             title: '分类',
             type: appearance_1.SchemaTypes.string,
