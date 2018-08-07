@@ -4,6 +4,7 @@ export const schema = new Schema({
     name: { type: t.String },
     title: t.String,
     keyword: t.String,
+    picture: t.String,
     description: t.String,
     author: t.String,
     sort: t.Number,
@@ -25,7 +26,7 @@ export const schema = new Schema({
         timestamps: true, toJSON: {
             transform: (doc, ret, options) => {
                 ret.id = ret._id;
-                delete ret._id; 
+                delete ret._id;
             }
         }
     });

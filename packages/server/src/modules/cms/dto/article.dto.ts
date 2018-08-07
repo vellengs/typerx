@@ -3,7 +3,8 @@ export class CreateArticleDto {
     name: string;
     title: string;
     keyword: string;
-    category:string;
+    picture: string;
+    category: string;
     description: string;
     author: string;
     sort: number;
@@ -16,9 +17,10 @@ export class CreateArticleDto {
 export class EditArticleDto {
     id: string;
     name: string;
+    picture: string;
     title: string;
     keyword: string;
-    category:string;
+    category: string;
     description: string;
     author: string;
     sort: number;
@@ -32,7 +34,8 @@ export class ArticleResponse {
     id: string;
     name: string;
     title: string;
-    category:string;
+    picture: string;
+    category: string;
     description: string;
     author: string;
     sort: number;
@@ -51,6 +54,7 @@ export declare interface PaginateArticle {
 export const ArticleResponseFields = [
     'id',
     'name',
+    'picture',
     'title',
     'category',
     'description',

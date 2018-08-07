@@ -12,6 +12,7 @@ exports.ArticleResponse = ArticleResponse;
 exports.ArticleResponseFields = [
     'id',
     'name',
+    'picture',
     'title',
     'category',
     'description',

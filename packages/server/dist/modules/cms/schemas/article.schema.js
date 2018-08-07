@@ -5,6 +5,7 @@ exports.schema = new mongoose_1.Schema({
     name: { type: mongoose_1.SchemaTypes.String },
     title: mongoose_1.SchemaTypes.String,
     keyword: mongoose_1.SchemaTypes.String,
+    picture: mongoose_1.SchemaTypes.String,
     description: mongoose_1.SchemaTypes.String,
     author: mongoose_1.SchemaTypes.String,
     sort: mongoose_1.SchemaTypes.Number,

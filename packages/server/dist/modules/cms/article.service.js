@@ -110,6 +110,7 @@ class ArticleService {
         return lodash_1.pick(entry, [
             'id',
             'name',
+            'picture',
             'title',
             'category',
             'description',

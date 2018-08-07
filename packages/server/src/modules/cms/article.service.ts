@@ -125,6 +125,7 @@ export class ArticleService {
         return pick(entry, [
             'id',
             'name',
+            'picture',
             'title',
             'category',
             'description',

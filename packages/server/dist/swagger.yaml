@@ -1592,6 +1592,9 @@ definitions:
             title:
                 type: string
                 description: ""
+            picture:
+                type: string
+                description: ""
             category:
                 type: string
                 description: ""
@@ -1622,6 +1625,7 @@ definitions:
             - id
             - name
             - title
+            - picture
             - category
             - description
             - author
@@ -1640,6 +1644,9 @@ definitions:
                 type: string
                 description: ""
             keyword:
+                type: string
+                description: ""
+            picture:
                 type: string
                 description: ""
             category:
@@ -1672,6 +1679,7 @@ definitions:
             - name
             - title
             - keyword
+            - picture
             - category
             - description
             - author
@@ -1687,6 +1695,9 @@ definitions:
                 type: string
                 description: ""
             name:
+                type: string
+                description: ""
+            picture:
                 type: string
                 description: ""
             title:
@@ -1724,6 +1735,7 @@ definitions:
         required:
             - id
             - name
+            - picture
             - title
             - keyword
             - category

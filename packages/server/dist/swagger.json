@@ -2117,6 +2117,10 @@
 					"type": "string",
 					"description": ""
 				},
+				"picture": {
+					"type": "string",
+					"description": ""
+				},
 				"category": {
 					"type": "string",
 					"description": ""
@@ -2156,6 +2160,7 @@
 				"id",
 				"name",
 				"title",
+				"picture",
 				"category",
 				"description",
 				"author",
@@ -2178,6 +2183,10 @@
 					"description": ""
 				},
 				"keyword": {
+					"type": "string",
+					"description": ""
+				},
+				"picture": {
 					"type": "string",
 					"description": ""
 				},
@@ -2220,6 +2229,7 @@
 				"name",
 				"title",
 				"keyword",
+				"picture",
 				"category",
 				"description",
 				"author",
@@ -2238,6 +2248,10 @@
 					"description": ""
 				},
 				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"picture": {
 					"type": "string",
 					"description": ""
 				},
@@ -2287,6 +2301,7 @@
 			"required": [
 				"id",
 				"name",
+				"picture",
 				"title",
 				"keyword",
 				"category",
