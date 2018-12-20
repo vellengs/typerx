@@ -1,11 +1,7 @@
 import { Component, Injector, Input, ViewChild, OnInit } from '@angular/core';
 import { BaseComponent } from '@shared/base/base.component';
-import { NzModalRef, NzTreeNode, NzTreeComponent } from 'ng-zorro-antd';
-import { SimpleTableComponent } from '@delon/abc';
-import * as treeify from 'array-to-tree';
-import { isThisSecond } from 'date-fns';
+import { NzModalRef, NzTreeComponent } from 'ng-zorro-antd';
 import { UserService } from '@services/user.service';
-// tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs';
 import { TreeData } from 'types/types';
 
@@ -60,7 +56,7 @@ export class BaseTreeSelectorComponent extends BaseComponent implements OnInit {
         });
     }
 
-    save(event?) {
+    save() {
         this.modalRef.destroy(this.selectedItems);
     }
 
@@ -79,7 +75,7 @@ export class BaseTreeSelectorComponent extends BaseComponent implements OnInit {
         }
     }
 
-    treeNodeClick(name: string, e: any) {
+    treeNodeClick(e: any) {
         if (e.node.key === this.selectedItem.key) {
 
         } else {
@@ -87,15 +83,15 @@ export class BaseTreeSelectorComponent extends BaseComponent implements OnInit {
         }
     }
 
-    showContextMenu(name: string, e: any) {
+    showContextMenu() {
 
     }
 
-    nodeExpandChanged(name: string, e: any) {
+    nodeExpandChanged() {
 
     }
 
-    selectedChanged(event: any) {
+    selectedChanged() {
         this.getAllCheckedItems();
     }
 
@@ -129,7 +125,7 @@ export class BaseTreeSelectorComponent extends BaseComponent implements OnInit {
         });
     }
 
-    cancel(event?) {
+    cancel() {
         this.modalRef.destroy('onCancel');
     }
 

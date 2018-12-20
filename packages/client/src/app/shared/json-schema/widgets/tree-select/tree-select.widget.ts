@@ -3,7 +3,6 @@ import { ControlWidget, SFComponent, SFSchemaEnumType } from '@delon/form';
 import { getData } from '@shared/json-schema/util';
 import { HttpClient } from '@angular/common/http';
 import { NzFormatEmitEvent, NzTreeNode } from 'ng-zorro-antd';
-// tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs';
 import { TreeService } from '@services/tree.service';
 

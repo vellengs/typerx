@@ -1,8 +1,6 @@
 import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
 import { ControlWidget, SFSchemaEnum, SFComponent, SFSchemaEnumType } from '@delon/form';
-import { getData } from '@shared/json-schema/util';
 import { HttpClient } from '@angular/common/http';
-// tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs';
 import { ModalHelper } from '@delon/theme';
 import { TransferSelectorComponent } from '@shared/base/transfer.selector';

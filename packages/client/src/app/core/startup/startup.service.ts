@@ -1,14 +1,13 @@
-import { Injectable, Injector, Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { zip } from 'rxjs/observable/zip';
 import { catchError } from 'rxjs/operators';
-import { MenuService, SettingsService, TitleService, ALAIN_I18N_TOKEN, Menu } from '@delon/theme';
+import { MenuService, SettingsService, TitleService, ALAIN_I18N_TOKEN } from '@delon/theme';
 import { ACLService } from '@delon/acl';
 import { TranslateService } from '@ngx-translate/core';
 import { I18NService } from '@core/i18n/i18n.service';
 import { CoreService } from 'generated';
 import * as treeify from 'array-to-tree';
+import { zip } from 'rxjs';
 /**
  * 用于应用启动时
  * 一般用来获取应用所需要的基础数据等
@@ -23,13 +22,12 @@ export class StartupService {
         private aclService: ACLService,
         private titleService: TitleService,
         private httpClient: HttpClient,
-        private coreService: CoreService,
-        private injector: Injector) { }
+        private coreService: CoreService) { }
 
     load(): Promise<any> {
         // only works with promises
         // https://github.com/angular/angular/issues/15088
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             zip(
                 this.httpClient.get(`assets/i18n/${this.i18n.defaultLang}.json`),
                 this.coreService.settingGetSettingsByName('main'),

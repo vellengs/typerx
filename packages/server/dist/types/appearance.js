@@ -1,8 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class Appearance {
-}
-exports.Appearance = Appearance;
 var SchemaTypes;
 (function (SchemaTypes) {
     SchemaTypes["array"] = "array";

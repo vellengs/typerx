@@ -1,9 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, Inject } from '@angular/core';
-import { ControlWidget, SFSchemaEnum, SFSchema, SFUISchemaItem, SFComponent, SFSchemaEnumType } from '@delon/form';
+import { ControlWidget, SFSchemaEnum, SFComponent, SFSchemaEnumType } from '@delon/form';
 import { getData } from '@shared/json-schema/util';
-// tslint:disable-next-line:import-blacklist
-import { of, Observable } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Component({

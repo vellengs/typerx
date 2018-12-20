@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var appearance_1 = require("./types/appearance");
-exports.Appearance = appearance_1.Appearance;
 exports.SchemaTypes = appearance_1.SchemaTypes;
 exports.WidgetTypes = appearance_1.WidgetTypes;
 var application_1 = require("./application");

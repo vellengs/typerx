@@ -1,6 +1,4 @@
-import { Injectable, Inject, Injector } from '@angular/core';
-import { Router } from '@angular/router';
-// tslint:disable-next-line:import-blacklist
+import { Injectable, Injector } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 

@@ -1,0 +1,64 @@
+{
+    "sortParamsByRequiredFlag": {
+        "opt": "sortParamsByRequiredFlag",
+        "description": "Sort method arguments to place required parameters before optional parameters.",
+        "type": "boolean",
+        "default": "true"
+    },
+    "ensureUniqueParams": {
+        "opt": "ensureUniqueParams",
+        "description": "Whether to ensure parameter names are unique in an operation (rename parameters that are not).",
+        "type": "boolean",
+        "default": "true"
+    },
+    "allowUnicodeIdentifiers": {
+        "opt": "allowUnicodeIdentifiers",
+        "description": "boolean, toggles whether unicode identifiers are allowed in names or not, default is false",
+        "type": "boolean",
+        "default": "false"
+    },
+    "modelPropertyNaming": {
+        "opt": "modelPropertyNaming",
+        "description": "Naming convention for the property: 'camelCase', 'PascalCase', 'snake_case' and 'original', which keeps the original name",
+        "type": "string",
+        "default": "camelCase"
+    },
+    "supportsES6": {
+        "opt": "supportsES6",
+        "description": "Generate code that conforms to ES6.",
+        "type": "string",
+        "default": "false"
+    },
+    "npmName": {
+        "opt": "npmName",
+        "description": "The name under which you want to publish generated npm package",
+        "type": "string"
+    },
+    "npmVersion": {
+        "opt": "npmVersion",
+        "description": "The version of your npm package",
+        "type": "string"
+    },
+    "npmRepository": {
+        "opt": "npmRepository",
+        "description": "Use this property to set an url your private npmRepo in the package.json",
+        "type": "string"
+    },
+    "snapshot": {
+        "opt": "snapshot",
+        "description": "When setting this property to true the version will be suffixed with -SNAPSHOT.yyyyMMddHHmm",
+        "type": "boolean",
+        "default": "false"
+    },
+    "withInterfaces": {
+        "opt": "withInterfaces",
+        "description": "Setting this property to true will generate interfaces next to the default class implementations.",
+        "type": "boolean",
+        "default": "false"
+    },
+    "ngVersion": {
+        "opt": "ngVersion",
+        "description": "The version of Angular. Default is '4.3'",
+        "type": "string"
+    }
+}

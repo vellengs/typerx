@@ -1,7 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { SettingsService, MenuService } from '@delon/theme';
 import { CoreService } from 'generated';
-import * as treeify from 'array-to-tree';
 import { StartupService } from '@core/startup/startup.service';
 
 @Component({

@@ -1,10 +1,10 @@
 import { ModalOptionsForService } from 'ng-zorro-antd';
 import { Component, Input, EventEmitter, Injector, ViewChild } from '@angular/core';
-import { SimpleTableColumn, SimpleTableComponent } from '@delon/abc';
 import { BaseComponent } from '@shared/base/base.component';
 import { CurdPage, FormSets } from 'types/types';
 import { BaseDetailComponent } from '@shared/base/base.detail.component';
 import { pickBy } from 'lodash';
+import { STColumn, STComponent } from '@delon/abc';
 
 @Component({
     selector: 'app-base-stand',
@@ -12,19 +12,18 @@ import { pickBy } from 'lodash';
 })
 export class BaseStandComponent extends BaseComponent implements CurdPage {
 
-
     total: number;
     entries = [];
 
-    @ViewChild('simpleTable') simpleTable: SimpleTableComponent;
+    @ViewChild('simpleTable') simpleTable: STComponent;
 
     @Input() queryUrl: string;
     @Input() domain: string;
     @Input() configParams: any;
-    @Input() columnSets: { [key: string]: SimpleTableColumn[]; };
+    @Input() columnSets: { [key: string]: STColumn[]; };
     @Input() queryParams: { [key: string]: any; };
     @Input() formSets: FormSets;
-    @Input() operations: SimpleTableColumn;
+    @Input() operations: STColumn;
 
     public onConfigChanged: EventEmitter<any> = new EventEmitter();
     public onEditFormChanged: EventEmitter<any> = new EventEmitter();
@@ -175,7 +174,7 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
 
     }
 
-    getTable(): SimpleTableComponent {
+    getTable(): STComponent {
         return this.simpleTable;
     }
 

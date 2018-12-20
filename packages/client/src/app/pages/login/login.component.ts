@@ -1,9 +1,7 @@
 import { Router } from '@angular/router';
-import { Component, Inject, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SettingsService } from '@delon/theme';
 import { NzMessageService } from 'ng-zorro-antd';
-import { SocialService, DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 import { UserService } from '@services/user.service';
 import { StartupService } from '@core/startup/startup.service';
 
@@ -69,7 +67,7 @@ export class CustomLoginComponent implements OnDestroy {
         }
     }
 
-    switch(event) {
+    switch() {
 
     }
 

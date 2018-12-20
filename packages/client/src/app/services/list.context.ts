@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { SettingsService, User, ModalHelper } from '@delon/theme';
-import { CoreService, LoginDto } from 'generated';
+import { SettingsService, ModalHelper } from '@delon/theme';
+import { CoreService } from 'generated';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()

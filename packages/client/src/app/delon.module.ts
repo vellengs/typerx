@@ -1,118 +1,101 @@
+/**
+ * 进一步对基础模块的导入提炼
+ * 有关模块注册指导原则请参考：https://github.com/ng-alain/ng-alain/issues/180
+ */
 import {
-    NgModule,
-    Optional,
-    SkipSelf,
-    ModuleWithProviders,
-    SystemJsNgModuleLoader,
+  NgModule,
+  Optional,
+  SkipSelf,
+  ModuleWithProviders,
 } from '@angular/core';
-import { RouteReuseStrategy } from '@angular/router';
 import { throwIfAlreadyLoaded } from '@core/module-import-guard';
 
-import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { AlainThemeModule } from '@delon/theme';
-import { DelonABCModule, ReuseTabService, ReuseTabStrategy, AdSimpleTableConfig } from '@delon/abc';
-import { DelonAuthModule } from '@delon/auth';
-import { DelonACLModule } from '@delon/acl';
-import { DelonCacheModule } from '@delon/cache';
-import { DelonUtilModule } from '@delon/util';
-// mock
+
+// #region mock
 import { DelonMockModule } from '@delon/mock';
 import * as MOCKDATA from '../../_mock';
 import { environment } from '@env/environment';
-const MOCKMODULE = !environment.production ? [DelonMockModule.forRoot({ data: MOCKDATA })] : [];
+const MOCK_MODULES = !environment.production
+  ? [DelonMockModule.forRoot({ data: MOCKDATA })]
+  : [];
+// #endregion
 
-// region: global config functions
+// #region reuse-tab
+/**
+ * 若需要[路由复用](https://ng-alain.com/components/reuse-tab)需要：
+ * 1、增加 `REUSETAB_PROVIDES`
+ * 2、在 `src/app/layout/default/default.component.html` 修改：
+ *  ```html
+ *  <section class="alain-default__content">
+ *    <reuse-tab></reuse-tab>
+ *    <router-outlet></router-outlet>
+ *  </section>
+ *  ```
+ */
+import { RouteReuseStrategy } from '@angular/router';
+import { ReuseTabService, ReuseTabStrategy } from '@delon/abc/reuse-tab';
+const REUSE_TAB_PROVIDES = [
+  // {
+  //   provide: RouteReuseStrategy,
+  //   useClass: ReuseTabStrategy,
+  //   deps: [ReuseTabService],
+  // },
+];
+// #endregion
 
-import { AdPageHeaderConfig } from '@delon/abc';
-export function pageHeaderConfig(): AdPageHeaderConfig {
-    return Object.assign(new AdPageHeaderConfig(), { home_i18n: 'home' });
+// #region global config functions
+
+import { PageHeaderConfig } from '@delon/abc';
+export function fnPageHeaderConfig(): PageHeaderConfig {
+  return Object.assign(new PageHeaderConfig(), { homeI18n: 'home' });
 }
 
 import { DelonAuthConfig } from '@delon/auth';
-import { ApiModule, Configuration } from 'generated';
-import { UserService } from '@services/user.service';
-import { ListContext } from '@services/list.context';
-import { CanAdminProvide } from '@services/can.admin.provide';
-import { CanAuthProvide } from '@services/can.auth.provide';
-import { DelonFormConfig, SchemaValidatorFactory } from '@delon/form';
+export function fnDelonAuthConfig(): DelonAuthConfig {
+  return Object.assign(new DelonAuthConfig(), <DelonAuthConfig>{
+    login_url: '/passport/login',
+  });
+}
+
+import { STConfig } from '@delon/abc';
+import { SchemaValidatorFactory } from '@delon/form';
 import { CustomSchemaValidatorFactory } from './custom.form.factory';
-import { TreeService } from '@services/tree.service';
-
-export function delonAuthConfig(): DelonAuthConfig {
-    return Object.assign(new DelonAuthConfig(), <DelonAuthConfig>{
-        login_url: '/passport/login',
-    });
+export function fnSTConfig(): STConfig {
+  return Object.assign(new STConfig(), <STConfig>{
+    modal: { size: 'lg' },
+  });
 }
 
-export function apiConfig(): Configuration {
-    return new Configuration({
-        basePath: `${location.protocol}//${location.host}`
-    });
-}
+const GLOBAL_CONFIG_PROVIDES = [
+  // TIPS：@delon/abc 有大量的全局配置信息，例如设置所有 `st` 的页码默认为 `20` 行
+  { provide: STConfig, useFactory: fnSTConfig },
+  { provide: PageHeaderConfig, useFactory: fnPageHeaderConfig },
+  { provide: DelonAuthConfig, useFactory: fnDelonAuthConfig },
+  {
+    provide: SchemaValidatorFactory,
+    useClass: CustomSchemaValidatorFactory,
+  },
+];
 
-export function simpleTableConfig() {
-    return Object.assign(new AdSimpleTableConfig(), <AdSimpleTableConfig>{
-        reqReName: {
-            pi: 'page',
-            ps: 'size'
-        },
-        isPageIndexReset: false,
-        toTopInChange: false,
-    });
-}
-
-
-// endregion
+// #endregion
 
 @NgModule({
-    imports: [
-        NgZorroAntdModule.forRoot(),
-        AlainThemeModule.forRoot(),
-        DelonABCModule.forRoot(),
-        DelonAuthModule.forRoot(),
-        DelonACLModule.forRoot(),
-        DelonCacheModule.forRoot(),
-        DelonUtilModule.forRoot(),
-        // mock
-        ...MOCKMODULE,
-        ApiModule.forRoot(apiConfig),
-    ],
-    providers: [
-        TreeService,
-        UserService,
-        ListContext,
-        CanAdminProvide,
-        CanAuthProvide,
-        SystemJsNgModuleLoader,
-    ]
+  imports: [
+    AlainThemeModule.forRoot(),
+    // mock
+    ...MOCK_MODULES,
+  ],
 })
 export class DelonModule {
-    constructor(
-        @Optional()
-        @SkipSelf()
-        parentModule: DelonModule,
-    ) {
-        throwIfAlreadyLoaded(parentModule, 'DelonModule');
-    }
+  constructor(@Optional() @SkipSelf() parentModule: DelonModule) {
+    throwIfAlreadyLoaded(parentModule, 'DelonModule');
+  }
 
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: DelonModule,
-            providers: [
-                {
-                    provide: RouteReuseStrategy,
-                    useClass: ReuseTabStrategy,
-                    deps: [ReuseTabService],
-                },
-                // TIPS：@delon/abc 有大量的全局配置信息，例如设置所有 `simple-table` 的页码默认为 `20` 行
-                { provide: AdSimpleTableConfig, useFactory: simpleTableConfig },
-                { provide: AdPageHeaderConfig, useFactory: pageHeaderConfig },
-                { provide: DelonAuthConfig, useFactory: delonAuthConfig },
-                {
-                    provide: SchemaValidatorFactory,
-                    useClass: CustomSchemaValidatorFactory,
-                },
-            ],
-        };
-    }
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: DelonModule,
+      providers: [...REUSE_TAB_PROVIDES, ...GLOBAL_CONFIG_PROVIDES],
+    };
+  }
 }

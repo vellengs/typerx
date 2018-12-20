@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '@shared/shared.module';
 import { UMeditorModule } from 'ngx-umeditor';
 import { MenusPageComponent } from './menus/menus';
-import { ApiModule } from 'generated';
 import { AccountsPageComponent } from './accounts/accounts';
 import { SettingsPageComponent } from './settings/settings';
 import { DictsPageComponent } from './dicts/dicts';

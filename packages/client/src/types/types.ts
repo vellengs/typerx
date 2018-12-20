@@ -1,5 +1,5 @@
-import { SimpleTableColumn } from '@delon/abc';
-import { SFSchema, SFGridSchema } from '@delon/form';
+import { SFSchema } from '@delon/form';
+import { STColumn } from '@delon/abc';
 
 export class Appearance {
     columnSets: ColumnSets;
@@ -7,8 +7,8 @@ export class Appearance {
 }
 
 export interface ColumnSets {
-    default: SimpleTableColumn[];
-    [key: string]: SimpleTableColumn[];
+    default: STColumn[];
+    [key: string]: STColumn[];
 }
 
 export interface FormSets {
@@ -27,7 +27,7 @@ export interface BasePage {
 export interface BaseTable extends BasePage {
     domain: string;
     columnSets: {
-        [key: string]: SimpleTableColumn[]
+        [key: string]: STColumn[]
     };
     queryParams: {
         [key: string]: any

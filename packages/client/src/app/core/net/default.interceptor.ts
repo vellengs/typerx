@@ -4,13 +4,11 @@ import {
     HttpInterceptor, HttpRequest, HttpHandler, HttpErrorResponse,
     HttpSentEvent, HttpHeaderResponse, HttpProgressEvent, HttpResponse, HttpUserEvent,
 } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { mergeMap, catchError } from 'rxjs/operators';
 import { NzMessageService } from 'ng-zorro-antd';
 import { _HttpClient } from '@delon/theme';
 import { environment } from '@env/environment';
+import { Observable, of } from 'rxjs';
 
 /**
  * 默认HTTP拦截器，其注册细节见 `app.module.ts`

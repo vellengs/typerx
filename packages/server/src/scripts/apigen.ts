@@ -12,8 +12,8 @@ import { CoreDatabase } from '../modules/core/core.database';
 const unzip = require('unzip');
 const rimraf = require('rimraf');
 import * as swaggerParser from 'swagger-parser';
-const gateway = 'https://generator.swagger.io/api/gen/clients/typescript-angular';
-
+// const gateway = 'https://generator.swagger.io/api/gen/clients/typescript-angular';
+const gateway = 'https://api.openapi-generator.tech/api/gen/clients/typescript-angular';
 async function upsertApi(jsonPath: string) {
     const api = await swaggerParser.parse(jsonPath).then();
     let result = 0;
@@ -57,7 +57,7 @@ async function loadSwagger() {
     /**
      * 提交 post 到服务器并获得下载链接
      */
-    const result = await client.post(gateway, { spec: json });
+    const result = await client.post(gateway, { spec: json, options: { ngVersion: '6.0' } });
     if (result.data && result.data.link) {
         const response = await client({
             method: 'GET',
