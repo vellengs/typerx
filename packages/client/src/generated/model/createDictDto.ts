@@ -9,7 +9,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ModelObject } from './modelObject';
 
 
 /**
@@ -28,5 +27,8 @@ export interface CreateDictDto {
      * 
      */
     name: string;
-    expand: ModelObject;
+    /**
+     * 
+     */
+    expand: any;
 }
