@@ -21,9 +21,10 @@
         "ng": "ng",
         "serve:hmr": "ng serve -o --hmr -e=hmr",
         "build:config": "tsc -p tsconfig.appearances.json",
-        "start": "ng serve -o --port 4700 --proxy-config proxy.conf.json",
+        "start": "npm run color-less && ng serve -o --port 4700 --proxy-config proxy.conf.json",
         "test": "ng test -sr -sm=false",
         "test-coverage": "ng test -sr -cc -sm=false",
+        "color-less": "node scripts/color-less.js",
         "build-copy": "ts-node build.copy.ts"
     },
     "dependencies": {

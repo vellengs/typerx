@@ -869,46 +869,6 @@
 				"total"
 			]
 		},
-		"Function": {
-			"description": "Creates a new function.",
-			"properties": {
-				"prototype": {
-					"type": "object",
-					"description": ""
-				},
-				"length": {
-					"type": "number",
-					"format": "double",
-					"description": ""
-				},
-				"arguments": {
-					"type": "object",
-					"description": ""
-				},
-				"caller": {
-					"$ref": "#/definitions/Function"
-				}
-			},
-			"type": "object",
-			"required": [
-				"prototype",
-				"length",
-				"arguments",
-				"caller"
-			]
-		},
-		"Object": {
-			"description": "Provides functionality common to all JavaScript objects.",
-			"properties": {
-				"constructor": {
-					"$ref": "#/definitions/Function"
-				}
-			},
-			"type": "object",
-			"required": [
-				"constructor"
-			]
-		},
 		"DictResponse": {
 			"description": "",
 			"properties": {
@@ -929,7 +889,8 @@
 					"description": ""
 				},
 				"expand": {
-					"$ref": "#/definitions/Object"
+					"type": "object",
+					"description": ""
 				}
 			},
 			"type": "object",
@@ -957,7 +918,8 @@
 					"description": ""
 				},
 				"expand": {
-					"$ref": "#/definitions/Object"
+					"type": "object",
+					"description": ""
 				}
 			},
 			"type": "object",
@@ -988,7 +950,8 @@
 					"description": ""
 				},
 				"expand": {
-					"$ref": "#/definitions/Object"
+					"type": "object",
+					"description": ""
 				}
 			},
 			"type": "object",

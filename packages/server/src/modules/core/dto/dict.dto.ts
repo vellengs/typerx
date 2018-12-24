@@ -2,7 +2,7 @@ export class CreateDictDto {
   category: string;
   translate: string;
   name: string;
-  expand: Object;
+  expand: object;
 }
 
 export class EditDictDto {
@@ -10,7 +10,7 @@ export class EditDictDto {
   category: string;
   translate: string;
   name: string;
-  expand: Object;
+  expand: object;
 }
 
 export class DictResponse {
@@ -18,7 +18,7 @@ export class DictResponse {
   category: string;
   name: string;
   translate: string;
-  expand: Object;
+  expand: object;
 }
 
 export const DictResponseFields = [
