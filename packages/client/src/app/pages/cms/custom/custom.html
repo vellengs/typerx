@@ -13,5 +13,5 @@
         </button>
     </div>
 
-    <st #simpleTable *ngIf="configReady" [data]="queryUrl" [extraParams]="queryParams" [total]="total" [columns]="columnSets.default"></st>
+    <st #simpleTable *ngIf="configReady" [data]="queryUrl" [req]="{params: queryParams}" [total]="total" [columns]="columnSets.default"></st>
 </nz-card>

@@ -3,5 +3,5 @@
     <div class="mb-md">
         <sf *ngIf="formSets" [mode]="'search'" [layout]="'inline'" [schema]="formSets.query" (formSubmit)="query($event)"></sf>
     </div>
-    <st *ngIf="columnSets" #st [data]="queryUrl" [columns]="columnSets.default" [extraParams]="queryParams"></st>
+    <st *ngIf="columnSets" #st [data]="queryUrl" [columns]="columnSets.default" [req]="{params: queryParams}"></st>
 </nz-card>

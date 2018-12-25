@@ -51,10 +51,24 @@ export function fnPageHeaderConfig(): PageHeaderConfig {
   return Object.assign(new PageHeaderConfig(), { homeI18n: 'home' });
 }
 
+
 import { DelonAuthConfig } from '@delon/auth';
+import { ApiModule, Configuration } from 'generated';
+import { UserService } from '@services/user.service';
+import { ListContext } from '@services/list.context';
+import { CanAdminProvide } from '@services/can.admin.provide';
+import { CanAuthProvide } from '@services/can.auth.provide';
+import { TreeService } from '@services/tree.service';
+
 export function fnDelonAuthConfig(): DelonAuthConfig {
   return Object.assign(new DelonAuthConfig(), <DelonAuthConfig>{
     login_url: '/passport/login',
+  });
+}
+
+export function apiConfig(): Configuration {
+  return new Configuration({
+    basePath: `${location.protocol}//${location.host}`
   });
 }
 
@@ -85,7 +99,15 @@ const GLOBAL_CONFIG_PROVIDES = [
     AlainThemeModule.forRoot(),
     // mock
     ...MOCK_MODULES,
+    ApiModule.forRoot(apiConfig),
   ],
+  providers: [
+    TreeService,
+    UserService,
+    ListContext,
+    CanAdminProvide,
+    CanAuthProvide,
+  ]
 })
 export class DelonModule {
   constructor(@Optional() @SkipSelf() parentModule: DelonModule) {

@@ -179,7 +179,8 @@
                     <g2-mini-area [line]="true" height="45" [data]="data.visitData2"></g2-mini-area>
                 </div>
             </div>
-            <st [data]="data.searchData" [columns]="searchColumn" size="small" ps="5" [toTopInChange]="false">
+            <!-- [toTop]="false" -->
+            <st [data]="data.searchData" [columns]="searchColumn" size="small" ps="5" >
                 <ng-template st-row="range" let-i>
                     <trend [flag]="i.status === 1 ? 'down' : 'up'">
                         <span>{{i.range}}%</span>

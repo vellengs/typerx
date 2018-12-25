@@ -5,7 +5,7 @@
         </div>
 
         <st [size]="'middle'" (checkboxChange)="checkboxChange($event)" *ngIf="columns" #simpleTable [data]="queryUrl"
-            [columns]="columns" [extraParams]="queryParams"></st>
+            [columns]="columns" [req]="{params: queryParams}"></st>
     </nz-col>
 
     <nz-col *ngIf="multiple" [nzSpan]="8">

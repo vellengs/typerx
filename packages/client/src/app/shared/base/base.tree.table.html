@@ -13,7 +13,7 @@
                 </button>
             </div>
 
-            <st *ngIf="columnSets" [data]="url" [extraParams]="queryParams" [total]="total" [columns]="columnSets.default"></st>
+            <st *ngIf="columnSets" [data]="url" [req]="{params: queryParams}" [total]="total" [columns]="columnSets.default"></st>
         </nz-card>
     </nz-col>
 </nz-row>

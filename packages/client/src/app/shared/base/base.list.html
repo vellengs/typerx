@@ -14,7 +14,7 @@
                 </button>
             </div>
 
-            <st [data]="url" [extraParams]="params" [total]="total" [columns]="columns"></st>
+            <st [data]="url" [req]="{params: queryParams}" [total]="total" [columns]="columns"></st>
         </nz-card>
     </nz-col>
 </nz-row>
