@@ -7,6 +7,7 @@ import {
   Optional,
   SkipSelf,
   ModuleWithProviders,
+  SystemJsNgModuleLoader,
 } from '@angular/core';
 import { throwIfAlreadyLoaded } from '@core/module-import-guard';
 
@@ -107,6 +108,7 @@ const GLOBAL_CONFIG_PROVIDES = [
     ListContext,
     CanAdminProvide,
     CanAuthProvide,
+    SystemJsNgModuleLoader,
   ]
 })
 export class DelonModule {

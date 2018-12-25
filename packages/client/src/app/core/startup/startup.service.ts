@@ -8,6 +8,10 @@ import { I18NService } from '@core/i18n/i18n.service';
 import { CoreService } from 'generated';
 import * as treeify from 'array-to-tree';
 import { zip } from 'rxjs';
+import { NzIconService } from 'ng-zorro-antd';
+import { ICONS_AUTO } from '../../../style-icons-auto';
+import { ICONS } from '../../../style-icons';
+
 /**
  * 用于应用启动时
  * 一般用来获取应用所需要的基础数据等
@@ -15,6 +19,7 @@ import { zip } from 'rxjs';
 @Injectable()
 export class StartupService {
     constructor(
+        iconSrv: NzIconService,
         private menuService: MenuService,
         private translate: TranslateService,
         @Inject(ALAIN_I18N_TOKEN) private i18n: I18NService,
@@ -22,7 +27,9 @@ export class StartupService {
         private aclService: ACLService,
         private titleService: TitleService,
         private httpClient: HttpClient,
-        private coreService: CoreService) { }
+        private coreService: CoreService) {
+        iconSrv.addIcon(...ICONS_AUTO, ...ICONS);
+    }
 
     load(): Promise<any> {
         // only works with promises
