@@ -1,8 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { deepGet } from '@delon/util';
 import { UploadFile, UploadChangeParam, NzModalService } from 'ng-zorro-antd';
 import { ControlWidget } from '@delon/form';
-import { getData } from '@shared/json-schema/util';
 
 @Component({
     selector: 'sf-avatar',

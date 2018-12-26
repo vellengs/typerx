@@ -1,9 +1,9 @@
 import { SFSchema } from "./schema.types";
 import { AccountResponse } from "../modules/core/dto/account.dto";
 
-export class Appearance {
-    columnSets: ColumnSets;
-    formSets: FormSets;
+export interface Appearance {
+    columnSets: any;
+    formSets: any;
 }
 
 export enum SchemaTypes {

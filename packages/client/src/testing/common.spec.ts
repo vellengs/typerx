@@ -10,12 +10,11 @@ import { ALAIN_I18N_TOKEN, SettingsService, MenuService, ScrollService, _HttpCli
 import { DelonModule } from 'app/delon.module';
 import { DelonAuthModule } from '@delon/auth';
 import { I18NService } from '@core/i18n/i18n.service';
-import { CoreModule } from '@core/core.module';
 import { SharedModule } from '@shared/shared.module';
 import { HttpLoaderFactory } from 'app/app.module';
 
 const resetTestingModule = TestBed.resetTestingModule,
-      preventAngularFromResetting = () => TestBed.resetTestingModule = () => TestBed;
+    preventAngularFromResetting = () => TestBed.resetTestingModule = () => TestBed;
 const allowAngularToReset = () => TestBed.resetTestingModule = resetTestingModule;
 
 export const setUpTestBed = (moduleDef: TestModuleMetadata) => {
@@ -35,7 +34,7 @@ export const setUpTestBed = (moduleDef: TestModuleMetadata) => {
         moduleDef.imports.push(DelonModule);
         moduleDef.imports.push(SharedModule);
         // auth
-        moduleDef.imports.push(DelonAuthModule.forRoot());
+        moduleDef.imports.push(DelonAuthModule);
         moduleDef.imports.push(TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -49,7 +48,7 @@ export const setUpTestBed = (moduleDef: TestModuleMetadata) => {
         if (!moduleDef.providers) moduleDef.providers = [];
         moduleDef.providers.push({ provide: ALAIN_I18N_TOKEN, useClass: I18NService, multi: false });
         // load full services
-        [ SettingsService, MenuService, ScrollService, _HttpClient ].forEach((item: any) => {
+        [SettingsService, MenuService, ScrollService, _HttpClient].forEach((item: any) => {
             if (moduleDef.providers.includes(item)) return;
             moduleDef.providers.push(item);
         });

@@ -1,7 +1,7 @@
-import { Injectable, EventEmitter, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { SettingsService, _HttpClient } from '@delon/theme';
 import { CoreService, LoginDto } from 'generated';
-import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
+// TODO remove array-to-tree
 import * as treeify from 'array-to-tree';
 import { NzTreeNode } from 'ng-zorro-antd';
 
@@ -95,7 +95,7 @@ export class UserService {
         });
 
         const expandKeys = [];
-        const nodes = tree.map(doc => {
+        const nodes = tree.map((doc: any) => {
             expandKeys.push(doc.key);
             return new NzTreeNode(doc);
         });
@@ -158,7 +158,7 @@ export class UserService {
             });
         }
         const expandKeys = [];
-        const nodes = tree.map(doc => {
+        const nodes = tree.map((doc: any) => {
             expandKeys.push(doc.key);
             return new NzTreeNode(doc);
         });

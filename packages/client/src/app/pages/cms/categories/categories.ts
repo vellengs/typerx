@@ -1,14 +1,7 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { NzMessageService, NzModalService, UploadFile, NzTreeNode } from 'ng-zorro-antd';
-import { Component, OnInit, Injector, Input, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
+import { NzTreeNode } from 'ng-zorro-antd';
+import { Component, OnInit, Injector, Input } from '@angular/core';
 import { _HttpClient } from '@delon/theme';
-import { ListContext } from '@services/list.context';
-import { SimpleTableColumn } from '@delon/abc';
-import { SFSchema, SFGridSchema, SFUISchema } from '@delon/form';
 import * as treeify from 'array-to-tree';
-import { BaseComponent } from '@shared/base/base.component';
 import { BaseStandComponent } from '@shared/base/base.stand.component';
 
 @Component({
@@ -35,13 +28,13 @@ export class CategoriesPageComponent extends BaseStandComponent implements OnIni
             {
                 text: '删除',
                 type: 'del',
-                click: (record: any) => {
+                click: () => {
                 }
             },
             {
                 text: '编辑',
                 type: 'none',
-                click: (record: any) => {
+                click: () => {
                 }
             },
             {
@@ -96,7 +89,7 @@ export class CategoriesPageComponent extends BaseStandComponent implements OnIni
     }
 
 
-    treeNodeClick(name: string, e: any) {
+    treeNodeClick(e: any) {
         if (e.node.key === this.selectedItem.key) {
 
         } else {
@@ -107,7 +100,7 @@ export class CategoriesPageComponent extends BaseStandComponent implements OnIni
         }
     }
 
-    selectNode(name: string, e: any): void {
+    selectNode(name: string): void {
         if (name === 'contextmenu') {
 
         }
@@ -117,7 +110,7 @@ export class CategoriesPageComponent extends BaseStandComponent implements OnIni
 
     }
 
-    onFormError(errors) {
+    onFormError() {
 
     }
 

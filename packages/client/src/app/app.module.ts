@@ -1,4 +1,4 @@
-import { NgModule, LOCALE_ID, APP_INITIALIZER, Injector } from '@angular/core';
+import { NgModule, LOCALE_ID, APP_INITIALIZER } from '@angular/core';
 import {
     HttpClient,
     HTTP_INTERCEPTORS,
@@ -15,7 +15,6 @@ import { RoutesModule } from './routes/routes.module';
 import { LayoutModule } from './layout/layout.module';
 import { StartupService } from '@core/startup/startup.service';
 import { DefaultInterceptor } from '@core/net/default.interceptor';
-import { SimpleInterceptor } from '@delon/auth';
 
 // angular i18n
 import { registerLocaleData } from '@angular/common';

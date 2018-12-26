@@ -1,11 +1,6 @@
 import { Component, Injector, Input, ViewChild, OnInit } from '@angular/core';
 import { BaseComponent } from '@shared/base/base.component';
-import { NzModalRef, NzTreeNode, NzTreeComponent, NzTransferComponent } from 'ng-zorro-antd';
-import { SimpleTableComponent } from '@delon/abc';
-import * as treeify from 'array-to-tree';
-import { isThisSecond } from 'date-fns';
-import { UserService } from '@services/user.service';
-// tslint:disable-next-line:import-blacklist
+import { NzModalRef, NzTransferComponent } from 'ng-zorro-antd';
 import { Observable } from 'rxjs';
 import { TransferItem } from 'types/types';
 
@@ -48,12 +43,12 @@ export class TransferSelectorComponent extends BaseComponent implements OnInit {
 
     }
 
-    save(event?) {
+    save() {
         this.modalRef.destroy(this.transfer.rightDataSource);
     }
 
 
-    cancel(event?) {
+    cancel() {
         this.modalRef.destroy('onCancel');
     }
 

@@ -13,7 +13,7 @@
         "forin": false,
         "import-blacklist": [
             true,
-            "rxjs"
+            "rxjs/Rx"
         ],
         "import-spacing": true,
         "indent": [

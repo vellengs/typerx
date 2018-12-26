@@ -1,7 +1,6 @@
 import { Component, Injector, Input, ViewChild } from '@angular/core';
 import { BaseComponent } from '@shared/base/base.component';
-import { NzModalRef } from 'ng-zorro-antd';
-import { SimpleTableComponent } from '@delon/abc';
+import { NzModalRef, NzTableComponent } from 'ng-zorro-antd';
 import { pickBy } from 'lodash';
 
 @Component({
@@ -16,7 +15,7 @@ export class BaseSelectorComponent extends BaseComponent {
     @Input() columns;
     @Input() queryParams: any = {};
     @Input() formSets;
-    @ViewChild('simpleTable') simpleTable: SimpleTableComponent;
+    @ViewChild('simpleTable') simpleTable: NzTableComponent;
 
     selectedItems = [];
 
@@ -67,7 +66,7 @@ export class BaseSelectorComponent extends BaseComponent {
 
     query(params: any) {
         this.queryParams = Object.assign({}, pickBy(params));
-        this.simpleTable.reload(this.queryParams);
+        // this.simpleTable.reload(this.queryParams);
     }
 
 }

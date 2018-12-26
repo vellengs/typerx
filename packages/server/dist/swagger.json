@@ -191,192 +191,16 @@
 				"nick"
 			]
 		},
-		"Function": {
-			"description": "Creates a new function.",
-			"properties": {
-				"prototype": {
-					"type": "object",
-					"description": ""
-				},
-				"length": {
-					"type": "number",
-					"format": "double",
-					"description": ""
-				},
-				"arguments": {
-					"type": "object",
-					"description": ""
-				},
-				"caller": {
-					"$ref": "#/definitions/Function"
-				}
-			},
-			"type": "object",
-			"required": [
-				"prototype",
-				"length",
-				"arguments",
-				"caller"
-			]
-		},
-		"ColumnDefine": {
-			"description": "",
-			"properties": {
-				"type": {
-					"type": "object",
-					"description": ""
-				},
-				"title": {
-					"type": "string",
-					"description": ""
-				},
-				"i18n": {
-					"type": "string",
-					"description": ""
-				},
-				"index": {
-					"type": "object",
-					"description": ""
-				},
-				"render": {
-					"type": "string",
-					"description": ""
-				},
-				"renderTitle": {
-					"type": "string",
-					"description": ""
-				},
-				"width": {
-					"type": "string",
-					"description": ""
-				},
-				"sort": {
-					"type": "object",
-					"description": ""
-				},
-				"sorter": {
-					"$ref": "#/definitions/Function"
-				},
-				"sortKey": {
-					"type": "string",
-					"description": ""
-				},
-				"sortReName": {
-					"type": "object",
-					"properties": {
-						"ascend": {
-							"type": "string",
-							"description": ""
-						},
-						"descend": {
-							"type": "string",
-							"description": ""
-						}
-					},
-					"description": ""
-				},
-				"filter": {
-					"$ref": "#/definitions/Function"
-				},
-				"filtered": {
-					"type": "boolean",
-					"description": ""
-				},
-				"filterIcon": {
-					"type": "string",
-					"description": ""
-				},
-				"filterConfirmText": {
-					"type": "string",
-					"description": ""
-				},
-				"filterClearText": {
-					"type": "string",
-					"description": ""
-				},
-				"filterMultiple": {
-					"type": "boolean",
-					"description": ""
-				},
-				"filterKey": {
-					"type": "string",
-					"description": ""
-				},
-				"format": {
-					"$ref": "#/definitions/Function"
-				},
-				"className": {
-					"type": "string",
-					"description": ""
-				},
-				"colSpan": {
-					"type": "number",
-					"format": "double",
-					"description": ""
-				},
-				"numberDigits": {
-					"type": "string",
-					"description": ""
-				},
-				"dateFormat": {
-					"type": "string",
-					"description": ""
-				},
-				"ynTruth": {
-					"type": "object",
-					"description": ""
-				},
-				"ynYes": {
-					"type": "string",
-					"description": ""
-				},
-				"ynNo": {
-					"type": "string",
-					"description": ""
-				},
-				"exported": {
-					"type": "boolean",
-					"description": ""
-				},
-				"acl": {
-					"type": "object",
-					"description": ""
-				},
-				"default": {
-					"type": "string",
-					"description": ""
-				},
-				"fixed": {
-					"type": "object",
-					"description": ""
-				}
-			},
-			"type": "object",
-			"required": [
-				"title"
-			],
-			"additionalProperties": {}
-		},
-		"ColumnSets": {
-			"description": "",
-			"properties": {},
-			"type": "object",
-			"additionalProperties": {}
-		},
-		"FormSets": {
-			"description": "",
-			"properties": {},
-			"type": "object",
-			"additionalProperties": {}
-		},
 		"Appearance": {
 			"description": "",
 			"properties": {
 				"columnSets": {
-					"$ref": "#/definitions/ColumnSets"
+					"type": "object",
+					"description": ""
 				},
 				"formSets": {
-					"$ref": "#/definitions/FormSets"
+					"type": "object",
+					"description": ""
 				}
 			},
 			"type": "object",
@@ -1045,18 +869,6 @@
 				"total"
 			]
 		},
-		"Object": {
-			"description": "Provides functionality common to all JavaScript objects.",
-			"properties": {
-				"constructor": {
-					"$ref": "#/definitions/Function"
-				}
-			},
-			"type": "object",
-			"required": [
-				"constructor"
-			]
-		},
 		"DictResponse": {
 			"description": "",
 			"properties": {
@@ -1077,7 +889,8 @@
 					"description": ""
 				},
 				"expand": {
-					"$ref": "#/definitions/Object"
+					"type": "object",
+					"description": ""
 				}
 			},
 			"type": "object",
@@ -1105,7 +918,8 @@
 					"description": ""
 				},
 				"expand": {
-					"$ref": "#/definitions/Object"
+					"type": "object",
+					"description": ""
 				}
 			},
 			"type": "object",
@@ -1136,7 +950,8 @@
 					"description": ""
 				},
 				"expand": {
-					"$ref": "#/definitions/Object"
+					"type": "object",
+					"description": ""
 				}
 			},
 			"type": "object",

@@ -1,12 +1,6 @@
-import { ModalHelper } from '@delon/theme';
-import { NzMessageService, NzModalService, NzModalRef } from 'ng-zorro-antd';
-import { ActivatedRoute } from '@angular/router';
-import { XlsxService, SimpleTableColumn } from '@delon/abc';
-import { Component, Injector, Input, NgModuleFactoryLoader, SystemJsNgModuleLoader, EventEmitter, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { SFSchema, SFUISchema, SFComponent } from '@delon/form';
-import { BasePage } from 'types/types';
-import { HttpClient } from '@angular/common/http';
-import { LazyService } from '@delon/util';
+import { NzModalRef } from 'ng-zorro-antd';
+import { Component, Injector, Input, EventEmitter, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { SFComponent } from '@delon/form';
 import { BaseComponent } from '@shared/base/base.component';
 
 @Component({
@@ -32,9 +26,9 @@ export class BaseDetailComponent extends BaseComponent implements OnInit, AfterV
 
     @ViewChild('sf') formRef: SFComponent;
 
-    constructor(public injector: Injector, private elRef: ElementRef) {
+    constructor(public injector: Injector) {
         super(injector);
- 
+
         this.modalRef = this.injector.get(NzModalRef);
     }
 
@@ -61,11 +55,11 @@ export class BaseDetailComponent extends BaseComponent implements OnInit, AfterV
         this.value = $event;
     }
 
-    submit(event?) {
+    submit() {
 
     }
 
-    onFormError(errors) {
+    onFormError() {
 
     }
 

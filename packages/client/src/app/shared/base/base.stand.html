@@ -1,1 +1,1 @@
-<simple-table *ngIf="columnSets" #simpleTable [data]="queryUrl" [columns]="columnSets.default" [extraParams]="queryParams"></simple-table>
+<st *ngIf="columnSets" #simpleTable [data]="queryUrl" [columns]="columnSets.default" [req]="{params: queryParams}"></st>

@@ -2,7 +2,7 @@ import { Component, OnInit, Injector, Input, ViewChild } from '@angular/core';
 import { BaseStandComponent } from '@shared/base/base.stand.component';
 import { BaseTreeSelectorComponent } from '@shared/base/base.tree.selector';
 import { UserService } from '@services/user.service';
-import { Observable } from 'rxjs/Rx';
+import { from } from 'rxjs';
 
 @Component({
     selector: 'app-roles-page',
@@ -72,7 +72,7 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
             defaultCheckedKeys: selectedItems,
             asyncData: () => {
                 const ajax = self.userService.treeMenus(selectedItems);
-                return Observable.fromPromise(ajax);
+                return from(ajax);
             }
         }, 'lg', {
                 nzTitle: '编辑' + item.name + '的权限',
@@ -107,7 +107,7 @@ export class RolesPageComponent extends BaseStandComponent implements OnInit {
         this.modalHelper.static(BaseTreeSelectorComponent, {
             asyncData: () => {
                 const ajax = self.userService.treeUsers(true);
-                return Observable.fromPromise(ajax);
+                return from(ajax);
             }
         }, 'lg', {
                 nzTitle: '添加角色成员',

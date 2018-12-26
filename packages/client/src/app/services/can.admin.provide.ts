@@ -1,7 +1,7 @@
 import { NzMessageService } from 'ng-zorro-antd';
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { UserService } from '@services/user.service';
 
 @Injectable()

@@ -1,6 +1,6 @@
-export declare class Appearance {
-    columnSets: ColumnSets;
-    formSets: FormSets;
+export interface Appearance {
+    columnSets: any;
+    formSets: any;
 }
 export declare enum SchemaTypes {
     array = "array",
