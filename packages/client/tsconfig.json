@@ -22,7 +22,7 @@
             "@shared/*": ["app/shared/*"],
             "@services": ["app/services"],
             "@services/*": ["app/services/*"],
-            "@core": ["app/core/"],
+            "@core": ["app/core/index"],
             "@core/*": ["app/core/*"],
             "@testing": ["testing/"],
             "@testing/*": ["testing/*"],

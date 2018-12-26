@@ -9,7 +9,7 @@ import { BaseDetailComponent } from '@shared/base/base.detail.component';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 
 @Component({
-  selector: 'app-sidebar',
+  selector: 'layout-sidebar',
   templateUrl: './sidebar.component.html',
 })
 export class SidebarComponent {
