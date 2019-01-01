@@ -17,18 +17,19 @@ import { TransferItem } from 'types/types';
         (nzAfterClose)="handleClose(i)"
         (nzOnClose)="close($event)"
         (nzCheckedChange)="onChange(i)">
-        {{i.label || i.name || i.title}}
+        {{i.label || i.title}}
       </nz-tag>
       <div>
       <button type="button" nz-button [nzType]="'dashed'" (click)="openModal()">
-        {{ui.buttonName || 'add'}}
+        {{i.buttonName || 'add'}}
       </button>
       </div>
     </sf-item-wrap>`
-})
+})   // TODO ui.buttonName
 export class ListBoxWidgetComponent extends ControlWidget implements OnInit {
     static readonly KEY = 'listBox';
 
+    i: any;
     config: any;
     loadingTip: string;
     data: SFSchemaEnum[];
@@ -40,7 +41,7 @@ export class ListBoxWidgetComponent extends ControlWidget implements OnInit {
         public client: HttpClient,
         public modal: ModalHelper,
     ) {
-        super(cd, sfComp);
+        super(cd, sfComp as any);
     }
 
     openModal() {
@@ -83,6 +84,7 @@ export class ListBoxWidgetComponent extends ControlWidget implements OnInit {
         this.config = this.ui.config || {};
         this.selectorTitle = this.ui.selectorTitle;
         this.selectorAsyncData = this.ui.selectorAsyncData;
+        this.i = Object.assign({}, this.ui);
     }
 
     getRemoteData(value: string, text?: string): Observable<SFSchemaEnumType[]> {

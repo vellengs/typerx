@@ -16,7 +16,7 @@ import { ControlWidget } from '@delon/form';
       [nzLimit]="i.limit" 
       [nzSize]="i.size"
       [nzFileType]="i.fileType" 
-      [nzData]="ui.data"
+      [nzData]="ui.asyncData"
       [nzMultiple]="i.multiple"
       [nzName]="i.name"
        (nzChange)="change($event)"> 
@@ -42,13 +42,13 @@ export class AvatarWidgetComponent extends ControlWidget implements OnInit {
         if (this.value && (this.value.startsWith('/') || this.value.startsWith('http'))) {
             return this.value;
         }
-        
+
         const src = `${document.location.pathname}` + this.value;
         return src;
     }
 
     constructor(cd: ChangeDetectorRef, private modalSrv: NzModalService) {
-        super(cd);
+        super(cd, null);
     }
 
     ngOnInit(): void {

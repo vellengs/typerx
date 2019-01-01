@@ -62,7 +62,7 @@ export class DictWidgetComponent extends ControlWidget implements OnInit {
         @Inject(SFComponent) public readonly sfComp: SFComponent,
         public client: HttpClient,
     ) {
-        super(cd, sfComp);
+        super(cd, sfComp as any);
     }
 
     ngOnInit(): void {

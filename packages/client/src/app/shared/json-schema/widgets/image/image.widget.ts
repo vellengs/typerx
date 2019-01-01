@@ -17,14 +17,14 @@ import { getData } from '@shared/json-schema/util';
       [nzLimit]="i.limit"
       [nzSize]="i.size"
       [nzFileType]="i.fileType"
-      [nzHeaders]="ui.headers"
-      [nzData]="ui.data"
+      [nzHeaders]="i.headers"
+      [nzData]="i.data"
       [nzListType]="i.listType"
       [nzMultiple]="i.multiple"
       [nzName]="i.name"
       [nzShowUploadList]="i.showUploadList"
       [nzWithCredentials]="i.withCredentials"
-      [nzRemove]="ui.remove"
+      [nzRemove]="i.remove"
       [nzPreview]="handlePreview"
       (nzChange)="change($event)">
       <ng-container [ngSwitch]="btnType">
@@ -57,7 +57,7 @@ export class ImageWidgetComponent extends ControlWidget implements OnInit {
 
 
     constructor(cd: ChangeDetectorRef, private modalSrv: NzModalService) {
-        super(cd);
+        super(cd, null);
     }
 
     ngOnInit(): void {
@@ -75,6 +75,9 @@ export class ImageWidgetComponent extends ControlWidget implements OnInit {
             showUploadList: this.ui.showUploadList || true,
             withCredentials: this.ui.withCredentials || false,
             resReName: (this.ui.resReName || '').split('.'),
+            headers: this.ui.headers,
+            data: this.ui.data,
+            remove: this.ui.remove,
         };
         if (this.i.listType === 'picture-card') this.btnType = 'plus';
         if (this.i.type === 'drag') {
