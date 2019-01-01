@@ -23,7 +23,7 @@ const profile = {
             title: '头像',
             type: appearance_1.SchemaTypes.string
         },
-        nick: {
+        name: {
             title: '昵称',
             type: appearance_1.SchemaTypes.string,
         },
@@ -64,7 +64,7 @@ const profile = {
             }
         },
     },
-    required: ['nick', 'email', 'mobile'],
+    required: ['name', 'email', 'mobile'],
     ui: {
         widget: appearance_1.WidgetTypes.tabs,
         spanLabelFixed: 100,
@@ -75,7 +75,7 @@ const profile = {
                 title: '基本信息',
                 fields: [
                     'avatar',
-                    'nick',
+                    'name',
                 ]
             }, {
                 title: '联系信息',

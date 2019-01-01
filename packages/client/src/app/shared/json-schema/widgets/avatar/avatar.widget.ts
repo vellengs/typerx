@@ -47,10 +47,6 @@ export class AvatarWidgetComponent extends ControlWidget implements OnInit {
         return src;
     }
 
-    constructor(cd: ChangeDetectorRef, private modalSrv: NzModalService) {
-        super(cd, null);
-    }
-
     ngOnInit(): void {
         this.i = {
             type: this.ui.type || 'select',
@@ -78,12 +74,10 @@ export class AvatarWidgetComponent extends ControlWidget implements OnInit {
     }
 
     handlePreview = (file: UploadFile) => {
-        this.modalSrv
-            .create({
-                nzContent: `<img src="${file.url ||
-                    file.thumbUrl}" class="img-fluid" />`,
-                nzFooter: null,
-            })
-            .afterClose.subscribe(() => this.detectChanges());
+        this.injector.get(NzModalService).create({
+            nzContent: `<img src="${file.url ||
+                file.thumbUrl}" class="img-fluid" />`,
+            nzFooter: null,
+        }).afterClose.subscribe(() => this.detectChanges());
     }
 }

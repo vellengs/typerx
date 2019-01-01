@@ -31,6 +31,7 @@ export enum WidgetTypes {
     search = 'search',
     string = 'string',
     tag = 'tag',
+    text = 'text',
     textarea = 'textarea',
     time = 'time',
     transfer = 'transfer',
@@ -45,6 +46,7 @@ export enum WidgetTypes {
     avatar = 'avatar',
     tabs = 'tabs',
     treeSelect = 'tree-select',
+    markdown = 'markdown',
 }
 
 export interface ColumnSets {

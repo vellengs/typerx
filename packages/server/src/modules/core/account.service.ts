@@ -26,14 +26,14 @@ export class AccountService {
   }
 
   async search(keyword?: string, value?: string, limit: number = 10): Promise<Array<KeyValue>> {
-    return Repository.search(Db.Account, keyword, value, '', limit, 'nick', '_id', 'keyword');
+    return Repository.search(Db.Account, keyword, value, '', limit, 'name', '_id', 'keyword');
   }
 
   setKeyWord(entry: CreateAccountDto | EditAccountDto) {
-    let keyword: Array<string> = Helper.genPinyinKeywords(entry.nick, true);
+    let keyword: Array<string> = Helper.genPinyinKeywords(entry.name, true);
     keyword.push(entry.email);
     keyword.push(entry.mobile);
-    keyword.push(entry.nick);
+    keyword.push(entry.name);
     entry.keyword = keyword.join('');
   }
 
@@ -157,7 +157,7 @@ export class AccountService {
     return pick(entry, [
       'id',
       'username',
-      'nick',
+      'name',
       'avatar',
       'type',
       'email',

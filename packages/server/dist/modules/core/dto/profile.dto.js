@@ -6,7 +6,7 @@ exports.EditProfileDto = EditProfileDto;
 exports.ProfileResponseFields = [
     'id',
     'username',
-    'nick',
+    'name',
     'avatar',
     'type',
     'email',

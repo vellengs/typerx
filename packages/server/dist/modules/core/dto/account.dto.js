@@ -15,7 +15,7 @@ exports.SessionUser = SessionUser;
 exports.AccountResponseFields = [
     'id',
     'username',
-    'nick',
+    'name',
     'avatar',
     'type',
     'email',

@@ -9,7 +9,7 @@ definitions:
             username:
                 type: string
                 description: ""
-            nick:
+            name:
                 type: string
                 description: ""
             avatar:
@@ -54,7 +54,7 @@ definitions:
         required:
             - id
             - username
-            - nick
+            - name
             - avatar
             - type
             - groups
@@ -97,14 +97,14 @@ definitions:
             password:
                 type: string
                 description: ""
-            nick:
+            name:
                 type: string
                 description: ""
         type: object
         required:
             - username
             - password
-            - nick
+            - name
     EditAccountDto:
         description: ""
         properties:
@@ -136,13 +136,13 @@ definitions:
             password:
                 type: string
                 description: ""
-            nick:
+            name:
                 type: string
                 description: ""
         type: object
         required:
             - id
-            - nick
+            - name
     Appearance:
         description: ""
         properties:
@@ -212,7 +212,7 @@ definitions:
             username:
                 type: string
                 description: ""
-            nick:
+            name:
                 type: string
                 description: ""
             avatar:
@@ -254,7 +254,7 @@ definitions:
         required:
             - id
             - username
-            - nick
+            - name
             - avatar
             - type
             - email
@@ -287,7 +287,7 @@ definitions:
             profile:
                 type: string
                 description: ""
-            nick:
+            name:
                 type: string
                 description: ""
             email:

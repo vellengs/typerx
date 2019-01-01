@@ -10,7 +10,7 @@ exports.schema = new mongoose_1.Schema({
     avatar: mongoose_1.SchemaTypes.String,
     keyword: mongoose_1.SchemaTypes.String,
     email: mongoose_1.SchemaTypes.String,
-    nick: mongoose_1.SchemaTypes.String,
+    name: mongoose_1.SchemaTypes.String,
     type: mongoose_1.SchemaTypes.String,
     mobile: mongoose_1.SchemaTypes.String,
     roles: [

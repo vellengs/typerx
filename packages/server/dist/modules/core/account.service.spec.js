@@ -35,10 +35,10 @@ describe('Account service test', () => {
                 username: 'viking1',
                 password: '1234567',
                 mobile: '1301234567',
-                nick: '张三疯'
+                name: '张三疯'
             };
             const user = yield service.create(dto);
-            expect(user.nick).toBe(dto.nick);
+            expect(user.name).toBe(dto.name);
             const existUser = yield core_database_1.CoreDatabase.Account.findById(user.id);
             expect(existUser.password).not.toBe(dto.password);
             yield service.create(dto).catch((error) => {
@@ -50,7 +50,7 @@ describe('Account service test', () => {
                 username: 'viking2',
                 password: '1234567',
                 mobile: '1301234567',
-                nick: '张三疯'
+                name: '张三疯'
             };
             service.setKeyWord(dto);
             expect(dto.keyword).toEqual('zhangsanfengzsf1301234567张三疯');
@@ -59,7 +59,7 @@ describe('Account service test', () => {
             let dto = {
                 username: ' ',
                 password: '1234567',
-                nick: 'hello'
+                name: 'hello'
             };
             yield service.create(dto).catch((error) => {
                 expect(error).toBeTruthy;
@@ -67,7 +67,7 @@ describe('Account service test', () => {
             dto = {
                 username: '',
                 password: '1234567',
-                nick: 'hello'
+                name: 'hello'
             };
             yield service.create(dto).catch((error) => {
                 expect(error).toBeTruthy;
@@ -80,14 +80,14 @@ describe('Account service test', () => {
                 username: 'viking3',
                 password: '1234567',
                 mobile: '1301234567',
-                nick: '张三疯'
+                name: '张三疯'
             };
             const user = yield service.create(dto);
             const newDto = {
                 id: user.id,
                 password: '333333',
                 mobile: '1300000000',
-                nick: '张三丰'
+                name: '张三丰'
             };
             const admin = {
                 username: 'string',
@@ -96,7 +96,7 @@ describe('Account service test', () => {
                 isApproved: true,
             };
             const updatedUser = yield service.update(newDto, admin);
-            expect(updatedUser.nick).toBe(newDto.nick);
+            expect(updatedUser.name).toBe(newDto.name);
             expect(updatedUser.mobile).toBe(newDto.mobile);
             admin.isAdmin = false;
             try {
@@ -115,7 +115,7 @@ describe('Account service test', () => {
                 username: 'viking5',
                 password: '1234567',
                 mobile: '1301234567',
-                nick: '张三疯',
+                name: '张三疯',
                 roles: [role.id],
                 groups: [group.id]
             };
@@ -132,11 +132,11 @@ describe('Account service test', () => {
                 username: 'viking6',
                 password: '1234567',
                 mobile: '1301234567',
-                nick: '张三疯'
+                name: '张三疯'
             };
             const user = yield service.create(dto);
             const createdUser = yield service.get(user.id);
-            expect(createdUser.nick).toBe(createdUser.nick);
+            expect(createdUser.name).toBe(createdUser.name);
         }));
     });
     describe('remove account from role', () => {
@@ -145,10 +145,10 @@ describe('Account service test', () => {
                 username: 'viking7',
                 password: '1234567',
                 mobile: '1301234567',
-                nick: '张三疯'
+                name: '张三疯'
             };
             const user = yield service.create(dto);
-            expect(user.nick).toBe(user.nick);
+            expect(user.name).toBe(user.name);
             const deleted = yield service.remove(user.id);
             expect(deleted).toBeTruthy;
             const exist = yield service.get(user.id);
@@ -161,7 +161,7 @@ describe('Account service test', () => {
                 username: 'viking8',
                 password: '1234567',
                 mobile: '1301234567',
-                nick: '张三疯'
+                name: '张三疯'
             };
             yield service.create(dto);
             const exists = yield service.search();
@@ -177,7 +177,7 @@ describe('Account service test', () => {
                 username: 'viking9',
                 password: '1234567',
                 mobile: '1301234567',
-                nick: '张三疯'
+                name: '张三疯'
             };
             const account = yield service.create(dto);
             const result = yield service.addAccountsToRole(role.id, account.id);

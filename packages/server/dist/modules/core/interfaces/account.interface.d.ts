@@ -1,7 +1,7 @@
 export interface Account {
     id: string;
     username: string;
-    nick: string;
+    name: string;
     keyword: string;
     password: string;
     avatar: string;

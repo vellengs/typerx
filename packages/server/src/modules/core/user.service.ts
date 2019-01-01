@@ -120,7 +120,7 @@ export class UserService {
     return pick(entry, [
       'id',
       'username',
-      'nick',
+      'name',
       'avatar',
       'type',
       'email',

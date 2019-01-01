@@ -7,7 +7,7 @@ export declare class CreateAccountDto {
     roles?: string[];
     username: string;
     password: string;
-    nick: string;
+    name: string;
 }
 export declare class EditAccountDto {
     id: string;
@@ -18,12 +18,12 @@ export declare class EditAccountDto {
     roles?: string[];
     mobile?: string;
     password?: string;
-    nick: string;
+    name: string;
 }
 export declare class AccountResponse {
     id: string;
     username: string;
-    nick: string;
+    name: string;
     avatar: string;
     type: string;
     groups: string[];
@@ -39,7 +39,7 @@ export declare class AccountResponse {
 export declare class SessionUser {
     id?: string;
     username: string;
-    nick?: string;
+    name?: string;
     avatar?: string;
     type?: string;
     email?: string;
