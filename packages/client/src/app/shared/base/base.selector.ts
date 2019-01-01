@@ -12,9 +12,9 @@ export class BaseSelectorComponent extends BaseComponent {
 
     @Input() multiple = true;
     @Input() queryUrl = '';
-    @Input() columns;
+    @Input() columns: any;
     @Input() queryParams: any = {};
-    @Input() formSets;
+    @Input() formSets: any;
     @ViewChild('simpleTable') simpleTable: NzTableComponent;
 
     selectedItems = [];
@@ -37,7 +37,7 @@ export class BaseSelectorComponent extends BaseComponent {
         this.selectedItems = [];
     }
 
-    removeOne(item) {
+    removeOne(item: { checked: boolean; }) {
         const index = this.selectedItems.indexOf(item);
         if (index > -1) {
             item.checked = false;
@@ -60,7 +60,7 @@ export class BaseSelectorComponent extends BaseComponent {
         return index > -1;
     }
 
-    cancel(event?) {
+    cancel(event?: any) {
         this.modalRef.destroy('onCancel');
     }
 

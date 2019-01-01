@@ -66,6 +66,10 @@ export class SidebarComponent {
     );
   }
 
+  get User() {
+    return this.settings.user as any;
+  }
+
   profile() {
     this.router.navigate(['/system/settings']);
   }
@@ -94,7 +98,7 @@ export class SidebarComponent {
       });
   }
 
-  async save(entry) {
+  async save(entry: { id: any; }) {
     const url = `api/account/password`;
     if (entry.id) {
       return this.client.put(url, entry).toPromise();

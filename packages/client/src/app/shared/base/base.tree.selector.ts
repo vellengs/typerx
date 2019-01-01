@@ -26,7 +26,7 @@ export class BaseTreeSelectorComponent extends BaseComponent implements OnInit {
     @Input() multiple = true;
     @Input() showResults = true;
     @Input() queryUrl = '';
-    @Input() columns;
+    @Input() columns: any;
     @Input() queryParams: any = {};
     @Input() defaultCheckedKeys = [];
     @Input() asyncData: () => Observable<TreeData>;

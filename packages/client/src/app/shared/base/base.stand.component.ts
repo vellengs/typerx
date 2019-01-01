@@ -20,7 +20,10 @@ export class BaseStandComponent extends BaseComponent implements CurdPage {
     @Input() queryUrl: string;
     @Input() domain: string;
     @Input() configParams: any;
-    @Input() columnSets: { [key: string]: STColumn[]; };
+    @Input() columnSets: {
+        default: STColumn[],
+        [key: string]: STColumn[];
+    };
     @Input() queryParams: { [key: string]: any; };
     @Input() formSets: FormSets;
     @Input() operations: STColumn;

@@ -49,7 +49,7 @@ export class TreeSelectWidgetComponent extends ControlWidget implements OnInit {
         public treeService: TreeService,
         public client: HttpClient,
     ) {
-        super(cd, sfComp);
+        super(cd, sfComp as any);
     }
 
     ngOnInit(): void {

@@ -33,7 +33,7 @@ import { HttpClient } from '@angular/common/http';
                 <ng-container *ngIf="grid_span !== 0">
                 <nz-checkbox-wrapper class="checkbox-grid-list" (nzOnChange)="groupInGridChange($event)">
                     <nz-row>
-                    <nz-col [nzSpan]="grid_span" *ngIf="ui.checkAll">
+                    <nz-col [nzSpan]="grid_span" *ngIf="checkAll">
                         <ng-template [ngTemplateOutlet]="all"></ng-template>
                     </nz-col>
                     <nz-col [nzSpan]="grid_span" *ngFor="let i of data">
@@ -62,13 +62,18 @@ export class ChoicesWidgetComponent extends ControlWidget {
     label: number;
     control: number;
     offset: number;
+    all: any;
 
     constructor(
         @Inject(ChangeDetectorRef) public readonly cd: ChangeDetectorRef,
         @Inject(SFComponent) public readonly sfComp: SFComponent,
         public client: HttpClient,
     ) {
-        super(cd, sfComp);
+        super(cd, sfComp as any); // TODO 
+    }
+
+    get checkAll() {
+        return this.ui.checkAll;
     }
 
     getRemoteData(value: string, text?: string): Observable<SFSchemaEnumType[]> {
