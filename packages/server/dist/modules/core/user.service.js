@@ -104,7 +104,7 @@ class UserService {
         return lodash_1.pick(entry, [
             'id',
             'username',
-            'nick',
+            'name',
             'avatar',
             'type',
             'email',

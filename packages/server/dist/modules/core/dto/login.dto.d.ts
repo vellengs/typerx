@@ -7,7 +7,7 @@ export declare class LocalStrategyInfo {
 }
 export declare class LoginResponse {
     username: string;
-    nick: string;
+    name: string;
     avatar: string;
     type: string;
     email: string;
@@ -22,7 +22,7 @@ export declare class LoginResponse {
 export declare class ProfileResponse {
     id: string;
     username: string;
-    nick: string;
+    name: string;
     avatar: string;
     type: string;
     email: string;

@@ -50,14 +50,6 @@ export class TabsWidgetComponent extends ObjectLayoutWidget implements OnInit {
     currentIndex = 0;
     props: any = {};
 
-    constructor(
-        @Inject(ChangeDetectorRef) public readonly cd: ChangeDetectorRef,
-        @Inject(SFComponent) public readonly sfComp: SFComponent,
-        public client: HttpClient,
-    ) {
-        super(cd, sfComp as any);
-    }
-
     ngOnInit(): void {
         this.grid = this.ui.grid;
         this.tabs = this.ui.tabs || [];

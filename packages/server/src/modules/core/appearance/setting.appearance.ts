@@ -24,7 +24,7 @@ const profile: SFSchema = {
             title: '头像',
             type: t.string
         },
-        nick: {
+        name: {
             title: '昵称',
             type: t.string,
         },
@@ -65,7 +65,7 @@ const profile: SFSchema = {
             }
         },
     },
-    required: ['nick', 'email', 'mobile'],
+    required: ['name', 'email', 'mobile'],
     ui: {
         widget: w.tabs,
         spanLabelFixed: 100,
@@ -76,7 +76,7 @@ const profile: SFSchema = {
             title: '基本信息',
             fields: [
                 'avatar',
-                'nick',
+                'name',
             ]
         }, {
             title: '联系信息',

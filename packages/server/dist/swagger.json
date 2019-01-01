@@ -12,7 +12,7 @@
 					"type": "string",
 					"description": ""
 				},
-				"nick": {
+				"name": {
 					"type": "string",
 					"description": ""
 				},
@@ -72,7 +72,7 @@
 			"required": [
 				"id",
 				"username",
-				"nick",
+				"name",
 				"avatar",
 				"type",
 				"groups",
@@ -127,7 +127,7 @@
 					"type": "string",
 					"description": ""
 				},
-				"nick": {
+				"name": {
 					"type": "string",
 					"description": ""
 				}
@@ -136,7 +136,7 @@
 			"required": [
 				"username",
 				"password",
-				"nick"
+				"name"
 			]
 		},
 		"EditAccountDto": {
@@ -180,7 +180,7 @@
 					"type": "string",
 					"description": ""
 				},
-				"nick": {
+				"name": {
 					"type": "string",
 					"description": ""
 				}
@@ -188,7 +188,7 @@
 			"type": "object",
 			"required": [
 				"id",
-				"nick"
+				"name"
 			]
 		},
 		"Appearance": {
@@ -285,7 +285,7 @@
 					"type": "string",
 					"description": ""
 				},
-				"nick": {
+				"name": {
 					"type": "string",
 					"description": ""
 				},
@@ -341,7 +341,7 @@
 			"required": [
 				"id",
 				"username",
-				"nick",
+				"name",
 				"avatar",
 				"type",
 				"email",
@@ -383,7 +383,7 @@
 					"type": "string",
 					"description": ""
 				},
-				"nick": {
+				"name": {
 					"type": "string",
 					"description": ""
 				},

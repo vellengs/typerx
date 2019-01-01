@@ -16,7 +16,7 @@ const addForm = {
                 type: 'password'
             }
         },
-        nick: {
+        name: {
             title: '昵称',
             type: appearance_1.SchemaTypes.string,
         },
@@ -105,9 +105,9 @@ exports.appearance = {
                 action: 'edit'
             },
             {
-                title: 'nick',
+                title: 'name',
                 i18n: '姓名',
-                index: ['nick']
+                index: ['name']
             },
             {
                 title: 'email',

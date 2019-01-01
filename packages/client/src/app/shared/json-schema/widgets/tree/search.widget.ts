@@ -89,14 +89,6 @@ export class TreeWidgetComponent extends ControlWidget implements OnInit {
         })
     ];
 
-    constructor(
-        @Inject(ChangeDetectorRef) public readonly cd: ChangeDetectorRef,
-        @Inject(SFComponent) public readonly sfComp: SFComponent,
-        public client: HttpClient,
-    ) {
-        super(cd, sfComp as any);
-    }
-
     openChange() {
         this.cd.markForCheck();
     }

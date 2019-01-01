@@ -57,14 +57,6 @@ export class DictWidgetComponent extends ControlWidget implements OnInit {
     data: SFSchemaEnum[];
     hasGroup = false;
 
-    constructor(
-        @Inject(ChangeDetectorRef) public readonly cd: ChangeDetectorRef,
-        @Inject(SFComponent) public readonly sfComp: SFComponent,
-        public client: HttpClient,
-    ) {
-        super(cd, sfComp as any);
-    }
-
     ngOnInit(): void {
         this.i = {
             allowClear: this.ui.allowClear,
@@ -82,7 +74,8 @@ export class DictWidgetComponent extends ControlWidget implements OnInit {
     getRemoteData(value: string, text?: string): Observable<SFSchemaEnumType[]> {
         const category = this.ui.category;
         const url = `api/dict/search`;
-        return this.client.get(url, {
+        const client = this.injector.get(HttpClient);
+        return client.get(url, {
             params: {
                 keyword: text || '',
                 value: value,

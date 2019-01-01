@@ -7,7 +7,7 @@ export class CreateAccountDto {
   roles?: string[];
   username: string;
   password: string;
-  nick: string;
+  name: string;
 }
 
 export class EditAccountDto {
@@ -19,13 +19,13 @@ export class EditAccountDto {
   roles?: string[];
   mobile?: string;
   password?: string;
-  nick: string;
+  name: string;
 }
 
 export class AccountResponse {
   id: string;
   username: string;
-  nick: string;
+  name: string;
   avatar: string;
   type: string;
   groups: string[];
@@ -42,7 +42,7 @@ export class AccountResponse {
 export class SessionUser {
   id?: string;
   username: string;
-  nick?: string;
+  name?: string;
   avatar?: string;
   type?: string;
   email?: string;
@@ -59,7 +59,7 @@ export class SessionUser {
 export const AccountResponseFields = [
   'id',
   'username',
-  'nick',
+  'name',
   'avatar',
   'type',
   'email',

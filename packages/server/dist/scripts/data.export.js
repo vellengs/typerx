@@ -23,7 +23,7 @@ function exportData() {
             return {
                 _id: item._id,
                 username: item.username,
-                nick: item.nick,
+                name: item.name,
                 password: item.password,
                 avatar: item.avatar,
                 type: item.type,

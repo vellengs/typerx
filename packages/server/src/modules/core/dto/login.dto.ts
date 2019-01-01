@@ -9,7 +9,7 @@ export class LocalStrategyInfo {
 
 export class LoginResponse {
   username: string;
-  nick: string;
+  name: string;
   avatar: string;
   type: string;
   email: string;
@@ -25,7 +25,7 @@ export class LoginResponse {
 export class ProfileResponse {
   id: string;
   username: string;
-  nick: string;
+  name: string;
   avatar: string;
   type: string;
   email: string;

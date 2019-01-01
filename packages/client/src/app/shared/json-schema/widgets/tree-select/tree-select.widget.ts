@@ -17,7 +17,7 @@ import { TreeService } from '@services/tree.service';
     [nzPlaceHolder]="ui.placeholder"
     [nzDisabled]="disabled"
     [nzShowSearch]="i.showSearch"
-    [nzMultiple]="i.multiple"	
+    [nzMultiple]="i.multiple"
     [nzSize]="ui.size"
     [nzCheckable]="i.checkable"
     [nzShowExpand] = "i.showExpand"
@@ -43,15 +43,6 @@ export class TreeSelectWidgetComponent extends ControlWidget implements OnInit {
     nodes: NzTreeNode[];
     hasGroup = false;
 
-    constructor(
-        @Inject(ChangeDetectorRef) public readonly cd: ChangeDetectorRef,
-        @Inject(SFComponent) public readonly sfComp: SFComponent,
-        public treeService: TreeService,
-        public client: HttpClient,
-    ) {
-        super(cd, sfComp as any);
-    }
-
     ngOnInit(): void {
         this.i = {
             allowClear: this.ui.allowClear,
@@ -74,7 +65,8 @@ export class TreeSelectWidgetComponent extends ControlWidget implements OnInit {
     getRemoteData(value: string, text?: string): Observable<SFSchemaEnumType[]> {
         const domain = this.ui.domain;
         const url = `api/${domain}/tree`;
-        return this.client.get(url, {
+        const client = this.injector.get(HttpClient);
+        return client.get(url, {
             params: {
                 keyword: text || '',
                 value: value
@@ -85,9 +77,10 @@ export class TreeSelectWidgetComponent extends ControlWidget implements OnInit {
     reset(value: any) {
         const self = this;
         self.ui.asyncData = () => self.getRemoteData(value);
+        const treeService = this.injector.get(TreeService);
         getData(self.schema, self.ui, self.formProperty.formData).subscribe(
             list => {
-                self.nodes = self.treeService.arrToTreeNode(list, {
+                self.nodes = treeService.arrToTreeNode(list, {
                     pidMapName: 'parent'
                 });
                 self.detectChanges();

@@ -64,14 +64,6 @@ export class ChoicesWidgetComponent extends ControlWidget {
     offset: number;
     all: any;
 
-    constructor(
-        @Inject(ChangeDetectorRef) public readonly cd: ChangeDetectorRef,
-        @Inject(SFComponent) public readonly sfComp: SFComponent,
-        public client: HttpClient,
-    ) {
-        super(cd, sfComp as any); // TODO 
-    }
-
     get checkAll() {
         return this.ui.checkAll;
     }
@@ -79,7 +71,8 @@ export class ChoicesWidgetComponent extends ControlWidget {
     getRemoteData(value: string, text?: string): Observable<SFSchemaEnumType[]> {
         const domain = this.ui.domain;
         const url = `api/${domain}/search`;
-        return this.client.get(url, {
+        const client = this.injector.get(HttpClient);
+        return client.get(url, {
             params: {
                 keyword: text || '',
                 value: value

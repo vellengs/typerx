@@ -16,7 +16,7 @@ const addForm: SFSchema = {
                 type: 'password'
             }
         },
-        nick: {
+        name: {
             title: '昵称',
             type: t.string,
         },
@@ -107,9 +107,9 @@ export const appearance: Appearance = {
                 action: 'edit'
             },
             {
-                title: 'nick',
+                title: 'name',
                 i18n: '姓名',
-                index: ['nick']
+                index: ['name']
             },
             {
                 title: 'email',

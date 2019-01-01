@@ -3,7 +3,7 @@
 export class EditProfileDto {
   id: string;
   profile?: string;
-  nick?: string;
+  name?: string;
   email?: string;
   mobile?: string;
   company?: string;
@@ -14,7 +14,7 @@ export class EditProfileDto {
 export const ProfileResponseFields = [
   'id',
   'username',
-  'nick',
+  'name',
   'avatar',
   'type',
   'email',

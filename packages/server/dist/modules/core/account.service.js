@@ -24,14 +24,14 @@ class AccountService {
     }
     search(keyword, value, limit = 10) {
         return __awaiter(this, void 0, void 0, function* () {
-            return repository_1.Repository.search(core_database_1.CoreDatabase.Account, keyword, value, '', limit, 'nick', '_id', 'keyword');
+            return repository_1.Repository.search(core_database_1.CoreDatabase.Account, keyword, value, '', limit, 'name', '_id', 'keyword');
         });
     }
     setKeyWord(entry) {
-        let keyword = helper_1.Helper.genPinyinKeywords(entry.nick, true);
+        let keyword = helper_1.Helper.genPinyinKeywords(entry.name, true);
         keyword.push(entry.email);
         keyword.push(entry.mobile);
-        keyword.push(entry.nick);
+        keyword.push(entry.name);
         entry.keyword = keyword.join('');
     }
     create(entry) {
@@ -138,7 +138,7 @@ class AccountService {
         return lodash_1.pick(entry, [
             'id',
             'username',
-            'nick',
+            'name',
             'avatar',
             'type',
             'email',

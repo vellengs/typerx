@@ -55,11 +55,6 @@ export class ImageWidgetComponent extends ControlWidget implements OnInit {
     btnType = '';
     static readonly KEY = 'image';
 
-
-    constructor(cd: ChangeDetectorRef, private modalSrv: NzModalService) {
-        super(cd, null);
-    }
-
     ngOnInit(): void {
         this.i = {
             type: this.ui.type || 'select',
@@ -116,7 +111,7 @@ export class ImageWidgetComponent extends ControlWidget implements OnInit {
     }
 
     handlePreview = (file: UploadFile) => {
-        this.modalSrv
+        this.injector.get(NzModalService)
             .create({
                 nzContent: `<img src="${file.url ||
                     file.thumbUrl}" class="img-fluid" />`,

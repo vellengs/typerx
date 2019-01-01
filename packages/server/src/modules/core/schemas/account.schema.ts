@@ -17,7 +17,7 @@ export const schema = new Schema(
     avatar: t.String,
     keyword: t.String,
     email: t.String,
-    nick: t.String,
+    name: t.String,
     type: t.String,
     mobile: t.String,
     roles: [
