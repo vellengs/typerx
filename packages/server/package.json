@@ -65,7 +65,7 @@
     "mockjs": "^1.0.1-beta3",
     "modex": "^2.0.1",
     "moment": "^2.19.3",
-    "mongoose": "5.0.16",
+    "mongoose": "5.7.5",
     "mysql": "^2.15.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
