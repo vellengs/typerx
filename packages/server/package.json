@@ -44,7 +44,7 @@
     "axios": "^0.18.0",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.5.1",
-    "class-transformer": "^0.1.9",
+    "class-transformer": "^0.3.1",
     "compression": "^1.7.2",
     "connect-mongo": "^2.0.1",
     "copy-webpack-plugin": "^4.4.1",
