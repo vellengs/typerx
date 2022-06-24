@@ -70,7 +70,7 @@
         "@types/supertest": "^2.0.4",
         "@types/swagger-parser": "^4.0.2",
         "@types/winston": "^2.3.9",
-        "codecov": "^3.0.0",
+        "codecov": "^3.8.3",
         "concurrently": "^3.5.1",
         "jasmine-core": "~2.8.0",
         "jasmine-spec-reporter": "~4.2.1",
